@@ -1,0 +1,210 @@
+question: How many actors are there?
+gold_query: MATCH (a:Actor) RETURN count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: Count the number of actors.
+gold_query: MATCH (a:Actor) RETURN count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80f0>
+question: List the name of actors in ascending alphabetical order.
+gold_query: MATCH (a:Actor) RETURN a.Name ORDER BY a.Name ASC
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: What are the names of actors, ordered alphabetically?
+gold_query: MATCH (a:Actor) RETURN a.Name ORDER BY a.Name ASC
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80b8>
+question: What are the characters and duration of actors?
+gold_query: MATCH (a:Actor) RETURN a.Character,a.Duration
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: Return the characters and durations for each actor.
+gold_query: MATCH (a:Actor) RETURN a.Character,a.Duration
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8048>
+question: List the name of actors whose age is not 20.
+gold_query: MATCH (a:Actor) WHERE a.age <> "20" RETURN a.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80f0>
+question: What are the names of actors who are not 20 years old?
+gold_query: MATCH (a:Actor) WHERE a.age <> "20" RETURN a.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: What are the characters of actors in descending order of age?
+gold_query: MATCH (a:Actor) RETURN a.Character ORDER BY a.age DESC
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80b8>
+question: Return the characters for actors, ordered by age descending.
+gold_query: MATCH (a:Actor) RETURN a.Character ORDER BY a.age DESC
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: What is the duration of the oldest actor?
+gold_query: MATCH (a:Actor) RETURN a.Duration ORDER BY a.age DESC LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8048>
+question: Return the duration of the actor with the greatest age.
+gold_query: MATCH (a:Actor) RETURN a.Duration ORDER BY a.age DESC LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80f0>
+question: What are the names of musicals with nominee "Bob Fosse"?
+gold_query: MATCH (m:Musical) WHERE m.Nominee = "Bob Fosse" RETURN m.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: Return the names of musicals who have the nominee Bob Fosse.
+gold_query: MATCH (m:Musical) WHERE m.Nominee = "Bob Fosse" RETURN m.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80b8>
+question: What are the distinct nominees of the musicals with the award that is not "Tony Award"?
+gold_query: MATCH (m:Musical) WHERE m.Award <> "Tony Award" RETURN DISTINCT m.Nominee
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: Return the different nominees of musicals that have an award that is not the Tony Award.
+gold_query: MATCH (m:Musical) WHERE m.Award <> "Tony Award" RETURN DISTINCT m.Nominee
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8048>
+question: Show names of actors and names of musicals they are in.
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T1.Name,T2.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80f0>
+question: What are the names of actors and the musicals that they are in?
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T1.Name,T2.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: Show names of actors that have appeared in musical with name "The Phantom of the Opera".
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) WHERE T2.Name = "The Phantom of the Opera" RETURN T1.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80b8>
+question: What are the names of actors who have been in the musical titled The Phantom of the Opera?
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) WHERE T2.Name = "The Phantom of the Opera" RETURN T1.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: Show names of actors in descending order of the year their musical is awarded.
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T1.Name ORDER BY T2.Year DESC
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8048>
+question: What are the names of actors ordered descending by the year in which their musical was awarded?
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T1.Name ORDER BY T2.Year DESC
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80f0>
+question: Show names of musicals and the number of actors who have appeared in the musicals.
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T2.Name,count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: How many actors have appeared in each musical?
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T2.Name,count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80b8>
+question: Show names of musicals which have at least three actors.
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) WITH count(*) AS c,T2.Name as Name WHERE c >= 3 RETURN Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: What are the names of musicals who have at 3 or more actors?
+gold_query: MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) WITH count(*) AS c,T2.Name as Name WHERE c >= 3 RETURN Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8048>
+question: Show different nominees and the number of musicals they have been nominated.
+gold_query: MATCH (m:Musical) RETURN m.Nominee,count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80f0>
+question: How many musicals has each nominee been nominated for?
+gold_query: MATCH (m:Musical) RETURN m.Nominee,count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: Please show the nominee who has been nominated the greatest number of times.
+gold_query: MATCH (m:Musical) RETURN m.Nominee,count(*) ORDER BY count(*) DESC LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80b8>
+question: Who is the nominee who has been nominated for the most musicals?
+gold_query: MATCH (m:Musical) RETURN m.Nominee,count(*) ORDER BY count(*) DESC LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: List the most common result of the musicals.
+gold_query: MATCH (m:Musical) RETURN m.Result,count(*) ORDER BY count(*) DESC LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8048>
+question: Return the most frequent result across all musicals.
+gold_query: MATCH (m:Musical) RETURN m.Result,count(*) ORDER BY count(*) DESC LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80f0>
+question: List the nominees that have been nominated more than two musicals.
+gold_query: MATCH (m:Musical) WITH count(*) AS c,m.Nominee as Nominee WHERE c > 2 RETURN Nominee
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: Who are the nominees who have been nominated more than two times?
+gold_query: MATCH (m:Musical) WITH count(*) AS c,m.Nominee as Nominee WHERE c > 2 RETURN Nominee
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80b8>
+question: List the name of musicals that do not have actors.
+gold_query: MATCH (m:Musical) WHERE NOT (:Actor)-[:APPEAR_IN_MUSICAL]->(m:Musical) RETURN m.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: What are the names of musicals who have no actors?
+gold_query: MATCH (m:Musical) WHERE NOT (:Actor)-[:APPEAR_IN_MUSICAL]->(m:Musical) RETURN m.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8048>
+question: Show the nominees that have nominated musicals for both "Tony Award" and "Drama Desk Award".
+gold_query: MATCH (m:Musical) WHERE m.Award IN ['Tony Award', 'Drama Desk Award'] RETURN DISTINCT m.Nominee
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80f0>
+question: Who are the nominees who have been nominated for both a Tony Award and a Drama Desk Award?
+gold_query: MATCH (m:Musical) WHERE m.Award IN ['Tony Award', 'Drama Desk Award'] RETURN DISTINCT m.Nominee
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8160>
+question: Show the musical nominee with award "Bob Fosse" or "Cleavant Derricks".
+gold_query: MATCH (m:Musical) WHERE m.Award = "Tony Award" OR m.Award = "Cleavant Derricks" RETURN m.Nominee
+gold_result: <py2neo.database.Cursor object at 0x7f04783a80b8>
+question: Who are the nominees who were nominated for either of the Bob Fosse or Cleavant Derricks awards?
+gold_query: MATCH (m:Musical) WHERE m.Award = "Tony Award" OR m.Award = "Cleavant Derricks" RETURN m.Nominee
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: How many singers are there?
+gold_query: MATCH (s:Singer)  RETURN count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1668>
+question: What is the count of singers?
+gold_query: MATCH (s:Singer)  RETURN count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783f4fd0>
+question: List the name of singers in ascending order of net worth.
+gold_query: MATCH (s:Singer)  RETURN s.Name  ORDER BY s.Net_Worth_Millions ASC
+gold_result: <py2neo.database.Cursor object at 0x7f04783b17b8>
+question: What are the names of singers ordered by ascending net worth?
+gold_query: MATCH (s:Singer)  RETURN s.Name  ORDER BY s.Net_Worth_Millions ASC
+gold_result: <py2neo.database.Cursor object at 0x7f047e41a588>
+question: What are the birth year and citizenship of singers?
+gold_query: MATCH (s:Singer)  RETURN s.Birth_Year,s.Citizenship
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1668>
+question: What are the birth years and citizenships of the singers?
+gold_query: MATCH (s:Singer)  RETURN s.Birth_Year,s.Citizenship
+gold_result: <py2neo.database.Cursor object at 0x7f04783b18d0>
+question: List the name of singers whose citizenship is not "France".
+gold_query: MATCH (s:Singer)  WHERE s.Citizenship <> "France"  RETURN s.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1908>
+question: What are the names of the singers who are not French citizens?
+gold_query: MATCH (s:Singer)  WHERE s.Citizenship <> "France"  RETURN s.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: Show the name of singers whose birth year is either 1948 or 1949?
+gold_query: MATCH (s:Singer)  WHERE s.Birth_Year = "1948" OR s.Birth_Year = "1949"  RETURN s.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783b17b8>
+question: What are the names of the singers whose birth years are either 1948 or 1949?
+gold_query: MATCH (s:Singer)  WHERE s.Birth_Year = "1948" OR s.Birth_Year = "1949"  RETURN s.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1668>
+question: What is the name of the singer with the largest net worth?
+gold_query: MATCH (s:Singer)  RETURN s.Name  ORDER BY s.Net_Worth_Millions DESC  LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783b18d0>
+question: What is the name of the singer who is worth the most?
+gold_query: MATCH (s:Singer)  RETURN s.Name  ORDER BY s.Net_Worth_Millions DESC  LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f047e41a588>
+question: Show different citizenship of singers and the number of singers of each citizenship.
+gold_query: MATCH (s:Singer)  RETURN s.Citizenship,count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783b17b8>
+question: For each citizenship, how many singers are from that country?
+gold_query: MATCH (s:Singer)  RETURN s.Citizenship,count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1668>
+question: Please show the most common citizenship of singers.
+gold_query: MATCH (s:Singer)  RETURN s.Citizenship,count(*)  ORDER BY count(*) DESC  LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1908>
+question: What is the most common singer citizenship ?
+gold_query: MATCH (s:Singer)  RETURN s.Citizenship,count(*)  ORDER BY count(*) DESC  LIMIT 1
+gold_result: <py2neo.database.Cursor object at 0x7f04783b17b8>
+question: Show different citizenships and the maximum net worth of singers of each citizenship.
+gold_query: MATCH (s:Singer)  RETURN s.Citizenship,max(s.Net_Worth_Millions),count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1908>
+question: For each citizenship, what is the maximum net worth?
+gold_query: MATCH (s:Singer)  RETURN s.Citizenship,max(s.Net_Worth_Millions),count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783b18d0>
+question: Show titles of songs and names of singers.
+gold_query: MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  RETURN T2.Title,T1.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783f4d68>
+question: What are the song titles and singer names?
+gold_query: MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  RETURN T2.Title,T1.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1668>
+question: Show distinct names of singers that have songs with sales more than 300000.
+gold_query: MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  WHERE T2.Sales > "300000"  RETURN DISTINCT T1.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783b17b8>
+question: what are the different names of the singers that have sales more than 300000?
+gold_query: MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  WHERE T2.Sales > "300000"  RETURN DISTINCT T1.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1908>
+question: Show the names of singers that have more than one song.
+gold_query: MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  WITH count(*) AS c,T1.Name as Name  WHERE c > 1  RETURN Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783a8550>
+question: What are the names of the singers that have more than one songs?
+gold_query: MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  WITH count(*) AS c,T1.Name as Name  WHERE c > 1  RETURN Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783b18d0>
+question: Show the names of singers and the total sales of their songs.
+gold_query: MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  RETURN T1.Name,sum(T2.Sales),count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1668>
+question: For each singer name, what is the total sales for their songs?
+gold_query: MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  RETURN T1.Name,sum(T2.Sales),count(*)
+gold_result: <py2neo.database.Cursor object at 0x7f04783b17b8>
+question: List the name of singers that do not have any song.
+gold_query: MATCH (s:Singer)  WHERE NOT (:Song)-[:APPEAR_IN_SINGER]->(s:Singer)  RETURN s.Name
+gold_result: <py2neo.database.Cursor object at 0x7f047e41a588>
+question: What is the sname of every sing that does not have any song?
+gold_query: MATCH (s:Singer)  WHERE NOT (:Song)-[:APPEAR_IN_SINGER]->(s:Singer)  RETURN s.Name
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1908>
+question: Show the citizenship shared by singers with birth year before 1945 and after 1955.
+gold_query: MATCH (s:Singer)  WHERE s.Birth_Year < 1945 IN [s.Birth_Year > 1955]  RETURN DISTINCT s.Citizenship
+gold_result: <py2neo.database.Cursor object at 0x7f04783b18d0>
+question: What are the citizenships that are shared by singers with a birth year before 1945 and after 1955?
+gold_query: MATCH (s:Singer)  WHERE s.Birth_Year < 1945 IN [s.Birth_Year > 1955]  RETURN DISTINCT s.Citizenship
+gold_result: <py2neo.database.Cursor object at 0x7f04783b1668>

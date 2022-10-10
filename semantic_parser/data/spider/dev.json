@@ -1,0 +1,2890 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+[
+    {
+        "db_id": "singer",
+        "question": "How many singers are there?",
+        "sql_query": "SELECT count(*) FROM singer",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN count(*)",
+        "result": [
+            8
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the count of singers?",
+        "sql_query": "SELECT count(*) FROM singer",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN count(*)",
+        "result": [
+            8
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers in ascending order of net worth.",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions ASC",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "asc"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Name  ORDER BY s.Net_Worth_Millions ASC",
+        "result": [
+            "Abigail Johnson",
+            "Susanne Klatten",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Alice Walton",
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of singers ordered by ascending net worth?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions ASC",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "asc"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Name  ORDER BY s.Net_Worth_Millions ASC",
+        "result": [
+            "Abigail Johnson",
+            "Susanne Klatten",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Alice Walton",
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the birth year and citizenship of singers?",
+        "sql_query": "SELECT Birth_Year,  Citizenship FROM singer",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Birth_Year"
+                },
+                {
+                    "value": "Citizenship"
+                }
+            ],
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Birth_Year,s.Citizenship",
+        "result": [
+            1944.0,
+            1948.0,
+            1949.0,
+            1942.0,
+            1940.0,
+            1953.0,
+            1962.0,
+            1961.0
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the birth years and citizenships of the singers?",
+        "sql_query": "SELECT Birth_Year,  Citizenship FROM singer",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Birth_Year"
+                },
+                {
+                    "value": "Citizenship"
+                }
+            ],
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Birth_Year,s.Citizenship",
+        "result": [
+            1944.0,
+            1948.0,
+            1949.0,
+            1942.0,
+            1940.0,
+            1953.0,
+            1962.0,
+            1961.0
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers whose citizenship is not \"France\".",
+        "sql_query": "SELECT Name FROM singer WHERE Citizenship != \"France\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "neq": [
+                    "Citizenship",
+                    "France"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  WHERE s.Citizenship <> \"France\"  RETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Gina Rinehart",
+            "Susanne Klatten",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers who are not French citizens?",
+        "sql_query": "SELECT Name FROM singer WHERE Citizenship != \"France\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "neq": [
+                    "Citizenship",
+                    "France"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  WHERE s.Citizenship <> \"France\"  RETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Gina Rinehart",
+            "Susanne Klatten",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the name of singers whose birth year is either 1948 or 1949?",
+        "sql_query": "SELECT Name FROM singer WHERE Birth_Year  =  1948 OR Birth_Year  =  1949",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1948
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1949
+                        ]
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  WHERE s.Birth_Year = \"1948\" OR s.Birth_Year = \"1949\"  RETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers whose birth years are either 1948 or 1949?",
+        "sql_query": "SELECT Name FROM singer WHERE Birth_Year  =  1948 OR Birth_Year  =  1949",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1948
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1949
+                        ]
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  WHERE s.Birth_Year = \"1948\" OR s.Birth_Year = \"1949\"  RETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the name of the singer with the largest net worth?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Name  ORDER BY s.Net_Worth_Millions DESC  LIMIT 1",
+        "result": [
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the name of the singer who is worth the most?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Name  ORDER BY s.Net_Worth_Millions DESC  LIMIT 1",
+        "result": [
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show different citizenship of singers and the number of singers of each citizenship.",
+        "sql_query": "SELECT Citizenship,  COUNT(*) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Citizenship,count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each citizenship, how many singers are from that country?",
+        "sql_query": "SELECT Citizenship,  COUNT(*) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Citizenship,count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Please show the most common citizenship of singers.",
+        "sql_query": "SELECT Citizenship FROM singer GROUP BY Citizenship ORDER BY COUNT(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Citizenship"
+            },
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Citizenship,count(*)  ORDER BY count(*) DESC  LIMIT 1",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the most common singer citizenship ?",
+        "sql_query": "select citizenship from singer group by citizenship order by count(*) desc limit 1",
+        "parsed_sql": {
+            "select": {
+                "value": "citizenship"
+            },
+            "from": "singer",
+            "groupby": {
+                "value": "citizenship"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Citizenship,count(*)  ORDER BY count(*) DESC  LIMIT 1",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show different citizenships and the maximum net worth of singers of each citizenship.",
+        "sql_query": "SELECT Citizenship,  max(Net_Worth_Millions) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "max": "Net_Worth_Millions"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Citizenship,max(s.Net_Worth_Millions),count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each citizenship, what is the maximum net worth?",
+        "sql_query": "SELECT Citizenship,  max(Net_Worth_Millions) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "max": "Net_Worth_Millions"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  RETURN s.Citizenship,max(s.Net_Worth_Millions),count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show titles of songs and names of singers.",
+        "sql_query": "SELECT T2.Title,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.Title"
+                },
+                {
+                    "value": "T1.Name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "song",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  RETURN T2.Title,T1.Name",
+        "result": [
+            "Do They Know It's Christmas",
+            "F**k It (I Don't Want You Back)",
+            "Cha Cha Slide",
+            "Call on Me",
+            "Yeah",
+            "All This Time",
+            "Left Outside Alone",
+            "Mysterious Girl"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the song titles and singer names?",
+        "sql_query": "SELECT T2.Title,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.Title"
+                },
+                {
+                    "value": "T1.Name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "song",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  RETURN T2.Title,T1.Name",
+        "result": [
+            "Do They Know It's Christmas",
+            "F**k It (I Don't Want You Back)",
+            "Cha Cha Slide",
+            "Call on Me",
+            "Yeah",
+            "All This Time",
+            "Left Outside Alone",
+            "Mysterious Girl"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show distinct names of singers that have songs with sales more than 300000.",
+        "sql_query": "SELECT DISTINCT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID WHERE T2.Sales  >  300000",
+        "parsed_sql": {
+            "select_distinct": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "song",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "gt": [
+                    "T2.Sales",
+                    300000
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  WHERE T2.Sales > \"300000\"  RETURN DISTINCT T1.Name",
+        "result": [
+            "Liliane Bettencourt",
+            "Christy Walton",
+            "Iris Fontbona"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "what are the different names of the singers that have sales more than 300000?",
+        "sql_query": "SELECT DISTINCT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID WHERE T2.Sales  >  300000",
+        "parsed_sql": {
+            "select_distinct": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "song",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "gt": [
+                    "T2.Sales",
+                    300000
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  WHERE T2.Sales > \"300000\"  RETURN DISTINCT T1.Name",
+        "result": [
+            "Liliane Bettencourt",
+            "Christy Walton",
+            "Iris Fontbona"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the names of singers that have more than one song.",
+        "sql_query": "SELECT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name HAVING COUNT(*)  >  1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "song",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    1
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  WITH count(*) AS c,T1.Name as Name  WHERE c > 1  RETURN Name",
+        "result": [
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers that have more than one songs?",
+        "sql_query": "SELECT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name HAVING COUNT(*)  >  1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "song",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    1
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  WITH count(*) AS c,T1.Name as Name  WHERE c > 1  RETURN Name",
+        "result": [
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the names of singers and the total sales of their songs.",
+        "sql_query": "SELECT T1.Name,  sum(T2.Sales) FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.Name"
+                },
+                {
+                    "value": {
+                        "sum": "T2.Sales"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "song",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  RETURN T1.Name,sum(T2.Sales),count(*)",
+        "result": [
+            "Christy Walton",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Liliane Bettencourt",
+            "Susanne Klatten"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each singer name, what is the total sales for their songs?",
+        "sql_query": "SELECT T1.Name,  sum(T2.Sales) FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.Name"
+                },
+                {
+                    "value": {
+                        "sum": "T2.Sales"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "song",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)  RETURN T1.Name,sum(T2.Sales),count(*)",
+        "result": [
+            "Christy Walton",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Liliane Bettencourt",
+            "Susanne Klatten"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers that do not have any song.",
+        "sql_query": "SELECT Name FROM singer WHERE Singer_ID NOT IN (SELECT Singer_ID FROM song)",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "nin": [
+                    "Singer_ID",
+                    {
+                        "select": {
+                            "value": "Singer_ID"
+                        },
+                        "from": "song"
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  WHERE NOT (:Song)-[:APPEAR_IN_SINGER]->(s:Singer)  RETURN s.Name",
+        "result": [
+            "Alice Walton",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the sname of every sing that does not have any song?",
+        "sql_query": "SELECT Name FROM singer WHERE Singer_ID NOT IN (SELECT Singer_ID FROM song)",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "nin": [
+                    "Singer_ID",
+                    {
+                        "select": {
+                            "value": "Singer_ID"
+                        },
+                        "from": "song"
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)  WHERE NOT (:Song)-[:APPEAR_IN_SINGER]->(s:Singer)  RETURN s.Name",
+        "result": [
+            "Alice Walton",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the citizenship shared by singers with birth year before 1945 and after 1955.",
+        "sql_query": "SELECT Citizenship FROM singer WHERE Birth_Year  <  1945 INTERSECT SELECT Citizenship FROM singer WHERE Birth_Year  >  1955",
+        "parsed_sql": {
+            "intersect": [
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "lt": [
+                            "Birth_Year",
+                            1945
+                        ]
+                    }
+                },
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "gt": [
+                            "Birth_Year",
+                            1955
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (s:Singer)  WHERE s.Birth_Year < 1945 IN [s.Birth_Year > 1955]  RETURN DISTINCT s.Citizenship",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the citizenships that are shared by singers with a birth year before 1945 and after 1955?",
+        "sql_query": "SELECT Citizenship FROM singer WHERE Birth_Year  <  1945 INTERSECT SELECT Citizenship FROM singer WHERE Birth_Year  >  1955",
+        "parsed_sql": {
+            "intersect": [
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "lt": [
+                            "Birth_Year",
+                            1945
+                        ]
+                    }
+                },
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "gt": [
+                            "Birth_Year",
+                            1955
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (s:Singer)  WHERE s.Birth_Year < 1945 IN [s.Birth_Year > 1955]  RETURN DISTINCT s.Citizenship",
+        "result": [
+            "United States"
+        ]
+    }
+][
+    {
+        "db_id": "singer",
+        "question": "How many singers are there?",
+        "sql_query": "SELECT count(*) FROM singer",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN count(*)",
+        "result": [
+            8
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the count of singers?",
+        "sql_query": "SELECT count(*) FROM singer",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN count(*)",
+        "result": [
+            8
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers in ascending order of net worth.",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions ASC",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "asc"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Name\nORDER BY s.Net_Worth_Millions ASC",
+        "result": [
+            "Abigail Johnson",
+            "Susanne Klatten",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Alice Walton",
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of singers ordered by ascending net worth?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions ASC",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "asc"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Name\nORDER BY s.Net_Worth_Millions ASC",
+        "result": [
+            "Abigail Johnson",
+            "Susanne Klatten",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Alice Walton",
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the birth year and citizenship of singers?",
+        "sql_query": "SELECT Birth_Year ,  Citizenship FROM singer",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Birth_Year"
+                },
+                {
+                    "value": "Citizenship"
+                }
+            ],
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Birth_Year,s.Citizenship",
+        "result": [
+            1944.0,
+            1948.0,
+            1949.0,
+            1942.0,
+            1940.0,
+            1953.0,
+            1962.0,
+            1961.0
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the birth years and citizenships of the singers?",
+        "sql_query": "SELECT Birth_Year ,  Citizenship FROM singer",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Birth_Year"
+                },
+                {
+                    "value": "Citizenship"
+                }
+            ],
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Birth_Year,s.Citizenship",
+        "result": [
+            1944.0,
+            1948.0,
+            1949.0,
+            1942.0,
+            1940.0,
+            1953.0,
+            1962.0,
+            1961.0
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers whose citizenship is not \"France\".",
+        "sql_query": "SELECT Name FROM singer WHERE Citizenship != \"France\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "neq": [
+                    "Citizenship",
+                    "France"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Citizenship <> \"France\"\nRETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Gina Rinehart",
+            "Susanne Klatten",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers who are not French citizens?",
+        "sql_query": "SELECT Name FROM singer WHERE Citizenship != \"France\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "neq": [
+                    "Citizenship",
+                    "France"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Citizenship <> \"France\"\nRETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Gina Rinehart",
+            "Susanne Klatten",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the name of singers whose birth year is either 1948 or 1949?",
+        "sql_query": "SELECT Name FROM singer WHERE Birth_Year  =  1948 OR Birth_Year  =  1949",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1948
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1949
+                        ]
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Birth_Year = \"1948\" OR s.Birth_Year = \"1949\"\nRETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers whose birth years are either 1948 or 1949?",
+        "sql_query": "SELECT Name FROM singer WHERE Birth_Year  =  1948 OR Birth_Year  =  1949",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1948
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1949
+                        ]
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Birth_Year = \"1948\" OR s.Birth_Year = \"1949\"\nRETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the name of the singer with the largest net worth?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Name\nORDER BY s.Net_Worth_Millions DESC\nLIMIT 1",
+        "result": [
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the name of the singer who is worth the most?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Name\nORDER BY s.Net_Worth_Millions DESC\nLIMIT 1",
+        "result": [
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show different citizenship of singers and the number of singers of each citizenship.",
+        "sql_query": "SELECT Citizenship ,  COUNT(*) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each citizenship, how many singers are from that country?",
+        "sql_query": "SELECT Citizenship ,  COUNT(*) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Please show the most common citizenship of singers.",
+        "sql_query": "SELECT Citizenship FROM singer GROUP BY Citizenship ORDER BY COUNT(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Citizenship"
+            },
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,count(*)\nORDER BY count(*) DESC\nLIMIT 1",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the most common singer citizenship ?",
+        "sql_query": "select citizenship from singer group by citizenship order by count(*) desc limit 1",
+        "parsed_sql": {
+            "select": {
+                "value": "citizenship"
+            },
+            "from": "singer",
+            "groupby": {
+                "value": "citizenship"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,count(*)\nORDER BY count(*) DESC\nLIMIT 1",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show different citizenships and the maximum net worth of singers of each citizenship.",
+        "sql_query": "SELECT Citizenship ,  max(Net_Worth_Millions) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "max": "Net_Worth_Millions"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,max(Net_Worth_Millions),count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each citizenship, what is the maximum net worth?",
+        "sql_query": "SELECT Citizenship ,  max(Net_Worth_Millions) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "max": "Net_Worth_Millions"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,max(Net_Worth_Millions),count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show titles of songs and names of singers.",
+        "sql_query": "SELECT T2.Title ,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.Title"
+                },
+                {
+                    "value": "T1.Name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nRETURN T2.Title,T1.Name",
+        "result": [
+            "Do They Know It's Christmas",
+            "F**k It (I Don't Want You Back)",
+            "Cha Cha Slide",
+            "Call on Me",
+            "Yeah",
+            "All This Time",
+            "Left Outside Alone",
+            "Mysterious Girl"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the song titles and singer names?",
+        "sql_query": "SELECT T2.Title ,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.Title"
+                },
+                {
+                    "value": "T1.Name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nRETURN T2.Title,T1.Name",
+        "result": [
+            "Do They Know It's Christmas",
+            "F**k It (I Don't Want You Back)",
+            "Cha Cha Slide",
+            "Call on Me",
+            "Yeah",
+            "All This Time",
+            "Left Outside Alone",
+            "Mysterious Girl"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show distinct names of singers that have songs with sales more than 300000.",
+        "sql_query": "SELECT DISTINCT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID WHERE T2.Sales  >  300000",
+        "parsed_sql": {
+            "select_distinct": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "gt": [
+                    "T2.Sales",
+                    300000
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nWHERE T2.Sales > \"300000\"\nRETURN DISTINCT T1.Name",
+        "result": [
+            "Liliane Bettencourt",
+            "Christy Walton",
+            "Iris Fontbona"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "what are the different names of the singers that have sales more than 300000?",
+        "sql_query": "SELECT DISTINCT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID WHERE T2.Sales  >  300000",
+        "parsed_sql": {
+            "select_distinct": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "gt": [
+                    "T2.Sales",
+                    300000
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nWHERE T2.Sales > \"300000\"\nRETURN DISTINCT T1.Name",
+        "result": [
+            "Liliane Bettencourt",
+            "Christy Walton",
+            "Iris Fontbona"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the names of singers that have more than one song.",
+        "sql_query": "SELECT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name HAVING COUNT(*)  >  1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    1
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nWITH count(*) AS c,T1.Name as Name\nWHERE c > 1\nRETURN Name",
+        "result": [
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers that have more than one songs?",
+        "sql_query": "SELECT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name HAVING COUNT(*)  >  1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    1
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nWITH count(*) AS c,T1.Name as Name\nWHERE c > 1\nRETURN Name",
+        "result": [
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the names of singers and the total sales of their songs.",
+        "sql_query": "SELECT T1.Name ,  sum(T2.Sales) FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.Name"
+                },
+                {
+                    "value": {
+                        "sum": "T2.Sales"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nRETURN T1.Name,sum(T2.Sales),count(*)",
+        "result": [
+            "Christy Walton",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Liliane Bettencourt",
+            "Susanne Klatten"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each singer name, what is the total sales for their songs?",
+        "sql_query": "SELECT T1.Name ,  sum(T2.Sales) FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.Name"
+                },
+                {
+                    "value": {
+                        "sum": "T2.Sales"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nRETURN T1.Name,sum(T2.Sales),count(*)",
+        "result": [
+            "Christy Walton",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Liliane Bettencourt",
+            "Susanne Klatten"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers that do not have any song.",
+        "sql_query": "SELECT Name FROM singer WHERE Singer_ID NOT IN (SELECT Singer_ID FROM song)",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "nin": [
+                    "Singer_ID",
+                    {
+                        "select": {
+                            "value": "Singer_ID"
+                        },
+                        "from": "song"
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE NOT (:Song)-[:APPEAR_IN_SINGER]->(s:Singer)\nRETURN s.Name",
+        "result": [
+            "Alice Walton",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the sname of every sing that does not have any song?",
+        "sql_query": "SELECT Name FROM singer WHERE Singer_ID NOT IN (SELECT Singer_ID FROM song)",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "nin": [
+                    "Singer_ID",
+                    {
+                        "select": {
+                            "value": "Singer_ID"
+                        },
+                        "from": "song"
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE NOT (:Song)-[:APPEAR_IN_SINGER]->(s:Singer)\nRETURN s.Name",
+        "result": [
+            "Alice Walton",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the citizenship shared by singers with birth year before 1945 and after 1955.",
+        "sql_query": "SELECT Citizenship FROM singer WHERE Birth_Year  <  1945 INTERSECT SELECT Citizenship FROM singer WHERE Birth_Year  >  1955",
+        "parsed_sql": {
+            "intersect": [
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "lt": [
+                            "Birth_Year",
+                            1945
+                        ]
+                    }
+                },
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "gt": [
+                            "Birth_Year",
+                            1955
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Birth_Year < \"1945 IN ['s.Birth_Year > \"1955']\nRETURN DISTINCT s.Citizenship",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the citizenships that are shared by singers with a birth year before 1945 and after 1955?",
+        "sql_query": "SELECT Citizenship FROM singer WHERE Birth_Year  <  1945 INTERSECT SELECT Citizenship FROM singer WHERE Birth_Year  >  1955",
+        "parsed_sql": {
+            "intersect": [
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "lt": [
+                            "Birth_Year",
+                            1945
+                        ]
+                    }
+                },
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "gt": [
+                            "Birth_Year",
+                            1955
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Birth_Year < \"1945 IN ['s.Birth_Year > \"1955']\nRETURN DISTINCT s.Citizenship",
+        "result": [
+            "United States"
+        ]
+    }
+][
+    {
+        "db_id": "singer",
+        "question": "How many singers are there?",
+        "sql_query": "SELECT count(*) FROM singer",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN count(*)",
+        "result": [
+            8
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the count of singers?",
+        "sql_query": "SELECT count(*) FROM singer",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN count(*)",
+        "result": [
+            8
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers in ascending order of net worth.",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions ASC",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "asc"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Name\nORDER BY s.Net_Worth_Millions ASC",
+        "result": [
+            "Abigail Johnson",
+            "Susanne Klatten",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Alice Walton",
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of singers ordered by ascending net worth?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions ASC",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "asc"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Name\nORDER BY s.Net_Worth_Millions ASC",
+        "result": [
+            "Abigail Johnson",
+            "Susanne Klatten",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Alice Walton",
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the birth year and citizenship of singers?",
+        "sql_query": "SELECT Birth_Year ,  Citizenship FROM singer",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Birth_Year"
+                },
+                {
+                    "value": "Citizenship"
+                }
+            ],
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Birth_Year,s.Citizenship",
+        "result": [
+            1944.0,
+            1948.0,
+            1949.0,
+            1942.0,
+            1940.0,
+            1953.0,
+            1962.0,
+            1961.0
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the birth years and citizenships of the singers?",
+        "sql_query": "SELECT Birth_Year ,  Citizenship FROM singer",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Birth_Year"
+                },
+                {
+                    "value": "Citizenship"
+                }
+            ],
+            "from": "singer"
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Birth_Year,s.Citizenship",
+        "result": [
+            1944.0,
+            1948.0,
+            1949.0,
+            1942.0,
+            1940.0,
+            1953.0,
+            1962.0,
+            1961.0
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers whose citizenship is not \"France\".",
+        "sql_query": "SELECT Name FROM singer WHERE Citizenship != \"France\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "neq": [
+                    "Citizenship",
+                    "France"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Citizenship <> \"France\"\nRETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Gina Rinehart",
+            "Susanne Klatten",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers who are not French citizens?",
+        "sql_query": "SELECT Name FROM singer WHERE Citizenship != \"France\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "neq": [
+                    "Citizenship",
+                    "France"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Citizenship <> \"France\"\nRETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Gina Rinehart",
+            "Susanne Klatten",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the name of singers whose birth year is either 1948 or 1949?",
+        "sql_query": "SELECT Name FROM singer WHERE Birth_Year  =  1948 OR Birth_Year  =  1949",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1948
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1949
+                        ]
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Birth_Year = \"1948\" OR s.Birth_Year = \"1949\"\nRETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers whose birth years are either 1948 or 1949?",
+        "sql_query": "SELECT Name FROM singer WHERE Birth_Year  =  1948 OR Birth_Year  =  1949",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1948
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "Birth_Year",
+                            1949
+                        ]
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Birth_Year = \"1948\" OR s.Birth_Year = \"1949\"\nRETURN s.Name",
+        "result": [
+            "Christy Walton",
+            "Alice Walton"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the name of the singer with the largest net worth?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Name\nORDER BY s.Net_Worth_Millions DESC\nLIMIT 1",
+        "result": [
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the name of the singer who is worth the most?",
+        "sql_query": "SELECT Name FROM singer ORDER BY Net_Worth_Millions DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "orderby": {
+                "value": "Net_Worth_Millions",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Name\nORDER BY s.Net_Worth_Millions DESC\nLIMIT 1",
+        "result": [
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show different citizenship of singers and the number of singers of each citizenship.",
+        "sql_query": "SELECT Citizenship ,  COUNT(*) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each citizenship, how many singers are from that country?",
+        "sql_query": "SELECT Citizenship ,  COUNT(*) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Please show the most common citizenship of singers.",
+        "sql_query": "SELECT Citizenship FROM singer GROUP BY Citizenship ORDER BY COUNT(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Citizenship"
+            },
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,count(*)\nORDER BY count(*) DESC\nLIMIT 1",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the most common singer citizenship ?",
+        "sql_query": "select citizenship from singer group by citizenship order by count(*) desc limit 1",
+        "parsed_sql": {
+            "select": {
+                "value": "citizenship"
+            },
+            "from": "singer",
+            "groupby": {
+                "value": "citizenship"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,count(*)\nORDER BY count(*) DESC\nLIMIT 1",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show different citizenships and the maximum net worth of singers of each citizenship.",
+        "sql_query": "SELECT Citizenship ,  max(Net_Worth_Millions) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "max": "Net_Worth_Millions"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,max(Net_Worth_Millions),count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each citizenship, what is the maximum net worth?",
+        "sql_query": "SELECT Citizenship ,  max(Net_Worth_Millions) FROM singer GROUP BY Citizenship",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Citizenship"
+                },
+                {
+                    "value": {
+                        "max": "Net_Worth_Millions"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "Citizenship"
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nRETURN s.Citizenship,max(Net_Worth_Millions),count(*)",
+        "result": [
+            "Australia",
+            "Chile",
+            "France",
+            "Germany",
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show titles of songs and names of singers.",
+        "sql_query": "SELECT T2.Title ,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.Title"
+                },
+                {
+                    "value": "T1.Name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nRETURN T2.Title,T1.Name",
+        "result": [
+            "Do They Know It's Christmas",
+            "F**k It (I Don't Want You Back)",
+            "Cha Cha Slide",
+            "Call on Me",
+            "Yeah",
+            "All This Time",
+            "Left Outside Alone",
+            "Mysterious Girl"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the song titles and singer names?",
+        "sql_query": "SELECT T2.Title ,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.Title"
+                },
+                {
+                    "value": "T1.Name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nRETURN T2.Title,T1.Name",
+        "result": [
+            "Do They Know It's Christmas",
+            "F**k It (I Don't Want You Back)",
+            "Cha Cha Slide",
+            "Call on Me",
+            "Yeah",
+            "All This Time",
+            "Left Outside Alone",
+            "Mysterious Girl"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show distinct names of singers that have songs with sales more than 300000.",
+        "sql_query": "SELECT DISTINCT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID WHERE T2.Sales  >  300000",
+        "parsed_sql": {
+            "select_distinct": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "gt": [
+                    "T2.Sales",
+                    300000
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nWHERE T2.Sales > \"300000\"\nRETURN DISTINCT T1.Name",
+        "result": [
+            "Liliane Bettencourt",
+            "Christy Walton",
+            "Iris Fontbona"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "what are the different names of the singers that have sales more than 300000?",
+        "sql_query": "SELECT DISTINCT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID WHERE T2.Sales  >  300000",
+        "parsed_sql": {
+            "select_distinct": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "gt": [
+                    "T2.Sales",
+                    300000
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nWHERE T2.Sales > \"300000\"\nRETURN DISTINCT T1.Name",
+        "result": [
+            "Liliane Bettencourt",
+            "Christy Walton",
+            "Iris Fontbona"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the names of singers that have more than one song.",
+        "sql_query": "SELECT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name HAVING COUNT(*)  >  1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    1
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nWITH count(*) AS c,T1.Name as Name\nWHERE c > 1\nRETURN Name",
+        "result": [
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers that have more than one songs?",
+        "sql_query": "SELECT T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name HAVING COUNT(*)  >  1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    1
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nWITH count(*) AS c,T1.Name as Name\nWHERE c > 1\nRETURN Name",
+        "result": [
+            "Christy Walton",
+            "Liliane Bettencourt"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the names of singers and the total sales of their songs.",
+        "sql_query": "SELECT T1.Name ,  sum(T2.Sales) FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.Name"
+                },
+                {
+                    "value": {
+                        "sum": "T2.Sales"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nRETURN T1.Name,sum(T2.Sales),count(*)",
+        "result": [
+            "Christy Walton",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Liliane Bettencourt",
+            "Susanne Klatten"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "For each singer name, what is the total sales for their songs?",
+        "sql_query": "SELECT T1.Name ,  sum(T2.Sales) FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.Name"
+                },
+                {
+                    "value": {
+                        "sum": "T2.Sales"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "singer",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "value": "song",
+                        "name": "T2",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Singer_ID",
+                            "T2.Singer_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Name"
+            }
+        },
+        "cypher_query": "MATCH (T1:Singer)-[:APPEAR_IN_SONG]->(T2:Song)\nRETURN T1.Name,sum(T2.Sales),count(*)",
+        "result": [
+            "Christy Walton",
+            "Gina Rinehart",
+            "Iris Fontbona",
+            "Jacqueline Mars",
+            "Liliane Bettencourt",
+            "Susanne Klatten"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers that do not have any song.",
+        "sql_query": "SELECT Name FROM singer WHERE Singer_ID NOT IN (SELECT Singer_ID FROM song)",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "nin": [
+                    "Singer_ID",
+                    {
+                        "select": {
+                            "value": "Singer_ID"
+                        },
+                        "from": "song"
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE NOT (:Song)-[:APPEAR_IN_SINGER]->(s:Singer)\nRETURN s.Name",
+        "result": [
+            "Alice Walton",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the sname of every sing that does not have any song?",
+        "sql_query": "SELECT Name FROM singer WHERE Singer_ID NOT IN (SELECT Singer_ID FROM song)",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "singer",
+            "where": {
+                "nin": [
+                    "Singer_ID",
+                    {
+                        "select": {
+                            "value": "Singer_ID"
+                        },
+                        "from": "song"
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE NOT (:Song)-[:APPEAR_IN_SINGER]->(s:Singer)\nRETURN s.Name",
+        "result": [
+            "Alice Walton",
+            "Abigail Johnson"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the citizenship shared by singers with birth year before 1945 and after 1955.",
+        "sql_query": "SELECT Citizenship FROM singer WHERE Birth_Year  <  1945 INTERSECT SELECT Citizenship FROM singer WHERE Birth_Year  >  1955",
+        "parsed_sql": {
+            "intersect": [
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "lt": [
+                            "Birth_Year",
+                            1945
+                        ]
+                    }
+                },
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "gt": [
+                            "Birth_Year",
+                            1955
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Birth_Year < \"1945 IN ['s.Birth_Year > \"1955']\nRETURN DISTINCT s.Citizenship",
+        "result": [
+            "United States"
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the citizenships that are shared by singers with a birth year before 1945 and after 1955?",
+        "sql_query": "SELECT Citizenship FROM singer WHERE Birth_Year  <  1945 INTERSECT SELECT Citizenship FROM singer WHERE Birth_Year  >  1955",
+        "parsed_sql": {
+            "intersect": [
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "lt": [
+                            "Birth_Year",
+                            1945
+                        ]
+                    }
+                },
+                {
+                    "select": {
+                        "value": "Citizenship"
+                    },
+                    "from": "singer",
+                    "where": {
+                        "gt": [
+                            "Birth_Year",
+                            1955
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (s:Singer)\nWHERE s.Birth_Year < \"1945 IN ['s.Birth_Year > \"1955']\nRETURN DISTINCT s.Citizenship",
+        "result": [
+            "United States"
+        ]
+    }
+]
+=======
+[]
+>>>>>>> 7ebf35a4075fe271c155c7a4626c4ec030047e75
+=======
+[]
+>>>>>>> c54e42a0c35ecfd285c84e63e9a2a51c5556f02c
+=======
+[]
+>>>>>>> c54e42a0c35ecfd285c84e63e9a2a51c5556f02c

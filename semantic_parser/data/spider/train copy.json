@@ -1,0 +1,1242 @@
+[
+    {
+        "db_id": "musical",
+        "question": "How many actors are there?",
+        "sql_query": "SELECT count(*) FROM actor",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "actor"
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN count(*)",
+        "result": [
+            9
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Count the number of actors.",
+        "sql_query": "SELECT count(*) FROM actor",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "actor"
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN count(*)",
+        "result": [
+            9
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "List the name of actors in ascending alphabetical order.",
+        "sql_query": "SELECT Name FROM actor ORDER BY Name ASC",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "actor",
+            "orderby": {
+                "value": "Name",
+                "sort": "asc"
+            }
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN a.Name ORDER BY a.Name ASC",
+        "result": [
+            "Alan Fletcher",
+            "Ian Smith",
+            "Jackie Woodburne",
+            "Kate Ritchie",
+            "Lynne McGranger",
+            "Ray Meagher",
+            "Ryan Moloney",
+            "Stefan Dennis",
+            "Tom Oliver"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the names of actors, ordered alphabetically?",
+        "sql_query": "SELECT Name FROM actor ORDER BY Name ASC",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "actor",
+            "orderby": {
+                "value": "Name",
+                "sort": "asc"
+            }
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN a.Name ORDER BY a.Name ASC",
+        "result": [
+            "Alan Fletcher",
+            "Ian Smith",
+            "Jackie Woodburne",
+            "Kate Ritchie",
+            "Lynne McGranger",
+            "Ray Meagher",
+            "Ryan Moloney",
+            "Stefan Dennis",
+            "Tom Oliver"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the characters and duration of actors?",
+        "sql_query": "SELECT Character ,  Duration FROM actor",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Character"
+                },
+                {
+                    "value": "Duration"
+                }
+            ],
+            "from": "actor"
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN a.Character,a.Duration",
+        "result": [
+            "Alf Stewart",
+            "Lou Carpenter",
+            "Irene Roberts",
+            "Sally Fletcher",
+            "Karl Kennedy",
+            "Susan Kennedy",
+            "Toadfish Rebecchi",
+            "Harold Bishop",
+            "Paul Robinson"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Return the characters and durations for each actor.",
+        "sql_query": "SELECT Character ,  Duration FROM actor",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Character"
+                },
+                {
+                    "value": "Duration"
+                }
+            ],
+            "from": "actor"
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN a.Character,a.Duration",
+        "result": [
+            "Alf Stewart",
+            "Lou Carpenter",
+            "Irene Roberts",
+            "Sally Fletcher",
+            "Karl Kennedy",
+            "Susan Kennedy",
+            "Toadfish Rebecchi",
+            "Harold Bishop",
+            "Paul Robinson"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "List the name of actors whose age is not 20.",
+        "sql_query": "SELECT Name FROM actor WHERE Age != 20",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "actor",
+            "where": {
+                "neq": [
+                    "Age",
+                    20
+                ]
+            }
+        },
+        "cypher_query": "MATCH (a:Actor) WHERE a.age <> \"20\" RETURN a.Name",
+        "result": [
+            "Ray Meagher",
+            "Tom Oliver",
+            "Lynne McGranger",
+            "Ryan Moloney",
+            "Ian Smith",
+            "Stefan Dennis"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the names of actors who are not 20 years old?",
+        "sql_query": "SELECT Name FROM actor WHERE Age != 20",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "actor",
+            "where": {
+                "neq": [
+                    "Age",
+                    20
+                ]
+            }
+        },
+        "cypher_query": "MATCH (a:Actor) WHERE a.age <> \"20\" RETURN a.Name",
+        "result": [
+            "Ray Meagher",
+            "Tom Oliver",
+            "Lynne McGranger",
+            "Ryan Moloney",
+            "Ian Smith",
+            "Stefan Dennis"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the characters of actors in descending order of age?",
+        "sql_query": "SELECT Character FROM actor ORDER BY age DESC",
+        "parsed_sql": {
+            "select": {
+                "value": "Character"
+            },
+            "from": "actor",
+            "orderby": {
+                "value": "age",
+                "sort": "desc"
+            }
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN a.Character ORDER BY a.age DESC",
+        "result": [
+            "Alf Stewart",
+            "Lou Carpenter",
+            "Irene Roberts",
+            "Sally Fletcher",
+            "Karl Kennedy",
+            "Susan Kennedy",
+            "Toadfish Rebecchi",
+            "Harold Bishop",
+            "Paul Robinson"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Return the characters for actors, ordered by age descending.",
+        "sql_query": "SELECT Character FROM actor ORDER BY age DESC",
+        "parsed_sql": {
+            "select": {
+                "value": "Character"
+            },
+            "from": "actor",
+            "orderby": {
+                "value": "age",
+                "sort": "desc"
+            }
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN a.Character ORDER BY a.age DESC",
+        "result": [
+            "Alf Stewart",
+            "Lou Carpenter",
+            "Irene Roberts",
+            "Sally Fletcher",
+            "Karl Kennedy",
+            "Susan Kennedy",
+            "Toadfish Rebecchi",
+            "Harold Bishop",
+            "Paul Robinson"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What is the duration of the oldest actor?",
+        "sql_query": "SELECT Duration FROM actor ORDER BY Age DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Duration"
+            },
+            "from": "actor",
+            "orderby": {
+                "value": "Age",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN a.Duration ORDER BY a.age DESC LIMIT 1",
+        "result": [
+            "1988\u2014"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Return the duration of the actor with the greatest age.",
+        "sql_query": "SELECT Duration FROM actor ORDER BY Age DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Duration"
+            },
+            "from": "actor",
+            "orderby": {
+                "value": "Age",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (a:Actor) RETURN a.Duration ORDER BY a.age DESC LIMIT 1",
+        "result": [
+            "1988\u2014"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the names of musicals with nominee \"Bob Fosse\"?",
+        "sql_query": "SELECT Name FROM musical WHERE Nominee  =  \"Bob Fosse\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "musical",
+            "where": {
+                "eq": [
+                    "Nominee",
+                    "Bob Fosse"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE m.Nominee = \"Bob Fosse\" RETURN m.Name",
+        "result": [
+            "The Phantom of the Opera",
+            "Wicked",
+            "West Side Story",
+            "The Book of Mormon",
+            "Chicago"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Return the names of musicals who have the nominee Bob Fosse.",
+        "sql_query": "SELECT Name FROM musical WHERE Nominee  =  \"Bob Fosse\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "musical",
+            "where": {
+                "eq": [
+                    "Nominee",
+                    "Bob Fosse"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE m.Nominee = \"Bob Fosse\" RETURN m.Name",
+        "result": [
+            "The Phantom of the Opera",
+            "Wicked",
+            "West Side Story",
+            "The Book of Mormon",
+            "Chicago"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the distinct nominees of the musicals with the award that is not \"Tony Award\"?",
+        "sql_query": "SELECT DISTINCT Nominee FROM musical WHERE Award != \"Tony Award\"",
+        "parsed_sql": {
+            "select_distinct": {
+                "value": "Nominee"
+            },
+            "from": "musical",
+            "where": {
+                "neq": [
+                    "Award",
+                    "Tony Award"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE m.Award <> \"Tony Award\" RETURN DISTINCT m.Nominee",
+        "result": [
+            "Cleavant Derricks",
+            "Bob Fosse"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Return the different nominees of musicals that have an award that is not the Tony Award.",
+        "sql_query": "SELECT DISTINCT Nominee FROM musical WHERE Award != \"Tony Award\"",
+        "parsed_sql": {
+            "select_distinct": {
+                "value": "Nominee"
+            },
+            "from": "musical",
+            "where": {
+                "neq": [
+                    "Award",
+                    "Tony Award"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE m.Award <> \"Tony Award\" RETURN DISTINCT m.Nominee",
+        "result": [
+            "Cleavant Derricks",
+            "Bob Fosse"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Show names of actors and names of musicals they are in.",
+        "sql_query": "SELECT T1.Name ,  T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.Name"
+                },
+                {
+                    "value": "T2.Name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T1.Name,T2.Name",
+        "result": [
+            "Ray Meagher",
+            "Tom Oliver",
+            "Lynne McGranger",
+            "Kate Ritchie",
+            "Alan Fletcher",
+            "Jackie Woodburne",
+            "Ryan Moloney",
+            "Ian Smith",
+            "Stefan Dennis"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the names of actors and the musicals that they are in?",
+        "sql_query": "SELECT T1.Name ,  T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.Name"
+                },
+                {
+                    "value": "T2.Name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T1.Name,T2.Name",
+        "result": [
+            "Ray Meagher",
+            "Tom Oliver",
+            "Lynne McGranger",
+            "Kate Ritchie",
+            "Alan Fletcher",
+            "Jackie Woodburne",
+            "Ryan Moloney",
+            "Ian Smith",
+            "Stefan Dennis"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Show names of actors that have appeared in musical with name \"The Phantom of the Opera\".",
+        "sql_query": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Name  =  \"The Phantom of the Opera\"",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T2.Name",
+                    "The Phantom of the Opera"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) WHERE T2.Name = \"The Phantom of the Opera\" RETURN T1.Name",
+        "result": [
+            "Ray Meagher",
+            "Tom Oliver"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the names of actors who have been in the musical titled The Phantom of the Opera?",
+        "sql_query": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Name  =  \"The Phantom of the Opera\"",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T2.Name",
+                    "The Phantom of the Opera"
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) WHERE T2.Name = \"The Phantom of the Opera\" RETURN T1.Name",
+        "result": [
+            "Ray Meagher",
+            "Tom Oliver"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Show names of actors in descending order of the year their musical is awarded.",
+        "sql_query": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID ORDER BY T2.Year DESC",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.Year",
+                "sort": "desc"
+            }
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T1.Name ORDER BY T2.Year DESC",
+        "result": [
+            "Ray Meagher",
+            "Tom Oliver",
+            "Lynne McGranger",
+            "Kate Ritchie",
+            "Alan Fletcher",
+            "Jackie Woodburne",
+            "Ryan Moloney",
+            "Ian Smith",
+            "Stefan Dennis"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the names of actors ordered descending by the year in which their musical was awarded?",
+        "sql_query": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID ORDER BY T2.Year DESC",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.Name"
+            },
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.Year",
+                "sort": "desc"
+            }
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T1.Name ORDER BY T2.Year DESC",
+        "result": [
+            "Ray Meagher",
+            "Tom Oliver",
+            "Lynne McGranger",
+            "Kate Ritchie",
+            "Alan Fletcher",
+            "Jackie Woodburne",
+            "Ryan Moloney",
+            "Ian Smith",
+            "Stefan Dennis"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Show names of musicals and the number of actors who have appeared in the musicals.",
+        "sql_query": "SELECT T2.Name ,  COUNT(*) FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.Name"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Musical_ID"
+            }
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T2.Name,count(*)",
+        "result": [
+            "The Phantom of the Opera",
+            "Les Mis\u00e9rables",
+            "West Side Story",
+            "The Book of Mormon"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "How many actors have appeared in each musical?",
+        "sql_query": "SELECT T2.Name ,  COUNT(*) FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.Name"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Musical_ID"
+            }
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) RETURN T2.Name,count(*)",
+        "result": [
+            "The Phantom of the Opera",
+            "Les Mis\u00e9rables",
+            "West Side Story",
+            "The Book of Mormon"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Show names of musicals which have at least three actors.",
+        "sql_query": "SELECT T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID HAVING COUNT(*)  >=  3",
+        "parsed_sql": {
+            "select": {
+                "value": "T2.Name"
+            },
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Musical_ID"
+            },
+            "having": {
+                "gte": [
+                    {
+                        "count": "*"
+                    },
+                    3
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) WITH count(*) AS c,T2.Name as Name WHERE c >= 3 RETURN Name",
+        "result": [
+            "The Book of Mormon"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the names of musicals who have at 3 or more actors?",
+        "sql_query": "SELECT T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID HAVING COUNT(*)  >=  3",
+        "parsed_sql": {
+            "select": {
+                "value": "T2.Name"
+            },
+            "from": [
+                {
+                    "value": "actor",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "musical",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Musical_ID",
+                            "T2.Musical_ID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.Musical_ID"
+            },
+            "having": {
+                "gte": [
+                    {
+                        "count": "*"
+                    },
+                    3
+                ]
+            }
+        },
+        "cypher_query": "MATCH (T1:Actor)-[:APPEAR_IN_MUSICAL]->(T2:Musical) WITH count(*) AS c,T2.Name as Name WHERE c >= 3 RETURN Name",
+        "result": [
+            "The Book of Mormon"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Show different nominees and the number of musicals they have been nominated.",
+        "sql_query": "SELECT Nominee ,  COUNT(*) FROM musical GROUP BY Nominee",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Nominee"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "musical",
+            "groupby": {
+                "value": "Nominee"
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) RETURN m.Nominee,count(*)",
+        "result": [
+            "Bob Fosse",
+            "Cleavant Derricks"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "How many musicals has each nominee been nominated for?",
+        "sql_query": "SELECT Nominee ,  COUNT(*) FROM musical GROUP BY Nominee",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "Nominee"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "musical",
+            "groupby": {
+                "value": "Nominee"
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) RETURN m.Nominee,count(*)",
+        "result": [
+            "Bob Fosse",
+            "Cleavant Derricks"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Please show the nominee who has been nominated the greatest number of times.",
+        "sql_query": "SELECT Nominee FROM musical GROUP BY Nominee ORDER BY COUNT(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Nominee"
+            },
+            "from": "musical",
+            "groupby": {
+                "value": "Nominee"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (m:Musical) RETURN m.Nominee,count(*) ORDER BY count(*) DESC LIMIT 1",
+        "result": [
+            "Bob Fosse"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Who is the nominee who has been nominated for the most musicals?",
+        "sql_query": "SELECT Nominee FROM musical GROUP BY Nominee ORDER BY COUNT(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "Nominee"
+            },
+            "from": "musical",
+            "groupby": {
+                "value": "Nominee"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (m:Musical) RETURN m.Nominee,count(*) ORDER BY count(*) DESC LIMIT 1",
+        "result": [
+            "Bob Fosse"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "List the most common result of the musicals.",
+        "sql_query": "SELECT RESULT FROM musical GROUP BY RESULT ORDER BY COUNT(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "RESULT"
+            },
+            "from": "musical",
+            "groupby": {
+                "value": "RESULT"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (m:Musical) RETURN m.Result,count(*) ORDER BY count(*) DESC LIMIT 1",
+        "result": [
+            "Nominated"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Return the most frequent result across all musicals.",
+        "sql_query": "SELECT RESULT FROM musical GROUP BY RESULT ORDER BY COUNT(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "RESULT"
+            },
+            "from": "musical",
+            "groupby": {
+                "value": "RESULT"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "cypher_query": "MATCH (m:Musical) RETURN m.Result,count(*) ORDER BY count(*) DESC LIMIT 1",
+        "result": [
+            "Nominated"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "List the nominees that have been nominated more than two musicals.",
+        "sql_query": "SELECT Nominee FROM musical GROUP BY Nominee HAVING COUNT(*)  >  2",
+        "parsed_sql": {
+            "select": {
+                "value": "Nominee"
+            },
+            "from": "musical",
+            "groupby": {
+                "value": "Nominee"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    2
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WITH count(*) AS c,m.Nominee as Nominee WHERE c > 2 RETURN Nominee",
+        "result": [
+            "Bob Fosse"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Who are the nominees who have been nominated more than two times?",
+        "sql_query": "SELECT Nominee FROM musical GROUP BY Nominee HAVING COUNT(*)  >  2",
+        "parsed_sql": {
+            "select": {
+                "value": "Nominee"
+            },
+            "from": "musical",
+            "groupby": {
+                "value": "Nominee"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    2
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WITH count(*) AS c,m.Nominee as Nominee WHERE c > 2 RETURN Nominee",
+        "result": [
+            "Bob Fosse"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "List the name of musicals that do not have actors.",
+        "sql_query": "SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "musical",
+            "where": {
+                "nin": [
+                    "Musical_ID",
+                    {
+                        "select": {
+                            "value": "Musical_ID"
+                        },
+                        "from": "actor"
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE NOT (:Actor)-[:APPEAR_IN_MUSICAL]->(m:Musical) RETURN m.Name",
+        "result": [
+            "Wicked",
+            "Rent",
+            "Chicago"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "What are the names of musicals who have no actors?",
+        "sql_query": "SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)",
+        "parsed_sql": {
+            "select": {
+                "value": "Name"
+            },
+            "from": "musical",
+            "where": {
+                "nin": [
+                    "Musical_ID",
+                    {
+                        "select": {
+                            "value": "Musical_ID"
+                        },
+                        "from": "actor"
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE NOT (:Actor)-[:APPEAR_IN_MUSICAL]->(m:Musical) RETURN m.Name",
+        "result": [
+            "Wicked",
+            "Rent",
+            "Chicago"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Show the nominees that have nominated musicals for both \"Tony Award\" and \"Drama Desk Award\".",
+        "sql_query": "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" INTERSECT SELECT Nominee FROM musical WHERE Award  =  \"Drama Desk Award\"",
+        "parsed_sql": {
+            "intersect": [
+                {
+                    "select": {
+                        "value": "Nominee"
+                    },
+                    "from": "musical",
+                    "where": {
+                        "eq": [
+                            "Award",
+                            "Tony Award"
+                        ]
+                    }
+                },
+                {
+                    "select": {
+                        "value": "Nominee"
+                    },
+                    "from": "musical",
+                    "where": {
+                        "eq": [
+                            "Award",
+                            "Drama Desk Award"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE m.Award IN ['Tony Award', 'Drama Desk Award'] RETURN DISTINCT m.Nominee",
+        "result": [
+            "Bob Fosse",
+            "Cleavant Derricks"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Who are the nominees who have been nominated for both a Tony Award and a Drama Desk Award?",
+        "sql_query": "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" INTERSECT SELECT Nominee FROM musical WHERE Award  =  \"Drama Desk Award\"",
+        "parsed_sql": {
+            "intersect": [
+                {
+                    "select": {
+                        "value": "Nominee"
+                    },
+                    "from": "musical",
+                    "where": {
+                        "eq": [
+                            "Award",
+                            "Tony Award"
+                        ]
+                    }
+                },
+                {
+                    "select": {
+                        "value": "Nominee"
+                    },
+                    "from": "musical",
+                    "where": {
+                        "eq": [
+                            "Award",
+                            "Drama Desk Award"
+                        ]
+                    }
+                }
+            ]
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE m.Award IN ['Tony Award', 'Drama Desk Award'] RETURN DISTINCT m.Nominee",
+        "result": [
+            "Bob Fosse",
+            "Cleavant Derricks"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Show the musical nominee with award \"Bob Fosse\" or \"Cleavant Derricks\".",
+        "sql_query": "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" OR Award  =  \"Cleavant Derricks\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Nominee"
+            },
+            "from": "musical",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "Award",
+                            "Tony Award"
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "Award",
+                            "Cleavant Derricks"
+                        ]
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE m.Award = \"Tony Award\" OR m.Award = \"Cleavant Derricks\" RETURN m.Nominee",
+        "result": [
+            "Bob Fosse",
+            "Cleavant Derricks",
+            "Bob Fosse",
+            "Bob Fosse"
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Who are the nominees who were nominated for either of the Bob Fosse or Cleavant Derricks awards?",
+        "sql_query": "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" OR Award  =  \"Cleavant Derricks\"",
+        "parsed_sql": {
+            "select": {
+                "value": "Nominee"
+            },
+            "from": "musical",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "Award",
+                            "Tony Award"
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "Award",
+                            "Cleavant Derricks"
+                        ]
+                    }
+                ]
+            }
+        },
+        "cypher_query": "MATCH (m:Musical) WHERE m.Award = \"Tony Award\" OR m.Award = \"Cleavant Derricks\" RETURN m.Nominee",
+        "result": [
+            "Bob Fosse",
+            "Cleavant Derricks",
+            "Bob Fosse",
+            "Bob Fosse"
+        ]
+    }
+]

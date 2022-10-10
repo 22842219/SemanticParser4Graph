@@ -1,0 +1,8 @@
+.history/
+cypher_data_model_cypher.py
+note.py
+*.ini
+canonicaliser.py
+mySPVenv/
+backup
+notebook

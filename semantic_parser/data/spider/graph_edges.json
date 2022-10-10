@@ -1,0 +1,1852 @@
+﻿[
+  {
+    "p": {
+"start": {
+"identity": 0,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Free choice",
+"Year": "2014",
+"concert_Name": "Auditions",
+"Stadium_ID": "1",
+"concert_ID": 1
+        }
+      },
+"end": {
+"identity": 12,
+"labels": [
+          "Stadium"
+        ],
+"properties": {
+"Capacity": "10104",
+"Lowest": "1294",
+"Average": "2106",
+"Highest": "4812",
+"Stadium_ID": 1,
+"Name": "Stark's Park",
+"Location": "Raith Rovers"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 0,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Free choice",
+"Year": "2014",
+"concert_Name": "Auditions",
+"Stadium_ID": "1",
+"concert_ID": 1
+            }
+          },
+          "relationship": {
+"identity": 20,
+"start": 0,
+"end": 12,
+"type": "APPEAR_IN_STADIUM",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 12,
+"labels": [
+              "Stadium"
+            ],
+"properties": {
+"Capacity": "10104",
+"Lowest": "1294",
+"Average": "2106",
+"Highest": "4812",
+"Stadium_ID": 1,
+"Name": "Stark's Park",
+"Location": "Raith Rovers"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 1,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Free choice 2",
+"Year": "2014",
+"concert_Name": "Super bootcamp",
+"Stadium_ID": "2",
+"concert_ID": 2
+        }
+      },
+"end": {
+"identity": 13,
+"labels": [
+          "Stadium"
+        ],
+"properties": {
+"Capacity": "11998",
+"Lowest": "1057",
+"Average": "1477",
+"Highest": "2363",
+"Stadium_ID": 2,
+"Name": "Somerset Park",
+"Location": "Ayr United"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 1,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Free choice 2",
+"Year": "2014",
+"concert_Name": "Super bootcamp",
+"Stadium_ID": "2",
+"concert_ID": 2
+            }
+          },
+          "relationship": {
+"identity": 21,
+"start": 1,
+"end": 13,
+"type": "APPEAR_IN_STADIUM",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 13,
+"labels": [
+              "Stadium"
+            ],
+"properties": {
+"Capacity": "11998",
+"Lowest": "1057",
+"Average": "1477",
+"Highest": "2363",
+"Stadium_ID": 2,
+"Name": "Somerset Park",
+"Location": "Ayr United"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 1,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Free choice 2",
+"Year": "2014",
+"concert_Name": "Super bootcamp",
+"Stadium_ID": "2",
+"concert_ID": 2
+        }
+      },
+"end": {
+"identity": 11,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Love",
+"Country": "France",
+"Song_release_year": "2016",
+"Singer_ID": 6,
+"Age": "25",
+"Name": "Tribal King"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 1,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Free choice 2",
+"Year": "2014",
+"concert_Name": "Super bootcamp",
+"Stadium_ID": "2",
+"concert_ID": 2
+            }
+          },
+          "relationship": {
+"identity": 19,
+"start": 1,
+"end": 11,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 11,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Love",
+"Country": "France",
+"Song_release_year": "2016",
+"Singer_ID": 6,
+"Age": "25",
+"Name": "Tribal King"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 1,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Free choice 2",
+"Year": "2014",
+"concert_Name": "Super bootcamp",
+"Stadium_ID": "2",
+"concert_ID": 2
+        }
+      },
+"end": {
+"identity": 6,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 1,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Free choice 2",
+"Year": "2014",
+"concert_Name": "Super bootcamp",
+"Stadium_ID": "2",
+"concert_ID": 2
+            }
+          },
+          "relationship": {
+"identity": 10,
+"start": 1,
+"end": 6,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 6,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 2,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+        }
+      },
+"end": {
+"identity": 13,
+"labels": [
+          "Stadium"
+        ],
+"properties": {
+"Capacity": "11998",
+"Lowest": "1057",
+"Average": "1477",
+"Highest": "2363",
+"Stadium_ID": 2,
+"Name": "Somerset Park",
+"Location": "Ayr United"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 2,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+            }
+          },
+          "relationship": {
+"identity": 22,
+"start": 2,
+"end": 13,
+"type": "APPEAR_IN_STADIUM",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 13,
+"labels": [
+              "Stadium"
+            ],
+"properties": {
+"Capacity": "11998",
+"Lowest": "1057",
+"Average": "1477",
+"Highest": "2363",
+"Stadium_ID": 2,
+"Name": "Somerset Park",
+"Location": "Ayr United"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 2,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+        }
+      },
+"end": {
+"identity": 10,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Gentleman",
+"Country": "France",
+"Song_release_year": "2014",
+"Singer_ID": 5,
+"Age": "43",
+"Name": "John Nizinik"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 2,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+            }
+          },
+          "relationship": {
+"identity": 18,
+"start": 2,
+"end": 10,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 10,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Gentleman",
+"Country": "France",
+"Song_release_year": "2014",
+"Singer_ID": 5,
+"Age": "43",
+"Name": "John Nizinik"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 2,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+        }
+      },
+"end": {
+"identity": 7,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Dangerous",
+"Country": "United States",
+"Song_release_year": "2008",
+"Singer_ID": 2,
+"Age": "32",
+"Name": "Timbaland"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 2,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+            }
+          },
+          "relationship": {
+"identity": 13,
+"start": 2,
+"end": 7,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 7,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Dangerous",
+"Country": "United States",
+"Song_release_year": "2008",
+"Singer_ID": 2,
+"Age": "32",
+"Name": "Timbaland"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 2,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+        }
+      },
+"end": {
+"identity": 6,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 2,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+            }
+          },
+          "relationship": {
+"identity": 11,
+"start": 2,
+"end": 6,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 6,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 3,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Wide Awake",
+"Year": "2014",
+"concert_Name": "Week 1",
+"Stadium_ID": "10",
+"concert_ID": 4
+        }
+      },
+"end": {
+"identity": 20,
+"labels": [
+          "Stadium"
+        ],
+"properties": {
+"Capacity": "3960",
+"Lowest": "315",
+"Average": "552",
+"Highest": "780",
+"Stadium_ID": 10,
+"Name": "Glebe Park",
+"Location": "Brechin City"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 3,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Wide Awake",
+"Year": "2014",
+"concert_Name": "Week 1",
+"Stadium_ID": "10",
+"concert_ID": 4
+            }
+          },
+          "relationship": {
+"identity": 23,
+"start": 3,
+"end": 20,
+"type": "APPEAR_IN_STADIUM",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 20,
+"labels": [
+              "Stadium"
+            ],
+"properties": {
+"Capacity": "3960",
+"Lowest": "315",
+"Average": "552",
+"Highest": "780",
+"Stadium_ID": 10,
+"Name": "Glebe Park",
+"Location": "Brechin City"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 3,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Wide Awake",
+"Year": "2014",
+"concert_Name": "Week 1",
+"Stadium_ID": "10",
+"concert_ID": 4
+        }
+      },
+"end": {
+"identity": 9,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "Sun",
+"Country": "France",
+"Song_release_year": "2003",
+"Singer_ID": 4,
+"Age": "41",
+"Name": "Rose White"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 3,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Wide Awake",
+"Year": "2014",
+"concert_Name": "Week 1",
+"Stadium_ID": "10",
+"concert_ID": 4
+            }
+          },
+          "relationship": {
+"identity": 16,
+"start": 3,
+"end": 9,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 9,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "Sun",
+"Country": "France",
+"Song_release_year": "2003",
+"Singer_ID": 4,
+"Age": "41",
+"Name": "Rose White"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 4,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+        }
+      },
+"end": {
+"identity": 19,
+"labels": [
+          "Stadium"
+        ],
+"properties": {
+"Capacity": "4000",
+"Lowest": "400",
+"Average": "615",
+"Highest": "837",
+"Stadium_ID": 9,
+"Name": "Balmoor",
+"Location": "Peterhead"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 4,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+            }
+          },
+          "relationship": {
+"identity": 24,
+"start": 4,
+"end": 19,
+"type": "APPEAR_IN_STADIUM",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 19,
+"labels": [
+              "Stadium"
+            ],
+"properties": {
+"Capacity": "4000",
+"Lowest": "400",
+"Average": "615",
+"Highest": "837",
+"Stadium_ID": 9,
+"Name": "Balmoor",
+"Location": "Peterhead"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 4,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+        }
+      },
+"end": {
+"identity": 8,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Hey Oh",
+"Country": "France",
+"Song_release_year": "2013",
+"Singer_ID": 3,
+"Age": "29",
+"Name": "Justin Brown"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 4,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+            }
+          },
+          "relationship": {
+"identity": 15,
+"start": 4,
+"end": 8,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 8,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Hey Oh",
+"Country": "France",
+"Song_release_year": "2013",
+"Singer_ID": 3,
+"Age": "29",
+"Name": "Justin Brown"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 4,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+        }
+      },
+"end": {
+"identity": 6,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 4,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+            }
+          },
+          "relationship": {
+"identity": 12,
+"start": 4,
+"end": 6,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 6,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 5,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+        }
+      },
+"end": {
+"identity": 18,
+"labels": [
+          "Stadium"
+        ],
+"properties": {
+"Capacity": "3100",
+"Lowest": "331",
+"Average": "637",
+"Highest": "1057",
+"Stadium_ID": 7,
+"Location": "Alloa Athletic",
+"Name": "Recreation Park"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 5,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+            }
+          },
+          "relationship": {
+"identity": 25,
+"start": 5,
+"end": 18,
+"type": "APPEAR_IN_STADIUM",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 18,
+"labels": [
+              "Stadium"
+            ],
+"properties": {
+"Capacity": "3100",
+"Lowest": "331",
+"Average": "637",
+"Highest": "1057",
+"Stadium_ID": 7,
+"Location": "Alloa Athletic",
+"Name": "Recreation Park"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 5,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+        }
+      },
+"end": {
+"identity": 10,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Gentleman",
+"Country": "France",
+"Song_release_year": "2014",
+"Singer_ID": 5,
+"Age": "43",
+"Name": "John Nizinik"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 5,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+            }
+          },
+          "relationship": {
+"identity": 17,
+"start": 5,
+"end": 10,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 10,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Gentleman",
+"Country": "France",
+"Song_release_year": "2014",
+"Singer_ID": 5,
+"Age": "43",
+"Name": "John Nizinik"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 5,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+        }
+      },
+"end": {
+"identity": 7,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Dangerous",
+"Country": "United States",
+"Song_release_year": "2008",
+"Singer_ID": 2,
+"Age": "32",
+"Name": "Timbaland"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 5,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+            }
+          },
+          "relationship": {
+"identity": 14,
+"start": 5,
+"end": 7,
+"type": "APPEAR_IN_SINGER",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 7,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Dangerous",
+"Country": "United States",
+"Song_release_year": "2008",
+"Singer_ID": 2,
+"Age": "32",
+"Name": "Timbaland"
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 6,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+        }
+      },
+"end": {
+"identity": 4,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 6,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+            }
+          },
+          "relationship": {
+"identity": 2,
+"start": 6,
+"end": 4,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 4,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 6,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+        }
+      },
+"end": {
+"identity": 2,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 6,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+            }
+          },
+          "relationship": {
+"identity": 1,
+"start": 6,
+"end": 2,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 2,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 6,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+        }
+      },
+"end": {
+"identity": 1,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Free choice 2",
+"Year": "2014",
+"concert_Name": "Super bootcamp",
+"Stadium_ID": "2",
+"concert_ID": 2
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 6,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "You",
+"Country": "Netherlands",
+"Song_release_year": "1992",
+"Singer_ID": 1,
+"Age": "52",
+"Name": "Joe Sharp"
+            }
+          },
+          "relationship": {
+"identity": 0,
+"start": 6,
+"end": 1,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 1,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Free choice 2",
+"Year": "2014",
+"concert_Name": "Super bootcamp",
+"Stadium_ID": "2",
+"concert_ID": 2
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 7,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Dangerous",
+"Country": "United States",
+"Song_release_year": "2008",
+"Singer_ID": 2,
+"Age": "32",
+"Name": "Timbaland"
+        }
+      },
+"end": {
+"identity": 5,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 7,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Dangerous",
+"Country": "United States",
+"Song_release_year": "2008",
+"Singer_ID": 2,
+"Age": "32",
+"Name": "Timbaland"
+            }
+          },
+          "relationship": {
+"identity": 4,
+"start": 7,
+"end": 5,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 5,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 7,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Dangerous",
+"Country": "United States",
+"Song_release_year": "2008",
+"Singer_ID": 2,
+"Age": "32",
+"Name": "Timbaland"
+        }
+      },
+"end": {
+"identity": 2,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 7,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Dangerous",
+"Country": "United States",
+"Song_release_year": "2008",
+"Singer_ID": 2,
+"Age": "32",
+"Name": "Timbaland"
+            }
+          },
+          "relationship": {
+"identity": 3,
+"start": 7,
+"end": 2,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 2,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 8,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Hey Oh",
+"Country": "France",
+"Song_release_year": "2013",
+"Singer_ID": 3,
+"Age": "29",
+"Name": "Justin Brown"
+        }
+      },
+"end": {
+"identity": 4,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 8,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Hey Oh",
+"Country": "France",
+"Song_release_year": "2013",
+"Singer_ID": 3,
+"Age": "29",
+"Name": "Justin Brown"
+            }
+          },
+          "relationship": {
+"identity": 5,
+"start": 8,
+"end": 4,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 4,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Happy Tonight",
+"Year": "2015",
+"concert_Name": "Week 1",
+"Stadium_ID": "9",
+"concert_ID": 5
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 9,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "Sun",
+"Country": "France",
+"Song_release_year": "2003",
+"Singer_ID": 4,
+"Age": "41",
+"Name": "Rose White"
+        }
+      },
+"end": {
+"identity": 3,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Wide Awake",
+"Year": "2014",
+"concert_Name": "Week 1",
+"Stadium_ID": "10",
+"concert_ID": 4
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 9,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "F",
+"Song_Name": "Sun",
+"Country": "France",
+"Song_release_year": "2003",
+"Singer_ID": 4,
+"Age": "41",
+"Name": "Rose White"
+            }
+          },
+          "relationship": {
+"identity": 6,
+"start": 9,
+"end": 3,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 3,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Wide Awake",
+"Year": "2014",
+"concert_Name": "Week 1",
+"Stadium_ID": "10",
+"concert_ID": 4
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 10,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Gentleman",
+"Country": "France",
+"Song_release_year": "2014",
+"Singer_ID": 5,
+"Age": "43",
+"Name": "John Nizinik"
+        }
+      },
+"end": {
+"identity": 2,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 10,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Gentleman",
+"Country": "France",
+"Song_release_year": "2014",
+"Singer_ID": 5,
+"Age": "43",
+"Name": "John Nizinik"
+            }
+          },
+          "relationship": {
+"identity": 8,
+"start": 10,
+"end": 2,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 2,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Bleeding Love",
+"Year": "2015",
+"concert_Name": "Home Visits",
+"Stadium_ID": "2",
+"concert_ID": 3
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  },
+  {
+    "p": {
+"start": {
+"identity": 10,
+"labels": [
+          "Singer"
+        ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Gentleman",
+"Country": "France",
+"Song_release_year": "2014",
+"Singer_ID": 5,
+"Age": "43",
+"Name": "John Nizinik"
+        }
+      },
+"end": {
+"identity": 5,
+"labels": [
+          "Concert"
+        ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 10,
+"labels": [
+              "Singer"
+            ],
+"properties": {
+"Is_male": "T",
+"Song_Name": "Gentleman",
+"Country": "France",
+"Song_release_year": "2014",
+"Singer_ID": 5,
+"Age": "43",
+"Name": "John Nizinik"
+            }
+          },
+          "relationship": {
+"identity": 7,
+"start": 10,
+"end": 5,
+"type": "APPEAR_IN_CONCERT",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 5,
+"labels": [
+              "Concert"
+            ],
+"properties": {
+"Theme": "Party All Night",
+"Year": "2015",
+"concert_Name": "Week 2",
+"Stadium_ID": "7",
+"concert_ID": 6
+            }
+          }
+        }
+      ],
+"length": 1.0
+    }
+  }
+]
