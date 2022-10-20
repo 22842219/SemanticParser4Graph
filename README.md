@@ -10,9 +10,6 @@ This project implements
 
 <!-- The parser can be adapted to learn mappings from text to other structured query languages such as [SOQL](https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm) by modifying the formal langauge pre-processing and post-processing modules. -->
 
-## Model
-
-TODO
 
 ## Quick Start
 
@@ -82,11 +79,7 @@ python interface --web_ui
 ```
 
 
-### Baseline
-
-### Train
-
-TODO
+## Baseline
 
 #### Spider
 
@@ -103,6 +96,14 @@ TODO
 ```
 ./experiment-text2cypher.sh configs/spider.sh --inference 0
 ```
+
+
+## Model
+
+TODO
+<!-- ### Train
+
+### Inference -->
 
 <!-- 
 ## Citation
