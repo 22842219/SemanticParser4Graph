@@ -1,23 +1,24 @@
 import os
 import sys
+import json
 from Logger import Logger
 from moz_sql_parser import parse
 from ConvertDB import ConvertDB
 from configparser import ConfigParser, ParsingError, NoSectionError
-from utils.SQLParser import SQLParser
+from unsw.SQLParser import SQLParser
 import jsonlines
 
 
 from rel_db2kg.data_processor.sql2cypher import Formatter
 
 config = ConfigParser()
-config.read('rel_db2kg/config.ini')
+config.read('config.ini')
 filenames = config["FILENAMES"]
 raw_data_folder = filenames['raw_folder']
 sp_folder = filenames['sp_folder']
 
 spider_json_folder = os.path.join(raw_data_folder, 'spider')
-spider_all_table_fields_file = os.path.join(sp_folder, 'spider', 'db_table_field.json')
+spider_lookup_up = os.path.join(sp_folder, 'spider', 'lookup_dict.json')
 
 class CLI:
     _config_path = "conf/db.ini"
@@ -76,7 +77,7 @@ class CLI:
 
         Sqlite3Config = {
             'spider_path': sqlite3_config['spider_path'],
-            'database': sqlite3_config['database'],
+            'database': sqlite3_config['database']
         } if sqlite3_config is not None else None
 
         NEO4jConfig = {
@@ -113,12 +114,12 @@ class CLI:
     def sql2cypher(self, sql_query):
         all_table_fields = []	
         # Get table_fields information.
-        with jsonlines.open(spider_all_table_fields_file, "r") as f:
-            print(f)
-            # for line in f:
-            #     if line['db_name'] == every['db_id']:
-            #         all_table_fields.append(line['table_fields'])
-
+        with open(spider_lookup_up) as f:
+            spider_lookup_dict = json.load(f)
+        config = self._load_config()
+        if  self.db_name == 'sqlite3':
+            sqlite3_config = config['sqlite3']
+            all_table_fields = spider_lookup_dict[sqlite3_config['database']]
         parsed_sql = parse(sql_query)	
         print(parsed_sql)
         formatter  = Formatter(all_table_fields)

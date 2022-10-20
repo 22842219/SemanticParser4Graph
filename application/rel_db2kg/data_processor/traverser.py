@@ -2,8 +2,8 @@ import collections
 import json
 import re
 from mo_future import string_types
-from rel_db2kg.data_processor.debugs import debug_wrapper
-import rel_db2kg.data_processor.utils as utils
+from debugs import debug_wrapper
+import utils as utils
 
 
 join_keywords = {

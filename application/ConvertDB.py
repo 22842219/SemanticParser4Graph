@@ -74,7 +74,7 @@ class ConvertDB:
 
             # Helper function that return the remainder of the result as a list of dictionaries.
             data = res.data()
-            
+            print("cypher data:", data)
             driver.close()
             return data
         except Exception as error:

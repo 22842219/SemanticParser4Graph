@@ -1,6 +1,6 @@
 import os
 import pickle
-from utils.AbsSQL import AbsSQL
+from unsw.AbsSQL import AbsSQL
 
 
 class From(AbsSQL):

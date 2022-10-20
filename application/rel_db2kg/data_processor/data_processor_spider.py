@@ -26,15 +26,7 @@ from csv import writer
 signal(SIGPIPE, SIG_DFL)
 csv.field_size_limit(sys.maxsize)
 
-import argparse
-import configparser
-config = configparser.ConfigParser()
-
-from data_processor.sql2cypher import add_parentheses, Operator, isNested, Formatter
-
-
-from py2neo import Graph
-graph = Graph("http://localhost:7474/browser/", auth = ("neo4j", "zzy"))
+from sql2cypher import add_parentheses, Operator, isNested, Formatter
 
 
 
@@ -88,7 +80,7 @@ class DBenginee:
       self.conn.cursor.close()
 
 
-def build_lookup_dict(db_paths, neo4j_folder, sp_data_folder):
+def build_lookup_dict(db_paths, sp_data_folder):
    '''
    Return: {'db_name':{'table_name': [table_headers]}}
    '''
@@ -116,8 +108,8 @@ def build_lookup_dict(db_paths, neo4j_folder, sp_data_folder):
          if db_name not in lookup_dict:
             lookup_dict[db_name] = {}    
             pks_lookup_dict[db_name] = {}
-         if table_name.capitalize() not in lookup_dict[db_name]:
-            lookup_dict[db_name][table_name.capitalize()] = headers
+         if table_name not in lookup_dict[db_name]:
+            lookup_dict[db_name][table_name] = headers
             for pk in primary_keys:
                pks_lookup_dict[db_name][table_name] = pk[0]
    print(len(lookup_dict.items()))
@@ -181,13 +173,12 @@ def create_relationship(table_name, table_primary_key_pairs, fk_statement, table
          table_name, this_column, ref_table ,ref_column)
    return sql_query, ref_table, ref_column, is_self_constraint_kf
 
-def spiderProcessor(db_paths, neo4j_folder, pks_lookup_dict):
+def spiderProcessor(db_paths, neo4j_folder, sp_data_folder, lookup_dict, pks_lookup_dict):
 
    for db_path in db_paths:
       path_compodbnents = db_path.split(os.sep)
-      db_name = path_compodbnents[-2]
-      
-      # # test example
+      db_name = path_compodbnents[-1].split('.')[0]
+     # test example
       if db_name == 'department_management':
          print('-------------------------------------------------')
          print("db_name:", db_name)
@@ -200,26 +191,15 @@ def spiderProcessor(db_paths, neo4j_folder, pks_lookup_dict):
 
          try:               
             engine = DBenginee(db_path)
-            
-            table_headers_dict = {}
-            table_meta_info = engine.get_table_names()
-            for table_info in table_meta_info:
-               table_name = table_info[0]
-               # Export tables to neo4j/import as csv files.                           
-               table_records = engine.get_table_values(table_name)
-               table_headers = [desc[0] for desc in table_records.description]    
-               print("table_headers:", table_headers )   
-               table_headers_dict[table_name] = table_headers
-            print(table_headers_dict)
 
-            table_infos = engine.get_table_names() # I observe the enginee would shut down after executing the function 'engine.get_table_value'
-            
+            table_infos = engine.get_table_names() # I observe the enginee would shut down after executing the function 'engine.get_table_value'   
 
             missing_pks_tables_counter = 0
             missing_pks_tables_dict = {} #{table_name:db_name}
             
             for table_info in table_infos:
                table_name = table_info[0]
+               table_headers_dict = lookup_dict[db_name][table_name]
                schema = engine.get_schema(table_name)
                primary_keys = engine.get_primay_keys(table_name) #R[(pk, )]
                foreign_keys, pks_fks_dict =  engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
@@ -228,7 +208,7 @@ def spiderProcessor(db_paths, neo4j_folder, pks_lookup_dict):
                print("primary_keys:", primary_keys)
                print("foreign_keys:", foreign_keys)
                print("pks_fks_dict:", pks_fks_dict)
-
+               print(table_headers_dict)
                # Export tables to neo4j/import as csv files.                           
                table_records = engine.get_table_values(table_name)
                table_headers = [desc[0] for desc in table_records.description]    
@@ -246,17 +226,32 @@ def spiderProcessor(db_paths, neo4j_folder, pks_lookup_dict):
                      # This is a relational table, where there is a compound primary key and forign keys in the table schema,
                      # e.g. 'pitStops' in formula_1.db, or 'airport_aircraft' in aircraft.db      a
 
-                     # NOte: align the fields of this table with reference table, e.g.management table in department_management.db
+                   
+                     # There is an issue here. For example, the table `department` in department_management.db, all colums are capitalised, 
+                     # However, the fileds used in the corresponding sql queries and referenced fields in other tables are lower case. 
+                     # Need to come up with a solution to fix it. For example, potecially modify the sqlite3 schema is the easiest way. 
+                     # The following block of codes deals with the above mentioned issue. 
                      fks = [(every['ref_column'],) for every in foreign_keys]
                      if set(primary_keys)-set(fks):
+                        print("****************")
+                        print(db_name)
+                        print(primary_keys, fks)
                         for pk in primary_keys:
                            pk = pk[0]
+                           print(pk)
                            if pks_fks_dict[pk]!=pk:     
                               replace_idx = table_headers.index(pk)
+                              print(pks_fks_dict[pk])
                               table_headers[replace_idx]= pks_fks_dict[pk]
+                     print(table_headers)
                      
-                     rel_out_path = os.path.join(output_folder, 'rel_{}.csv'.format(table_name.capitalize()))       
-                     save2graph(rel_out_path, table_headers, table_records)             
+                     rel_out_path = os.path.join(output_folder, 'rel_{}.csv'.format(table_name.capitalize()))    
+                     save2graph(rel_out_path, table_headers, table_records)   
+                     rel_table_name = 'rel_{}'.format(table_name)
+                     update_dict = {}
+                     update_dict[rel_table_name] = table_headers
+                     lookup_dict[db_name].update(update_dict)    
+                     # del lookup_dict[db_name][table_name]     
 
                      #raise ValueError("A compound primary key! Check it out.")               
                # 2. CSV files for graph relationships.      
@@ -290,11 +285,16 @@ def spiderProcessor(db_paths, neo4j_folder, pks_lookup_dict):
 
             print("missing_pks_tables_dict:", missing_pks_tables_dict)
             print("missing_pks_tables_counter:", missing_pks_tables_counter)
+            fields_path = os.path.join(sp_data_folder, 'spider', 'lookup_dict.json')
+            with open(fields_path, "w") as f:
+               json.dump(lookup_dict, f, indent = 4) 
+            return lookup_dict, pks_lookup_dict
+         
          except KeyboardInterrupt:
             sys.exit(0)
 
 
-def spider2QA(raw_spider_folder, lookup_dict, sp_data_folder, lexer, CyqueryStatmentParser):
+def spider2QA(raw_spider_folder, lookup_dict, sp_data_folder, lexer, CyqueryStatmentParser, graph):
 
    # Spider raw dataset path
    db_folder = os.path.join(raw_spider_folder,  'database')
@@ -340,7 +340,7 @@ def spider2QA(raw_spider_folder, lookup_dict, sp_data_folder, lexer, CyqueryStat
             sql2cypher = formatter.format(parsed_sql)
             print(sql2cypher)
 
-            Cyparser = CyqueryStatmentParser(sql2cypher, lexer)
+            Cyparser = CyqueryStatmentParser(sql2cypher, 'statement', lexer)
             tokenized_statment, token_types = Cyparser.get_tokenization()
             # print("tokenized_statment:", tokenized_statment, token_types)
             
@@ -378,48 +378,67 @@ def spider2QA(raw_spider_folder, lookup_dict, sp_data_folder, lexer, CyqueryStat
 
 
 def main():
+
+   import argparse
+   import configparser
+   config = configparser.ConfigParser()
+
    from cypher_parser import CyqueryStatmentParser
    from pygments.lexers import get_lexer_by_name
+   from py2neo import Graph
    lexer = get_lexer_by_name("py2neo.cypher")
 
    parser = argparse.ArgumentParser(description='spider dataset processor')
+   # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
    parser.add_argument('--dbProcessing', help='Run spiderProcessor.', action='store_true')
    parser.add_argument('--sql2cypher', help='Run spider2pair.', action='store_true')
    args = parser.parse_args()
 
 
-   config.read('../config.ini')
+   config.read('../../config.ini')
    filenames = config["FILENAMES"]
 
    raw_folder = filenames['raw_folder']
-   neo4j_folder = filenames['neo4j_import_folder']
    sp_data_folder = filenames['sp_folder']
+   neo4j_import = filenames['neo4j_import_folder']
+   neo4j_uri = filenames['neo4j_uri']
+   neo4j_user = filenames['neo4j_user']
+   neo4j_password = filenames['neo4j_password']
 
    raw_spider_folder = os.path.join(raw_folder, 'spider')
 
    db_folder = os.path.join(raw_spider_folder,  'database')
-   neo4j_folder = os.path.join(neo4j_folder, 'spider')  
+   neo4j_folder = os.path.join(neo4j_import, 'spider')  
    db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 
-   lookup_dict, pks_lookup_dict = build_lookup_dict(
-                     db_paths, 
-                     neo4j_folder, 
-                     sp_data_folder)
+   graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
+
+
+   lookup_dict, pks_lookup_dict = build_lookup_dict(
+                  db_paths, 
+                  sp_data_folder)
+      
+  
    if args.dbProcessing:
+
       spiderProcessor(
-         db_paths, 
+         db_paths,
          neo4j_folder,
+         sp_data_folder,
+         lookup_dict,
          pks_lookup_dict)
 
 
-   if args.sql2cypher:       
+   if args.sql2cypher:   
+
       spider2QA(
          raw_spider_folder, 
          lookup_dict,
          sp_data_folder,
          lexer,
-         CyqueryStatmentParser)
+         CyqueryStatmentParser,
+         graph)
 
 if __name__=="__main__":
    main()

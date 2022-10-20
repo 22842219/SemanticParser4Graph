@@ -1,8 +1,8 @@
-from utils.OrderBy import OrderBy
-from utils.Select import Select
-from utils.From import From
-from utils.Where import Where
-from utils.Limit import Limit
+from unsw.OrderBy import OrderBy
+from unsw.Select import Select
+from unsw.From import From
+from unsw.Where import Where
+from unsw.Limit import Limit
 
 
 class SQLParser:

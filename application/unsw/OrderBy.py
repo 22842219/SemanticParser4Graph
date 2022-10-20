@@ -1,4 +1,4 @@
-from utils.AbsSQL import AbsSQL
+from unsw.AbsSQL import AbsSQL
 
 
 class OrderBy(AbsSQL):

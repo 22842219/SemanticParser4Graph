@@ -1,0 +1,29 @@
+{
+      "Token_Keyword": [
+            "MATCH",
+            "WHERE",
+            "RETURN"
+      ],
+      "Token_Text_Whitespace": [
+            " ",
+            "\n"
+      ],
+      "Token_Punctuation": [
+            "(",
+            ":",
+            ")",
+            ","
+      ],
+      "Token_Name_Variable": [
+            "d",
+            "ranking",
+            "num_employees"
+      ],
+      "Token_Name_Label": "Department",
+      "Token_Literal_Number_Integer": [
+            "10",
+            "15"
+      ],
+      "Token_Name_Function": "avg",
+      "Token_Operator": "."
+}

@@ -1,5 +1,5 @@
-from utils.AbsSQL import AbsSQL
-from utils.Operator import Operator
+from unsw.AbsSQL import AbsSQL
+from unsw.Operator import Operator
 
 
 class Where(AbsSQL):

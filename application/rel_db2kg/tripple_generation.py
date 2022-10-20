@@ -11,15 +11,8 @@ from py2neo.data import Node, Relationship
 from environs import Env
 from fire import Fire
 
-from utils.utils import Logger
+from data_processor.utils import Logger
 
-env = Env()
-env.read_env('/Users/ziyuzhao/Desktop/SemanticParser4Graph/.env')
-
-
-
-env = Env()
-env.read_env('/media/ziyu/e49f0873-c304-4523-a240-6c3b6cfd1df2/zzy/Phd/projects/SemanticParser4Graph/.env')
 
 # A RelDB (relational database) that stores database name, tables' names and tables' content.
 # Initially has no table content.
@@ -225,8 +218,7 @@ class RelDBDataset:
             # the reason to use pandas to read csv file is it keep the datatype of each column in csv file. 
             data = pandas.read_csv(table_file)
             table_headers = data.columns.values.tolist()
-            data_ = data.transpose().to_dict().values()
-
+            data_ = data.transpose().to_dict().values()  # to keep the origial data types.
             if table_headers == None:
                 print(db_name, table_headers)
                 continue
@@ -266,14 +258,18 @@ class RelDB2KGraphNodeBuilder:
 
     def __init__( self,
         dataset,
+        env_file,
         node_normaliser=None,
         defined_fields=None
     ):
         self.dataset = dataset
-        self.graph = Graph(password=env("GRAPH_PASSWORD"))
         self.node_normaliser = node_normaliser
         self.defined_fields = defined_fields
         self.nodes_properties =[]
+        self.env_file = env_file
+        env = Env()
+        env.read_env(self.env_file)
+        self.graph = Graph(password=env("GRAPH_PASSWORD"))
 
         self.node_matcher = NodeMatcher(self.graph)
 
@@ -362,14 +358,16 @@ class RelDB2KGraphEdgeBuilder:
         nodes_properties (List): A list of node properties (dict).    
     """
 
-    def __init__( self, dataset, logger, node_normaliser=None, defined_fields=None):
+    def __init__( self, dataset, logger, env_file, node_normaliser=None, defined_fields=None):
         self.dataset = dataset
         self.logger = logger
-        self.graph = Graph(password=env("GRAPH_PASSWORD"))
         self.node_normaliser = node_normaliser
         self.defined_fields = defined_fields
+        self.env_file = env_file
         self.nodes_properties =[]
-
+        env = Env()
+        env.read_env(self.env_file)
+        self.graph = Graph(password=env("GRAPH_PASSWORD"))
         self.node_matcher = NodeMatcher(self.graph)
 
     def start_end_handler(self, row_dict):   
@@ -395,7 +393,7 @@ class RelDB2KGraphEdgeBuilder:
                 start_node = end_node = ''
               
         return start_node, end_node
-
+    # This function is for populating a table as graph edge.
     def edge_handler(self, row_dict):
         targeted_nodes = []
         for key, value in row_dict.items():
@@ -436,24 +434,24 @@ class RelDB2KGraphEdgeBuilder:
                             rel = Relationship(start_node, table.table_name, end_node)
                             tx.create(rel)
                             print("rel:", rel)
+                        else:
+                            start_nodes, end_nodes = self.edge_handler(row_dict)
+                            if len(start_nodes)==1 and len(end_nodes)==1:
+                                rel = Relationship(start_nodes[0]['n'], rel_type, end_nodes[0]['n'], **row_dict) # class py2neo.data.Relationship(start_node, type, end_node, **properties)
+                                tx.create(rel)
+                            
                 elif table.table_name.startswith('rel'):
                     rel_type = table.table_name.split('rel_')[1]
                     print(rel_type)
                     if len(table.rows)==0:
                         continue
                     for i, row_dict in enumerate(table.rows):
-                        print(row_dict)
-                        start_node, end_node = self.start_end_handler(row_dict)
-                        if bool(start_node) and bool(end_node):      
-                            rel = Relationship(start_node, rel_type, end_node)
+                       
+                        start_nodes, end_nodes = self.edge_handler(row_dict)
+                        if len(start_nodes)==1 and len(end_nodes)==1:
+                            rel = Relationship(start_nodes[0]['n'], rel_type, end_nodes[0]['n'], **row_dict) # class py2neo.data.Relationship(start_node, type, end_node, **properties)
                             tx.create(rel)
-                            print("rel:", rel)
-                        else:
-                            start_nodes, end_nodes = self.edge_handler(row_dict)
-                            if len(start_nodes)==1 and len(end_nodes)==1:
-                                rel = Relationship(start_nodes[0]['n'], rel_type, end_nodes[0]['n'])
-                                tx.create(rel)
-                                print("heyyy rel:", rel)
+                            
 
                             
                                 
@@ -475,22 +473,26 @@ class RelDB2KGraphEdgeBuilder:
     
 def main():
     import glob
+    import argparse
+    import configparser
+    config = configparser.ConfigParser()
+    config.read('../config.ini')
+    filenames = config["FILENAMES"]
 
-    neo4j_folder = '/Users/ziyuzhao/Desktop/neo4j-community-4.4.11/import'
-    neo4j_folder_spider = os.path.join(neo4j_folder, 'spider') 
+    neo4j_import = filenames['neo4j_import_folder']
+    env_file = filenames['env_file']
+
+
+    neo4j_folder_spider = os.path.join(neo4j_import, 'spider') 
     spider_dbs= glob.glob(neo4j_folder_spider + '/**/*.csv') 
-
-    spider_dbs = glob.glob('/home/ziyu/Desktop/neo4j-community-4.3.3/import/spider/**/*.csv') 
-
 
     dataset = RelDBDataset(spider_dbs)
 
-
     graph_node_builder = RelDB2KGraphNodeBuilder(
-            dataset).build_graph()
+            dataset, env_file).build_graph()
 
     graph_edge_builder = RelDB2KGraphEdgeBuilder(
-            dataset, Logger()).build_graph()
+            dataset, Logger(), env_file).build_graph()
 
 if __name__ == "__main__":
     Fire(main)

@@ -6,9 +6,11 @@ here = Path(__file__).parent
 
 class CyqueryStatmentParser:
 	def __init__(self, 
-				queries_file, 
+				queries, 
+				queries_type,
 				lexer):
-		self.queries = queries_file
+		self.queries = queries
+		self.queries_type = queries_type
 		self.lexer = lexer
 
 	def set_key(self, 
@@ -20,7 +22,8 @@ class CyqueryStatmentParser:
 		elif type(dictionary[key]) == list and value not in dictionary[key]:
 			dictionary[key].append(value)
 		elif value not in dictionary[key]:
-		 	dictionary[key] = [dictionary[key], value]
+			dictionary[key] = [dictionary[key], value]
+
 		return dictionary
 			
 	def save2file(self, ls_name, ls, mode):
@@ -41,9 +44,12 @@ class CyqueryStatmentParser:
 
 
 	def get_tokenization(self):
-		with open(self.queries, 'r') as f:
-			queries = f.read()
-		queries = list(queries.split(';'))
+		if self.queries_type=='file':
+			with open(self.queries, 'r') as f:
+				queries = f.read()
+			queries = list(queries.split(';'))
+		elif self.queries_type=='statement':
+			queries=[self.queries]
 		print("queries:", queries, type(queries))
 		token_types = []
 		tokenized_statment = {}
