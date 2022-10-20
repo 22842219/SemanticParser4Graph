@@ -1,5 +1,7 @@
 
 from __future__ import with_statement
+from ast import arg
+from itertools import count
 import os, sys
 import string
 import re
@@ -70,10 +72,10 @@ def add_parentheses(x):
 # This function deals with nested query.
 # Operators are part of graph patterns.
 def Operator(op, parentheses=False):
-	op = ' {0} '.format(op)
+	op = '{0}'.format(op)
 	def func(self, json):
 		arguments = []
-		# print("operator:", json)
+		print("operator:", json)
 		if isinstance(json, string_types):
 			for tb, tfms in self.db_lookup_dict.items():	
 				fms = [fm.lower() for fm in tfms]
@@ -88,24 +90,33 @@ def Operator(op, parentheses=False):
 				if isinstance(v, dict) and utils.is_subquery(v):
 					arguments.append(add_parentheses(self.dispatch(v)))
 				else:
-					v_=self.dispatch(v)
-					if re.fullmatch(number_pattern, v_):
-						arguments.append(v_)
-					elif isinstance(v_, string_types):
-						arguments.append(v_)
+					res =self.dispatch(v)
+					print(v, res)
+					if re.fullmatch(number_pattern, res):
+						arguments.append(res)
+
+					elif isinstance(res, string_types) and isinstance(v, dict):
+						arguments.append(res)
 					else:
-						if '.' in v_:
-							table_key, v_ = v_.split('.')
+						is_alias = False
+						if '.' in res:
+							table_key, fm = res.split('.')
+							is_alias = True
 						for tb, tfms in self.db_lookup_dict.items():	
 							fms = [fm.lower() for fm in tfms]
-							if v_.lower() in fms:
-								normalized_field  = self.normalize_field_mention(v_, tb, tfms)
-								arguments.append(normalized_field)
-		
+							if is_alias:
+								check = fm
+							else:
+								check = res
+							if check.lower() in fms:
+								normalized_field  = self.normalize_field_mention(res, tb, tfms)
+								if normalized_field not in arguments:
+									arguments.append(normalized_field)
+
 		out = op.join(arguments)
 		if parentheses:
 			out = add_parentheses(out)
-		print("operator out:", out)	
+		print("operator out:", op, out)	
 		return out
 	return func
 
@@ -157,9 +168,10 @@ class Formatter(SchemaGroundedTraverser):
 	_eq = Operator('=')
 	_or = Operator('OR')
 	_and = Operator('AND')
-	_max = Operator("max")
-	_min = Operator("min")
-	_avg = Operator("avg")
+	_max = Operator('max')
+	_min = Operator('min')
+	_avg = Operator('avg')
+	# _count = Operator('count')
 
 	def __init__(self, db_lookup_dict: dict, in_execution_order = True, verbose = False):
 		super().__init__(verbose)
@@ -285,6 +297,7 @@ class Formatter(SchemaGroundedTraverser):
 	
 
 	def dispatch(self, json,  is_table = False):
+
 		if isinstance(json, list):
 			return self.delimited_list(json)
 		if isinstance(json, dict):
@@ -320,12 +333,13 @@ class Formatter(SchemaGroundedTraverser):
 	def value(self, json):
 		print("*************debug value************")
 		value = self.dispatch(json['value'], is_table=('is_table' in json))
-		print(value)
+		# print("value", value)
 		if 'name' in json:
 			return '{}.{}'.format(json['name'], value)
-		parts = [value]
-		print("value", parts)
-		return ' '.join(parts)
+		if not isinstance(value, list):
+			value = [value]
+		# print("parts", value)
+		return ' '.join(value)
 
 
 	def delimited_list(self, json):
@@ -358,6 +372,8 @@ class Formatter(SchemaGroundedTraverser):
 				for join_key in sql_join_keywords:
 					if join_key in every:
 						is_join = True	
+				print("every:", every)
+				print(self.dispatch(every,  is_table=isinstance(every, text)))
 				parts.append(self.dispatch(every,  is_table=isinstance(every, text)))
 				
 
@@ -373,7 +389,7 @@ class Formatter(SchemaGroundedTraverser):
 						self.logger.error("There is no alias.")
 						
 				reformat_parts = []		
-				for every in parts:
+				for i, every in enumerate(parts):
 					alias, joint_table= every.split('.')
 					check_rel_table = 'rel_{}'.format(joint_table)
 					lookup_dict = [f.lower() for f in list(self.db_lookup_dict.keys())]
@@ -386,9 +402,10 @@ class Formatter(SchemaGroundedTraverser):
 						pattern = '-[{}:{}]->'.format(alias, joint_table.capitalize())
 						is_rel_table = False
 						reformat_parts.append(pattern)
-
-						node_pattern = '()'
-						reformat_parts.append(node_pattern)
+						if i==len(parts)-1:
+							# case (T1:)-[T2:]->()
+							node_pattern = '()'
+							reformat_parts.append(node_pattern)
 					else:
 						# graph node pattern
 						pattern = '({}:{})'.format(alias, joint_table.capitalize())				
@@ -396,6 +413,9 @@ class Formatter(SchemaGroundedTraverser):
 
 						edge_pattern = '-[]->'
 						reformat_parts.append(edge_pattern)
+						if i == len(parts)-1:
+							# case (T1:)-[]->(T2)
+							reformat_parts.pop()
 
 			else:
 				if is_rel_table:
@@ -415,7 +435,7 @@ class Formatter(SchemaGroundedTraverser):
 			rest = joiner.join(reformat_parts)
 			print("*******reformat_parts********")
 			# print(reformat_parts)
-			print(rest)
+			# print(rest)
 			graph_pattern = 'MATCH {}'.format(rest)
 
 			
@@ -424,7 +444,7 @@ class Formatter(SchemaGroundedTraverser):
 	def where(self, json):
 		if 'where' in json:	
 			print("**** where****")
-			print(json['where'])
+			# print(json['where'])
 			if isNested(json):
 				nested_pattern = self.dispatch(json['where'])
 				return nested_pattern				
@@ -462,15 +482,30 @@ class Formatter(SchemaGroundedTraverser):
 		print("*********debug having**********")
 		if 'having' in json:	
 			with_parts =[]
-			having_agg = [item.strip('"') for item in self.dispatch(json['having']).split()]
-			# print("having_agg", having_agg)
-			agg_alias = having_agg[0].split('(')[0]
-			agg_op = having_agg[0]
-			agg_content = having_agg[1:]
+			res = self.dispatch(json['having'])
+			print("having:", res)
+			# TODO: need more test
+			if 'count(*)' in res:
+				having_agg = res.split('count(*)')
+				agg_op = 'count(*)'
+				print("having_agg", having_agg)
+				agg_alias = 'count'
+				agg_content = having_agg[1:]
+				print(agg_content)
+
+			else:
+				having_agg = [item.strip('"') for item in res.split()]
+				print("having_agg", having_agg)
+				agg_alias = having_agg[0].split('(')[0]
+				agg_op = having_agg[0]
+				agg_content = having_agg[1:]
+
+			print("zzy:", agg_alias, agg_content)
+
 			with_as = '{} AS {}'.format(agg_op, agg_alias)	
 			with_parts.append(with_as)
 			with_where = 'WHERE {} {}'.format(agg_alias, ' '.join(agg_content))	
-			# with_where = [agg_content]	
+			
 			return with_parts, with_where
 
 	def groupby(self, json):
@@ -501,9 +536,10 @@ class Formatter(SchemaGroundedTraverser):
 		for select in ['select', 'select_distinct']:
 			if select  in json:  
 				agg_pattern = r'^\bavg\b|\bmax\b|\bmin\b|\bcount\b.*'
+
 				select_fields = self.dispatch(json[select]).split(',')
 				print("select_fields:", select_fields)
-				print(json[select])
+				
 
 				# get tables information, in order to normalise fields appearing in select clause.
 				if 'from' in json:
@@ -533,48 +569,79 @@ class Formatter(SchemaGroundedTraverser):
 							alias_lookup.update({table_key:fm})
 						else:
 							alias_lookup.update({every[0]:every})
-				print("alias_lookup in select:", alias_lookup)
+				
+				# print("alias_lookup in select:", alias_lookup)
 				
 				return_nodes = []
 		
 				for select_field in select_fields:
-					# is_agg = re.match(agg_pattern, select_field)
-					print(select_field)
-					if select_field.startswith('distinct'):
-						select_field = select_field.strip('distinct').strip('()')
-						return_node = ' DISTINCT '
-					if '.' in select_field:
-						table_key, fm = select_field.split('.')
-						table = alias_lookup[table_key]
-					normalized_field = self.normalize_field_mention(select_field, table, self.db_lookup_dict[table])		
-				
+					print("select_field", select_field)
+					is_agg = re.match(agg_pattern, select_field)
+					is_distinct = False
+					if is_agg:
+						# TODO: NEED MORE TEST
+						fms = select_field.split()
+						if 'distinct' in fms:
+							with_parts = []
+							agg_op  = ''
+							return_node = ''
+							is_with = False
+							for fm in fms:	
+								if re.match(agg_pattern, fm):
+									agg_op = fm
+								elif fm =='distinct':
+									is_with = True
+								else:
+									normalized_field = self.normalize_field_mention(fm, table, self.db_lookup_dict[table])		
+									with_as = '{} AS {}'.format(normalized_field, fm)
+									with_parts.append(with_as)
+									return_node = '{}({})'.format(agg_op, fm)
+							if is_with:
+								with_statement = 'WITH DISTINCT {}'.format(', '.join(with_parts))
+								final_return.append(with_statement)
+							return_nodes.append(return_node)
+						else:
 
-					if 'having' in json:
-						with_parts, with_where = self.having(json)
-						print("with_clause", with_parts, with_where )
-						# Note that WITH affects variables in scope. 
-						# Any variables not included in the WITH clause are not carried over to the rest of the query. 
-						# The wildcard * can be used to include all variables that are currently in scope.
-						# Hence, we need to circuled the fields in select clause, in order to return them. 		
-						if '.' in normalized_field:
-							table_key, fm = normalized_field.split('.')
-							alias_fm = '{} AS {}'.format(normalized_field, fm)
-							# return new fm
-							normalized_field = fm
-							with_parts.append(alias_fm) 
-						with_statement = 'WITH {}'.format(', '.join(with_parts))
-						# print(with_statement)
-						# print(with_where)
-						final_return.append(with_statement)
-						final_return.append(with_where)
+							return_nodes.append(select_field)
+					else:
+						if select_field.startswith('distinct'):
+							select_field = select_field.split()[1]
+							is_distinct = True
+						if '.' in select_field:
+							table_key, fm = select_field.split('.')
+							table = alias_lookup[table_key]
+
+						normalized_field = self.normalize_field_mention(select_field, table, self.db_lookup_dict[table])		
+						if is_distinct:
+							normalized_field = 'DISTINCT {}'.format(normalized_field)
 						
-					if 'groupby' in json:
-						# TODO
-						groupby_statement = 'GROUP BY {}'.format(self.groupby(json)	)
-	
-					return_nodes.append(normalized_field)
+						if 'having' in json:
+							with_parts, with_where = self.having(json)
+							print("with_clause", with_parts, with_where )
+							# Note that WITH affects variables in scope. 
+							# Any variables not included in the WITH clause are not carried over to the rest of the query. 
+							# The wildcard * can be used to include all variables that are currently in scope.
+							# Hence, we need to circuled the fields in select clause, in order to return them. 		
+							if '.' in normalized_field:
+								table_key, fm = normalized_field.split('.')
+								alias_fm = '{} AS {}'.format(normalized_field, fm)
+								# return new fm
+								normalized_field = fm
+								with_parts.append(alias_fm) 
+							with_statement = 'WITH {}'.format(', '.join(with_parts))
+							# print(with_statement)
+							# print(with_where)
+							final_return.append(with_statement)
+							final_return.append(with_where)
+							
+						if 'groupby' in json:
+							# TODO
+							groupby_statement = 'GROUP BY {}'.format(self.groupby(json)	)
 
-				print("return_nodes", return_nodes)
+				
+						return_nodes.append(normalized_field)
+
+				# print("return_nodes", return_nodes)
 					
 					
 				
@@ -584,9 +651,9 @@ class Formatter(SchemaGroundedTraverser):
 				else:
 					return_statement = 'RETURN {}'.format(','.join(return_nodes))
 				
-				print(return_statement)
+				# print(return_statement)
 				final_return.append(return_statement)
-				print(final_return)
+				# print(final_return)
 
 				return '\n'.join(final_return)
 				
@@ -622,7 +689,7 @@ class Formatter(SchemaGroundedTraverser):
 					modifiers = [o.get('sort', '').upper()for o in orderby]
 					reformat_tb_fields = self._reformat(tables, fields, mode = 'reformat_tb_fields')		
 					print("*************order by***********")
-					print(reformat_tb_fields)
+					# print(reformat_tb_fields)
 					return 'ORDER BY {}'.format(','.join('{0} {1}'.format(reformat_tb_fields[idx], modifiers[idx]).strip()\
 						for idx,_ in enumerate(zip(reformat_tb_fields, modifiers))))
 	
@@ -679,13 +746,27 @@ class Formatter(SchemaGroundedTraverser):
 			return self.dispatch(value)
 
 		attr = '_{0}'.format(key)
-	
+
+		print("op:", key, value, attr)
+		print(json)
+
 		if hasattr(self, attr) and not key.startswith('_'):
 			method = getattr(self, attr)
-			return method(value)			
-
-		if isinstance(value, dict) and len(value) == 0:
-			return key + '()'
+			return method(value)	
+				
+		if isinstance(value, dict):
+			# parts = []
+			# parts.append(key)
+			# if 'distinct' in value:
+			# 	parts.append('distinct')
+			# 	value = value['distinct']
+			# attr = self.dispatch(value)
+			# parts.append(attr)
+			# print("op parts:", parts)
+			# return ' '.join(parts)
+		
+			return '{} {}'.format(key, self.dispatch(value))	
+		
 		else:
 			if key in ['DISTINCT', 'ALL']:
 				return '{} {}'.format(key, self.dispatch(value))		
@@ -809,7 +890,7 @@ def main():
 	for split in ['train', 'dev']:
    
 		json_file = os.path.join(spider_json_folder, '{}.json'.format(split))
-		print(json_file)
+		# print(json_file)
 		f = open(json_file)
 		data = json.load(f)
 
@@ -826,8 +907,9 @@ def main():
 			question = every['question']
 			sql_query = every['query']		
 
-			if db_name == 'department_management' and i==10:    
+			if db_name == 'department_management':    
 				print("------------------------")
+				print(i)
 				print("databse:", db_name)
 				print("question:", question)
 				print("sql_query:", sql_query)
