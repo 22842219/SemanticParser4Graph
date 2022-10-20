@@ -23,21 +23,21 @@ The main requirements are:
 
 We recommend using virtual environments to run this code:
 
-```
-    python -m virtualenv venv
-    venv\Scripts\activate
+```shell script
+python -m virtualenv venv
+venv\Scripts\activate
 ```
 
 Python packages can be installed via:
 
-```
-    git clone https://github.com/22842219/SemanticParser4Graph.git
+```shell script
+   git clone https://github.com/22842219/SemanticParser4Graph.git
 
-    pip install torch torchvision
+   pip install torch torchvision
 
-    python3 -m pip install -r requirements.txt
-    or 
-    pip install -r requirements.txt
+   python3 -m pip install -r requirements.txt
+   or 
+   pip install -r requirements.txt
 ```
 
 ### Download Pre-process Data
@@ -55,7 +55,7 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 
    The application that will be run, are determined in the `config.ini` file:
 
-   ```
+   ```shell script
    [OPTIONS]
    run_triple_generation=True
 
@@ -76,15 +76,15 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 
    Meanwhile, please config Neo4j export path.
 
-   ```
+   ``` shell script
    cd application/ConverDB.py
+
    ```
 
    Set `_neo4j_export_path = '<path-to->/neo4j-community-4.4.11/import'` in `Class ConvertDB`.
 2. Configure `application/conf/db.ini` file
 
-   ```
-   [sqlite3]
+   ```[sqlite3]
    spider_path = <path-to->/SemanticParser4Graph/application/data/spider/database
    database = musical
 
@@ -97,13 +97,13 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    ```
 3. Running Neo4j
 
-   ```
+   ```shell script
    cd <path-to-neo4j-bin>
    ./neo4j start
    ```
 4. Constructing a property graph database from relational database
 
-   ```
+   ```shell script
    cd application/rel_db2kg/data_processor
    python data_processor_spider.py --dbProcessing
 
@@ -113,7 +113,7 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    ```
 5. Running interface
 
-   ```
+   ```shell script
    cd application
    python interface --web_ui
    ```
@@ -122,7 +122,7 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 
 #### Spider
 
-```
+```shell script
 ./experiment-text2cypher.sh configs/spider.sh --train 0
 ```
 
@@ -132,7 +132,7 @@ TODO
 
 #### Spider
 
-```
+```shell script
 ./experiment-text2cypher.sh configs/spider.sh --inference 0
 ```
 
