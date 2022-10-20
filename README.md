@@ -10,7 +10,6 @@ This project implements
 
 <!-- The parser can be adapted to learn mappings from text to other structured query languages such as [SOQL](https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm) by modifying the formal langauge pre-processing and post-processing modules. -->
 
-
 ## Quick Start
 
 ### Requirements
@@ -23,10 +22,12 @@ The main requirements are:
 ### Install Dependencies
 
 We recommend using virtual environments to run this code:
+
 ```
     python -m virtualenv venv
     venv\Scripts\activate
-```  
+```
+
 Python packages can be installed via:
 
 ```
@@ -43,41 +44,79 @@ Python packages can be installed via:
 
 #### Spider
 
-Download the [pre-processed data release](https://uniwa-my.sharepoint.com/:f:/r/personal/22842219_student_uwa_edu_au/Documents/preprocessed_spider?csf=1&web=1&e=Sh1Ep2), and unzip the folder. 
+Download the [pre-processed data release](https://uniwa-my.sharepoint.com/:f:/r/personal/22842219_student_uwa_edu_au/Documents/preprocessed_spider?csf=1&web=1&e=Sh1Ep2), and unzip the folder.
 put the data into `application/data/spider`.
 
 Note: If you would like to preprocess Spider dataset by yourself, please refer to [salesforce TabularSemanticParsing](https://github.com/salesforce/TabularSemanticParsing)
 
-
 ### Set up Environment
 
-1. Setting the config.ini file
-```
-cd application
+1. Setting the `application/config.ini` file
 
-```
-2. Running Neo4j
-```
-cd <path-to-neo4j-bin>
-./neo4j start
-```
-3. Constructing a property graph database from relational database
-```
-cd application/rel_db2kg/data_processor
-python data_processor_spider.py --dbProcessing
+   The application that will be run, are determined in the `config.ini` file:
 
-cd application/rel_db2kg
-python triple_generation.py
+   ```
+   [OPTIONS]
+   run_triple_generation=True
 
-```
+   [FILENAMES]
+   raw_folder = <path-to->/SemanticParser4Graph/application/data/
 
-4. Running interface
+   sp_folder = <path-to->/SemanticParser4Graph/semantic_parser/data
 
-```
-cd application
-python interface --web_ui
-```
+   spider_parsed_json = <path-to->/SemanticParser4Graph/application/data/spider/spider.parsed.json
 
+   neo4j_import_folder  = <path-to->/neo4j-community-4.4.11/import>
+   neo4j_uri = http://localhost:7474/browser/
+   neo4j_user = neo4j
+   neo4j_password = <your-password>
+
+   env_file = <path-to->/SemanticParser4Graph/application/.env
+   ```
+
+   Meanwhile, please config Neo4j export path.
+
+   ```
+   cd application/ConverDB.py
+   ```
+
+   Set `_neo4j_export_path = '<path-to->/neo4j-community-4.4.11/import'` in `Class ConvertDB`.
+2. Configure `application/conf/db.ini` file
+
+   ```
+   [sqlite3]
+   spider_path = <path-to->/SemanticParser4Graph/application/data/spider/database
+   database = musical
+
+   [neo4j]
+   port = 7687
+   host = localhost
+   username = neo4j
+   password = <your-password>
+
+   ```
+3. Running Neo4j
+
+   ```
+   cd <path-to-neo4j-bin>
+   ./neo4j start
+   ```
+4. Constructing a property graph database from relational database
+
+   ```
+   cd application/rel_db2kg/data_processor
+   python data_processor_spider.py --dbProcessing
+
+   cd application/rel_db2kg
+   python triple_generation.py
+
+   ```
+5. Running interface
+
+   ```
+   cd application
+   python interface --web_ui
+   ```
 
 ## Baseline
 
@@ -89,7 +128,7 @@ python interface --web_ui
 
 ### Inference
 
-TODO 
+TODO
 
 #### Spider
 
@@ -97,10 +136,10 @@ TODO
 ./experiment-text2cypher.sh configs/spider.sh --inference 0
 ```
 
-
 ## Model
 
 TODO
+
 <!-- ### Train
 
 ### Inference -->
