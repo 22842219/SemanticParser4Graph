@@ -23,14 +23,14 @@ The main requirements are:
 
 We recommend using virtual environments to run this code:
 
-```shell script
+```shell
 python -m virtualenv venv
 venv\Scripts\activate
 ```
 
 Python packages can be installed via:
 
-```shell script
+```shell
    git clone https://github.com/22842219/SemanticParser4Graph.git
 
    pip install torch torchvision
@@ -51,11 +51,17 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 
 ### Set up Environment
 
-1. Setting the `application/config.ini` file
+1. Setting the `application/config.ini` file.
 
-   The application that will be run, are determined in the `config.ini` file:
+   - Create an `application/.env` file.
 
-   ```shell script
+   ```shell
+   GRAPH_PASSWORD=<your-neo4j-password>
+   ```
+
+   - The application that will be run, are determined in the `config.ini` file:
+
+   ```shell
    [OPTIONS]
    run_triple_generation=True
 
@@ -69,20 +75,20 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    neo4j_import_folder  = <path-to->/neo4j-community-4.4.11/import>
    neo4j_uri = http://localhost:7474/browser/
    neo4j_user = neo4j
-   neo4j_password = <your-password>
+   neo4j_password = <your-neo4j-password>
 
    env_file = <path-to->/SemanticParser4Graph/application/.env
    ```
 
-   Meanwhile, please config Neo4j export path.
+   - Meanwhile, please config Neo4j export path.
 
-   ``` shell script
+   ```shell
    cd application/ConverDB.py
 
    ```
 
    Set `_neo4j_export_path = '<path-to->/neo4j-community-4.4.11/import'` in `Class ConvertDB`.
-2. Configure `application/conf/db.ini` file
+1. Configure `application/conf/db.ini` file
 
    ```[sqlite3]
    spider_path = <path-to->/SemanticParser4Graph/application/data/spider/database
@@ -92,18 +98,18 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    port = 7687
    host = localhost
    username = neo4j
-   password = <your-password>
+   password = <your-neo4j-password>
 
    ```
-3. Running Neo4j
+1. Running Neo4j
 
-   ```shell script
+   ```shell
    cd <path-to-neo4j-bin>
    ./neo4j start
    ```
-4. Constructing a property graph database from relational database
+1. Constructing a property graph database from relational database
 
-   ```shell script
+   ```shell
    cd application/rel_db2kg/data_processor
    python data_processor_spider.py --dbProcessing
 
@@ -111,9 +117,9 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    python triple_generation.py
 
    ```
-5. Running interface
+1. Running interface
 
-   ```shell script
+   ```shell
    cd application
    python interface --web_ui
    ```
@@ -122,7 +128,7 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 
 #### Spider
 
-```shell script
+```shell
 ./experiment-text2cypher.sh configs/spider.sh --train 0
 ```
 
@@ -132,7 +138,7 @@ TODO
 
 #### Spider
 
-```shell script
+```shell
 ./experiment-text2cypher.sh configs/spider.sh --inference 0
 ```
 
