@@ -11,6 +11,7 @@ from flask import g
 from moz_sql_parser import parse
 import json
 import configparser
+from pandas import isna
 from psycopg2 import OperationalError
 
 from sqlalchemy import table
@@ -28,7 +29,6 @@ sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR)))
 
 import utils as utils
 from traverser import SchemaGroundedTraverser
-from src.data_processor.schema_graph import SchemaGraph
 from sql_keywords import sql_join_keywords
 from utils import Logger
 
@@ -43,7 +43,15 @@ from utils import Logger
 '''
 
 alias_pattern = re.compile(r'(T[1-9]|[a-z])\.[a-zA-Z]\w*')	
-number_pattern =  re.compile('\d+((\.\d+)|(,\d+))?')
+number_pattern =  re.compile('\d+((\:\d+)|(,\d+))?')
+agg_pattern = re.compile(r'^\bavg\b|\bmax\b|\bmin\b|\bcount\b.*')
+
+# both graph node and edge pattern. 
+# Note: when we re-tokenize nested query, we split sub-graph-path-pattern using '-', 
+# hence, it might start with '>'. Please refer to nested query example. 
+graph_node_regx = re.compile(r'\(([a-z]|T[1-9])\:[a-zA-Z].*\)') 
+graph_edge_regx = re.compile(r'\[([a-z]|T[1-9])\:[a-zA-Z].*\]') 
+
 
 def should_quote(identifier):
     """
@@ -93,27 +101,32 @@ def Operator(op, parentheses=False):
 				else:
 					res =self.dispatch(v)
 					print(v, res)
+
 					if re.fullmatch(number_pattern, res):
 						arguments.append(res)
 
 					elif isinstance(res, string_types) and isinstance(v, dict):
 						arguments.append(res)
 					else:
-						is_alias = False
+			
 						if '.' in res:
 							table_key, fm = res.split('.')
-							is_alias = True
-						tb = self.table_alias_lookup[table_key]
-						tfms = self.db_lookup_dict[tb]
-						fms = [fm.lower() for fm in tfms]
-						if is_alias:
-							check = fm
+
+							tb = self.table_alias_lookup[table_key]
+							tfms = self.db_lookup_dict[tb]
+							fms = [fm.lower() for fm in tfms]
+						
+							if fm.lower() in fms:
+								normalized_field  = self.normalize_field_mention(res, tb, tfms)
+								if normalized_field not in arguments:
+									arguments.append(normalized_field)
 						else:
-							check = res
-						if check.lower() in fms:
-							normalized_field  = self.normalize_field_mention(res, tb, tfms)
-							if normalized_field not in arguments:
-								arguments.append(normalized_field)
+							for tb, tfms in self.db_lookup_dict.items():	
+								fms = [fm.lower() for fm in tfms]
+								if res.lower() in fms:
+									normalized_field  = self.normalize_field_mention(res, tb, tfms)
+									
+									arguments.append(normalized_field)
 
 		out = op.join(arguments)
 		if parentheses:
@@ -175,8 +188,8 @@ class Formatter(SchemaGroundedTraverser):
 	_avg = Operator('avg')
 	# _count = Operator('count')
 
-	def __init__(self, schema, db_lookup_dict: dict, in_execution_order = True, verbose = False):
-		super().__init__(schema,  verbose)
+	def __init__(self, db_lookup_dict: dict, in_execution_order = True, verbose = False):
+		super().__init__( verbose)
 
 		'''
 		- Set in_execution_order being true to fit the order of cypher query. 
@@ -196,7 +209,7 @@ class Formatter(SchemaGroundedTraverser):
 
 
 		'''
-		self.schema = schema
+		# self.schema = schema
 		self.in_execution_order = in_execution_order
 		self.db_lookup_dict = db_lookup_dict
 		self.logger =Logger()
@@ -227,17 +240,43 @@ class Formatter(SchemaGroundedTraverser):
 						pattern.append(part)
 						if clause == 'where' and utils.is_subquery(json):
 							sub_pattern = pattern.pop()	
-							# print("where in nesedted:", json)
-							# print("sub-pattern:", sub_pattern)
-							# print("update pattern :", pattern)
+							print("where in nesedted:", json)
+							print("sub-pattern:", sub_pattern)
+							print("update pattern :", pattern)
+
 							if 'NOT' in sub_pattern:
-								outer_match = pattern.pop()						
-								to_node = outer_match.split()[1]
-								to_node_label = to_node.strip('()').split(':')[-1].upper()
-								sub_pattern = '{}-[:HAS_{}]->{}'.format(sub_pattern,to_node_label, to_node )
-								pattern = [outer_match, sub_pattern]
+								outer_match = pattern.pop()	
+								outer_match_parts = [every.strip() for every in outer_match.split('MATCH') if every]
+								sub_patterns_parts = [every.strip() for every in sub_pattern.split('NOT') if every]
+								print("outer_match_parts:", outer_match_parts)
+								print("sub_patterns_parts:", sub_patterns_parts)
+								all_parts = outer_match_parts + sub_patterns_parts
+								print(all_parts)
+								conditioned_parts  =[]
+								for i, every in enumerate(all_parts):			
+									print(every)
+									if re.search(graph_node_regx, every):
+										node  = re.search(graph_node_regx, every).group()
+										conditioned_parts.append(node)
+									elif re.search(graph_edge_regx, every):
+										edge =re.search(graph_edge_regx, every).group()
+										# check if the alias of edges are mentioned in the outer match statement.
+										check_pattern = edge[:3]
+										if check_pattern not in outer_match:				
+											edge = edge.replace(check_pattern, '[:')
+										if i==0:
+											pattern =  '()-{}-'.format(edge)
+										if i==len(all_parts)-1:
+											pattern =  '-{}-()'.format(edge)
+										conditioned_parts.append(pattern)
+
+								print(conditioned_parts)
+								conditioned_match = 'WHERE NOT {}'.format(''.join(conditioned_parts))
+								
+								pattern = [outer_match, conditioned_match]
 							elif 'IN' in sub_pattern:	
 								# 'IN' as a template flag, it would be removed during construction in order to genereate a valid Cypher query.
+								# TODO: need test
 								sub_pattern = sub_pattern.replace('IN','')							
 								outer_match = pattern.pop()						
 								to_node = outer_match.split()[1]
@@ -245,6 +284,7 @@ class Formatter(SchemaGroundedTraverser):
 								sub_pattern = '{}-[:HAS_{}]->{}'.format(sub_pattern,to_node_label, to_node )
 								pattern = [outer_match, sub_pattern]
 							else:
+								# TODO: need test
 								outer_match = pattern.pop()						
 								inner_condition_var = sub_pattern[-1][:3]
 								sub_pattern = sub_pattern[-1].replace('RETURN', 'WITH')
@@ -317,6 +357,7 @@ class Formatter(SchemaGroundedTraverser):
 			elif 'query' in json:
 				# Nested query 'query'
 				nested_query = self.format(json['query'])
+				
 				if 'name' in json:
 					return '{0} AS {1}'.format(add_parentheses(nested_query), json['name'])
 				else:
@@ -388,7 +429,6 @@ class Formatter(SchemaGroundedTraverser):
 		is_rel_table = False
 
 		print("*******debgu from*******")
-
 		if 'from' in json:
 			from_ = json['from']
 			if isinstance(from_, dict):
@@ -410,7 +450,7 @@ class Formatter(SchemaGroundedTraverser):
 				for join_key in sql_join_keywords:
 					if join_key in every:
 						is_join = True	
-				print("every:", every)
+		
 				table_name = self.dispatch(every,  is_table=isinstance(every, text))
 				parts.append(table_name)
 				print("table_name", table_name)
@@ -423,74 +463,86 @@ class Formatter(SchemaGroundedTraverser):
 					self.table_alias_lookup.update({table_name[0]:table_name})
 				
 			if is_join:
-				# If is_rel_table=True, case: (T1:)-[T2:]->(T3:) or (T1:)-[T2:]->() or ()-[T1:]->(T2:)
-				# If is_rel_table=False, case: (T1:)-[]->(T2)
+				# If is_rel_table=True, case: (T1:)-[T2:]-(T3:) or (T1:)-[T2:]-() or ()-[T1:]-(T2:)
+				# If is_rel_table=False, case: (T1:)-[]-(T2)
 				reformat_parts = []		
 				for i, every in enumerate(parts):
 					alias, joint_table= every.split('.')
 					check_rel_table = 'rel_{}'.format(joint_table)
 					lookup_dict = [f.lower() for f in list(self.db_lookup_dict.keys())]
-
+				
 					if check_rel_table in lookup_dict:
 						is_rel_table=True	
+
 					if is_rel_table:
+
 						# graph edge pattern: 	
 						if reformat_parts:
 							reformat_parts.pop()					
 						if i==0:
 							# In case, edge is mentioned in the first place.
 							reformat_parts.append('()')
-							pattern = '<-[{}:{}]-'.format(alias, joint_table.capitalize())
-						else:
-							pattern = '-[{}:{}]->'.format(alias, joint_table.capitalize())
+						
+						pattern = '-[{}:{}]-'.format(alias, joint_table.capitalize())
+						
 						is_rel_table = False
 						reformat_parts.append(pattern)
+						
 						if i==len(parts)-1:
-							# Case: (T1:)-[T2:]->()
+							# Case: (T1:)-[T2:]-()
 							node_pattern = '()'
 							reformat_parts.append(node_pattern)
+						
+						
 					else:
 						# graph node pattern
 						pattern = '({}:{})'.format(alias, joint_table.capitalize())				
 						reformat_parts.append(pattern)
 
-						edge_pattern = '-[]->'
+						edge_pattern = '-[]-'
 						reformat_parts.append(edge_pattern)
 						if i == len(parts)-1:
-							# Case: (T1:)-[]->(T2)
+							# Case: (T1:)-[]-(T2)
 							reformat_parts.pop()
+
+			
 
 			else:
 				if is_rel_table:
 					for part in parts:
-						# case: MATCH ()-[r]->()
+						# case: MATCH ()-[r]-() instead of MATCH ()-[r]-()
 						rel_table = part.split('_')[1]
-						reformat_parts = '()-[{}:{}]->()'.format(rel_table[0], rel_table.capitalize())
+						reformat_parts = '()-[{}:{}]-()'.format(rel_table[0], rel_table.capitalize())
 		
 				else:
 					# TODO
 					reformat_parts = self._reformat(parts, [],  mode = 'reformat_tb_name' )	
 			
 			if is_rel_table and is_join:
-				joiner = '-[]->'
+				joiner = '-[]-'
 			else:
 				joiner = ''
+		
 			rest = joiner.join(reformat_parts)
-			print("*******reformat_parts********")
-			# print(reformat_parts)
-			# print(rest)
-			graph_pattern = 'MATCH {}'.format(rest)
-			
+	
+			graph_pattern = 'MATCH {}'.format(rest)		
 			return graph_pattern
 
 	def where(self, json):
 		if 'where' in json:	
 			print("**** where****")
-			
 			if isNested(json):
 				nested_pattern = self.dispatch(json['where'])
-				return nested_pattern				
+				return nested_pattern
+			elif 'between' in json['where']:
+				field, lower_bound, upper_bound = self.dispatch(json['where'])	
+				
+				if isinstance(json['from'], string_types):
+					table = json['from']
+					normalized_field= self.normalize_field_mention(field, table, self.db_lookup_dict[table] )
+					return 'WHERE {}<={}<={}'.format(lower_bound, normalized_field, upper_bound)
 			else:	
+		
 				return 'WHERE {}'.format(self.dispatch(json['where']))
 
 	def having(self, json):
@@ -506,7 +558,7 @@ class Formatter(SchemaGroundedTraverser):
 			- SQL query: SELECT T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID \
 				         GROUP BY T1.Musical_ID HAVING COUNT(*)  >=  3
 			- CYPHER query: 
-						MATCH (T1:Actor)-[:HAS_IN_MUSICAL]->(T2:Musical) 
+						MATCH (T1:Actor)-[:HAS_IN_MUSICAL]-(T2:Musical) 
 						WITH count(*) as cnt , T2.Name as Name
 						WHERE cnt >= 3 
 						RETURN Name 
@@ -515,7 +567,7 @@ class Formatter(SchemaGroundedTraverser):
 			- Question: How many acting statuses are there?
 			- SQL query:  SELECT count(DISTINCT temporary_acting) FROM management
 			- CYPHER query: 
-				MATCH ()-[m:Management]->()
+				MATCH ()-[m:Management]-()
 				with distinct m.temporary_acting as temporary_acting
 				RETURN count(temporary_acting)
 			'''
@@ -565,7 +617,6 @@ class Formatter(SchemaGroundedTraverser):
 		'''
 		print("***********debug groupby********")
 		if 'groupby' in json:
-			
 			return self.dispatch(json['groupby'])
 
 	def select(self, json):	
@@ -575,12 +626,10 @@ class Formatter(SchemaGroundedTraverser):
 		
 		for select in ['select', 'select_distinct']:
 			if select  in json:  
-				agg_pattern = r'^\bavg\b|\bmax\b|\bmin\b|\bcount\b.*'
 
 				select_fields = self.dispatch(json[select]).split(',')
 				print("select_fields:", select_fields)
-				
-
+	
 				# get tables information, in order to normalise fields appearing in select clause.
 				if 'from' in json:		
 					if isinstance(json['from'], string_types):
@@ -588,20 +637,21 @@ class Formatter(SchemaGroundedTraverser):
 				
 				return_nodes = []
 				with_parts = []
-				is_having = False
+		
+				is_with = False
+				is_where = False
 				is_with_distinct = False
+				is_distinct = False
+		
+
 				for i, select_field in enumerate(select_fields):
-					print("select_field", select_field)
-					is_agg = re.match(agg_pattern, select_field)
-					is_distinct = False
+					print("select_field:", select_field)
+				
+					if re.match(agg_pattern, select_field):
 
-					if '.' in select_field:
-						table_key, fm = select_field.split('.')
-						table = self.table_alias_lookup[table_key]
-
-					if is_agg:
 						# TODO: NEED MORE TEST
 						fms = select_field.split()
+		
 						if 'distinct' in fms:
 							agg_op  = ''
 							return_node = ''
@@ -614,31 +664,70 @@ class Formatter(SchemaGroundedTraverser):
 									normalized_field = self.normalize_field_mention(fm, table, self.db_lookup_dict[table])		
 									with_as = '{} AS {}'.format(normalized_field, fm)
 									with_parts.append(with_as)
-									return_node = '{}({})'.format(agg_op, fm)
-						
-									
+									return_node = '{}({})'.format(agg_op, fm)					
 							return_nodes.append(return_node)
+
+						elif 'having' in json and select_field == 'count(*)':
+							return_nodes.append("count")
 						else:
+					
 							return_nodes.append(select_field)
+					
 					else:
+						
 						if select_field.startswith('distinct'):
 							select_field = select_field.split()[1]
-							is_distinct = True
-					
+							is_distinct = True		
 
-						normalized_field = self.normalize_field_mention(select_field, table, self.db_lookup_dict[table])		
+						if '.' in select_field:
+							table_key, fm = select_field.split('.')
+							table = self.table_alias_lookup[table_key]
+
+
+						normalized_field = self.normalize_field_mention(select_field, table, self.db_lookup_dict[table])	
+						print("normalized_field:", normalized_field)
+						
 						if is_distinct:
 							normalized_field = 'DISTINCT {}'.format(normalized_field)
+							print("select distinct:", normalized_field)
+
+						if 'groupby' in json:
+							'''
+							For example:
+							- Question:  In which year were most departments established?
+							- SQL query:  SELECT creation FROM department GROUP BY creation ORDER BY count(*) DESC LIMIT 1
+							- Cypher query: 
+								MATCH (d:Department)
+								WITH count(d.Creation) AS count, d.Creation AS Creation
+								RETURN Creation
+								ORDER BY count  DESC
+								LIMIT 1
+							'''
+							# Setting is_with flag beging true for the final concatenation of with_statement. 
+							is_with = True
+							
+							groupby_fm =self.groupby(json)
+							normalized_grouby = self.normalize_field_mention(groupby_fm, table, self.db_lookup_dict[table])
+							if not 'having' in json:
+								normalized_grouby = 'count({}) AS count'.format(normalized_grouby)
+								with_parts.append(normalized_grouby)
 						
+							# rewrite select field. 
+							if '.' in normalized_field:
+								table_key, fm = normalized_field.split('.')
+								with_part = '{} AS {}'.format(normalized_field, fm)
+								with_parts.append(with_part)
+								normalized_field = fm
+			
 						if 'having' in json:
-							# Setting is_having flag beging true for the final concatenation of with_statement. 
-							is_having = True
+							# Setting is_with and is_where flags beging true for the final concatenation of with_statement. 
+							is_with = True
+							is_where = True
 
 							# Circle aggregation in having_statement. 
 							with_part, with_where = self.having(json)
 							if not set(with_parts)-(set(with_parts)-set(with_part)):
 								with_parts.extend(with_part)
-
 							# Note that WITH affects variables in scope. 
 							# Any variables not included in the WITH clause are not carried over to the rest of the query. 
 							# The wildcard * can be used to include all variables that are currently in scope.
@@ -648,27 +737,27 @@ class Formatter(SchemaGroundedTraverser):
 								alias_fm = '{} AS {}'.format(normalized_field, fm)
 								# return new fm
 								normalized_field = fm
-								with_parts.append(alias_fm) 			
+								with_parts.append(alias_fm) 	
 						
-						if 'groupby' in json:
-							# TODO
-							groupby_statement = 'GROUP BY {}'.format(self.groupby(json)	)
-							print("with_parts in select:", i, with_parts)
 						
 						return_nodes.append(normalized_field)
 
-				# print("return_nodes", return_nodes)
 					
-				if is_having:
-					with_statement = 'WITH {}'.format(', '.join(with_parts))
-					print(with_statement)
-					print(with_where)
+						
+				if is_with:
+					with_statement = 'WITH {}'.format(', '.join(set(with_parts)))
+					# print(with_statement)
 					final_return.append(with_statement)
-					final_return.append(with_where)
+
+					if is_where:
+						# print(with_where)
+						final_return.append(with_where)
 				
 				if is_with_distinct:
-					with_statement = 'WITH DISTINCT {}'.format(', '.join(with_parts))
+					with_statement = 'WITH DISTINCT {}'.format(', '.join(set(with_parts)))
 					final_return.append(with_statement)
+
+				print("return_nodes", return_nodes)
 					
 				if 'where' in json and 'list' in json['where'] or select == 'select_distinct':	
 					# list appears in intersect statement, so distinct is added.		
@@ -685,6 +774,7 @@ class Formatter(SchemaGroundedTraverser):
 
 	def orderby(self, json):
 		if 'orderby' in json:
+			print("**************debug orderby******")
 			orderby = json['orderby']
 			if isinstance(orderby, dict):
 				orderby = [orderby]
@@ -693,9 +783,6 @@ class Formatter(SchemaGroundedTraverser):
 			is_join = False
 			if 'from' in json:
 				from_ = json['from']
-
-				if isinstance(from_, dict):
-					raise NotImplementedError
 
 				if not isinstance(from_, list):
 						from_ = [from_]
@@ -706,15 +793,23 @@ class Formatter(SchemaGroundedTraverser):
 						if join_key in token:
 							is_join = True
 					tables.append(self.dispatch(token, is_table = isinstance(token, text)))
+
 				if is_join:				
 					return 'ORDER BY {0}'.format(
 						','.join(['{0} {1}'.format(self.dispatch(o), o.get('sort', '').upper()).strip() for o in orderby]))
 				else:
 					fields = [self.dispatch(o) for o in orderby]
 					modifiers = [o.get('sort', '').upper()for o in orderby]
+					
 					reformat_tb_fields = self._reformat(tables, fields, mode = 'reformat_tb_fields')		
-					print("*************order by***********")
-					# print(reformat_tb_fields)
+		
+					if 'groupby' in json:
+						for idx, reformat_tb_field in enumerate(reformat_tb_fields):
+							if reformat_tb_field=='count(*)':
+								reformat_tb_fields[idx] = 'count'
+							elif '.' in reformat_tb_field:
+								table_key, fm  = reformat_tb_field.split('.')
+								reformat_tb_fields[idx] = fm
 					return 'ORDER BY {}'.format(','.join('{0} {1}'.format(reformat_tb_fields[idx], modifiers[idx]).strip()\
 						for idx,_ in enumerate(zip(reformat_tb_fields, modifiers))))
 	
@@ -791,14 +886,14 @@ class Formatter(SchemaGroundedTraverser):
 		
 			|   SQL   | Mapping |  CYPHER 
 			---------------------------------------------------------------------------------------------- 
-			|'in' |   -->   | where ()-[]->()  |
+			|'in' |   -->   | where ()-[]-()  |
 			
 			For example:
 				- Question: List the name of musicals that do have actors.
 				- SQL query: SELECT Name FROM musical WHERE Musical_ID IN (SELECT Musical_ID FROM actor)
 				- Cypher query: 
 						MATCH (m:Musical)
-						where (:Actor)-[:HAS_MUSICAL]->(m)
+						where (:Actor)-[:HAS_MUSICAL]-(m)
 						RETURN m.Name
 		Note: 'IN' in the return working as an indentifier for the reconstruction process in function query().
 		'''
@@ -814,20 +909,32 @@ class Formatter(SchemaGroundedTraverser):
 		
 			|   SQL   | Mapping |  CYPHER 
 			---------------------------------------------------------------------------------------------- 
-			|'not in' |   -->   | where NOT ()-[]->()  |
+			|'not in' |   -->   | where NOT ()-[]-()  |
 			
-			For example:
-				- Question: List the name of musicals that do not have actors.
-				- SQL query: SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)
+			For example:	
+				- relational databse: department_management
+				- Question:  How many departments are led by heads who are not mentioned?
+				- SQL query: SELECT count(*) FROM department WHERE department_id NOT IN (SELECT department_id FROM management)
 				- Cypher query: 
-						MATCH (m:Musical)
-						where NOT (:Actor)-[:HAS_MUSICAL]->(m)
-						RETURN m.Name
+					MATCH (d:Department)
+					WHERE NOT (d:Department)-[:Management]-()
+					RETURN count(*)
 		'''
-		valid = self.dispatch(json[1]).strip('()').split()
-		nested_node = valid[1]
-		from_node = '({})'.format(nested_node[nested_node.index(':'):-1])
-		return 'WHERE NOT {}'.format(from_node)
+		print("*******not in********")
+		# print(json, isinstance(json, list))
+		# TODO: need more test, currently working with one nested sql query. 
+		sub_pattern = ''
+		if isinstance(json, list) and len(json)==2:
+			fm = json[0]
+			nested_json = json[1]
+			nested_query = self.dispatch(nested_json)
+			if '\n' in nested_query:
+				nested_query_parts = nested_query.split('\n')
+				for every in nested_query_parts:
+					if 'MATCH' in every:
+						sub_pattern = every.split('MATCH')[-1]
+			print("sub_pattern:", sub_pattern)
+			return 'NOT {}'.format(sub_pattern)
 
 	def _list(self, json):
     	# Handle cypher list operator
@@ -856,10 +963,11 @@ class Formatter(SchemaGroundedTraverser):
 						
 		Note: 'IN' in the return working as an indentifier for the reconstruction process in function query().
 		'''
-		field, lower_bound, upper_bound = self.dispatch(json['where']['between']).split(',')
-		table = json['from']
-		normalized_field= self.normalize_field_mention(field, table, self.db_lookup_dict[table] )
-		return 'WHERE {}<={}<={}'.format(lower_bound, normalized_field, upper_bound)
+		print("between:", json)
+		if isinstance(json, list):
+			[field, lower_bound, upper_bound ]= self.dispatch(json).split(',')
+
+			return field, lower_bound, upper_bound
 
 
 def main():
@@ -902,10 +1010,10 @@ def main():
 			question = every['question']
 			sql_query = every['query']		
 			db_paths=glob.glob(db_folder + '/{}/*.sqlite'.format(db_name), recursive = True) 
-			if len(db_paths)==1:
-				schema = SchemaGraph(db_name, db_path=db_paths[0])
+			# if len(db_paths)==1:
+			# 	schema = SchemaGraph(db_name, db_path=db_paths[0])
 
-			if db_name == 'department_management' and i==13:    
+			if db_name == 'department_management':    
 				print("------------------------")
 				print(i)
 				print("databse:", db_name)
@@ -917,7 +1025,7 @@ def main():
 
 					parsed_sql = parse(sql_query)	
 					print(parsed_sql)
-					formatter  = Formatter(schema, all_table_fields)
+					formatter  = Formatter( all_table_fields)
 
 					sql2cypher = formatter.format(parsed_sql)
 					print("**************cypher***************")
