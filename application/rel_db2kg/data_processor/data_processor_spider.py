@@ -12,25 +12,18 @@ This script's goals are the following:
    Reference2:  original dataset link: https://yale-lily.github.io/spider/
 ]
 '''
-from sqlite3.dbapi2 import Cursor
-import sys, os, glob, re, json, jsonlines
-from sklearn.linear_model import TheilSenRegressor
-# from mo_sql_parsing.keywords import PRIMARY, PRIMARY_KEY
+
+import sys, os, glob, json
 import pandas as pd
-from collections import Counter
-from moz_sql_parser import parse
 import sqlite3
 from signal import signal, SIGPIPE, SIG_DFL
 import csv
-from csv import writer
+
 signal(SIGPIPE, SIG_DFL)
 csv.field_size_limit(sys.maxsize)
 
-from sql2cypher import add_parentheses, Operator, isNested, Formatter
 
-
-
-class DBenginee:              
+class DBengine:              
       
    def __init__(self, fdb):
       self.conn = sqlite3.connect(fdb)      
@@ -93,7 +86,7 @@ def build_lookup_dict(db_paths, sp_data_folder):
       path_compodbnents = db_path.split(os.sep)                         
       db_name = path_compodbnents[-2]
         
-      engine = DBenginee(db_path)      
+      engine = DBengine(db_path)      
       table_infos = engine.get_table_names()
      
 
@@ -141,7 +134,10 @@ def check_compound_pk(primary_keys):
    return compound_pk_check
 
 
-def create_relationship(table_name, table_primary_key_pairs, fk_statement, table_headers_dict):
+def create_relationship(table_name, 
+                        table_primary_key_pairs, 
+                        fk_statement, 
+                        table_headers_dict):
    ref_table = fk_statement['ref_table']
    ref_column = fk_statement['ref_column']
    this_column = fk_statement['column']
@@ -173,7 +169,11 @@ def create_relationship(table_name, table_primary_key_pairs, fk_statement, table
          table_name, this_column, ref_table ,ref_column)
    return sql_query, ref_table, ref_column, is_self_constraint_kf
 
-def spiderProcessor(db_paths, neo4j_folder, sp_data_folder, lookup_dict, pks_lookup_dict):
+def spiderProcessor(db_paths, 
+                     neo4j_folder, 
+                     sp_data_folder, 
+                     lookup_dict, 
+                     pks_lookup_dict):
 
    for db_path in db_paths:
       path_compodbnents = db_path.split(os.sep)
@@ -190,7 +190,7 @@ def spiderProcessor(db_paths, neo4j_folder, sp_data_folder, lookup_dict, pks_loo
             os.makedirs(output_folder)    
 
          try:               
-            engine = DBenginee(db_path)
+            engine = DBengine(db_path)
 
             table_infos = engine.get_table_names() # I observe the enginee would shut down after executing the function 'engine.get_table_value'   
 
@@ -294,99 +294,11 @@ def spiderProcessor(db_paths, neo4j_folder, sp_data_folder, lookup_dict, pks_loo
             sys.exit(0)
 
 
-def spider2QA(raw_spider_folder, lookup_dict, sp_data_folder, lexer, CyqueryStatmentParser, graph):
-
-   # Spider raw dataset path
-   db_folder = os.path.join(raw_spider_folder,  'database')
-   
-   # Output folder path
-   sp_data_folder = os.path.join(sp_data_folder, 'spider')  
-
-   if not os.path.exists(sp_data_folder):
-      os.makedirs(sp_data_folder) 
-
-   for split in ['train', 'dev']:      
-      
-      json_file = os.path.join(raw_spider_folder, '{}.json'.format(split))
-      f = open(json_file)
-      data = json.load(f)
-
-      correct_qa_pairs = []      
-      incorrect_qa_pairs = []
-      for every in data:
-         db_name = every['db_id']
-         if every['db_id'] == 'department_management':       
-            db_lookup_dict = lookup_dict[db_name] #R[{table_name:[table fields]}]
-            
-            # 1. Extract database name, questions and SQL queries
-            
-            question = every['question']
-            sql_query = every['query']
-            print("databse:", db_name)
-            print("question:", question)
-            print("sql_query:", sql_query)
-         
-            parsed_sql = parse(sql_query)
-            
-            # 2. Access database, execute SQL query and get result.              
-            db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))   
-            engine = DBenginee(db_path)
-
-            sql_result = engine.execute(sql_query).fetchall()
-            print("sql queried result:", sql_result)
-
-            # 3. Convert SQL query to Cypher query.		
-            formatter  = Formatter(db_lookup_dict)
-            sql2cypher = formatter.format(parsed_sql)
-            print(sql2cypher)
-
-            Cyparser = CyqueryStatmentParser(sql2cypher, 'statement', lexer)
-            tokenized_statment, token_types = Cyparser.get_tokenization()
-            # print("tokenized_statment:", tokenized_statment, token_types)
-            
-            # 4. Execute cypher query.. 
-            res = graph.run(sql2cypher).data()
-            cypher_ans = []
-            for dict_ in res:
-               tuple = ()
-               for k, v in dict_.items():
-                  tuple += (v, )
-               cypher_ans.append(tuple)
-
-            print("cypher_ans:", cypher_ans)  
-            
-
-            if cypher_ans.sort() == sql_result.sort():
-               print(cypher_ans)
-               correct_qa_pairs.append({'db_id':db_name, 'question':question, \
-               'cypher_query':sql2cypher, 'parsed_cpypher':tokenized_statment, \
-               'answers':cypher_ans})
-            else:
-               incorrect_qa_pairs.append({'db_id':db_name, 'question':question, \
-               'sql_query':sql_query, 'parsed_sql':parsed_sql, 'sql_ans':sql_result,\
-               'cypher_query':sql2cypher, 'cypher_ans':cypher_ans})
-               
-                  
-
-      correct_output_file = os.path.join(sp_data_folder, '{}_correct.json'.format(split))     
-      with open(correct_output_file, 'a')  as out:
-         json.dump(correct_qa_pairs, out, indent = 4)
-
-      incorrect_output_file = os.path.join(sp_data_folder, '{}_incorrect.json'.format(split))     
-      with open(incorrect_output_file, 'a')  as out:
-         json.dump(incorrect_qa_pairs, out, indent = 4)
-
-
 def main():
 
    import argparse
    import configparser
    config = configparser.ConfigParser()
-
-   from cypher_parser import CyqueryStatmentParser
-   from pygments.lexers import get_lexer_by_name
-   from py2neo import Graph
-   lexer = get_lexer_by_name("py2neo.cypher")
 
    parser = argparse.ArgumentParser(description='spider dataset processor')
    # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
@@ -399,11 +311,9 @@ def main():
    filenames = config["FILENAMES"]
 
    raw_folder = filenames['raw_folder']
-   sp_data_folder = filenames['sp_folder']
+   sp_folder = filenames['sp_folder']
    neo4j_import = filenames['neo4j_import_folder']
-   neo4j_uri = filenames['neo4j_uri']
-   neo4j_user = filenames['neo4j_user']
-   neo4j_password = filenames['neo4j_password']
+
 
    raw_spider_folder = os.path.join(raw_folder, 'spider')
 
@@ -411,13 +321,11 @@ def main():
    neo4j_folder = os.path.join(neo4j_import, 'spider')  
    db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 
-   graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
-
-
+ 
 
    lookup_dict, pks_lookup_dict = build_lookup_dict(
                   db_paths, 
-                  sp_data_folder)
+                  sp_folder)
       
   
    if args.dbProcessing:
@@ -425,20 +333,11 @@ def main():
       spiderProcessor(
          db_paths,
          neo4j_folder,
-         sp_data_folder,
+         sp_folder,
          lookup_dict,
          pks_lookup_dict)
 
 
-   if args.sql2cypher:   
-
-      spider2QA(
-         raw_spider_folder, 
-         lookup_dict,
-         sp_data_folder,
-         lexer,
-         CyqueryStatmentParser,
-         graph)
 
 if __name__=="__main__":
    main()

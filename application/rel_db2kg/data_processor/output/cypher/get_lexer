@@ -1,1 +1,1 @@
-[Token.Keyword, Token.Text.Whitespace, Token.Punctuation, Token.Name.Variable, Token.Name.Label, Token.Literal.Number.Integer, Token.Name.Function, Token.Operator]
+[Token.Keyword, Token.Text.Whitespace, Token.Punctuation, Token.Name.Variable, Token.Name.Label, Token.Operator, Token.Literal.String]

@@ -50,7 +50,7 @@ class CyqueryStatmentParser:
 			queries = list(queries.split(';'))
 		elif self.queries_type=='statement':
 			queries=[self.queries]
-		print("queries:", queries, type(queries))
+		# print("queries:", queries, type(queries))
 		token_types = []
 		tokenized_statment = {}
 		for query in queries:

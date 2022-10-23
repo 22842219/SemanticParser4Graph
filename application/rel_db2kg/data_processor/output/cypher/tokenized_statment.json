@@ -1,29 +1,3 @@
-{
-      "Token_Keyword": [
-            "MATCH",
-            "WHERE",
-            "RETURN"
-      ],
-      "Token_Text_Whitespace": [
-            " ",
-            "\n"
-      ],
-      "Token_Punctuation": [
-            "(",
-            ":",
-            ")",
-            ","
-      ],
-      "Token_Name_Variable": [
-            "d",
-            "ranking",
-            "num_employees"
-      ],
-      "Token_Name_Label": "Department",
-      "Token_Literal_Number_Integer": [
-            "10",
-            "15"
-      ],
-      "Token_Name_Function": "avg",
-      "Token_Operator": "."
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:645f374f504044acb0da25de625db87672581e606f45a0fddd8cf9023c0c73cb
+size 524
