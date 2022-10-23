@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:645f374f504044acb0da25de625db87672581e606f45a0fddd8cf9023c0c73cb
-size 524
+{
+      "Token_Keyword": [
+            "MATCH",
+            "WHERE",
+            "RETURN"
+      ],
+      "Token_Text_Whitespace": [
+            " ",
+            "\n"
+      ],
+      "Token_Punctuation": [
+            "(",
+            ":",
+            ")"
+      ],
+      "Token_Name_Variable": [
+            "w",
+            "a"
+      ],
+      "Token_Name_Label": [
+            "Web_client_accelerator",
+            "Accelerator_compatible_browser"
+      ],
+      "Token_Operator": [
+            "NOT",
+            "*"
+      ],
+      "Token_Name_Function": "count"
+}

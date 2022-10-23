@@ -4,7 +4,7 @@ Affiliation: UWA NLT-TLP GROUP
 '''
 
 import pandas, os
-import pandas
+import re
 from py2neo import Graph
 from py2neo.matching import *
 from py2neo.data import Node, Relationship
@@ -369,6 +369,7 @@ class RelDB2KGraphEdgeBuilder:
         env.read_env(self.env_file)
         self.graph = Graph(password=env("GRAPH_PASSWORD"))
         self.node_matcher = NodeMatcher(self.graph)
+     
 
     def start_end_handler(self, row_dict):   
         for key, value in row_dict.items(): 
@@ -391,18 +392,18 @@ class RelDB2KGraphEdgeBuilder:
                 print("end_node", end_node)
             else:
                 start_node = end_node = ''
-              
         return start_node, end_node
     # This function is for populating a table as graph edge.
     def edge_handler(self, row_dict):
         targeted_nodes = []
         for key, value in row_dict.items():
-            print(key, value)             
+            print(key, value, type(value))     
             if type(value)!=int:
                 cypher_query = "MATCH (n) where n.{}='{}' return n".format(key, value)
             else:
                 cypher_query = "MATCH (n) where n.{}={} return n".format(key, value)
             node = self.graph.run(cypher_query).data()
+            print(cypher_query)
             print(node)
             if node:
                 targeted_nodes.append(node)
@@ -428,8 +429,9 @@ class RelDB2KGraphEdgeBuilder:
                     continue
                 if table.table_name.startswith('HAS'):
                     for i, row_dict in enumerate(table.rows):
-                        print(row_dict)
+                        print("chek it out:", row_dict)
                         start_node, end_node = self.start_end_handler(row_dict)
+                        print("jlk", start_node, end_node )
                         if start_node and end_node:      
                             rel = Relationship(start_node, table.table_name, end_node)
                             tx.create(rel)
@@ -446,7 +448,6 @@ class RelDB2KGraphEdgeBuilder:
                     if len(table.rows)==0:
                         continue
                     for i, row_dict in enumerate(table.rows):
-                       
                         start_nodes, end_nodes = self.edge_handler(row_dict)
                         if len(start_nodes)==1 and len(end_nodes)==1:
                             rel = Relationship(start_nodes[0]['n'], rel_type, end_nodes[0]['n'], **row_dict) # class py2neo.data.Relationship(start_node, type, end_node, **properties)

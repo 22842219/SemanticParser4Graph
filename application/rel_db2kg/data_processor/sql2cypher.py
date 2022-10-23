@@ -1026,7 +1026,7 @@ def main():
 		
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			if db_name == 'department_management':   
+			if db_name == 'browser_web':   
 
 				# 1. Extract database name, questions and SQL queries
 				question = every['question']

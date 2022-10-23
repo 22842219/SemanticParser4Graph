@@ -14,6 +14,7 @@ This script's goals are the following:
 '''
 
 import sys, os, glob, json
+from importlib_metadata import packages_distributions
 import pandas as pd
 import sqlite3
 from signal import signal, SIGPIPE, SIG_DFL
@@ -58,10 +59,11 @@ class DBengine:
          if info is not None:
             id, seq, table_name, from_, to_, on_update, on_delete, match = info
             print(info)
+         
             fks.append(
                {"column": from_, "ref_table": table_name, "ref_column": to_}
             )
-            pks_fks_dict[from_]=to_
+            pks_fks_dict[from_]= to_  # ref_column (aka pk in ref_table) is supposed to be the same with column. 
       return fks, pks_fks_dict
 
    def get_primay_keys(self, table_name):
@@ -178,8 +180,8 @@ def spiderProcessor(db_paths,
    for db_path in db_paths:
       path_compodbnents = db_path.split(os.sep)
       db_name = path_compodbnents[-1].split('.')[0]
-     # test example
-      if db_name == 'department_management':
+      # test example
+      if db_name == 'browser_web':
          print('-------------------------------------------------')
          print("db_name:", db_name)
          table_primary_key_pairs= pks_lookup_dict[db_name]
@@ -197,9 +199,10 @@ def spiderProcessor(db_paths,
             missing_pks_tables_counter = 0
             missing_pks_tables_dict = {} #{table_name:db_name}
             
+
             for table_info in table_infos:
                table_name = table_info[0]
-               table_headers_dict = lookup_dict[db_name][table_name]
+               table_headers_dict = lookup_dict[db_name]
                schema = engine.get_schema(table_name)
                primary_keys = engine.get_primay_keys(table_name) #R[(pk, )]
                foreign_keys, pks_fks_dict =  engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
@@ -209,28 +212,28 @@ def spiderProcessor(db_paths,
                print("foreign_keys:", foreign_keys)
                print("pks_fks_dict:", pks_fks_dict)
                print(table_headers_dict)
+         
                # Export tables to neo4j/import as csv files.                           
                table_records = engine.get_table_values(table_name)
                table_headers = [desc[0] for desc in table_records.description]    
                print("table_headers:", table_headers )   
 
-                     
+               is_inconsistent = False
                # 1. Csv files For graph nodes
                if primary_keys:                
                   compound_pk_check =  check_compound_pk(primary_keys)
                   print("compound_pk_check:", compound_pk_check)
                   if not compound_pk_check:  
                      out_path = os.path.join(output_folder, '{}.csv'.format(table_name.capitalize()))
-                     save2graph(out_path, table_headers, table_records)        
+                     save2graph(out_path, table_headers, table_records) 
                   elif compound_pk_check and foreign_keys: 
                      # This is a relational table, where there is a compound primary key and forign keys in the table schema,
-                     # e.g. 'pitStops' in formula_1.db, or 'airport_aircraft' in aircraft.db      a
-
-                   
-                     # There is an issue here. For example, the table `department` in department_management.db, all colums are capitalised, 
-                     # However, the fileds used in the corresponding sql queries and referenced fields in other tables are lower case. 
-                     # Need to come up with a solution to fix it. For example, potecially modify the sqlite3 schema is the easiest way. 
-                     # The following block of codes deals with the above mentioned issue. 
+                     # e.g. 'pitStops' in formula_1.db, or 'airport_aircraft' in aircraft.db     
+                     
+                     # There is an inconsistency issue here. For example, the table `accelerator_compatible_browser` in browser_web.db. 
+                     # Even though it can be a relationship table, but the foreign keys are inconsistent with their corresponding primary keys 
+                     # of reference table. Hence the solution is to be a node table, and create edge. 
+                    
                      fks = [(every['ref_column'],) for every in foreign_keys]
                      if set(primary_keys)-set(fks):
                         print("****************")
@@ -238,28 +241,29 @@ def spiderProcessor(db_paths,
                         print(primary_keys, fks)
                         for pk in primary_keys:
                            pk = pk[0]
-                           print(pk)
-                           if pks_fks_dict[pk]!=pk:     
-                              replace_idx = table_headers.index(pk)
-                              print(pks_fks_dict[pk])
-                              table_headers[replace_idx]= pks_fks_dict[pk]
-                     print(table_headers)
-                     
-                     rel_out_path = os.path.join(output_folder, 'rel_{}.csv'.format(table_name.capitalize()))    
-                     save2graph(rel_out_path, table_headers, table_records)   
-                     rel_table_name = 'rel_{}'.format(table_name)
-                     update_dict = {}
-                     update_dict[rel_table_name] = table_headers
-                     lookup_dict[db_name].update(update_dict)    
-                     # del lookup_dict[db_name][table_name]     
 
-                     #raise ValueError("A compound primary key! Check it out.")               
+                           if pks_fks_dict[pk]!=pk:   
+                              is_inconsistent = True
+                        out_path = os.path.join(output_folder, '{}.csv'.format(table_name.capitalize()))  
+                     else:                           
+                        out_path = os.path.join(output_folder, 'rel_{}.csv'.format(table_name.capitalize()))    
+                        rel_table_name = 'rel_{}'.format(table_name)
+
+                        update_dict = {}
+                        update_dict[rel_table_name] = table_headers
+                        lookup_dict[db_name].update(update_dict)    
+                        # del lookup_dict[db_name][table_name]     
+                        #raise ValueError("A compound primary key! Check it out.")   
+
+                     save2graph(out_path, table_headers, table_records)   
+                     
+      
                # 2. CSV files for graph relationships.      
                if foreign_keys:
-                  print('fk:', foreign_keys)   
+   
                   compound_pk_check =  check_compound_pk(primary_keys)
-                  print("compound_pk_check:", compound_pk_check)   
-                  if not compound_pk_check:
+           
+                  if not compound_pk_check or is_inconsistent:
                      for idx, every in enumerate(foreign_keys):
                         if not primary_keys: 
                            # For the case that, there is no primary key in a table. It is a syntax error, but we take care of it. 
@@ -270,21 +274,24 @@ def spiderProcessor(db_paths,
                               missing_pks_tables_dict[table_name] = db_name  
                         sql_query, ref_table, ref_column, is_self_constraint_kf = create_relationship(table_name, table_primary_key_pairs, \
                            every, table_headers_dict)
-                        print("sql_query:", sql_query)
+          
                         if is_self_constraint_kf:
                            print("is_self_constraint_kf:", is_self_constraint_kf)
                            rel_headers = ['START_ID|{}|{}'.format(table_name.capitalize(), ref_column), \
                            'END_ID|{}|{}'.format(ref_table.capitalize(), ref_column)]
                            rel_out_path = os.path.join(output_folder, 'rel_{}.csv'.format(every['column'].upper()))  
                         else:
-                           rel_headers = ['START_ID|{}|{}'.format(table_name.capitalize(), ref_column ), \
-                           'END_ID|{}|{}'.format(ref_table.capitalize(), every['column'])]
+                           rel_headers = ['START_ID|{}|{}'.format(table_name.capitalize(),  every['column'] ), \
+                           'END_ID|{}|{}'.format(ref_table.capitalize(), ref_column)]
                            rel_out_path = os.path.join(output_folder, 'HAS_{}.csv'.format(ref_table.upper()))  
-                        rel_records = engine.execute(sql_query)    
-                        save2graph(rel_out_path, rel_headers, rel_records) 
+                        rel_records = engine.execute(sql_query) 
+                     
+                        save2graph(rel_out_path, rel_headers, rel_records)
+
 
             print("missing_pks_tables_dict:", missing_pks_tables_dict)
             print("missing_pks_tables_counter:", missing_pks_tables_counter)
+         
             fields_path = os.path.join(sp_data_folder, 'spider', 'lookup_dict.json')
             with open(fields_path, "w") as f:
                json.dump(lookup_dict, f, indent = 4) 
