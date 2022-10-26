@@ -88,7 +88,7 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    ```
 
    Set `_neo4j_export_path = '<path-to->/neo4j-community-4.4.11/import'` in `Class ConvertDB`.
-1. Configure `application/conf/db.ini` file
+2. Configure `application/conf/db.ini` file
 
    ```[sqlite3]
    spider_path = <path-to->/SemanticParser4Graph/application/data/spider/database
@@ -101,23 +101,27 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    password = <your-neo4j-password>
 
    ```
-1. Running Neo4j
+3. Running Neo4j
 
    ```shell
    cd <path-to-neo4j-bin>
    ./neo4j start
    ```
-1. Constructing a property graph database from relational database
+4. Constructing a property graph database from any arbitrary relational database schemas directly.
 
    ```shell
-   cd application/rel_db2kg/data_processor
-   python data_processor_spider.py --dbProcessing
-
    cd application/rel_db2kg
-   python triple_generation.py
+   python schema2graph.py
 
    ```
-1. Running interface
+   Translate SQL queries to Cypher queries.
+
+   ```shell
+   cd application/rel_db2kg
+   python sql2cypher.py
+
+   ```
+5. Running interface
 
    ```shell
    cd application

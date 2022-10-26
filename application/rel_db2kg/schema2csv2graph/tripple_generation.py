@@ -228,11 +228,11 @@ class RelDBDataset:
             
             # create table header category in the format of table_header -> table_name -> db_name. 
             if table_headers:
-                for table_header in table_headers:
-                    entity_ref = TableSchema(
-                            db_name, table_name, table_header
-                        )
-                    rel_db_object.add_schema(entity_ref)
+               
+                entity_ref = TableSchema(
+                        db_name, table_name, table_headers
+                    )
+                rel_db_object.add_schema(entity_ref)
                 
                 for row in data_:
                     table_row = {k: row[k] for k in row}                

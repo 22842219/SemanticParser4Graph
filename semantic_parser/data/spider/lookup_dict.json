@@ -664,6 +664,11 @@
             "department_ID",
             "head_ID",
             "temporary_acting"
+        ],
+        "rel_management": [
+            "department_ID",
+            "head_ID",
+            "temporary_acting"
         ]
     },
     "news_report": {

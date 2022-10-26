@@ -2,7 +2,7 @@ import re, os, jsonlines
 from difflib import SequenceMatcher
 import os
 import logging
-
+import pandas as pd
 
 table_pattern = re.compile('[A-Za-z_]\w+|t')
 alias_pattern = re.compile('([A-Z_]+alias\d)|'
@@ -22,6 +22,31 @@ datetime_pattern = re.compile('(\d{4})-(\d{2})-(\d{2})( (\d{2}):(\d{2}):(\d{2}))
 
 DERIVED_TABLE_PREFIX = 'DERIVED_TABLE'
 DERIVED_FIELD_PREFIX = 'DERIVED_FIELD'
+
+
+class Logger:
+    _log_directory = os.getcwd() + '/log'
+
+    def __init__(self):
+        # ensure the correct log directory
+        if not os.path.isdir(self._log_directory):
+            os.mkdir(self._log_directory)
+
+        self.logger = logging
+        # self.logger = logging.getLogger(__name__)
+        # f_handler = logging.FileHandler(self._log_directory + '/sql2cypher.log')
+        # f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        # f_handler.setFormatter(f_format)
+        #
+        # self.logger.addHandler(f_handler)
+        self.logger.basicConfig(filename=self._log_directory + '/sql2cypher.log',
+                                format='%(asctime)s - %(name)s: %(levelname)s %(message)s')
+
+    def error(self, msg):
+        self.logger.error(msg)
+
+    def warning(self, msg):
+        self.logger.warning(msg)
 
 
 def is_derived_table(s):
@@ -72,28 +97,27 @@ def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
 
+def save2graph(out_path, table_headers, table_records):   
+   outfile = open(out_path, 'w')
+   print("output:", outfile)
+   while True:
+      df = pd.DataFrame(table_records.fetchall())
+      # Drop duplicate rows in place.
+      df.drop_duplicates(inplace=True)
+      if len(df) == 0:
+         break
+      else:
+         print("record_header:", table_headers)
+         print("check_records:", df)
+         df.to_csv(outfile, header = table_headers, index = False)
+         outfile.close() 
+
+def check_compound_pk(primary_keys):
+   compound_pk_check=False
+   if len(primary_keys)!=1:  
+      compound_pk_check=True
+   return compound_pk_check
 
 
-class Logger:
-    _log_directory = os.getcwd() + '/log'
 
-    def __init__(self):
-        # ensure the correct log directory
-        if not os.path.isdir(self._log_directory):
-            os.mkdir(self._log_directory)
 
-        self.logger = logging
-        # self.logger = logging.getLogger(__name__)
-        # f_handler = logging.FileHandler(self._log_directory + '/sql2cypher.log')
-        # f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        # f_handler.setFormatter(f_format)
-        #
-        # self.logger.addHandler(f_handler)
-        self.logger.basicConfig(filename=self._log_directory + '/sql2cypher.log',
-                                format='%(asctime)s - %(name)s: %(levelname)s %(message)s')
-
-    def error(self, msg):
-        self.logger.error(msg)
-
-    def warning(self, msg):
-        self.logger.warning(msg)

@@ -2,6 +2,7 @@
       "Token_Keyword": [
             "MATCH",
             "WHERE",
+            "name",
             "RETURN"
       ],
       "Token_Text_Whitespace": [
@@ -11,19 +12,17 @@
       "Token_Punctuation": [
             "(",
             ":",
-            ")"
+            ")",
+            ","
       ],
       "Token_Name_Variable": [
-            "w",
-            "a"
+            "h",
+            "head_ID"
       ],
-      "Token_Name_Label": [
-            "Web_client_accelerator",
-            "Accelerator_compatible_browser"
-      ],
+      "Token_Name_Label": "Head",
       "Token_Operator": [
-            "NOT",
-            "*"
+            ".",
+            "=~"
       ],
-      "Token_Name_Function": "count"
+      "Token_Literal_String": "'.*Ha.*'"
 }

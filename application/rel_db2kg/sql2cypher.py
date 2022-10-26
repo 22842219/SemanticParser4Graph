@@ -32,7 +32,7 @@ from traverser import SchemaGroundedTraverser
 from sql_keywords import sql_join_keywords
 from utils import Logger
 
-from data_processor_spider import DBengine
+from schema2graph import DBengine
 '''
 1. Integrate sql having statment into cypher match clause. Integrate sql groupby statement into cypher where statement. 
 
@@ -1026,7 +1026,7 @@ def main():
 		
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			if db_name == 'browser_web':   
+			if db_name == 'department_management':   
 
 				# 1. Extract database name, questions and SQL queries
 				question = every['question']
