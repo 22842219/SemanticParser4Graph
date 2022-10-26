@@ -19,7 +19,7 @@ from signal import signal, SIGPIPE, SIG_DFL
 import csv
 
 sys.path.append('..')
-from table_schema_to_graph import DBengine
+from schema2graph import DBengine
 from utils import save2graph, check_compound_pk
 
 signal(SIGPIPE, SIG_DFL)
@@ -109,7 +109,7 @@ def spiderProcessor(db_paths,
       path_compodbnents = db_path.split(os.sep)
       db_name = path_compodbnents[-1].split('.')[0]
       # test example
-      if db_name == 'department_management':
+      if db_name == 'musical':
       
          table_primary_key_pairs= pks_lookup_dict[db_name]
          output_folder = os.path.join(neo4j_folder, db_name) 

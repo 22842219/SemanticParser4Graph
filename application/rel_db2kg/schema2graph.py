@@ -56,11 +56,11 @@ class DBengine:
         pks_fks_dict ={}
         for info in infos:
             if info is not None:
-                id, seq, table_name, from_, to_, on_update, on_delete, match = info
+                id, seq, ref_table, from_, to_, on_update, on_delete, match = info
                 print(info)
             
                 table_constraints.append(
-                {"column": from_, "ref_table": table_name, "ref_column": to_}
+                {"column": from_, "ref_table": ref_table, "ref_column": to_}
                 )
                 pks_fks_dict[from_]= to_  # ref_column (aka pk in ref_table) is supposed to be the same with column. 
         return table_constraints, pks_fks_dict
@@ -96,6 +96,8 @@ class RelDB(DBengine):
         self.triples = []
         self.db_schema = []
         self.engine = DBengine(fdb)
+        self.tables_pks={}
+        self.tables_headers = {}
 
     def add_tables(self, table):
         """
@@ -273,7 +275,7 @@ class RelDBDataset:
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             # test
-            if db_name == 'browser_web':
+            if db_name == 'musical':
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
                 # engine = rel_db_object.engine
@@ -298,9 +300,18 @@ class RelDBDataset:
                     # 'rel_' as a single during the graph constructing process. 
                     foreign_keys, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
                     primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
+
+                    # Create a dictionary {table_name:table_headers}
+                    rel_db_object.tables_headers[table_name] = table_headers
+
                     compound_pk_check =  check_compound_pk(primary_keys)
                     if compound_pk_check and foreign_keys:
                         table_name = 'rel_{}'.format(table_name)
+                    
+                    # Create a dictionary {table_name:pks},
+                    if not compound_pk_check:
+                        rel_db_object.tables_pks[table_name] = primary_keys[0][0]
+
                     # create table object. Note: one file w.r.t. one table object. 
                     table_object = RelTable(table_name=table_name, table_headers=table_headers)
                     
@@ -378,6 +389,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         self.build_schema_nodes(tx)
 
         seen_docs = {}
+
         for db in self.dataset.rel_dbs: 
             print("**********Debug Graph Node Builder********")
             if  db.db_name is not None and  db.db_name not in seen_docs:
@@ -394,7 +406,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         
             for table in db.tables:
                 
-                if table.table_name.startswith('HAS'):
+                if table.table_name.lower().startswith('has'):
                     continue
                 elif table.table_name.startswith('rel'):
                     continue
@@ -419,6 +431,47 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         print(rt)
         
         self.graph.commit(tx)
+    
+        
+    def create_relationship(self, table_name, 
+                        tables_pks, 
+                        fk_statement, 
+                        table_headers_dict):
+        ref_table = fk_statement['ref_table']
+        ref_column = fk_statement['ref_column']
+        this_column = fk_statement['column']
+
+        if ref_table == table_name: 
+            tfms = [fm.lower() for fm in list(tables_pks.values())]
+            if this_column.lower() not in tfms:
+                is_self_constraint_kf = True
+                self.logger.error("Warning! there is an invalid constraint in table {}. ".format(table_name))
+                            
+                # sql_query = 'SELECT T1.{3}, T2.{3} FROM {0} as T1 join {2} as T2 where T1.{1} = T2.{3}'.format(\
+                # table_name, this_column, ref_table, ref_column)
+                # print("SELF CONSTRAINT SQL:", sql_query)        
+                
+            else:
+                # Query on the same table by referencing one of this table's columns which is the primary key of the reference table. 
+                # e.g. in musical.db, table 'actor' got an example as follows.
+                # - FOREIGN KEY ("Musical_ID") REFERENCES "actor"("Actor_ID")
+                is_self_constraint_kf = False
+                assert len(set(tables_pks.values())) == len(set(tables_pks.keys())), 'FIX ME'
+                table_primary_key_pairs_vk = {v:k for k,v in tables_pks.items()}
+                ref_table = table_primary_key_pairs_vk.get(this_column)    
+                ref_column =  tables_pks[ref_table] 
+                # sql_query = 'SELECT {0}.{3}, {0}.{1} FROM {0} join {2} where {0}.{1} = {2}.{1}'.format(\
+                #     table_name, this_column , ref_table, ref_column) 
+        else:
+            # Correct the wrong reference column.
+            # e.g. in restaurants.db, table 'LOCATION' references table 'RESTAURANT' with column 'RESTAURANT_ID' which does not 
+            # appear in the reference table. 
+            is_self_constraint_kf = False
+            if ref_column not in table_headers_dict[ref_table]:
+                ref_column = tables_pks[ref_table]
+            # sql_query = 'SELECT {0}.{1}, {2}.{3} FROM {0} join {2} where {0}.{1} = {2}.{3}'.format(\
+            #     table_name, this_column, ref_table ,ref_column)
+        return  ref_table, ref_column, is_self_constraint_kf
 
     def build_edges(self):
         """
@@ -436,9 +489,10 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 table_name = table.table_name
                 if len(table.rows)==0:
                     continue
-                if table_name.startswith('HAS'):
+                if table_name.lower().startswith('has'):
                     for i, row_dict in enumerate(table.rows):
                         print("chek it out:", row_dict)
+                        assert 1>2
                         # start_node, end_node = self.start_end_handler(row_dict)
                         # print("jlk", start_node, end_node )
                         # if start_node and end_node:      
@@ -453,21 +507,17 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             
                 elif table_name.startswith('rel'):
                     rel_type = table_name.split('rel_')[1]
-                    print(rel_type)
                     primary_keys = db.engine.get_primay_keys(rel_type) #R[(pk, )]
                     table_constraints, pks_fks_dict =  db.engine.get_outbound_foreign_keys(rel_type) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
-                    print("table_name:", rel_type)
-                    print("primary_keys:", primary_keys)
-                    print("table_constraints:", table_constraints)
-                    print("pks_fks_dict:", pks_fks_dict)
-
+                    # print("table_name:", rel_type)
+                    # print("primary_keys:", primary_keys)
+                    # print("table_constraints:", table_constraints)
+                    # print("pks_fks_dict:", pks_fks_dict)
                     if len(table.rows)==0:
                         self.logger.error("There is no content in table {}!".format(rel_type))
                         continue
-                    
-                    
+
                     for i, row_dict in enumerate(table.rows):
-                        print(row_dict)
                         matched_nodes = []
                         for constraint in table_constraints:
                             ref_table = constraint['ref_table']
@@ -482,11 +532,44 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                 matched_nodes.append(matched[0])
                             else:
                                 self.logger.error("There are multiple matched graph nodes when building graph edge, \
-                                 regarding {} table in {} database.".format(table_name, db.db_name))
+                                regarding {} table in {} database.".format(table_name, db.db_name))
                         print(matched_nodes, len(matched_nodes))
+
                         # class py2neo.data.Relationship(start_node, type, end_node, **properties)
                         rel = Relationship(matched_nodes[0]['n'], rel_type, matched_nodes[1]['n'], **row_dict) 
                         tx.create(rel)
+                else:
+                   
+                    table_constraints, pks_fks_dict =  db.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
+                    # print("table_name:", table_name)
+                    # print("primary_keys:", primary_keys)
+                    # print("table_constraints:", table_constraints)
+                    # print("pks_fks_dict:", pks_fks_dict)
+                    if table_constraints:
+                        for i, row_dict in enumerate(table.rows):
+                            print(row_dict)
+                            matched_nodes = []
+                            for constraint in table_constraints:
+                                ref_table = constraint['ref_table']
+                                ref_column = constraint['ref_column']
+                                this_column = constraint['column']
+ 
+                                ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
+                                    db.tables_pks, constraint, db.tables_headers)
+                                print( ref_table, ref_column, is_self_constraint_kf)
+                                if not is_self_constraint_kf:
+                                    cypher_query0 =  "MATCH (n:{}) where n.{}={} return n".format(table_name, this_column, row_dict[this_column])
+                                    head_node = self.graph.run(cypher_query0).data()
+
+                                    cypher_query1 =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, row_dict[ref_column])
+                                    tail_node = self.graph.run(cypher_query1).data()
+                                    
+                                    # class py2neo.data.Relationship(start_node, type, end_node, **properties)
+                                    if len(head_node)==1 and len(tail_node)==1:
+                                        rel = Relationship(head_node[0]['n'], 'HAS_{}'.format(ref_table), tail_node[0]['n']) 
+                                        tx.create(rel)
+                    
+        
         self.graph.commit(tx)                                   
 
     def build_graph(self):
@@ -496,8 +579,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         """
         self.build_nodes()
         self.build_edges()
-        
-        
+            
     
 def main():
     import glob
