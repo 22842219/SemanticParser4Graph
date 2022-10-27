@@ -259,8 +259,8 @@ class RelDBDataset:
         for i, db_path in enumerate(paths):
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
-        # test
-        # if db_name == 'musical':
+            # test
+        # if db_name == 'voter_1':
             # create realational database object.
             rel_db_object = RelDB(fdb = db_path, db_name=db_name)
             # engine = rel_db_object.engine
@@ -457,9 +457,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
 
-            print(f"{table_name} in {db.db_name}")
+            print(f"Running {table_name} in {db.db_name}")
             if len(table.rows)==0:
-                self.logger.error("There is no content in table {}!".format(table_name))
+                self.logger.error("There is no content in table {} of {}!".format(table_name, db.db_name))
                 continue
             if table_name.lower().startswith('has'):
                 for i, row_dict in enumerate(table.rows):
@@ -491,18 +491,25 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                                 db.tables_pks, constraint, db.tables_headers)
                             print( ref_table, ref_column, is_self_constraint_kf, table_name, this_column)
+                            # print(f' They type of {row_dict[this_column]} is {type(row_dict[this_column])}')
                             if not is_self_constraint_kf:
                                 # Case 2: a whole table is turned into corresponding graph nodes, 
                                 # and some curated graph edges based on w.r.t. foreign keys.
                                 # e.g., in musical.db, the table `actor` is the case, 
                                 # along with `HAS_MUSICAL` is curated based on the FK, musical
-                                cypher_query0 =  "MATCH (n:{}) where n.{}={} return n".format(table_name, this_column, row_dict[this_column])
-                                print(cypher_query0)
-                                head_nodes = self.graph.run(cypher_query0).data()
+                                if type(row_dict[this_column])==str:
+
+                                    cypher_query0 =  "MATCH (n:{}) where n.{}='{}' return n".format(table_name, this_column, row_dict[this_column])
+                                    head_nodes = self.graph.run(cypher_query0).data()
                                 
-                                cypher_query1 =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, row_dict[this_column])
-                                print(cypher_query1)
-                                tail_nodes = self.graph.run(cypher_query1).data()
+                                    cypher_query1 =  "MATCH (n:{}) where n.{}='{}' return n".format(ref_table, ref_column, row_dict[this_column])
+                                    tail_nodes = self.graph.run(cypher_query1).data()
+                                else:
+                                    cypher_query0 =  "MATCH (n:{}) where n.{}={} return n".format(table_name, this_column, row_dict[this_column])
+                                    head_nodes = self.graph.run(cypher_query0).data()
+                                
+                                    cypher_query1 =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, row_dict[this_column])
+                                    tail_nodes = self.graph.run(cypher_query1).data()
 
                                 for head in head_nodes:
                                     for tail in tail_nodes:
