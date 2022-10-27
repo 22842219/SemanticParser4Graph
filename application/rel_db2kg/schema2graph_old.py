@@ -11,6 +11,7 @@ from py2neo.data import Node, Relationship
 from environs import Env
 from fire import Fire
 from torch import row_indices_copy
+from transformers import TFXLMMainLayer
 
 from utils import Logger
 import sqlite3
@@ -69,14 +70,12 @@ class DBengine:
         cursor = self.conn.cursor() 
         pks = cursor.execute('SELECT l.name FROM pragma_table_info("{}") as l WHERE l.pk <> 0;'.format(table_name)).fetchall()
         return pks  
-    
+
     def check_compound_pk(self, primary_keys):
         compound_pk_check=False
         if len(primary_keys)!=1:  
             compound_pk_check=True
         return compound_pk_check
-
-
 
     def close(self):
         self.conn.cursor.close()
@@ -94,7 +93,6 @@ class RelDB(DBengine):
         database_name (String): The name of the relational database.
         tables (List): A list of Table objects appearing in this rel_database.
         triples (List): A list of Triple objects appearing in this rel_database.
-        tables_pks (Dict): A dictionary to store the primary keys of all tables in this rel_database. 
     """
 
     def __init__(self, fdb, db_name):
@@ -105,9 +103,8 @@ class RelDB(DBengine):
         self.triples = []
         self.db_schema = []
         self.engine = DBengine(fdb)
-        self.tables_pks={} 
+        self.tables_pks={}
         self.tables_headers = {}
-
 
     def add_tables(self, table):
         """
@@ -156,18 +153,16 @@ class RelTable:
             -table_header (String): The name of table headers.
             -table_name (String): The name of the table, i.e. "activity_1".
         rows (List): A list of rows appearing in this table. 
+        triples (List): A list of Triple objects appearing in this table.
         phrase_type (String): The type of phrase, i.e. "Table".
-        table_constraints (List): Store the information of table constraints. 
     """
 
     def __init__(self, table_name, table_headers):
         self.table_name = table_name
         self.table_headers = table_headers
         self.rows = []
+        self.triples = []
         self.phrase_type = "Table"
-        self.table_constraints=[] #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
-        self.check_compound_pk = False
-
 
     def add_row(self, row_dict):
         """
@@ -176,6 +171,10 @@ class RelTable:
             table (Table object): The table to add.
         """
         self.rows.append(row_dict)
+    
+    def add_triple(self, triple):
+        """Add a triple to this document."""
+        self.triples.append(triple)
 
     def __str__(self):
         s = ""
@@ -218,6 +217,29 @@ class TableSchema:
 
     __repr__ = __str__
 
+class Triple:
+    
+    """
+
+    # A triple, which connects a subject with an object via a relation.
+
+    Attributes:
+        head (Entity): The object Entity.
+        tail (Entity): The subject Entity.
+        rel (Phrase): The relation phrase.
+    """
+
+    def __init__(self, head, rel, tail):
+        self.head = head
+        self.rel = rel
+        self.tail = tail
+
+    def __str__(self):
+        return "(%s)-[%s]->(%s)" % (
+            self.head.short_print(),
+            self.rel.short_print(),
+            self.tail.short_print(),
+        )
 
 class EntityCategory:
     
@@ -260,60 +282,58 @@ class RelDBDataset:
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             # test
-        # if db_name == 'browser_web':
-            # create realational database object.
-            rel_db_object = RelDB(fdb = db_path, db_name=db_name)
-            # engine = rel_db_object.engine
-            table_infos = rel_db_object.engine.get_table_names()
-            for table_info in table_infos:
-                table_name = table_info[0]
-                # Export tables to neo4j/import as csv files.                           
-                table_records = rel_db_object.engine.get_table_values(table_name)
-                table_headers = [desc[0] for desc in table_records.description]    
-                print("table_headers:", table_headers )
+            if db_name == 'musical':
+                # create realational database object.
+                rel_db_object = RelDB(fdb = db_path, db_name=db_name)
+                # engine = rel_db_object.engine
+                table_infos = rel_db_object.engine.get_table_names()
+                for table_info in table_infos:
+                    table_name = table_info[0]
+                    # Export tables to neo4j/import as csv files.                           
+                    table_records = rel_db_object.engine.get_table_values(table_name)
+                    table_headers = [desc[0] for desc in table_records.description]    
+                    print("table_headers:", table_headers )
 
-                df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
-                # Drop duplicate rows in place.
-                df.drop_duplicates(inplace=True)
-                data = df.transpose().to_dict().values()  # to keep the origial data types.
+                    df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
+                    # Drop duplicate rows in place.
+                    df.drop_duplicates(inplace=True)
+                    data = df.transpose().to_dict().values()  # to keep the origial data types.
 
-                if table_headers == None:
-                    self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
-                    continue 
+                    if table_headers == None:
+                        self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
+                        continue 
 
-                # create table object. Note: one file w.r.t. one table object. 
-                table_object = RelTable(table_name=table_name, table_headers=table_headers)
+                    # Check if relational table. If yes, then we rewrite the table name starting with
+                    # 'rel_' as a single during the graph constructing process. 
+                    foreign_keys, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
+                    primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
 
-                # Check if relational table. If yes, then we rewrite the table name starting with
-                table_constraints, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
-                primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
+                    # Create a dictionary {table_name:table_headers}
+                    rel_db_object.tables_headers[table_name] = table_headers
 
-
-                # Create a dictionary {table_name:table_headers}
-                rel_db_object.tables_headers[table_name] = table_headers
-
-                check_compound_pk =  rel_db_object.engine.check_compound_pk(primary_keys)
-                # Create a dictionary {table_name:pks},
-                if not check_compound_pk:
-                    rel_db_object.tables_pks[table_name] = primary_keys[0][0]
-                else:
-                    rel_db_object.tables_pks[table_name] = [pk[0] for pk in primary_keys]
-
-                table_object.table_constraints = table_constraints
-                table_object.check_compound_pk = check_compound_pk
-                
-                # create table header category in the format of table_header -> table_name -> db_name. 
-                if table_headers:
+                    compound_pk_check =  rel_db_object.engine.check_compound_pk(primary_keys)
+                    if compound_pk_check and foreign_keys:
+                        table_name = 'rel_{}'.format(table_name)
                     
-                    entity_ref = TableSchema(
-                            db_name, table_name, table_headers
-                        )
-                    rel_db_object.add_schema(entity_ref)
-                    for row in data:
-                        table_row = {k: row[k] for k in row}                
-                        table_object.add_row( row_dict=table_row)
-                    rel_db_object.add_tables(table_object)
-            rel_dbs.append(rel_db_object)
+                    # Create a dictionary {table_name:pks},
+                    if not compound_pk_check:
+                        rel_db_object.tables_pks[table_name] = primary_keys[0][0]
+
+                    # create table object. Note: one file w.r.t. one table object. 
+                    table_object = RelTable(table_name=table_name, table_headers=table_headers)
+                    
+                    # create table header category in the format of table_header -> table_name -> db_name. 
+                    if table_headers:
+                        
+                        entity_ref = TableSchema(
+                                db_name, table_name, table_headers
+                            )
+                        rel_db_object.add_schema(entity_ref)
+                        for row in data:
+                            table_row = {k: row[k] for k in row}                
+                            table_object.add_row( row_dict=table_row)
+                        rel_db_object.add_tables(table_object)
+                rel_dbs.append(rel_db_object)
 
         return rel_dbs
             
@@ -339,74 +359,87 @@ class RelDB2KGraphBuilder(RelDBDataset):
         self.node_normaliser = node_normaliser
         self.defined_fields = defined_fields
         self.env_file = env_file
-    
+        self.nodes_properties =[]
         env = Env()
         env.read_env(self.env_file)
         self.graph = Graph(password=env("GRAPH_PASSWORD"))
-
         self.node_matcher = NodeMatcher(self.graph)
 
         self.dataset = RelDBDataset(self.paths, self.logger)
 
+    
     def build_schema_nodes(self, tx):
-        print("**********TOTEST: Graph Schema  Builder********")
-        # print("Constructing rel_db oriented domain base nodes...")
+        print("Constructing rel_db oriented domain base nodes...")
         self.domain_base_node = Node("Domain", name="Schema_Node:Domain")
         tx.create(self.domain_base_node)
-        # print("domain_base_node:", self.domain_base_node)
+        print("domain_base_node:", self.domain_base_node)
 
-        # print("Constructing rel_db oriented table schema entity nodes...")
+        print("Constructing rel_db oriented table schema entity nodes...")
         self.table_base_node = Node("Table", name="Schema_Node:Table")
         tx.create(self.table_base_node)
-        # print("table_base_node:", self.table_base_node)
+        print("table_base_node:", self.table_base_node)
 
         # "Table" is a part of "Domain".
         tb = Relationship(self.table_base_node, "Schema_Reltionship:Part_of", self.domain_base_node)
         tx.create(tb)
-        print(tb)   
-    
-    def build_nodes(self, db, tx):
-        
-        # Note: Open graph transaction again.
+        print(tb)
+                
+    def build_nodes(self):
+        """
+        Constructs the graph nodes.
+        # TODO: Clean this entire function up.
+        """
+        self.graph.delete_all()
         self.tx = self.graph.begin()
         tx = self.tx
 
-        print("************START BUILDING GRAPH NODES****************")
-        if  db.db_name is not None:
-            # create databse node
-            db_node = Node("Domain", name='db:{}'.format( db.db_name))
-            print("db_node:", db_node)
-            tx.create(db_node)
+        self.build_schema_nodes(tx)
 
-            # e.g. musical_db is an instance of "Domain".
-            tb = Relationship(db_node, "Instance_of_Domain", self.domain_base_node)
-            tx.create(tb)
-            print(tb)
+        seen_docs = {}
 
-        for table in db.tables:
-            table_name = table.table_name
-            primary_keys = db.tables_pks[table_name]
-            print("table_name:", table_name)
-            if len(table.rows)==0:
-                continue
-            if table_name.lower().startswith('has'):
-                for i, row_dict in enumerate(table.rows):
-                    print("chek it out:", row_dict)
-                    raise NotImplementedError
-            else:
-                # TODO: not table.check_compound_pk?
-                if  primary_keys and not table.check_compound_pk:
-            
-                    # Case 1: a whole table is turned into corresponding graph nodes,
-                    # e.g., in musical.db, the table `musical` is the case.
+        for db in self.dataset.rel_dbs: 
+            print("**********Debug Graph Node Builder********")
+            if  db.db_name is not None and  db.db_name not in seen_docs:
+                seen_docs[db.db_name] = db
+                # create databse node
+                db_node = Node("Domain", name='db:{}'.format( db.db_name))
+                print("db_node:", db_node)
+                tx.create(db_node)
+
+                # e.g. musical_db is an instance of "Domain".
+                tb = Relationship(db_node, "Instance_of_Domain", self.domain_base_node)
+                tx.create(tb)
+                print(tb)
+                        
+            for table in db.tables:
+                
+                if table.table_name.lower().startswith('has'):
+                    continue
+                elif table.table_name.startswith('rel'):
+                    continue
+                else:
+                    
+                    # create table entity node with table headers, and connect to table base node. 
+                    table_node = Node( 'Schema_Table:{}'.format(table.table_name), name= table.table_headers)
+                    tx.create(table_node)
+                    
+                    # A specific table is an instance of Table. 
+                    tb = Relationship(table_node, "Instance_of_Table", self.table_base_node)
+                    tx.create(tb)
+                    print(tb)             
                     for i, row_dict in enumerate(table.rows):
-                        print(row_dict)
+                        self.nodes_properties.append(row_dict)
                         r = Node(table.table_name,**row_dict)
                         print("row node:", r)
                         tx.create(r)
+
+                        rt = Relationship(r, "IsA_Row_of", table_node)
+                        tx.create(rt)
+                        print(rt)
         
         self.graph.commit(tx)
-
+    
+        
     def create_relationship(self, table_name, 
                         tables_pks, 
                         fk_statement, 
@@ -447,132 +480,114 @@ class RelDB2KGraphBuilder(RelDBDataset):
             #     table_name, this_column, ref_table ,ref_column)
         return  ref_table, ref_column, is_self_constraint_kf
 
-    def build_edges (self, db):
-        # Note: Open graph transaction again.
+    def build_edges(self):
+        """
+        Constructs the graph edge.
+        # TODO: Clean this entire function up.
+        """
+        # self.graph.delete_all()
         self.tx = self.graph.begin()
         tx = self.tx
 
-        print("************START BUILDING GRAPH EDGE****************")
-        for table in db.tables:
-            table_name = table.table_name
-            primary_keys = db.tables_pks[table_name]
+        print("Building graph edge directly from relational table...")
 
-            print("table_name:", table_name)
-            if len(table.rows)==0:
-                self.logger.error("There is no content in table {}!".format(table_name))
-                continue
-            if table_name.lower().startswith('has'):
-                for i, row_dict in enumerate(table.rows):
-                    print("chek it out:", row_dict)
-                    assert 1>2
-                    # start_node, end_node = self.start_end_handler(row_dict)
-                    # print("jlk", start_node, end_node )
-                    # if start_node and end_node:      
-                    #     rel = Relationship(start_node, table.table_name, end_node)
-                    #     tx.create(rel)
-                    #     print("rel:", rel)
-                    # else:
-                    #     start_nodes, end_nodes = self.edge_handler(row_dict)
-                    #     if len(start_nodes)==1 and len(end_nodes)==1:
-                    #         rel = Relationship(start_nodes[0]['n'], rel_type, end_nodes[0]['n'], **row_dict) # class py2neo.data.Relationship(start_node, type, end_node, **properties)
-                    #         tx.create(rel)
-                        
-            else:
-                # TODO: primary_keys?
-                if table.table_constraints and  not table.check_compound_pk:         
-                    print(f'Building curate graph from the contraints of {table_name}.')       
+        for db in self.dataset.rel_dbs:     
+            for table in db.tables:
+                table_name = table.table_name
+                if len(table.rows)==0:
+                    continue
+                if table_name.lower().startswith('has'):
                     for i, row_dict in enumerate(table.rows):
-                        for constraint in table.table_constraints:
-                            ref_table = constraint['ref_table']
-                            ref_column = constraint['ref_column']
-                            this_column = constraint['column']
-                            value = row_dict[this_column]
+                        print("chek it out:", row_dict)
+                        assert 1>2
+                        # start_node, end_node = self.start_end_handler(row_dict)
+                        # print("jlk", start_node, end_node )
+                        # if start_node and end_node:      
+                        #     rel = Relationship(start_node, table.table_name, end_node)
+                        #     tx.create(rel)
+                        #     print("rel:", rel)
+                        # else:
+                        #     start_nodes, end_nodes = self.edge_handler(row_dict)
+                        #     if len(start_nodes)==1 and len(end_nodes)==1:
+                        #         rel = Relationship(start_nodes[0]['n'], rel_type, end_nodes[0]['n'], **row_dict) # class py2neo.data.Relationship(start_node, type, end_node, **properties)
+                        #         tx.create(rel)
+                            
+                elif table_name.startswith('rel'):
+                    rel_type = table_name.split('rel_')[1]
+                    primary_keys = db.engine.get_primay_keys(rel_type) #R[(pk, )]
+                    table_constraints, pks_fks_dict =  db.engine.get_outbound_foreign_keys(rel_type) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
+                    # print("table_name:", rel_type)
+                    # print("primary_keys:", primary_keys)
+                    # print("table_constraints:", table_constraints)
+                    # print("pks_fks_dict:", pks_fks_dict)
+                    if len(table.rows)==0:
+                        self.logger.error("There is no content in table {}!".format(rel_type))
+                        continue
 
-                            ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
-                                db.tables_pks, constraint, db.tables_headers)
-                            print( ref_table, ref_column, is_self_constraint_kf)
-                            if not is_self_constraint_kf:
-                                # Case 2: a whole table is turned into corresponding graph nodes, 
-                                # and some curated graph edges based on w.r.t. foreign keys.
-                                # e.g., in musical.db, the table `actor` is the case, 
-                                # along with `HAS_MUSICAL` is curated based on the FK, musical
-                                cypher_query0 =  "MATCH (n:{}) where n.{}={} return n".format(table_name, this_column, row_dict[this_column])
-                                head_nodes = self.graph.run(cypher_query0).data()
-                                
-                                cypher_query1 =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, row_dict[ref_column])
-                                tail_nodes = self.graph.run(cypher_query1).data()
-
-                                print(cypher_query0)
-                                print(cypher_query1)
-
-                                for head in head_nodes:
-                                    for tail in tail_nodes:
-                                        rel = Relationship(head['n'], 'HAS_{}'.format(ref_table.upper()), tail['n']) 
-                                        tx.create(rel)
-                                        print(rel)
-                            else:
-                                raise NotImplementedError
-
-                if table.table_constraints and table.check_compound_pk:
-                    print(f'Building graph edge from the table: {table_name}.')
-                    # Case 3: a whole table is turned into graph edges, 
-                    # e.g., in department_management.db, the table `management` is the case, 
-                    # however, there is an issue in this particular case. To be able to sucessfully 
-                    # build a graph edge, graph nodes should be created already. Unlike case two, the 
-                    # head and tail nodes of a edge come form the same table, this case's targeted nodes 
-                    # come from other tables, which means other tables should be sucessfully turned into 
-                    # graph components already. 
-                    # To solve this problem, I retrive the whole database a second time. 
-              
                     for i, row_dict in enumerate(table.rows):
                         matched_nodes = []
-                        for constraint in table.table_constraints:
+                        for constraint in table_constraints:
                             ref_table = constraint['ref_table']
                             ref_column = constraint['ref_column']
                             this_column = constraint['column']
                             value = row_dict[this_column]
-                            ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
-                                db.tables_pks, constraint, db.tables_headers)
-                            print( ref_table, ref_column, is_self_constraint_kf)
-                    
+                            print("value", this_column, value)
+                            print("heyyy", ref_table, ref_column, rel_type, this_column)
                             cypher_query =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, value)
                             matched = self.graph.run(cypher_query).data()
-                            
                             if len(matched)==1:
                                 matched_nodes.append(matched[0])
                             else:
                                 self.logger.error("There are multiple matched graph nodes when building graph edge, \
                                 regarding {} table in {} database.".format(table_name, db.db_name))
-                            print(cypher_query)
-                            print(matched, len(matched))
+                        print(matched_nodes, len(matched_nodes))
+
+                        # class py2neo.data.Relationship(start_node, type, end_node, **properties)
+                        rel = Relationship(matched_nodes[0]['n'], rel_type, matched_nodes[1]['n'], **row_dict) 
+                        tx.create(rel)
+                else:
+                   
+                    table_constraints, pks_fks_dict =  db.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
+                    # print("table_name:", table_name)
+                    # print("primary_keys:", primary_keys)
+                    # print("table_constraints:", table_constraints)
+                    # print("pks_fks_dict:", pks_fks_dict)
+                    if table_constraints:
+                        for i, row_dict in enumerate(table.rows):
+                            print(row_dict)
+                            matched_nodes = []
+                            for constraint in table_constraints:
+                                ref_table = constraint['ref_table']
+                                ref_column = constraint['ref_column']
+                                this_column = constraint['column']
+ 
+                                ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
+                                    db.tables_pks, constraint, db.tables_headers)
+                                
+                                if not is_self_constraint_kf:
+                                    cypher_query0 =  "MATCH (n:{}) where n.{}={} return n".format(table_name, this_column, row_dict[this_column])
+                                    head_nodes = self.graph.run(cypher_query0).data()
+                                    
+                                    cypher_query1 =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, row_dict[ref_column])
+                                    tail_nodes = self.graph.run(cypher_query1).data()
+                                    
+                                    # class py2neo.data.Relationship(start_node, type, end_node, **properties)
+                                    for head in head_nodes:
+                                        for tail in tail_nodes:
+                                            rel = Relationship(head['n'], 'HAS_{}'.format(ref_table.upper()), tail['n']) 
+                                            tx.create(rel)
+                                            print(rel)
                     
-                        if len(matched_nodes) ==2:
-                            # class py2neo.data.Relationship(start_node, type, end_node, **properties)
-                            rel = Relationship(matched_nodes[0]['n'], table_name, matched_nodes[1]['n'], **row_dict) 
-                            tx.create(rel)
-                        else:
-                            raise NotImplementedError
-
-                
-        self.graph.commit(tx) 
-    
-    def build_graph(self):
-        self.tx = self.graph.begin()
-        tx = self.tx
-        self.build_schema_nodes(tx)
         
-        for i, db in enumerate(self.dataset.rel_dbs):          
+        self.graph.commit(tx)                                   
 
-            if i==0:
-                # Note: i is the index of relational database. 
-                self.graph.delete_all()
-            print("************Start building graph directly from relational table schema****************")
-            self.build_nodes(db, tx)
-            self.build_edges(db)
-          
-            
-
-     
+    def build_graph(self):
+        """
+        Constructs the graph nodes.
+        # TODO: Clean this entire function up.
+        """
+        self.build_nodes()
+        self.build_edges()
             
     
 def main():

@@ -112,12 +112,5 @@ def save2graph(out_path, table_headers, table_records):
          df.to_csv(outfile, header = table_headers, index = False)
          outfile.close() 
 
-def check_compound_pk(primary_keys):
-   compound_pk_check=False
-   if len(primary_keys)!=1:  
-      compound_pk_check=True
-   return compound_pk_check
-
-
 
 
