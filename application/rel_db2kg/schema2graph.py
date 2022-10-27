@@ -259,8 +259,8 @@ class RelDBDataset:
         for i, db_path in enumerate(paths):
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
-            # test
-        # if db_name == 'browser_web':
+        # test
+        # if db_name == 'musical':
             # create realational database object.
             rel_db_object = RelDB(fdb = db_path, db_name=db_name)
             # engine = rel_db_object.engine
@@ -386,7 +386,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         for table in db.tables:
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
-            print("table_name:", table_name)
+            print(f"{table_name} in {db.db_name}")
             if len(table.rows)==0:
                 continue
             if table_name.lower().startswith('has'):
@@ -457,7 +457,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
 
-            print("table_name:", table_name)
+            print(f"{table_name} in {db.db_name}")
             if len(table.rows)==0:
                 self.logger.error("There is no content in table {}!".format(table_name))
                 continue
@@ -490,20 +490,19 @@ class RelDB2KGraphBuilder(RelDBDataset):
 
                             ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                                 db.tables_pks, constraint, db.tables_headers)
-                            print( ref_table, ref_column, is_self_constraint_kf)
+                            print( ref_table, ref_column, is_self_constraint_kf, table_name, this_column)
                             if not is_self_constraint_kf:
                                 # Case 2: a whole table is turned into corresponding graph nodes, 
                                 # and some curated graph edges based on w.r.t. foreign keys.
                                 # e.g., in musical.db, the table `actor` is the case, 
                                 # along with `HAS_MUSICAL` is curated based on the FK, musical
                                 cypher_query0 =  "MATCH (n:{}) where n.{}={} return n".format(table_name, this_column, row_dict[this_column])
+                                print(cypher_query0)
                                 head_nodes = self.graph.run(cypher_query0).data()
                                 
-                                cypher_query1 =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, row_dict[ref_column])
-                                tail_nodes = self.graph.run(cypher_query1).data()
-
-                                print(cypher_query0)
+                                cypher_query1 =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, row_dict[this_column])
                                 print(cypher_query1)
+                                tail_nodes = self.graph.run(cypher_query1).data()
 
                                 for head in head_nodes:
                                     for tail in tail_nodes:
@@ -533,6 +532,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             value = row_dict[this_column]
                             ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                                 db.tables_pks, constraint, db.tables_headers)
+                    
                             print( ref_table, ref_column, is_self_constraint_kf)
                     
                             cypher_query =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, value)
