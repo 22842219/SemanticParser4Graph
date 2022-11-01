@@ -1,0 +1,28 @@
+{
+      "Token_Keyword": [
+            "MATCH",
+            "WHERE",
+            "name",
+            "RETURN"
+      ],
+      "Token_Text_Whitespace": [
+            " ",
+            "\n"
+      ],
+      "Token_Punctuation": [
+            "(",
+            ":",
+            ")",
+            ","
+      ],
+      "Token_Name_Variable": [
+            "h",
+            "head_ID"
+      ],
+      "Token_Name_Label": "head",
+      "Token_Operator": [
+            ".",
+            "=~"
+      ],
+      "Token_Literal_String": "'.*[H|h]a.*'"
+}

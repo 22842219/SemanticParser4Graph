@@ -12,7 +12,7 @@
             "name",
             "market_share"
         ],
-        "accelerator_compatible_browser": [
+        "rel_accelerator_compatible_browser": [
             "accelerator_id",
             "browser_id",
             "compatible_since_year"
@@ -65,7 +65,7 @@
             "Host_city_ID",
             "Hosts"
         ],
-        "competition_record": [
+        "rel_competition_record": [
             "Competition_ID",
             "Farm_ID",
             "Rank"
@@ -128,7 +128,7 @@
             "Name",
             "Head"
         ],
-        "Affiliated_With": [
+        "rel_Affiliated_With": [
             "Physician",
             "Department",
             "PrimaryAffiliation"
@@ -138,7 +138,7 @@
             "Name",
             "Cost"
         ],
-        "Trained_In": [
+        "rel_Trained_In": [
             "Physician",
             "Treatment",
             "CertificationDate",
@@ -174,7 +174,7 @@
             "Brand",
             "Description"
         ],
-        "Prescribes": [
+        "rel_Prescribes": [
             "Physician",
             "Patient",
             "Medication",
@@ -193,7 +193,7 @@
             "BlockCode",
             "Unavailable"
         ],
-        "On_Call": [
+        "rel_On_Call": [
             "Nurse",
             "BlockFloor",
             "BlockCode",
@@ -207,7 +207,7 @@
             "StayStart",
             "StayEnd"
         ],
-        "Undergoes": [
+        "rel_Undergoes": [
             "Patient",
             "Procedures",
             "Stay",
@@ -230,7 +230,7 @@
             "Num_of_Component",
             "Market_Rate"
         ],
-        "furniture_manufacte": [
+        "rel_furniture_manufacte": [
             "Manufacturer_ID",
             "Furniture_ID",
             "Price_in_Dollar"
@@ -252,11 +252,11 @@
             "services",
             "local_authority"
         ],
-        "route": [
+        "rel_route": [
             "train_id",
             "station_id"
         ],
-        "weekly_weather": [
+        "rel_weekly_weather": [
             "station_id",
             "day_of_week",
             "high_temperature",
@@ -298,7 +298,7 @@
             "Region_code",
             "Region_name"
         ],
-        "affected_region": [
+        "rel_affected_region": [
             "Region_id",
             "Storm_ID",
             "Number_city_affected"
@@ -325,7 +325,7 @@
             "name",
             "salary"
         ],
-        "certificate": [
+        "rel_certificate": [
             "eid",
             "aid"
         ]
@@ -426,7 +426,7 @@
             "Name",
             "Other_Details"
         ],
-        "Tourist_Attraction_Features": [
+        "rel_Tourist_Attraction_Features": [
             "Tourist_Attraction_ID",
             "Feature_ID"
         ]
@@ -444,7 +444,7 @@
             "Level_of_membership",
             "Age"
         ],
-        "visit": [
+        "rel_visit": [
             "Museum_ID",
             "visitor_ID",
             "Num_of_Ticket",
@@ -479,7 +479,7 @@
             "yCard",
             "HS"
         ],
-        "Tryout": [
+        "rel_Tryout": [
             "pID",
             "cName",
             "pPos",
@@ -496,7 +496,7 @@
             "city",
             "installation_date"
         ],
-        "status": [
+        "rel_status": [
             "station_id",
             "bikes_available",
             "docks_available",
@@ -562,7 +562,7 @@
             "Join_Year",
             "Team"
         ],
-        "pilot_record": [
+        "rel_pilot_record": [
             "Record_ID",
             "Pilot_ID",
             "Aircraft_ID",
@@ -616,7 +616,7 @@
             "product_color",
             "product_size"
         ],
-        "Financial_Transactions": [
+        "rel_Financial_Transactions": [
             "transaction_id",
             "account_id",
             "invoice_number",
@@ -633,7 +633,7 @@
             "product_quantity",
             "other_order_item_details"
         ],
-        "Invoice_Line_Items": [
+        "rel_Invoice_Line_Items": [
             "order_item_id",
             "invoice_number",
             "product_id",
@@ -660,7 +660,7 @@
             "born_state",
             "age"
         ],
-        "management": [
+        "rel_management": [
             "department_ID",
             "head_ID",
             "temporary_acting"
@@ -681,7 +681,7 @@
             "Age",
             "Years_working"
         ],
-        "news_report": [
+        "rel_news_report": [
             "journalist_ID",
             "Event_ID",
             "Work_Type"
@@ -776,7 +776,7 @@
             "City_Population",
             "City_Area"
         ],
-        "store_product": [
+        "rel_store_product": [
             "Store_ID",
             "Product_ID"
         ],
@@ -800,7 +800,7 @@
             "Nationality",
             "Age"
         ],
-        "party_host": [
+        "rel_party_host": [
             "Party_ID",
             "Host_ID",
             "Is_Main_in_Charge"
@@ -868,7 +868,7 @@
             "Event_ID",
             "Product_ID"
         ],
-        "Parties_in_Events": [
+        "rel_Parties_in_Events": [
             "Party_ID",
             "Event_ID",
             "Role_Code"
@@ -877,7 +877,7 @@
             "Document_ID",
             "Event_ID"
         ],
-        "Assets_in_Events": [
+        "rel_Assets_in_Events": [
             "Asset_ID",
             "Event_ID"
         ]
@@ -913,7 +913,7 @@
             "product_description",
             "other_product_details"
         ],
-        "Product_Characteristics": [
+        "rel_Product_Characteristics": [
             "product_id",
             "characteristic_id",
             "product_characteristic_value"
@@ -997,7 +997,7 @@
             "property_address",
             "other_details"
         ],
-        "Residents": [
+        "rel_Residents": [
             "resident_id",
             "property_id",
             "date_moved_in",
@@ -1015,7 +1015,7 @@
             "service_type_code",
             "service_details"
         ],
-        "Residents_Services": [
+        "rel_Residents_Services": [
             "resident_id",
             "service_id",
             "date_moved_in",
@@ -1047,12 +1047,12 @@
             "property_id",
             "date_moved_in"
         ],
-        "Timed_Status_of_Things": [
+        "rel_Timed_Status_of_Things": [
             "thing_id",
             "Date_and_Date",
             "Status_of_Thing_Code"
         ],
-        "Timed_Locations_of_Things": [
+        "rel_Timed_Locations_of_Things": [
             "thing_id",
             "Date_and_Time",
             "Location_Code"
@@ -1119,7 +1119,7 @@
             "Aircraft_Movements",
             "Freight_Metric_Tonnes"
         ],
-        "airport_aircraft": [
+        "rel_airport_aircraft": [
             "ID",
             "Airport_ID",
             "Aircraft_ID"
@@ -1134,7 +1134,7 @@
             "birth_date",
             "country_code"
         ],
-        "matches": [
+        "rel_matches": [
             "best_of",
             "draw_size",
             "loser_age",
@@ -1168,7 +1168,7 @@
             "winner_seed",
             "year"
         ],
-        "rankings": [
+        "rel_rankings": [
             "ranking_date",
             "ranking",
             "player_id",
@@ -1193,7 +1193,7 @@
             "Capacity",
             "Location"
         ],
-        "schedule": [
+        "rel_schedule": [
             "Cinema_ID",
             "Film_ID",
             "Date",
@@ -1305,7 +1305,7 @@
             "q2",
             "q3"
         ],
-        "pitStops": [
+        "rel_pitStops": [
             "raceId",
             "driverId",
             "stop",
@@ -1314,7 +1314,7 @@
             "duration",
             "milliseconds"
         ],
-        "lapTimes": [
+        "rel_lapTimes": [
             "raceId",
             "driverId",
             "lap",
@@ -1337,7 +1337,7 @@
             "Area",
             "isAVA"
         ],
-        "wine": [
+        "rel_wine": [
             "No",
             "Grape",
             "Winery",
@@ -1371,7 +1371,7 @@
             "Vice_Manager_Name",
             "Representative_Name"
         ],
-        "station_company": [
+        "rel_station_company": [
             "Station_ID",
             "Company_ID",
             "Rank_of_the_Year"
@@ -1385,7 +1385,7 @@
             "gender",
             "job"
         ],
-        "PersonFriend": [
+        "rel_PersonFriend": [
             "name",
             "friend",
             "year"
@@ -1476,7 +1476,7 @@
             "Weekly_rank",
             "Share"
         ],
-        "show": [
+        "rel_show": [
             "Show_ID",
             "Performance_ID",
             "If_first_show",
@@ -1495,7 +1495,7 @@
             "Advisor",
             "city_code"
         ],
-        "Has_Pet": [
+        "rel_Has_Pet": [
             "StuID",
             "PetID"
         ],
@@ -1536,7 +1536,7 @@
             "organisation_type",
             "organisation_details"
         ],
-        "Project_Outcomes": [
+        "rel_Project_Outcomes": [
             "project_id",
             "outcome_code",
             "outcome_details"
@@ -1639,7 +1639,7 @@
             "MANAGER_ID",
             "DEPARTMENT_ID"
         ],
-        "job_history": [
+        "rel_job_history": [
             "EMPLOYEE_ID",
             "START_DATE",
             "END_DATE",
@@ -1665,7 +1665,7 @@
             "Name",
             "Hours"
         ],
-        "AssignedTo": [
+        "rel_AssignedTo": [
             "Scientist",
             "Project"
         ]
@@ -1699,7 +1699,7 @@
             "Building",
             "DPhone"
         ],
-        "Member_of": [
+        "rel_Member_of": [
             "FacID",
             "DNO",
             "Appt_Type"
@@ -1713,11 +1713,11 @@
             "Hours",
             "DNO"
         ],
-        "Minor_in": [
+        "rel_Minor_in": [
             "StuID",
             "DNO"
         ],
-        "Enrolled_in": [
+        "rel_Enrolled_in": [
             "StuID",
             "CID",
             "Grade"
@@ -1789,12 +1789,12 @@
             "Share_in_percent",
             "Rating_in_percent"
         ],
-        "broadcast": [
+        "rel_broadcast": [
             "Channel_ID",
             "Program_ID",
             "Time_of_day"
         ],
-        "broadcast_share": [
+        "rel_broadcast_share": [
             "Channel_ID",
             "Program_ID",
             "Date",
@@ -1824,7 +1824,7 @@
             "dept_name",
             "salary"
         ],
-        "section": [
+        "rel_section": [
             "course_id",
             "sec_id",
             "semester",
@@ -1833,7 +1833,7 @@
             "room_number",
             "time_slot_id"
         ],
-        "teaches": [
+        "rel_teaches": [
             "ID",
             "course_id",
             "sec_id",
@@ -1846,7 +1846,7 @@
             "dept_name",
             "tot_cred"
         ],
-        "takes": [
+        "rel_takes": [
             "ID",
             "course_id",
             "sec_id",
@@ -1866,7 +1866,7 @@
             "end_hr",
             "end_min"
         ],
-        "prereq": [
+        "rel_prereq": [
             "course_id",
             "prereq_id"
         ]
@@ -1883,7 +1883,7 @@
             "Age",
             "Hometown"
         ],
-        "course_arrange": [
+        "rel_course_arrange": [
             "Course_ID",
             "Teacher_ID",
             "Grade"
@@ -1946,23 +1946,23 @@
             "employee_name",
             "other_details"
         ],
-        "Document_Drafts": [
+        "rel_Document_Drafts": [
             "document_id",
             "draft_number",
             "draft_details"
         ],
-        "Draft_Copies": [
+        "rel_Draft_Copies": [
             "document_id",
             "draft_number",
             "copy_number"
         ],
-        "Circulation_History": [
+        "rel_Circulation_History": [
             "document_id",
             "draft_number",
             "copy_number",
             "employee_id"
         ],
-        "Documents_Mailed": [
+        "rel_Documents_Mailed": [
             "document_id",
             "mailed_to_address_id",
             "mailing_date"
@@ -1983,7 +1983,7 @@
             "Open_Date",
             "Continuation_of"
         ],
-        "wedding": [
+        "rel_wedding": [
             "Church_ID",
             "Male_ID",
             "Female_ID",
@@ -2079,7 +2079,7 @@
             "access_count",
             "document_name"
         ],
-        "Document_Functional_Areas": [
+        "rel_Document_Functional_Areas": [
             "document_code",
             "functional_area_code"
         ],
@@ -2090,7 +2090,7 @@
             "section_code",
             "section_title"
         ],
-        "Document_Sections_Images": [
+        "rel_Document_Sections_Images": [
             "section_id",
             "image_id"
         ]
@@ -2147,7 +2147,7 @@
             "Age",
             "Level"
         ],
-        "railway_manage": [
+        "rel_railway_manage": [
             "Railway_ID",
             "Manager_ID",
             "From_Year"
@@ -2162,13 +2162,13 @@
             "capital",
             "density"
         ],
-        "city": [
+        "rel_city": [
             "city_name",
             "population",
             "country_name",
             "state_name"
         ],
-        "border_info": [
+        "rel_border_info": [
             "state_name",
             "border"
         ],
@@ -2185,7 +2185,7 @@
             "country_name",
             "state_name"
         ],
-        "mountain": [
+        "rel_mountain": [
             "mountain_name",
             "mountain_altitude",
             "country_name",
@@ -2257,12 +2257,12 @@
             "special_features",
             "last_update"
         ],
-        "film_actor": [
+        "rel_film_actor": [
             "actor_id",
             "film_id",
             "last_update"
         ],
-        "film_category": [
+        "rel_film_category": [
             "film_id",
             "category_id",
             "last_update"
@@ -2332,7 +2332,7 @@
             "rID",
             "name"
         ],
-        "Rating": [
+        "rel_Rating": [
             "rID",
             "mID",
             "stars",
@@ -2380,25 +2380,25 @@
             "Year",
             "CampusFee"
         ],
-        "degrees": [
+        "rel_degrees": [
             "Year",
             "Campus",
             "Degrees"
         ],
-        "discipline_enrollments": [
+        "rel_discipline_enrollments": [
             "Campus",
             "Discipline",
             "Year",
             "Undergraduate",
             "Graduate"
         ],
-        "enrollments": [
+        "rel_enrollments": [
             "Campus",
             "Year",
             "TotalEnrollment_AY",
             "FTE_AY"
         ],
-        "faculty": [
+        "rel_faculty": [
             "Campus",
             "Year",
             "Faculty"
@@ -2422,7 +2422,7 @@
             "Assets_in_Billion",
             "Market_Value_in_Billion"
         ],
-        "employment": [
+        "rel_employment": [
             "Company_ID",
             "People_ID",
             "Year_working"
@@ -2490,7 +2490,7 @@
             "date_valid_to",
             "other_card_details"
         ],
-        "Financial_Transactions": [
+        "rel_Financial_Transactions": [
             "transaction_id",
             "previous_transaction_id",
             "account_id",
@@ -2525,7 +2525,7 @@
             "Starting_Year",
             "Age"
         ],
-        "repair_assignment": [
+        "rel_repair_assignment": [
             "technician_id",
             "repair_ID",
             "Machine_ID"
@@ -2552,7 +2552,7 @@
             "Branch_ID",
             "Register_Year"
         ],
-        "purchase": [
+        "rel_purchase": [
             "Member_ID",
             "Branch_ID",
             "Year",
@@ -2591,7 +2591,7 @@
             "Location",
             "Attendance"
         ],
-        "member_attendance": [
+        "rel_member_attendance": [
             "Member_ID",
             "Performance_ID",
             "Num_of_Pieces"
@@ -2611,7 +2611,7 @@
             "Venue",
             "Num_of_Audience"
         ],
-        "debate_people": [
+        "rel_debate_people": [
             "Debate_ID",
             "Affirmative",
             "Negative",
@@ -2633,7 +2633,7 @@
             "paperID",
             "title"
         ],
-        "Authorship": [
+        "rel_Authorship": [
             "authID",
             "instID",
             "paperID",
@@ -2680,7 +2680,7 @@
             "date_of_enrolment",
             "date_of_completion"
         ],
-        "Student_Tests_Taken": [
+        "rel_Student_Tests_Taken": [
             "registration_id",
             "date_test_taken",
             "test_result"
@@ -2713,7 +2713,7 @@
             "regular_order_id",
             "distributer_id"
         ],
-        "Regular_Order_Products": [
+        "rel_Regular_Order_Products": [
             "regular_order_id",
             "product_id"
         ],
@@ -2723,11 +2723,11 @@
             "regular_order_id",
             "actual_order_date"
         ],
-        "Actual_Order_Products": [
+        "rel_Actual_Order_Products": [
             "actual_order_id",
             "product_id"
         ],
-        "Customer_Addresses": [
+        "rel_Customer_Addresses": [
             "customer_id",
             "address_id",
             "date_from",
@@ -2756,7 +2756,7 @@
             "employee_name",
             "employee_phone"
         ],
-        "Order_Deliveries": [
+        "rel_Order_Deliveries": [
             "location_code",
             "actual_order_id",
             "delivery_status_code",
@@ -2781,11 +2781,11 @@
             "did",
             "name"
         ],
-        "domain_author": [
+        "rel_domain_author": [
             "aid",
             "did"
         ],
-        "domain_conference": [
+        "rel_domain_conference": [
             "cid",
             "did"
         ],
@@ -2794,7 +2794,7 @@
             "jid",
             "name"
         ],
-        "domain_journal": [
+        "rel_domain_journal": [
             "did",
             "jid"
         ],
@@ -2802,7 +2802,7 @@
             "keyword",
             "kid"
         ],
-        "domain_keyword": [
+        "rel_domain_keyword": [
             "did",
             "kid"
         ],
@@ -2816,7 +2816,7 @@
             "title",
             "year"
         ],
-        "domain_publication": [
+        "rel_domain_publication": [
             "did",
             "pid"
         ],
@@ -2826,15 +2826,15 @@
             "name",
             "oid"
         ],
-        "publication_keyword": [
+        "rel_publication_keyword": [
             "pid",
             "kid"
         ],
-        "writes": [
+        "rel_writes": [
             "aid",
             "pid"
         ],
-        "cite": [
+        "rel_cite": [
             "cited",
             "citing"
         ]
@@ -2875,7 +2875,7 @@
             "Date_of_Birth",
             "Other_Details"
         ],
-        "Document_Locations": [
+        "rel_Document_Locations": [
             "Document_ID",
             "Location_Code",
             "Date_in_Location_From",
@@ -2904,7 +2904,7 @@
             "Type",
             "Name"
         ],
-        "nomination": [
+        "rel_nomination": [
             "Artwork_ID",
             "Festival_ID",
             "Result"
@@ -2944,13 +2944,13 @@
             "product_name",
             "product_price"
         ],
-        "Supplier_Addresses": [
+        "rel_Supplier_Addresses": [
             "supplier_id",
             "address_id",
             "date_from",
             "date_to"
         ],
-        "Customer_Addresses": [
+        "rel_Customer_Addresses": [
             "customer_id",
             "address_id",
             "date_from",
@@ -2980,7 +2980,7 @@
             "order_id",
             "product_id"
         ],
-        "Product_Suppliers": [
+        "rel_Product_Suppliers": [
             "product_id",
             "supplier_id",
             "date_supplied_from",
@@ -2988,7 +2988,7 @@
             "total_amount_purchased",
             "total_value_purchased"
         ],
-        "Staff_Department_Assignments": [
+        "rel_Staff_Department_Assignments": [
             "staff_id",
             "department_id",
             "date_assigned_from",
@@ -3028,7 +3028,7 @@
             "last_name",
             "contact_phone"
         ],
-        "Customer_Address_History": [
+        "rel_Customer_Address_History": [
             "customer_id",
             "address_id",
             "date_from",
@@ -3040,7 +3040,7 @@
             "order_date",
             "order_status_code"
         ],
-        "Order_Items": [
+        "rel_Order_Items": [
             "order_item_id",
             "order_id",
             "product_id",
@@ -3058,7 +3058,7 @@
             "Advisor",
             "city_code"
         ],
-        "Voting_record": [
+        "rel_Voting_record": [
             "StuID",
             "Registration_Date",
             "Election_Cycle",
@@ -3107,7 +3107,7 @@
             "phone_number",
             "cell_mobile_phone_number"
         ],
-        "Customer_Payments": [
+        "rel_Customer_Payments": [
             "customer_id",
             "datetime_payment",
             "payment_method_code",
@@ -3135,7 +3135,7 @@
             "IHSAA_Football_Class",
             "County"
         ],
-        "budget": [
+        "rel_budget": [
             "School_id",
             "Year",
             "Budgeted",
@@ -3183,7 +3183,7 @@
             "Name",
             "Age"
         ],
-        "journal_committee": [
+        "rel_journal_committee": [
             "Editor_ID",
             "Journal_ID",
             "Work_Type"
@@ -3238,7 +3238,7 @@
             "ClubDesc",
             "ClubLocation"
         ],
-        "Member_of_club": [
+        "rel_Member_of_club": [
             "StuID",
             "ClubID",
             "Position"
@@ -3260,7 +3260,7 @@
             "u_id",
             "name"
         ],
-        "trust": [
+        "rel_trust": [
             "source_u_id",
             "target_u_id",
             "trust"
@@ -3279,7 +3279,7 @@
             "Country",
             "College_ID"
         ],
-        "round": [
+        "rel_round": [
             "Round_ID",
             "Member_ID",
             "Decoration_Theme",
@@ -3328,7 +3328,7 @@
             "Time",
             "Service"
         ],
-        "train_station": [
+        "rel_train_station": [
             "Train_ID",
             "Station_ID"
         ]
@@ -3338,7 +3338,7 @@
             "Allergy",
             "AllergyType"
         ],
-        "Has_Allergy": [
+        "rel_Has_Allergy": [
             "StuID",
             "Allergy"
         ],
@@ -3538,7 +3538,7 @@
             "mailshot_start_date",
             "mailshot_end_date"
         ],
-        "Customer_Addresses": [
+        "rel_Customer_Addresses": [
             "customer_id",
             "premise_id",
             "date_address_from",
@@ -3554,13 +3554,13 @@
             "order_delivered_datetime",
             "order_shipping_charges"
         ],
-        "Mailshot_Customers": [
+        "rel_Mailshot_Customers": [
             "mailshot_id",
             "customer_id",
             "outcome_code",
             "mailshot_customer_date"
         ],
-        "Order_Items": [
+        "rel_Order_Items": [
             "item_id",
             "order_item_status_code",
             "order_id",
@@ -3584,7 +3584,7 @@
             "Country",
             "CountryAbbrev"
         ],
-        "flights": [
+        "rel_flights": [
             "Airline",
             "FlightNo",
             "SourceAirport",
@@ -3637,7 +3637,7 @@
             "product_description",
             "product_price"
         ],
-        "Complaints": [
+        "rel_Complaints": [
             "complaint_id",
             "product_id",
             "customer_id",
@@ -3717,7 +3717,7 @@
             "Stadium_ID",
             "Year"
         ],
-        "singer_in_concert": [
+        "rel_singer_in_concert": [
             "concert_ID",
             "Singer_ID"
         ]
@@ -3786,7 +3786,7 @@
             "Amount_Claimed",
             "Amount_Piad"
         ],
-        "Claims_Documents": [
+        "rel_Claims_Documents": [
             "Claim_ID",
             "Document_Type_Code",
             "Created_by_Staff_ID",
@@ -3868,7 +3868,7 @@
         ]
     },
     "baseball_1": {
-        "all_star": [
+        "rel_all_star": [
             "player_id",
             "year",
             "game_num",
@@ -3878,7 +3878,7 @@
             "gp",
             "starting_pos"
         ],
-        "appearances": [
+        "rel_appearances": [
             "year",
             "team_id",
             "league_id",
@@ -3901,7 +3901,7 @@
             "g_ph",
             "g_pr"
         ],
-        "manager_award": [
+        "rel_manager_award": [
             "player_id",
             "award_id",
             "year",
@@ -3909,7 +3909,7 @@
             "tie",
             "notes"
         ],
-        "player_award": [
+        "rel_player_award": [
             "player_id",
             "award_id",
             "year",
@@ -3926,7 +3926,7 @@
             "points_max",
             "votes_first"
         ],
-        "player_award_vote": [
+        "rel_player_award_vote": [
             "award_id",
             "year",
             "league_id",
@@ -3935,7 +3935,7 @@
             "points_max",
             "votes_first"
         ],
-        "batting": [
+        "rel_batting": [
             "player_id",
             "year",
             "stint",
@@ -3959,7 +3959,7 @@
             "sf",
             "g_idp"
         ],
-        "batting_postseason": [
+        "rel_batting_postseason": [
             "year",
             "round",
             "player_id",
@@ -3983,12 +3983,12 @@
             "sf",
             "g_idp"
         ],
-        "player_college": [
+        "rel_player_college": [
             "player_id",
             "college_id",
             "year"
         ],
-        "fielding": [
+        "rel_fielding": [
             "player_id",
             "year",
             "stint",
@@ -4008,7 +4008,7 @@
             "cs",
             "zr"
         ],
-        "fielding_outfield": [
+        "rel_fielding_outfield": [
             "player_id",
             "year",
             "stint",
@@ -4016,7 +4016,7 @@
             "gcf",
             "grf"
         ],
-        "fielding_postseason": [
+        "rel_fielding_postseason": [
             "player_id",
             "year",
             "team_id",
@@ -4035,7 +4035,7 @@
             "sb",
             "cs"
         ],
-        "hall_of_fame": [
+        "rel_hall_of_fame": [
             "player_id",
             "yearid",
             "votedby",
@@ -4046,7 +4046,7 @@
             "category",
             "needed_note"
         ],
-        "home_game": [
+        "rel_home_game": [
             "year",
             "league_id",
             "team_id",
@@ -4057,7 +4057,7 @@
             "openings",
             "attendance"
         ],
-        "manager": [
+        "rel_manager": [
             "player_id",
             "year",
             "team_id",
@@ -4069,7 +4069,7 @@
             "rank",
             "plyr_mgr"
         ],
-        "manager_half": [
+        "rel_manager_half": [
             "player_id",
             "year",
             "team_id",
@@ -4367,7 +4367,7 @@
             "birth_city",
             "birth_year"
         ],
-        "written_by": [
+        "rel_written_by": [
             "id",
             "msid",
             "wid"
@@ -4390,22 +4390,22 @@
             "Firstname",
             "Lastname"
         ],
-        "Instruments": [
+        "rel_Instruments": [
             "SongId",
             "BandmateId",
             "Instrument"
         ],
-        "Performance": [
+        "rel_Performance": [
             "SongId",
             "Bandmate",
             "StagePosition"
         ],
-        "Tracklists": [
+        "rel_Tracklists": [
             "AlbumId",
             "Position",
             "SongId"
         ],
-        "Vocals": [
+        "rel_Vocals": [
             "SongId",
             "Bandmate",
             "Type"
@@ -4417,11 +4417,11 @@
             "name",
             "grade"
         ],
-        "Friend": [
+        "rel_Friend": [
             "student_id",
             "friend_id"
         ],
-        "Likes": [
+        "rel_Likes": [
             "student_id",
             "liked_id"
         ]
@@ -4472,7 +4472,7 @@
             "Stadium_ID",
             "Year"
         ],
-        "record": [
+        "rel_record": [
             "ID",
             "Result",
             "Swimmer_ID",
@@ -4500,14 +4500,14 @@
             "date_became_customer",
             "other_customer_details"
         ],
-        "Customer_Addresses": [
+        "rel_Customer_Addresses": [
             "customer_id",
             "address_id",
             "date_address_from",
             "address_type",
             "date_address_to"
         ],
-        "Customer_Contact_Channels": [
+        "rel_Customer_Contact_Channels": [
             "customer_id",
             "channel_code",
             "active_from_date",
@@ -4521,7 +4521,7 @@
             "order_date",
             "order_details"
         ],
-        "Order_Items": [
+        "rel_Order_Items": [
             "order_id",
             "product_id",
             "order_quantity"
@@ -4554,11 +4554,11 @@
             "sales_transaction_id",
             "sales_details"
         ],
-        "Purchases": [
+        "rel_Purchases": [
             "purchase_transaction_id",
             "purchase_details"
         ],
-        "Transactions_Lots": [
+        "rel_Transactions_Lots": [
             "transaction_id",
             "lot_id"
         ]
@@ -4579,12 +4579,12 @@
             "GName",
             "GType"
         ],
-        "Plays_Games": [
+        "rel_Plays_Games": [
             "StuID",
             "GameID",
             "Hours_Played"
         ],
-        "SportsInfo": [
+        "rel_SportsInfo": [
             "StuID",
             "SportName",
             "HoursPerWeek",
@@ -4677,7 +4677,7 @@
             "Actual_Delivery_Date",
             "Other_Order_Details"
         ],
-        "Performers_in_Bookings": [
+        "rel_Performers_in_Bookings": [
             "Order_ID",
             "Performer_ID"
         ],
@@ -4715,7 +4715,7 @@
             "Product_Price",
             "Other_Product_Service_Details"
         ],
-        "Bookings_Services": [
+        "rel_Bookings_Services": [
             "Order_ID",
             "Product_ID"
         ],
@@ -4825,7 +4825,7 @@
             "Service_ID",
             "Event_Details"
         ],
-        "Participants_in_Events": [
+        "rel_Participants_in_Events": [
             "Event_ID",
             "Participant_ID"
         ]
@@ -4846,7 +4846,7 @@
             "Open_Date",
             "Open_Year"
         ],
-        "stock": [
+        "rel_stock": [
             "Shop_ID",
             "Device_ID",
             "Quantity"
@@ -4859,7 +4859,7 @@
             "Region",
             "Start_year"
         ],
-        "club_rank": [
+        "rel_club_rank": [
             "Rank",
             "Club_ID",
             "Gold",
@@ -4883,7 +4883,7 @@
             "Competition_type",
             "Country"
         ],
-        "competition_result": [
+        "rel_competition_result": [
             "Competition_ID",
             "Club_ID_1",
             "Club_ID_2",
@@ -4903,7 +4903,7 @@
             "Author",
             "College"
         ],
-        "Acceptance": [
+        "rel_Acceptance": [
             "Submission_ID",
             "Workshop_ID",
             "Result"
@@ -4947,7 +4947,7 @@
             "shipment_date",
             "other_shipment_details"
         ],
-        "Shipment_Items": [
+        "rel_Shipment_Items": [
             "shipment_id",
             "order_item_id"
         ]
@@ -4967,7 +4967,7 @@
             "Location",
             "Type"
         ],
-        "school_bus": [
+        "rel_school_bus": [
             "School_ID",
             "Driver_ID",
             "Years_Working",
@@ -5009,11 +5009,11 @@
             "actid",
             "activity_name"
         ],
-        "Participates_in": [
+        "rel_Participates_in": [
             "stuid",
             "actid"
         ],
-        "Faculty_Participates_in": [
+        "rel_Faculty_Participates_in": [
             "FacID",
             "actid"
         ],
@@ -5053,7 +5053,7 @@
             "Num_of_shops",
             "Ranking"
         ],
-        "phone_market": [
+        "rel_phone_market": [
             "Market_ID",
             "Phone_ID",
             "Num_of_stock"
@@ -5094,7 +5094,7 @@
             "bedroom_count",
             "room_count"
         ],
-        "Apartment_Facilities": [
+        "rel_Apartment_Facilities": [
             "apt_id",
             "facility_code"
         ],
@@ -5136,7 +5136,7 @@
             "OMIM",
             "Porphyria"
         ],
-        "medicine_enzyme_interaction": [
+        "rel_medicine_enzyme_interaction": [
             "enzyme_id",
             "medicine_id",
             "interaction_type"
@@ -5261,7 +5261,7 @@
             "id",
             "name"
         ],
-        "playlist_tracks": [
+        "rel_playlist_tracks": [
             "playlist_id",
             "track_id"
         ]
@@ -5287,7 +5287,7 @@
             "Start_from",
             "Is_full_time"
         ],
-        "evaluation": [
+        "rel_evaluation": [
             "Employee_ID",
             "Year_awarded",
             "Bonus"
@@ -5325,12 +5325,12 @@
             "EMP_HIREDATE",
             "EMP_DOB"
         ],
-        "ENROLL": [
+        "rel_ENROLL": [
             "CLASS_CODE",
             "STU_NUM",
             "ENROLL_GRADE"
         ],
-        "PROFESSOR": [
+        "rel_PROFESSOR": [
             "EMP_NUM",
             "DEPT_CODE",
             "PROF_OFFICE",
@@ -5406,7 +5406,7 @@
             "Assets_billion",
             "Market_Value_billion"
         ],
-        "Office_locations": [
+        "rel_Office_locations": [
             "building_id",
             "company_id",
             "move_in_year"
@@ -5459,11 +5459,11 @@
             "amenid",
             "amenity_name"
         ],
-        "Has_amenity": [
+        "rel_Has_amenity": [
             "dormid",
             "amenid"
         ],
-        "Lives_in": [
+        "rel_Lives_in": [
             "stuid",
             "dormid",
             "room_number"
@@ -5515,7 +5515,7 @@
             "amount_due",
             "amount_paid"
         ],
-        "Products_Booked": [
+        "rel_Products_Booked": [
             "booking_id",
             "product_id",
             "returned_yn",
@@ -5547,13 +5547,13 @@
             "Level_of_membership",
             "Address"
         ],
-        "happy_hour": [
+        "rel_happy_hour": [
             "HH_ID",
             "Shop_ID",
             "Month",
             "Num_of_shaff_in_charge"
         ],
-        "happy_hour_member": [
+        "rel_happy_hour_member": [
             "HH_ID",
             "Member_ID",
             "Total_amount"
@@ -5647,7 +5647,7 @@
             "PlaylistId",
             "Name"
         ],
-        "PlaylistTrack": [
+        "rel_PlaylistTrack": [
             "PlaylistId",
             "TrackId"
         ],
@@ -5710,7 +5710,7 @@
             "email_address",
             "other_details"
         ],
-        "Assessment_Notes": [
+        "rel_Assessment_Notes": [
             "notes_id",
             "student_id",
             "teacher_id",
@@ -5737,7 +5737,7 @@
             "detention_summary",
             "other_details"
         ],
-        "Student_Addresses": [
+        "rel_Student_Addresses": [
             "student_id",
             "address_id",
             "date_address_from",
@@ -5745,7 +5745,7 @@
             "monthly_rental",
             "other_details"
         ],
-        "Students_in_Detention": [
+        "rel_Students_in_Detention": [
             "student_id",
             "detention_id",
             "incident_id"
@@ -5780,7 +5780,7 @@
             "Capital",
             "Code2"
         ],
-        "countrylanguage": [
+        "rel_countrylanguage": [
             "CountryCode",
             "Language",
             "IsOfficial",
@@ -5867,7 +5867,7 @@
             "numCitedBy",
             "journalId"
         ],
-        "cite": [
+        "rel_cite": [
             "citingPaperId",
             "citedPaperId"
         ],
@@ -5875,11 +5875,11 @@
             "paperId",
             "datasetId"
         ],
-        "paperKeyphrase": [
+        "rel_paperKeyphrase": [
             "paperId",
             "keyphraseId"
         ],
-        "writes": [
+        "rel_writes": [
             "paperId",
             "authorId"
         ]
@@ -5918,7 +5918,7 @@
             "height",
             "width"
         ],
-        "Catalog_Contents_Additional_Attributes": [
+        "rel_Catalog_Contents_Additional_Attributes": [
             "catalog_entry_id",
             "catalog_level_number",
             "attribute_id",
@@ -5968,7 +5968,7 @@
             "shp_feature_3",
             "other_property_details"
         ],
-        "Other_Property_Features": [
+        "rel_Other_Property_Features": [
             "property_id",
             "feature_id",
             "property_feature_description"
@@ -6049,7 +6049,7 @@
             "transcript_date",
             "other_details"
         ],
-        "Transcript_Contents": [
+        "rel_Transcript_Contents": [
             "student_course_id",
             "transcript_id"
         ]
@@ -6092,7 +6092,7 @@
             "Artist_ID",
             "Ticket_Price"
         ],
-        "exhibition_record": [
+        "rel_exhibition_record": [
             "Exhibition_ID",
             "Date",
             "Attendance"
@@ -6142,27 +6142,27 @@
             "party_phone",
             "party_email"
         ],
-        "Organization_Contact_Individuals": [
+        "rel_Organization_Contact_Individuals": [
             "individual_id",
             "organization_id",
             "date_contact_from",
             "date_contact_to"
         ],
-        "Party_Addresses": [
+        "rel_Party_Addresses": [
             "party_id",
             "address_id",
             "date_address_from",
             "address_type_code",
             "date_address_to"
         ],
-        "Party_Forms": [
+        "rel_Party_Forms": [
             "party_id",
             "form_id",
             "date_completion_started",
             "form_status_code",
             "date_fully_completed"
         ],
-        "Party_Services": [
+        "rel_Party_Services": [
             "booking_id",
             "customer_id",
             "service_id",
@@ -6184,7 +6184,7 @@
             "policy_type_code",
             "Customer_Phone"
         ],
-        "Customers_Policies": [
+        "rel_Customers_Policies": [
             "Customer_ID",
             "Policy_ID",
             "Date_Opened",
@@ -6225,7 +6225,7 @@
             "Address",
             "Rating"
         ],
-        "Type_Of_Restaurant": [
+        "rel_Type_Of_Restaurant": [
             "ResID",
             "ResTypeID"
         ],
@@ -6234,7 +6234,7 @@
             "ResTypeName",
             "ResTypeDescription"
         ],
-        "Visits_Restaurant": [
+        "rel_Visits_Restaurant": [
             "StuID",
             "ResID",
             "Time",
@@ -6329,12 +6329,12 @@
             "Club_ID",
             "Rank"
         ],
-        "player_coach": [
+        "rel_player_coach": [
             "Player_ID",
             "Coach_ID",
             "Starting_year"
         ],
-        "match_result": [
+        "rel_match_result": [
             "Rank",
             "Club_ID",
             "Gold",
@@ -6399,12 +6399,12 @@
             "date_from",
             "date_to"
         ],
-        "Student_Course_Registrations": [
+        "rel_Student_Course_Registrations": [
             "student_id",
             "course_id",
             "registration_date"
         ],
-        "Student_Course_Attendance": [
+        "rel_Student_Course_Attendance": [
             "student_id",
             "course_id",
             "date_of_attendance"
@@ -6413,7 +6413,7 @@
             "candidate_id",
             "candidate_details"
         ],
-        "Candidate_Assessments": [
+        "rel_Candidate_Assessments": [
             "candidate_id",
             "qualification",
             "assessment_date",
@@ -6464,7 +6464,7 @@
             "asset_disposed_date",
             "other_asset_details"
         ],
-        "Asset_Parts": [
+        "rel_Asset_Parts": [
             "asset_id",
             "part_id"
         ],
@@ -6475,7 +6475,7 @@
             "last_name",
             "other_details"
         ],
-        "Engineer_Skills": [
+        "rel_Engineer_Skills": [
             "engineer_id",
             "skill_id"
         ],
@@ -6504,18 +6504,18 @@
             "fault_description",
             "other_fault_details"
         ],
-        "Fault_Log_Parts": [
+        "rel_Fault_Log_Parts": [
             "fault_log_entry_id",
             "part_fault_id",
             "fault_status"
         ],
-        "Skills_Required_To_Fix": [
+        "rel_Skills_Required_To_Fix": [
             "part_fault_id",
             "skill_id"
         ]
     },
     "twitter_1": {
-        "follows": [
+        "rel_follows": [
             "f1",
             "f2"
         ],
@@ -6571,7 +6571,7 @@
             "Class",
             "Division"
         ],
-        "school_performance": [
+        "rel_school_performance": [
             "School_Id",
             "School_Year",
             "Class_A",

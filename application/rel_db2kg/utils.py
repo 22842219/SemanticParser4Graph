@@ -62,8 +62,15 @@ def is_derived(s):
 
 
 def is_subquery(json):
-    if not isinstance(json, dict):
-        return False
+    is_subquery = False
+    if isinstance(json, list):
+        for part in json:
+            if isinstance(part, dict):
+                if 'from' or  'query'  or  'union' or  'intersect' or  'except' in json :
+                    is_subquery = True
+            else:
+                is_subquery = False
+        return is_subquery
     return 'from' in json or \
            'query' in json or \
            'union' in json or \
@@ -111,6 +118,13 @@ def save2graph(out_path, table_headers, table_records):
          print("check_records:", df)
          df.to_csv(outfile, header = table_headers, index = False)
          outfile.close() 
+
+def check_compound_pk(primary_keys):
+   compound_pk_check=False
+   if len(primary_keys)!=1:  
+      compound_pk_check=True
+   return compound_pk_check
+
 
 
 

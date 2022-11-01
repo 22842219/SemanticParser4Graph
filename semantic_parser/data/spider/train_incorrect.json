@@ -1,1 +1,2787 @@
-[][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    }
+][][][][][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "List the name, born state and age of the heads of departments ordered by age.",
+        "sql_query": "SELECT name ,  born_state ,  age FROM head ORDER BY age",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "born_state"
+                },
+                {
+                    "value": "age"
+                }
+            ],
+            "from": "head",
+            "orderby": {
+                "value": "age"
+            }
+        },
+        "sql_ans": [
+            "P\u00e1draig Harrington",
+            "Stewart Cink",
+            "Dudley Hart",
+            "Jeff Maggert",
+            "Nick Faldo",
+            "Tiger Woods",
+            "Franklin Langham",
+            "Sergio Garc\u00eda",
+            "K. J. Choi",
+            "Billy Mayfair"
+        ],
+        "cypher_query": "MATCH (h:head)\nRETURN h.name,h.born_state,h.age\nORDER BY h.age",
+        "cypher_ans": [
+            [
+                "P\u00e1draig Harrington",
+                "Connecticut",
+                43.0
+            ],
+            [
+                "Stewart Cink",
+                "Florida",
+                50.0
+            ],
+            [
+                "Dudley Hart",
+                "California",
+                52.0
+            ],
+            [
+                "Jeff Maggert",
+                "Delaware",
+                53.0
+            ],
+            [
+                "Nick Faldo",
+                "California",
+                56.0
+            ],
+            [
+                "Tiger Woods",
+                "Alabama",
+                67.0
+            ],
+            [
+                "Franklin Langham",
+                "Connecticut",
+                67.0
+            ],
+            [
+                "Sergio Garc\u00eda",
+                "California",
+                68.0
+            ],
+            [
+                "K. J. Choi",
+                "Alabama",
+                69.0
+            ],
+            [
+                "Billy Mayfair",
+                "California",
+                69.0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "List the creation year, name and budget of each department.",
+        "sql_query": "SELECT creation ,  name ,  budget_in_billions FROM department",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "creation"
+                },
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "budget_in_billions"
+                }
+            ],
+            "from": "department"
+        },
+        "sql_ans": [
+            "1789",
+            "1789",
+            "1947",
+            "1870",
+            "1849",
+            "1889",
+            "1903",
+            "1913",
+            "1953",
+            "1965",
+            "1966",
+            "1977",
+            "1979",
+            "1989",
+            "2002"
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN d.Creation,d.Name,d.Budget_in_Billions",
+        "cypher_ans": [
+            [
+                "1789",
+                "State",
+                9.96
+            ],
+            [
+                "1789",
+                "Treasury",
+                11.1
+            ],
+            [
+                "1947",
+                "Defense",
+                439.3
+            ],
+            [
+                "1870",
+                "Justice",
+                23.4
+            ],
+            [
+                "1849",
+                "Interior",
+                10.7
+            ],
+            [
+                "1889",
+                "Agriculture",
+                77.6
+            ],
+            [
+                "1903",
+                "Commerce",
+                6.2
+            ],
+            [
+                "1913",
+                "Labor",
+                59.7
+            ],
+            [
+                "1953",
+                "Health and Human Services",
+                543.2
+            ],
+            [
+                "1965",
+                "Housing and Urban Development",
+                46.2
+            ],
+            [
+                "1966",
+                "Transportation",
+                58.0
+            ],
+            [
+                "1977",
+                "Energy",
+                21.5
+            ],
+            [
+                "1979",
+                "Education",
+                62.8
+            ],
+            [
+                "1989",
+                "Veterans Affairs",
+                73.2
+            ],
+            [
+                "2002",
+                "Homeland Security",
+                44.6
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "What are the names of the heads who are born outside the California state?",
+        "sql_query": "SELECT name FROM head WHERE born_state != 'California'",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "head",
+            "where": {
+                "neq": [
+                    "born_state",
+                    {
+                        "literal": "California"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            "Tiger Woods",
+            "K. J. Choi",
+            "Jeff Maggert",
+            "Stewart Cink",
+            "P\u00e1draig Harrington",
+            "Franklin Langham"
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.born_state<>'California'\nRETURN h.name",
+        "cypher_ans": [
+            [
+                "Tiger Woods"
+            ],
+            [
+                "K. J. Choi"
+            ],
+            [
+                "Jeff Maggert"
+            ],
+            [
+                "Stewart Cink"
+            ],
+            [
+                "P\u00e1draig Harrington"
+            ],
+            [
+                "Franklin Langham"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "What are the names of the states where at least 3 heads were born?",
+        "sql_query": "SELECT born_state FROM head GROUP BY born_state HAVING count(*)  >=  3",
+        "parsed_sql": {
+            "select": {
+                "value": "born_state"
+            },
+            "from": "head",
+            "groupby": {
+                "value": "born_state"
+            },
+            "having": {
+                "gte": [
+                    {
+                        "count": "*"
+                    },
+                    3
+                ]
+            }
+        },
+        "sql_ans": [
+            "California"
+        ],
+        "cypher_query": "MATCH (h:head)\nWITH count(*) AS count, h.born_state AS born_state\nWHERE count >=3\nRETURN born_state",
+        "cypher_ans": [
+            [
+                "California"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "In which year were most departments established?",
+        "sql_query": "SELECT creation FROM department GROUP BY creation ORDER BY count(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "creation"
+            },
+            "from": "department",
+            "groupby": {
+                "value": "creation"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            "1789"
+        ],
+        "cypher_query": "MATCH (d:department)\nWITH d.Creation AS Creation, count(d.Creation) AS count\nRETURN Creation\nORDER BY count DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "1789"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "List the name, born state and age of the heads of departments ordered by age.",
+        "sql_query": "SELECT name ,  born_state ,  age FROM head ORDER BY age",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "born_state"
+                },
+                {
+                    "value": "age"
+                }
+            ],
+            "from": "head",
+            "orderby": {
+                "value": "age"
+            }
+        },
+        "sql_ans": [
+            [
+                "P\u00e1draig Harrington"
+            ],
+            [
+                "Stewart Cink"
+            ],
+            [
+                "Dudley Hart"
+            ],
+            [
+                "Jeff Maggert"
+            ],
+            [
+                "Nick Faldo"
+            ],
+            [
+                "Tiger Woods"
+            ],
+            [
+                "Franklin Langham"
+            ],
+            [
+                "Sergio Garc\u00eda"
+            ],
+            [
+                "K. J. Choi"
+            ],
+            [
+                "Billy Mayfair"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nRETURN h.name,h.born_state,h.age\nORDER BY h.age",
+        "cypher_ans": [
+            [
+                "P\u00e1draig Harrington",
+                "Connecticut",
+                43.0
+            ],
+            [
+                "Stewart Cink",
+                "Florida",
+                50.0
+            ],
+            [
+                "Dudley Hart",
+                "California",
+                52.0
+            ],
+            [
+                "Jeff Maggert",
+                "Delaware",
+                53.0
+            ],
+            [
+                "Nick Faldo",
+                "California",
+                56.0
+            ],
+            [
+                "Tiger Woods",
+                "Alabama",
+                67.0
+            ],
+            [
+                "Franklin Langham",
+                "Connecticut",
+                67.0
+            ],
+            [
+                "Sergio Garc\u00eda",
+                "California",
+                68.0
+            ],
+            [
+                "K. J. Choi",
+                "Alabama",
+                69.0
+            ],
+            [
+                "Billy Mayfair",
+                "California",
+                69.0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "List the creation year, name and budget of each department.",
+        "sql_query": "SELECT creation ,  name ,  budget_in_billions FROM department",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "creation"
+                },
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "budget_in_billions"
+                }
+            ],
+            "from": "department"
+        },
+        "sql_ans": [
+            [
+                "1789"
+            ],
+            [
+                "1789"
+            ],
+            [
+                "1947"
+            ],
+            [
+                "1870"
+            ],
+            [
+                "1849"
+            ],
+            [
+                "1889"
+            ],
+            [
+                "1903"
+            ],
+            [
+                "1913"
+            ],
+            [
+                "1953"
+            ],
+            [
+                "1965"
+            ],
+            [
+                "1966"
+            ],
+            [
+                "1977"
+            ],
+            [
+                "1979"
+            ],
+            [
+                "1989"
+            ],
+            [
+                "2002"
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN d.Creation,d.Name,d.Budget_in_Billions",
+        "cypher_ans": [
+            [
+                "1789",
+                "State",
+                9.96
+            ],
+            [
+                "1789",
+                "Treasury",
+                11.1
+            ],
+            [
+                "1947",
+                "Defense",
+                439.3
+            ],
+            [
+                "1870",
+                "Justice",
+                23.4
+            ],
+            [
+                "1849",
+                "Interior",
+                10.7
+            ],
+            [
+                "1889",
+                "Agriculture",
+                77.6
+            ],
+            [
+                "1903",
+                "Commerce",
+                6.2
+            ],
+            [
+                "1913",
+                "Labor",
+                59.7
+            ],
+            [
+                "1953",
+                "Health and Human Services",
+                543.2
+            ],
+            [
+                "1965",
+                "Housing and Urban Development",
+                46.2
+            ],
+            [
+                "1966",
+                "Transportation",
+                58.0
+            ],
+            [
+                "1977",
+                "Energy",
+                21.5
+            ],
+            [
+                "1979",
+                "Education",
+                62.8
+            ],
+            [
+                "1989",
+                "Veterans Affairs",
+                73.2
+            ],
+            [
+                "2002",
+                "Homeland Security",
+                44.6
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "What are the maximum and minimum budget of the departments?",
+        "sql_query": "SELECT max(budget_in_billions) ,  min(budget_in_billions) FROM department",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "max": "budget_in_billions"
+                    }
+                },
+                {
+                    "value": {
+                        "min": "budget_in_billions"
+                    }
+                }
+            ],
+            "from": "department"
+        },
+        "sql_ans": [
+            [
+                543.2
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN max(d.Budget_in_Billions),min(d.Budget_in_Billions)",
+        "cypher_ans": [
+            [
+                543.2,
+                6.2
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4
+            ],
+            [
+                9
+            ],
+            [
+                10
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "List the name, born state and age of the heads of departments ordered by age.",
+        "sql_query": "SELECT name ,  born_state ,  age FROM head ORDER BY age",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "born_state"
+                },
+                {
+                    "value": "age"
+                }
+            ],
+            "from": "head",
+            "orderby": {
+                "value": "age"
+            }
+        },
+        "sql_ans": [
+            [
+                "P\u00e1draig Harrington"
+            ],
+            [
+                "Stewart Cink"
+            ],
+            [
+                "Dudley Hart"
+            ],
+            [
+                "Jeff Maggert"
+            ],
+            [
+                "Nick Faldo"
+            ],
+            [
+                "Tiger Woods"
+            ],
+            [
+                "Franklin Langham"
+            ],
+            [
+                "Sergio Garc\u00eda"
+            ],
+            [
+                "K. J. Choi"
+            ],
+            [
+                "Billy Mayfair"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nRETURN h.name,h.born_state,h.age\nORDER BY h.age",
+        "cypher_ans": [
+            [
+                "P\u00e1draig Harrington",
+                "Connecticut",
+                43.0
+            ],
+            [
+                "Stewart Cink",
+                "Florida",
+                50.0
+            ],
+            [
+                "Dudley Hart",
+                "California",
+                52.0
+            ],
+            [
+                "Jeff Maggert",
+                "Delaware",
+                53.0
+            ],
+            [
+                "Nick Faldo",
+                "California",
+                56.0
+            ],
+            [
+                "Tiger Woods",
+                "Alabama",
+                67.0
+            ],
+            [
+                "Franklin Langham",
+                "Connecticut",
+                67.0
+            ],
+            [
+                "Sergio Garc\u00eda",
+                "California",
+                68.0
+            ],
+            [
+                "K. J. Choi",
+                "Alabama",
+                69.0
+            ],
+            [
+                "Billy Mayfair",
+                "California",
+                69.0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "List the creation year, name and budget of each department.",
+        "sql_query": "SELECT creation ,  name ,  budget_in_billions FROM department",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "creation"
+                },
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "budget_in_billions"
+                }
+            ],
+            "from": "department"
+        },
+        "sql_ans": [
+            [
+                "1789"
+            ],
+            [
+                "1789"
+            ],
+            [
+                "1947"
+            ],
+            [
+                "1870"
+            ],
+            [
+                "1849"
+            ],
+            [
+                "1889"
+            ],
+            [
+                "1903"
+            ],
+            [
+                "1913"
+            ],
+            [
+                "1953"
+            ],
+            [
+                "1965"
+            ],
+            [
+                "1966"
+            ],
+            [
+                "1977"
+            ],
+            [
+                "1979"
+            ],
+            [
+                "1989"
+            ],
+            [
+                "2002"
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN d.Creation,d.Name,d.Budget_in_Billions",
+        "cypher_ans": [
+            [
+                "1789",
+                "State",
+                9.96
+            ],
+            [
+                "1789",
+                "Treasury",
+                11.1
+            ],
+            [
+                "1947",
+                "Defense",
+                439.3
+            ],
+            [
+                "1870",
+                "Justice",
+                23.4
+            ],
+            [
+                "1849",
+                "Interior",
+                10.7
+            ],
+            [
+                "1889",
+                "Agriculture",
+                77.6
+            ],
+            [
+                "1903",
+                "Commerce",
+                6.2
+            ],
+            [
+                "1913",
+                "Labor",
+                59.7
+            ],
+            [
+                "1953",
+                "Health and Human Services",
+                543.2
+            ],
+            [
+                "1965",
+                "Housing and Urban Development",
+                46.2
+            ],
+            [
+                "1966",
+                "Transportation",
+                58.0
+            ],
+            [
+                "1977",
+                "Energy",
+                21.5
+            ],
+            [
+                "1979",
+                "Education",
+                62.8
+            ],
+            [
+                "1989",
+                "Veterans Affairs",
+                73.2
+            ],
+            [
+                "2002",
+                "Homeland Security",
+                44.6
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "What are the maximum and minimum budget of the departments?",
+        "sql_query": "SELECT max(budget_in_billions) ,  min(budget_in_billions) FROM department",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "max": "budget_in_billions"
+                    }
+                },
+                {
+                    "value": {
+                        "min": "budget_in_billions"
+                    }
+                }
+            ],
+            "from": "department"
+        },
+        "sql_ans": [
+            [
+                543.2
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN max(d.Budget_in_Billions),min(d.Budget_in_Billions)",
+        "cypher_ans": [
+            [
+                543.2,
+                6.2
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4
+            ],
+            [
+                9
+            ],
+            [
+                10
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many heads of the departments are older than 56 ?",
+        "sql_query": "SELECT count(*) FROM head WHERE age  >  56",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "head",
+            "where": {
+                "gt": [
+                    "age",
+                    56
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                [
+                    5
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.age>56\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                5
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "List the name, born state and age of the heads of departments ordered by age.",
+        "sql_query": "SELECT name ,  born_state ,  age FROM head ORDER BY age",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "born_state"
+                },
+                {
+                    "value": "age"
+                }
+            ],
+            "from": "head",
+            "orderby": {
+                "value": "age"
+            }
+        },
+        "sql_ans": [
+            [
+                [
+                    "P\u00e1draig Harrington",
+                    "Connecticut",
+                    43.0
+                ]
+            ],
+            [
+                [
+                    "Stewart Cink",
+                    "Florida",
+                    50.0
+                ]
+            ],
+            [
+                [
+                    "Dudley Hart",
+                    "California",
+                    52.0
+                ]
+            ],
+            [
+                [
+                    "Jeff Maggert",
+                    "Delaware",
+                    53.0
+                ]
+            ],
+            [
+                [
+                    "Nick Faldo",
+                    "California",
+                    56.0
+                ]
+            ],
+            [
+                [
+                    "Tiger Woods",
+                    "Alabama",
+                    67.0
+                ]
+            ],
+            [
+                [
+                    "Franklin Langham",
+                    "Connecticut",
+                    67.0
+                ]
+            ],
+            [
+                [
+                    "Sergio Garc\u00eda",
+                    "California",
+                    68.0
+                ]
+            ],
+            [
+                [
+                    "K. J. Choi",
+                    "Alabama",
+                    69.0
+                ]
+            ],
+            [
+                [
+                    "Billy Mayfair",
+                    "California",
+                    69.0
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nRETURN h.name,h.born_state,h.age\nORDER BY h.age",
+        "cypher_ans": [
+            [
+                "P\u00e1draig Harrington",
+                "Connecticut",
+                43.0
+            ],
+            [
+                "Stewart Cink",
+                "Florida",
+                50.0
+            ],
+            [
+                "Dudley Hart",
+                "California",
+                52.0
+            ],
+            [
+                "Jeff Maggert",
+                "Delaware",
+                53.0
+            ],
+            [
+                "Nick Faldo",
+                "California",
+                56.0
+            ],
+            [
+                "Tiger Woods",
+                "Alabama",
+                67.0
+            ],
+            [
+                "Franklin Langham",
+                "Connecticut",
+                67.0
+            ],
+            [
+                "Sergio Garc\u00eda",
+                "California",
+                68.0
+            ],
+            [
+                "K. J. Choi",
+                "Alabama",
+                69.0
+            ],
+            [
+                "Billy Mayfair",
+                "California",
+                69.0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "List the creation year, name and budget of each department.",
+        "sql_query": "SELECT creation ,  name ,  budget_in_billions FROM department",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "creation"
+                },
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "budget_in_billions"
+                }
+            ],
+            "from": "department"
+        },
+        "sql_ans": [
+            [
+                [
+                    "1789",
+                    "State",
+                    9.96
+                ]
+            ],
+            [
+                [
+                    "1789",
+                    "Treasury",
+                    11.1
+                ]
+            ],
+            [
+                [
+                    "1947",
+                    "Defense",
+                    439.3
+                ]
+            ],
+            [
+                [
+                    "1870",
+                    "Justice",
+                    23.4
+                ]
+            ],
+            [
+                [
+                    "1849",
+                    "Interior",
+                    10.7
+                ]
+            ],
+            [
+                [
+                    "1889",
+                    "Agriculture",
+                    77.6
+                ]
+            ],
+            [
+                [
+                    "1903",
+                    "Commerce",
+                    6.2
+                ]
+            ],
+            [
+                [
+                    "1913",
+                    "Labor",
+                    59.7
+                ]
+            ],
+            [
+                [
+                    "1953",
+                    "Health and Human Services",
+                    543.2
+                ]
+            ],
+            [
+                [
+                    "1965",
+                    "Housing and Urban Development",
+                    46.2
+                ]
+            ],
+            [
+                [
+                    "1966",
+                    "Transportation",
+                    58.0
+                ]
+            ],
+            [
+                [
+                    "1977",
+                    "Energy",
+                    21.5
+                ]
+            ],
+            [
+                [
+                    "1979",
+                    "Education",
+                    62.8
+                ]
+            ],
+            [
+                [
+                    "1989",
+                    "Veterans Affairs",
+                    73.2
+                ]
+            ],
+            [
+                [
+                    "2002",
+                    "Homeland Security",
+                    44.6
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN d.Creation,d.Name,d.Budget_in_Billions",
+        "cypher_ans": [
+            [
+                "1789",
+                "State",
+                9.96
+            ],
+            [
+                "1789",
+                "Treasury",
+                11.1
+            ],
+            [
+                "1947",
+                "Defense",
+                439.3
+            ],
+            [
+                "1870",
+                "Justice",
+                23.4
+            ],
+            [
+                "1849",
+                "Interior",
+                10.7
+            ],
+            [
+                "1889",
+                "Agriculture",
+                77.6
+            ],
+            [
+                "1903",
+                "Commerce",
+                6.2
+            ],
+            [
+                "1913",
+                "Labor",
+                59.7
+            ],
+            [
+                "1953",
+                "Health and Human Services",
+                543.2
+            ],
+            [
+                "1965",
+                "Housing and Urban Development",
+                46.2
+            ],
+            [
+                "1966",
+                "Transportation",
+                58.0
+            ],
+            [
+                "1977",
+                "Energy",
+                21.5
+            ],
+            [
+                "1979",
+                "Education",
+                62.8
+            ],
+            [
+                "1989",
+                "Veterans Affairs",
+                73.2
+            ],
+            [
+                "2002",
+                "Homeland Security",
+                44.6
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "What are the maximum and minimum budget of the departments?",
+        "sql_query": "SELECT max(budget_in_billions) ,  min(budget_in_billions) FROM department",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "max": "budget_in_billions"
+                    }
+                },
+                {
+                    "value": {
+                        "min": "budget_in_billions"
+                    }
+                }
+            ],
+            "from": "department"
+        },
+        "sql_ans": [
+            [
+                [
+                    543.2,
+                    6.2
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN max(d.Budget_in_Billions),min(d.Budget_in_Billions)",
+        "cypher_ans": [
+            [
+                543.2,
+                6.2
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "What is the average number of employees of the departments whose rank is between 10 and 15?",
+        "sql_query": "SELECT avg(num_employees) FROM department WHERE ranking BETWEEN 10 AND 15",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "avg": "num_employees"
+                }
+            },
+            "from": "department",
+            "where": {
+                "between": [
+                    "ranking",
+                    10,
+                    15
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                [
+                    105468.16666666667
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nWHERE 10<=d.Ranking<=15\nRETURN avg(d.Num_Employees)",
+        "cypher_ans": [
+            [
+                105468.16666666667
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "What are the names of the heads who are born outside the California state?",
+        "sql_query": "SELECT name FROM head WHERE born_state != 'California'",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "head",
+            "where": {
+                "neq": [
+                    "born_state",
+                    {
+                        "literal": "California"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                [
+                    "Tiger Woods"
+                ]
+            ],
+            [
+                [
+                    "K. J. Choi"
+                ]
+            ],
+            [
+                [
+                    "Jeff Maggert"
+                ]
+            ],
+            [
+                [
+                    "Stewart Cink"
+                ]
+            ],
+            [
+                [
+                    "P\u00e1draig Harrington"
+                ]
+            ],
+            [
+                [
+                    "Franklin Langham"
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.born_state<>'California'\nRETURN h.name",
+        "cypher_ans": [
+            [
+                "Tiger Woods"
+            ],
+            [
+                "K. J. Choi"
+            ],
+            [
+                "Jeff Maggert"
+            ],
+            [
+                "Stewart Cink"
+            ],
+            [
+                "P\u00e1draig Harrington"
+            ],
+            [
+                "Franklin Langham"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "What are the names of the states where at least 3 heads were born?",
+        "sql_query": "SELECT born_state FROM head GROUP BY born_state HAVING count(*)  >=  3",
+        "parsed_sql": {
+            "select": {
+                "value": "born_state"
+            },
+            "from": "head",
+            "groupby": {
+                "value": "born_state"
+            },
+            "having": {
+                "gte": [
+                    {
+                        "count": "*"
+                    },
+                    3
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                [
+                    "California"
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWITH count(*) AS count, h.born_state AS born_state\nWHERE count >=3\nRETURN born_state",
+        "cypher_ans": [
+            [
+                "California"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "In which year were most departments established?",
+        "sql_query": "SELECT creation FROM department GROUP BY creation ORDER BY count(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "creation"
+            },
+            "from": "department",
+            "groupby": {
+                "value": "creation"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                [
+                    "1789"
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nWITH count(d.Creation) AS count, d.Creation AS Creation\nRETURN Creation\nORDER BY count DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "1789"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                [
+                    2
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                [
+                    4,
+                    "Dudley Hart"
+                ]
+            ],
+            [
+                [
+                    9,
+                    "P\u00e1draig Harrington"
+                ]
+            ],
+            [
+                [
+                    10,
+                    "Franklin Langham"
+                ]
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many acting statuses are there?",
+        "sql_query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": {
+                        "distinct": {
+                            "value": "temporary_acting"
+                        }
+                    }
+                }
+            },
+            "from": "management"
+        },
+        "sql_ans": [
+            [
+                2
+            ]
+        ],
+        "cypher_query": "MATCH (m:management)\nWITH DISTINCT m.temporary_acting AS temporary_acting\nRETURN count(temporary_acting)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][][][][][][][][][][][][][][][][][][][][][
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][][][][][][][][][][][][][][][][][
+    {
+        "db_id": "department_management",
+        "question": "How many departments are led by heads who are not mentioned?",
+        "sql_query": "SELECT count(*) FROM department WHERE department_id NOT IN (SELECT department_id FROM management);",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "department",
+            "where": {
+                "nin": [
+                    "department_id",
+                    {
+                        "select": {
+                            "value": "department_id"
+                        },
+                        "from": "management"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                11
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                15
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "How many departments are led by heads who are not mentioned?",
+        "sql_query": "SELECT count(*) FROM department WHERE department_id NOT IN (SELECT department_id FROM management);",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "department",
+            "where": {
+                "nin": [
+                    "department_id",
+                    {
+                        "select": {
+                            "value": "department_id"
+                        },
+                        "from": "management"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                11
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                15
+            ]
+        ]
+    }
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+    {
+        "db_id": "department_management",
+        "question": "How many departments are led by heads who are not mentioned?",
+        "sql_query": "SELECT count(*) FROM department WHERE department_id NOT IN (SELECT department_id FROM management);",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "department",
+            "where": {
+                "nin": [
+                    "department_id",
+                    {
+                        "select": {
+                            "value": "department_id"
+                        },
+                        "from": "management"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                11
+            ]
+        ],
+        "cypher_query": "MATCH (d:department)\nWHERE NOT (d:department)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    }
+][][][][][][][][][][][][][][
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*Ha|ha.*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": []
+    }
+][
+    {
+        "db_id": "department_management",
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "sql_query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "head_id"
+                },
+                {
+                    "value": "name"
+                }
+            ],
+            "from": "head",
+            "where": {
+                "like": [
+                    "name",
+                    {
+                        "literal": "%Ha%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ],
+        "cypher_query": "MATCH (h:head)\nWHERE h.name =~'.*[Ha|ha].*'\nRETURN h.head_ID,h.name",
+        "cypher_ans": [
+            [
+                2,
+                "Sergio Garc\u00eda"
+            ],
+            [
+                3,
+                "K. J. Choi"
+            ],
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                5,
+                "Jeff Maggert"
+            ],
+            [
+                6,
+                "Billy Mayfair"
+            ],
+            [
+                7,
+                "Stewart Cink"
+            ],
+            [
+                8,
+                "Nick Faldo"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ]
+    }
+][][]

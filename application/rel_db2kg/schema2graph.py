@@ -3,14 +3,13 @@ Author: Ziyu Zhao
 Affiliation: UWA NLT-TLP GROUP
 '''
 
-import os, re
-from mysqlx import Row
+import os, re, math
 from py2neo import Graph
 from py2neo.matching import *
 from py2neo.data import Node, Relationship
 from environs import Env
 from fire import Fire
-from torch import row_indices_copy
+
 
 from utils import Logger
 import sqlite3
@@ -57,8 +56,6 @@ class DBengine:
         for info in infos:
             if info is not None:
                 id, seq, ref_table, from_, to_, on_update, on_delete, match = info
-                print(info)
-            
                 table_constraints.append(
                 {"column": from_, "ref_table": ref_table, "ref_column": to_}
                 )
@@ -260,60 +257,60 @@ class RelDBDataset:
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             # test
-        # if db_name == 'voter_1':
-            # create realational database object.
-            rel_db_object = RelDB(fdb = db_path, db_name=db_name)
-            # engine = rel_db_object.engine
-            table_infos = rel_db_object.engine.get_table_names()
-            for table_info in table_infos:
-                table_name = table_info[0]
-                # Export tables to neo4j/import as csv files.                           
-                table_records = rel_db_object.engine.get_table_values(table_name)
-                table_headers = [desc[0] for desc in table_records.description]    
-                print("table_headers:", table_headers )
+            if db_name == 'department_management':
+                # create realational database object.
+                rel_db_object = RelDB(fdb = db_path, db_name=db_name)
+                # engine = rel_db_object.engine
+                table_infos = rel_db_object.engine.get_table_names()
+                for table_info in table_infos:
+                    table_name = table_info[0]
+                    # Export tables to neo4j/import as csv files.                           
+                    table_records = rel_db_object.engine.get_table_values(table_name)
+                    table_headers = [desc[0] for desc in table_records.description]    
+                    print("table_headers:", table_headers )
 
-                df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
-                # Drop duplicate rows in place.
-                df.drop_duplicates(inplace=True)
-                data = df.transpose().to_dict().values()  # to keep the origial data types.
+                    df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
+                    # Drop duplicate rows in place.
+                    df.drop_duplicates(inplace=True)
+                    data = df.transpose().to_dict().values()  # to keep the origial data types.
 
-                if table_headers == None:
-                    self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
-                    continue 
+                    if table_headers == None:
+                        self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
+                        continue 
 
-                # create table object. Note: one file w.r.t. one table object. 
-                table_object = RelTable(table_name=table_name, table_headers=table_headers)
+                    # create table object. Note: one file w.r.t. one table object. 
+                    table_object = RelTable(table_name=table_name, table_headers=table_headers)
 
-                # Check if relational table. If yes, then we rewrite the table name starting with
-                table_constraints, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
-                primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
+                    # Check if relational table. If yes, then we rewrite the table name starting with
+                    table_constraints, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
+                    primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
 
 
-                # Create a dictionary {table_name:table_headers}
-                rel_db_object.tables_headers[table_name] = table_headers
+                    # Create a dictionary {table_name:table_headers}
+                    rel_db_object.tables_headers[table_name] = table_headers
 
-                check_compound_pk =  rel_db_object.engine.check_compound_pk(primary_keys)
-                # Create a dictionary {table_name:pks},
-                if not check_compound_pk:
-                    rel_db_object.tables_pks[table_name] = primary_keys[0][0]
-                else:
-                    rel_db_object.tables_pks[table_name] = [pk[0] for pk in primary_keys]
+                    check_compound_pk =  rel_db_object.engine.check_compound_pk(primary_keys)
+                    # Create a dictionary {table_name:pks},
+                    if not check_compound_pk:
+                        rel_db_object.tables_pks[table_name] = primary_keys[0][0]
+                    else:
+                        rel_db_object.tables_pks[table_name] = [pk[0] for pk in primary_keys]
 
-                table_object.table_constraints = table_constraints
-                table_object.check_compound_pk = check_compound_pk
-                
-                # create table header category in the format of table_header -> table_name -> db_name. 
-                if table_headers:
+                    table_object.table_constraints = table_constraints
+                    table_object.check_compound_pk = check_compound_pk
                     
-                    entity_ref = TableSchema(
-                            db_name, table_name, table_headers
-                        )
-                    rel_db_object.add_schema(entity_ref)
-                    for row in data:
-                        table_row = {k: row[k] for k in row}                
-                        table_object.add_row( row_dict=table_row)
-                    rel_db_object.add_tables(table_object)
-            rel_dbs.append(rel_db_object)
+                    # create table header category in the format of table_header -> table_name -> db_name. 
+                    if table_headers:
+                        
+                        entity_ref = TableSchema(
+                                db_name, table_name, table_headers
+                            )
+                        rel_db_object.add_schema(entity_ref)
+                        for row in data:
+                            table_row = {k: row[k] for k in row}                
+                            table_object.add_row( row_dict=table_row)
+                        rel_db_object.add_tables(table_object)
+                rel_dbs.append(rel_db_object)
 
         return rel_dbs
             
@@ -482,40 +479,39 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 if table.table_constraints and  not table.check_compound_pk:         
                     print(f'Building curate graph from the contraints of {table_name}.')       
                     for i, row_dict in enumerate(table.rows):
+                        print("row:", row_dict)
                         for constraint in table.table_constraints:
+                            print(f'constraint: {constraint}')
                             ref_table = constraint['ref_table']
                             ref_column = constraint['ref_column']
                             this_column = constraint['column']
                             value = row_dict[this_column]
-
+                            if math.isnan(value):
+                                print(f'{this_column} is {value}.')
+                                continue 
+                                
                             ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                                 db.tables_pks, constraint, db.tables_headers)
-                            print( ref_table, ref_column, is_self_constraint_kf, table_name, this_column)
-                            # print(f' They type of {row_dict[this_column]} is {type(row_dict[this_column])}')
+                            print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
+                            print(f' They type of {value} is {type(value)}')
+                    
                             if not is_self_constraint_kf:
                                 # Case 2: a whole table is turned into corresponding graph nodes, 
                                 # and some curated graph edges based on w.r.t. foreign keys.
                                 # e.g., in musical.db, the table `actor` is the case, 
                                 # along with `HAS_MUSICAL` is curated based on the FK, musical
-                                if type(row_dict[this_column])==str:
+                               
+                                # TODO: if type(row_dict[this_column]) ==str:
+                                cypher_query =  "MATCH (m:{}), (n:{}) where m.{}={} and n.{}={} return m, n".format(table_name, ref_table, \
+                                    this_column, value,  ref_column, value)
+                                returned_nodes = self.graph.run(cypher_query).data()
+                                print(f'cypher_query: {cypher_query}')
+                                print(f'returned_nodes: {returned_nodes}')
 
-                                    cypher_query0 =  "MATCH (n:{}) where n.{}='{}' return n".format(table_name, this_column, row_dict[this_column])
-                                    head_nodes = self.graph.run(cypher_query0).data()
-                                
-                                    cypher_query1 =  "MATCH (n:{}) where n.{}='{}' return n".format(ref_table, ref_column, row_dict[this_column])
-                                    tail_nodes = self.graph.run(cypher_query1).data()
-                                else:
-                                    cypher_query0 =  "MATCH (n:{}) where n.{}={} return n".format(table_name, this_column, row_dict[this_column])
-                                    head_nodes = self.graph.run(cypher_query0).data()
-                                
-                                    cypher_query1 =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, row_dict[this_column])
-                                    tail_nodes = self.graph.run(cypher_query1).data()
-
-                                for head in head_nodes:
-                                    for tail in tail_nodes:
-                                        rel = Relationship(head['n'], 'HAS_{}'.format(ref_table.upper()), tail['n']) 
-                                        tx.create(rel)
-                                        print(rel)
+                                for matched in returned_nodes:
+                                    rel = Relationship(matched['m'], 'HAS_{}'.format(ref_table.upper()), matched['n']) 
+                                    tx.create(rel)
+                                    print(rel)
                             else:
                                 raise NotImplementedError
 
@@ -540,10 +536,15 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                                 db.tables_pks, constraint, db.tables_headers)
                     
-                            print( ref_table, ref_column, is_self_constraint_kf)
-                    
+                            print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
+                            print(f' They type of {value} is {type(value)}')
+                            if math.isnan(value):
+                                continue
+
                             cypher_query =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, value)
                             matched = self.graph.run(cypher_query).data()
+                            print(f'cypher_query: {cypher_query}')
+                            print(f'matched: {matched}')
                             
                             if len(matched)==1:
                                 matched_nodes.append(matched[0])
@@ -558,6 +559,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             rel = Relationship(matched_nodes[0]['n'], table_name, matched_nodes[1]['n'], **row_dict) 
                             tx.create(rel)
                         else:
+                            print(matched_nodes, len(matched_nodes))
                             raise NotImplementedError
 
                 

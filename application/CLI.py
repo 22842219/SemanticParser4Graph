@@ -9,7 +9,7 @@ from unsw.SQLParser import SQLParser
 import jsonlines
 
 
-from rel_db2kg.data_processor.sql2cypher import Formatter
+from rel_db2kg.sql2cypher import Formatter
 
 config = ConfigParser()
 config.read('config.ini')

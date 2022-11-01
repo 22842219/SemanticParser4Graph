@@ -54,7 +54,6 @@ class CyqueryStatmentParser:
 		token_types = []
 		tokenized_statment = {}
 		for query in queries:
-			print("query:", query)
 			get_tokens = list(self.lexer.get_tokens(query))			
 			self.save2file('get_tokens.txt', get_tokens, 'a')
 			for every in get_tokens:
@@ -78,8 +77,8 @@ def main():
 	queries_file = 'input/queries'
 	Cyparser = CyqueryStatmentParser(queries_file, lexer)
 	tokenized_statment, token_types = Cyparser.get_tokenization()
-	print("tokenized_statment:", tokenized_statment)
-	print("token_types:", token_types)
+	print(f'tokenized_statment: {tokenized_statment}')
+	print(f'token_types: {token_types}')
 
 
 if __name__ == "__main__":
