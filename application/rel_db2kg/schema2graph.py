@@ -257,7 +257,7 @@ class RelDBDataset:
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             # test
-            if db_name == 'department_management':
+            if db_name == 'hospital_1':
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
                 # engine = rel_db_object.engine
@@ -489,6 +489,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             if math.isnan(value):
                                 print(f'{this_column} is {value}.')
                                 continue 
+                            elif type(value)!=int:
+                                value = '"{}"'.format(value)
                                 
                             ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                                 db.tables_pks, constraint, db.tables_headers)
@@ -551,16 +553,23 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             else:
                                 self.logger.error("There are multiple matched graph nodes when building graph edge, \
                                 regarding {} table in {} database.".format(table_name, db.db_name))
-                            print(cypher_query)
-                            print(matched, len(matched))
+                            
+                        print(matched_nodes, len(matched_nodes))
                     
                         if len(matched_nodes) ==2:
                             # class py2neo.data.Relationship(start_node, type, end_node, **properties)
                             rel = Relationship(matched_nodes[0]['n'], table_name, matched_nodes[1]['n'], **row_dict) 
                             tx.create(rel)
                         else:
-                            print(matched_nodes, len(matched_nodes))
-                            raise NotImplementedError
+                            # TODO: hyper_edge? or hyper_node?
+                            hyper_node = Node(table.table_name,**row_dict)
+                            print("hyper_node:", hyper_node)
+                            tx.create(hyper_node)
+ 
+                            for node in matched_nodes:
+                                rel = Relationship(hyper_node, 'HAS_{}'.format(ref_table.upper()), node['n']) 
+                                tx.create(rel)
+                                
 
                 
         self.graph.commit(tx) 
