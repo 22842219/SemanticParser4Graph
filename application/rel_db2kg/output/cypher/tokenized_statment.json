@@ -1,9 +1,8 @@
 {
       "Token_Keyword": [
             "MATCH",
-            "WHERE",
-            "name",
-            "RETURN"
+            "RETURN DISTINCT",
+            "Name"
       ],
       "Token_Text_Whitespace": [
             " ",
@@ -12,17 +11,17 @@
       "Token_Punctuation": [
             "(",
             ":",
-            ")",
-            ","
+            ")-[",
+            "]-(",
+            ")"
       ],
       "Token_Name_Variable": [
-            "h",
-            "head_ID"
+            "T1",
+            "T2"
       ],
-      "Token_Name_Label": "head",
-      "Token_Operator": [
-            ".",
-            "=~"
+      "Token_Name_Label": [
+            "Nurse",
+            "on_call"
       ],
-      "Token_Literal_String": "'.*[H|h]a.*'"
+      "Token_Operator": "."
 }

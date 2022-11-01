@@ -1,1 +1,0 @@
-# SemanticParser4GraphQuery

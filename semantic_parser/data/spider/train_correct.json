@@ -27278,4 +27278,64 @@ size 364612006
             ]
         ]
     }
-]
+][][][][][][][][][][][][][
+    {
+        "db_id": "hospital_1",
+        "question": "Count how many appointments have been made in total.",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    }
+][][][][][][
+    {
+        "db_id": "hospital_1",
+        "question": "Count how many appointments have been made in total.",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    }
+][][][][][][][][][][][][][][][]

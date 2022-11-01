@@ -91,7 +91,7 @@ def Operator(op, parentheses=False):
 			for tb, tfms in self.db_lookup_dict.items():	
 				fms = [fm.lower() for fm in tfms]
 				if json.lower() in fms:
-					normalized_field  = self.normalize_field_mention(json, tb, tfms)
+					normalized_field  = self.normalize_mentioned_field(json, tb, tfms)
 					normalized_field = add_parentheses(normalized_field)
 					normalized_field = "{}{}".format(op, normalized_field)
 					arguments.append(normalized_field)
@@ -117,7 +117,7 @@ def Operator(op, parentheses=False):
 							fms = [fm.lower() for fm in tfms]
 
 							if fm.lower() in fms:
-								normalized_field  = self.normalize_field_mention(res, tb, tfms)
+								normalized_field  = self.normalize_mentioned_field(res, tb, tfms)
 								if normalized_field not in arguments:
 									arguments.append(normalized_field)
 						else:
@@ -131,7 +131,7 @@ def Operator(op, parentheses=False):
 									packages.append((tb, tfms))
 		
 							if checker and len(packages)==1:
-								normalized_field  = self.normalize_field_mention(res, packages[0][0], packages[0][1])
+								normalized_field  = self.normalize_mentioned_field(res, packages[0][0], packages[0][1])
 								arguments.append(normalized_field)
 							else:
 			
@@ -311,7 +311,7 @@ class Formatter(SchemaGroundedTraverser):
 		self.pop_table_alias_stack()
 		return seq
 				
-	def normalize_field_mention(self, fm, tb_name, lookup_fields):
+	def normalize_mentioned_field(self, fm, tb_name, lookup_fields):
 		# print("***********normalized field mention**********")
 		if '.' in fm:
 			table_key, fm = fm.split('.')	
@@ -326,14 +326,59 @@ class Formatter(SchemaGroundedTraverser):
 					fm=field
 		return "{}.{}".format(table_key, fm)
 	
+	def normalize_mentioned_tb(self, tb_name ):
+		# print("***********normalized mentioned table**********")
+		is_alisas = False
+		if '.' in tb_name:
+			table_key, tb_name = tb_name.split('.')	
+			is_alisas = True
+			print("zz:",tb_name )
+		elif tb_name.startswith('rel'):
+			idx = tb_name.index('_')
+			tb_name = tb_name[idx+1:]
+
+		lookup_tbs = list(self.db_lookup_dict.keys())
+		tbs = [tb.lower() for tb in lookup_tbs]
+		print(lookup_tbs)
+		print(tbs)
+		if tb_name.lower() in tbs:
+			index = tbs.index(tb_name.lower() )
+			tb_name = lookup_tbs[index]
+		if is_alisas:
+			tb_name = '{}.{}'.format(table_key, tb_name)
+
+		return tb_name
+	
 	
 	def _reformat(self, tables, fields = [], mode = 'reformat_tb_fields'):
 		# print("***********reformat************")
 		# print(mode)
-		if mode == 'reformat_tb_name':
+		# lookup_tbs = list(self.db_lookup_dict.keys())
+		# tbs = [tb.lower() for tb in lookup_tbs]
+		# is_alisas = False
+		# for idx, table in enumerate(tables):
+		# 	if '.' in table:
+		# 		alias_key, table = table.split('.')
+		# 		is_alisas = True
+			
+		# 	if table.lower() in tbs:
+		# 		index = tbs.index(table.lower())
+		# 		table_name = lookup_tbs[index]
+			
+		# 	if is_alisas:
+		# 		table[idx] = '{}.{}'.format(alias_key, table_name)
+		# 	else:
+		# 		table[idx] = table_name
+			
+		if mode == 'reformat_tb_name':	
 			for idx, table in enumerate(tables):
-				tables[idx] = '({}:{})'.format(table.lower()[0], table)				
-			return tables		
+				if '.' in table:
+					alias_key, table = table.split('.')
+					tables[idx] = '({}:{})'.format(alias_key, table)
+				else:
+					tables[idx] = '({}:{})'.format(table.lower()[0], table)				
+			return tables				
+			
 		if mode == 'reformat_tb_fields':
 			# Attention: talbe and field are parsed from sql queries, 
 			# while tb_name, tb_fields of db_lookup_dict are extracted directly from sqlite3 schema.
@@ -341,14 +386,13 @@ class Formatter(SchemaGroundedTraverser):
 			# For instance, one is upper case, and the one is lower case 
 			# Solution: 
 			for table in tables:
-				if table.lower() in self.db_lookup_dict:
-					tfms = self.db_lookup_dict[table.lower()]
-				else:
-					tfms = self.db_lookup_dict[table]
+				if '.' in table:
+					alias_key, table = table.split('.')
+				tfms = self.db_lookup_dict[table]
 				fms = [fm.lower() for fm in tfms]
 				for idx, field in enumerate(fields):
 					if field in fms:
-						fields[idx] = self.normalize_field_mention(field, table, tfms)							
+						fields[idx] = self.normalize_mentioned_field(field, table, tfms)							
 			return fields
 	
 	def rel_table_check(self, tb):
@@ -446,14 +490,16 @@ class Formatter(SchemaGroundedTraverser):
 		is_join = False	
 		is_rel_table = False
 
-		# print("*******debgu from*******")
+		print("*******debgu from*******")
 		if 'from' in json:
 			from_ = json['from']
 			if isinstance(from_, dict):
 				# Case: MATCH ()
 				table = self.dispatch(from_)
-				self.table_alias_lookup.update({table[0]:table})
-				return 'MATCH {}:{}'.format(table[0], table)
+				if isinstance(table, string_types):
+					table = self.normalize_mentioned_tb(table)
+					self.table_alias_lookup.update({table[0]:table})
+					return 'MATCH {}:{}'.format(table[0], table)
 			
 			if not isinstance(from_, list):
 				if isinstance(from_, string_types):
@@ -465,25 +511,26 @@ class Formatter(SchemaGroundedTraverser):
 				for join_key in sql_join_keywords:
 					if join_key in every:
 						is_join = True	
-		
+
 				table_name = self.dispatch(every,  is_table=isinstance(every, text))
+				table_name = self.normalize_mentioned_tb(table_name)
 				parts.append(table_name)
-				# print("table_name", table_name)
 
 				# Update table_alias_lookup for field normalization. 
 				if '.' in table_name:
-					table_key, tb = table_name.split('.')			
+					table_key, tb = table_name.split('.')		
 					self.table_alias_lookup.update({table_key:tb})
 				else:
 					self.table_alias_lookup.update({table_name[0]:table_name})
-				
+			
+
 			if is_join:
 				# If is_rel_table=True, case: (T1:)-[T2:]-(T3:) or (T1:)-[T2:]-() or ()-[T1:]-(T2:)
 				# If is_rel_table=False, case: (T1:)-[]-(T2)
 				reformat_parts = []		
 				for i, every in enumerate(parts):
 					alias, joint_table= every.split('.')
-					is_rel_table, _ = self.rel_table_check(joint_table)
+					is_rel_table, joint_table = self.rel_table_check(joint_table)
 		
 					if is_rel_table:
 						# graph edge pattern: 	
@@ -533,6 +580,7 @@ class Formatter(SchemaGroundedTraverser):
 			else:
 				joiner = ''
 			rest = joiner.join(reformat_parts)
+			print(rest)
 			return 'MATCH {}'.format(rest)	
 	
 
@@ -546,8 +594,8 @@ class Formatter(SchemaGroundedTraverser):
 				field, lower_bound, upper_bound = self.dispatch(json['where'])	
 				
 				if isinstance(json['from'], string_types):
-					table = json['from']
-					normalized_field= self.normalize_field_mention(field, table, self.db_lookup_dict[table] )
+					table =  self.normalize_mentioned_tb(json['from'])
+					normalized_field= self.normalize_mentioned_field(field, table, self.db_lookup_dict[table] )
 					return 'WHERE {}<={}<={}'.format(lower_bound, normalized_field, upper_bound)
 			else:	
 			
@@ -642,6 +690,7 @@ class Formatter(SchemaGroundedTraverser):
 				if 'from' in json:		
 					if isinstance(json['from'], string_types):
 						table = self.dispatch(json['from'])	
+						table =  self.normalize_mentioned_tb(table)
 				
 				return_nodes = []
 				with_parts = []
@@ -674,7 +723,7 @@ class Formatter(SchemaGroundedTraverser):
 										table = self.table_alias_lookup[table_key]
 
 									is_rel_table, table = self.rel_table_check(table)	
-									normalized_field = self.normalize_field_mention(fm, table, self.db_lookup_dict[table])		
+									normalized_field = self.normalize_mentioned_field(fm, table, self.db_lookup_dict[table])		
 									with_as = '{} AS {}'.format(normalized_field, fm)
 									with_parts.append(with_as)
 									return_node = '{}({})'.format(agg_op, fm)					
@@ -698,7 +747,7 @@ class Formatter(SchemaGroundedTraverser):
 							table = self.table_alias_lookup[table_key]
 
 						is_rel_table, table = self.rel_table_check(table)	
-						normalized_field = self.normalize_field_mention(select_field, table, self.db_lookup_dict[table])	
+						normalized_field = self.normalize_mentioned_field(select_field, table, self.db_lookup_dict[table])	
 						
 						if is_distinct:
 							normalized_field = 'DISTINCT {}'.format(normalized_field)
@@ -720,7 +769,7 @@ class Formatter(SchemaGroundedTraverser):
 							is_with = True
 							
 							groupby_fm =self.groupby(json)
-							normalized_grouby = self.normalize_field_mention(groupby_fm, table, self.db_lookup_dict[table])
+							normalized_grouby = self.normalize_mentioned_field(groupby_fm, table, self.db_lookup_dict[table])
 							if not 'having' in json:
 								normalized_grouby = 'count({}) AS count'.format(normalized_grouby)
 								with_parts.append(normalized_grouby)
@@ -798,14 +847,15 @@ class Formatter(SchemaGroundedTraverser):
 				from_ = json['from']
 
 				if not isinstance(from_, list):
-						from_ = [from_]
+					from_ = [from_]
 				
 				tables = []
-				for token in from_:
+				for table in from_:
+					table = self.normalize_mentioned_tb(table)
 					for join_key in sql_join_keywords:
-						if join_key in token:
+						if join_key in table:
 							is_join = True
-					tables.append(self.dispatch(token, is_table = isinstance(token, text)))
+					tables.append(self.dispatch(table, is_table = isinstance(table, text)))
 
 				if is_join:				
 					return 'ORDER BY {0}'.format(
@@ -879,7 +929,7 @@ class Formatter(SchemaGroundedTraverser):
 				tfms = self.db_lookup_dict[tb]
 				fms = [fm.lower() for fm in tfms]
 				if fm.lower() in fms:
-					normalized_field  = self.normalize_field_mention(fm, tb, tfms)
+					normalized_field  = self.normalize_mentioned_field(fm, tb, tfms)
 			literal = self.dispatch(res[1])
 			if isinstance(literal, string_types):
 				literal= literal.strip('\'').strip('%')
@@ -1101,7 +1151,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			
-			if db_name == 'department_management':   
+			if db_name == 'hospital_1' and i==3996 :   
 				all_table_fields = lookup_dict[db_name]	
 
 				# 1. Extract database name, questions and SQL queries
