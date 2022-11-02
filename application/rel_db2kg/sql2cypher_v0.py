@@ -83,7 +83,7 @@ def add_parentheses(x):
 # This function deals with nested query.
 # Operators are part of graph patterns.
 def Operator(op, parentheses=False):
-	op = ' {0} '.format(op)
+	op = '{0}'.format(op)
 	def func(self, json):
 		arguments = []
 		# print("operator:", json)
@@ -245,79 +245,61 @@ class Formatter(SchemaGroundedTraverser):
 				for part in [getattr(self, clause)(json)]: 		
 					if part:
 						pattern.append(part)
-						# print(f' pattern:  {pattern}')
 						if clause == 'where' and utils.is_subquery(json):
-							match_parts = []
-							where_parts  =[]
 							if pattern:
 								sub_pattern = pattern.pop()	
-								outer_match = pattern.pop()	
-								outer_match_parts = [every.strip() for every in outer_match.split('MATCH') if every]
+								# print("where in nesedted:", json)
+								# print("sub-pattern:", sub_pattern)
+								# print("update pattern :", pattern)
 
-								outer_query = ' '.join(outer_match_parts)
-								match_parts.append(outer_query)
-								# print(f'sub-pattern: {sub_pattern}, outer_match: {outer_match}')
-								# print(f'outer_match_parts :{outer_match_parts}, pattern: {pattern}')
-							
-								if isinstance(sub_pattern, list):
-									for part in sub_pattern:	
-										if '\n' in part:
-											nested_query_parts = part.split('\n')
-											# print(f'part: {part}, nested_query_parts: {nested_query_parts}')
-											for every in nested_query_parts:	
-												if 'MATCH' in every:
-													match_parts.append(every)
-													print(f'match: {every}')
-												elif 'WHERE' in every:
-													sub_query_where= ' '.join([i.strip() for i in every.split('WHERE') if i])
-													where_parts.append(sub_query_where)
-													# print(f'every: {every}, sub_query_where: {sub_query_where}')
+								if 'NOT' in sub_pattern:
+									outer_match = pattern.pop()	
+									outer_match_parts = [every.strip() for every in outer_match.split('MATCH') if every]
+									sub_patterns_parts = [every.strip() for every in sub_pattern.split('NOT') if every]
+									# print("outer_match_parts:", outer_match_parts)
+									# print("sub_patterns_parts:", sub_patterns_parts)
+									all_parts = outer_match_parts + sub_patterns_parts
+									# print(all_parts)
+									conditioned_parts  =[]
+									for i, every in enumerate(all_parts):			
+										# print(every)
+										if re.search(graph_node_regx, every):
+											node  = re.search(graph_node_regx, every).group()
+											conditioned_parts.append(node)
+										elif re.search(graph_edge_regx, every):
+											edge =re.search(graph_edge_regx, every).group()
+											# check if the alias of edges are mentioned in the outer match statement.
+											check_pattern = edge[:3]
+											if check_pattern not in outer_match:				
+												edge = edge.replace(check_pattern, '[:')
+											if i==0:
+												pattern =  '()-{}-'.format(edge)
+											if i==len(all_parts)-1:
+												pattern =  '-{}-()'.format(edge)
+											conditioned_parts.append(pattern)
 
-												elif 'NOT' in every:
-													sub_query_field = every.split('NOT')[-1].strip()
-													if outer_query_field:
-														where_parts.append('NOT {} in {}'.format(outer_query_field,sub_query_field))
-														
-												else:
-													raise NotImplementedError
-										elif isinstance(part, string_types):
-											# print(f'part: {part}')
-											for every in outer_match_parts:
-												if  isinstance(every, string_types):
-													outer_query = every.strip('()')
-													if ':' in outer_query:
-														alias, outer_query_tb = outer_query.split(':')
-														# print(f'alias: {alias}, outer_query_tb:{outer_query_tb}' )
-											try:
-												outer_query_field = '{}.{}'.format(alias, part)
-												print(f'outer_query_field: {outer_query_field}')
-										
-											except:
-												raise NotImplementedError
-							
-								match_parts = 'MATCH {}'.format(' '.join(match_parts))
-								where_parts = 'WHERE {}'.format(' AND '.join(where_parts))
-								pattern = [match_parts, where_parts]
-								# print(f'match_parts: {match_parts}, where_parts: {where_parts}')
-						
-										
-
-
-						if clause == 'select' and utils.is_subquery(json):
-							outer_select = 	pattern.pop()	
-							outer_select_parts = [every.strip() for every in outer_select.split('RETURN') if every]
-							print(f'outer_select: {outer_select}, pattern: {pattern}')
-							print(f'outer_query_field: {outer_query_field}')
-							return_statement = []
-							for part in outer_select_parts:
-								if re.match(agg_pattern, part):
-									if 'count' in outer_select and outer_query_field:
-										outer_select = 'count(DISTINCT {})'.format(outer_query_field)
-										return_statement.append(outer_select)
+									# print(conditioned_parts)
+									conditioned_match = 'WHERE NOT {}'.format(''.join(conditioned_parts))
+									
+									pattern = [outer_match, conditioned_match]
+								elif 'IN' in sub_pattern:	
+									# 'IN' as a template flag, it would be removed during construction in order to genereate a valid Cypher query.
+									# TODO: need test
+									sub_pattern = sub_pattern.replace('IN','')							
+									outer_match = pattern.pop()						
+									to_node = outer_match.split()[1]
+									to_node_label = to_node.strip('()').split(':')[-1].upper()
+									sub_pattern = '{}-[:HAS_{}]->{}'.format(sub_pattern,to_node_label, to_node )
+									pattern = [outer_match, sub_pattern]
 								else:
-									raise NotImplementedError
-							pattern.append('RETURN {}'.format(' '.join(return_statement)))
-
+									# TODO: need test
+									outer_match = pattern.pop()						
+									inner_condition_var = sub_pattern[-1][:3]
+									sub_pattern = sub_pattern[-1].replace('RETURN', 'WITH')
+									sub_pattern = '{} AS {}'.format(sub_pattern, inner_condition_var)
+									outer_agg = 'WHERE {} {}'.format(' '.join(sub_pattern[:-2]),inner_condition_var )
+									pattern = [outer_match, outer_agg]
+									
 
 			seq = '\n'.join(pattern)    	
 		else:
@@ -350,17 +332,18 @@ class Formatter(SchemaGroundedTraverser):
 		if '.' in tb_name:
 			table_key, tb_name = tb_name.split('.')	
 			is_alisas = True
+			print("zz:",tb_name )
 		elif tb_name.startswith('rel'):
 			idx = tb_name.index('_')
 			tb_name = tb_name[idx+1:]
 
 		lookup_tbs = list(self.db_lookup_dict.keys())
 		tbs = [tb.lower() for tb in lookup_tbs]
-		
+		print(lookup_tbs)
+		print(tbs)
 		if tb_name.lower() in tbs:
 			index = tbs.index(tb_name.lower() )
 			tb_name = lookup_tbs[index]
-
 		if is_alisas:
 			tb_name = '{}.{}'.format(table_key, tb_name)
 
@@ -368,6 +351,25 @@ class Formatter(SchemaGroundedTraverser):
 	
 	
 	def _reformat(self, tables, fields = [], mode = 'reformat_tb_fields'):
+		# print("***********reformat************")
+		# print(mode)
+		# lookup_tbs = list(self.db_lookup_dict.keys())
+		# tbs = [tb.lower() for tb in lookup_tbs]
+		# is_alisas = False
+		# for idx, table in enumerate(tables):
+		# 	if '.' in table:
+		# 		alias_key, table = table.split('.')
+		# 		is_alisas = True
+			
+		# 	if table.lower() in tbs:
+		# 		index = tbs.index(table.lower())
+		# 		table_name = lookup_tbs[index]
+			
+		# 	if is_alisas:
+		# 		table[idx] = '{}.{}'.format(alias_key, table_name)
+		# 	else:
+		# 		table[idx] = table_name
+			
 		if mode == 'reformat_tb_name':	
 			for idx, table in enumerate(tables):
 				if '.' in table:
@@ -491,7 +493,6 @@ class Formatter(SchemaGroundedTraverser):
 		print("*******debgu from*******")
 		if 'from' in json:
 			from_ = json['from']
-
 			if isinstance(from_, dict):
 				# Case: MATCH ()
 				table = self.dispatch(from_)
@@ -579,13 +580,13 @@ class Formatter(SchemaGroundedTraverser):
 			else:
 				joiner = ''
 			rest = joiner.join(reformat_parts)
+			print(rest)
 			return 'MATCH {}'.format(rest)	
 	
 
 	def where(self, json):
 		if 'where' in json:	
 			# print("****debug where****")
-			
 			if isNested(json):
 				nested_pattern = self.dispatch(json['where'])
 				return nested_pattern
@@ -731,7 +732,7 @@ class Formatter(SchemaGroundedTraverser):
 						elif 'having' in json and select_field == 'count(*)':
 							return_nodes.append("count")
 						else:
-							# print(f'agg in select: {select_field}')
+					
 							return_nodes.append(select_field)
 					
 					else:
@@ -802,7 +803,8 @@ class Formatter(SchemaGroundedTraverser):
 						
 						
 						return_nodes.append(normalized_field)
-	
+
+					
 						
 				if is_with:
 					with_statement = 'WITH {}'.format(', '.join(set(with_parts)))
@@ -943,20 +945,18 @@ class Formatter(SchemaGroundedTraverser):
 	
 	def _in(self, json):
 		'''
-		! Notes regarding 'do' statement in naltural language utterance. 
+		! Notes regarding 'do not' or 'not' statement in naltural language utterance. 
 		
 			|   SQL   | Mapping |  CYPHER 
 			---------------------------------------------------------------------------------------------- 
-			|'in' |   -->   | 1) MATCH ()-[]-(); (NOTE: see example1)
-								or 
-							  2) TODO
+			|'in' |   -->   | where ()-[]-()  |
 			
-			For example1:
-				- relational database: musical.db
+			For example:
 				- Question: List the name of musicals that do have actors.
 				- SQL query: SELECT Name FROM musical WHERE Musical_ID IN (SELECT Musical_ID FROM actor)
 				- Cypher query: 
-						MATCH (a:Actor)-[:HAS_MUSICAL]-(m:Musical)
+						MATCH (m:Musical)
+						where (:Actor)-[:HAS_MUSICAL]-(m)
 						RETURN m.Name
 		Note: 'IN' in the return working as an indentifier for the reconstruction process in function query().
 		'''
@@ -971,71 +971,33 @@ class Formatter(SchemaGroundedTraverser):
 		
 			|   SQL   | Mapping |  CYPHER 
 			---------------------------------------------------------------------------------------------- 
-			|'not in' |   -->   | 1) WHERE NOT ()-[]-()                 (NOTE: see example2); 
-									or 
-								  2) MATCH ()-[]-() WHERE  NOT ?  IN ?  (NOTE: see exmple2)|
-
+			|'not in' |   -->   | where NOT ()-[]-()  |
 			
-			For example1:	
-				- relational databse: department_management.db
+			For example:	
+				- relational databse: department_management
 				- Question:  How many departments are led by heads who are not mentioned?
 				- SQL query: SELECT count(*) FROM department WHERE department_id NOT IN (SELECT department_id FROM management)
 				- Cypher query: 
 					MATCH (d:Department)
 					WHERE NOT (d:Department)-[:Management]-()
 					RETURN count(*)
-
-			For example2:	
-				- relational databse: hospital_1.db
-				- Question:  How many patients are not using Procrastin-X as medication?
-				- SQL query: SELECT count(*) FROM patient WHERE SSN NOT IN ( SELECT T1.patient FROM Prescribes AS T1 JOIN Medication AS T2
-					 ON T1.Medication  =  T2.Code WHERE T2.name  =  'Procrastin-X' )
-				- Cypher query: 
-					MATCH (p:Patient)
-					MATCH (T1:Prescribes)-[]-(T2:Medication)
-					WHERE NOT p.SSN in T1.Patient and T2.Name = 'Procrastin-X'
-					RETURN COUNT(DISTINCT p.SSN)
-
-					Note: we return distinct p.SSN, even though the aggregation is just count(*) in SQL,
-					I suspect this is one of the distinctions between SQL queries and Cypher queries.
-					TODO: need more research investigation here, and mention it in the pakdd2023 paper.  
-
 		'''
 		# print("*******not in********")
 		# print(json, isinstance(json, list))
-		# TODO: need more test, currently working with one nested sql query. \
-		# **************NOTE: old_code**************
-		# sub_pattern = ''
-		# if isinstance(json, list):
-		# 	for part in json:
-		# 		if isinstance(part, dict):
-		# 			nested_query = self.dispatch(part)
-
-		# 			if '\n' in nested_query:
-		# 				nested_query_parts = nested_query.split('\n')
-		# 				for every in nested_query_parts:
-		# 					if 'MATCH' in every:
-		# 						sub_pattern = every.split('MATCH')[-1]
-		# 			print("sub_pattern:", sub_pattern)
-		# 			return 'NOT {}'.format(sub_pattern)
-		parts = []
+		# TODO: need more test, currently working with one nested sql query. 
+		sub_pattern = ''
 		if isinstance(json, list):
 			for part in json:
 				if isinstance(part, dict):
 					nested_query = self.dispatch(part)
-					sub_patterns = []
+
 					if '\n' in nested_query:
-						nested_query_parts = nested_query.strip('()').split('\n')
+						nested_query_parts = nested_query.split('\n')
 						for every in nested_query_parts:
-						
-							if 'RETURN' in every:
-								sub_patterns.append('NOT {}'.format(every.split('RETURN')[-1]))
-							else:
-								sub_patterns.append(every)
-						parts.append('\n'.join(sub_patterns))	
-				else:
-					parts.append(self.dispatch(part))
-			return parts
+							if 'MATCH' in every:
+								sub_pattern = every.split('MATCH')[-1]
+					print("sub_pattern:", sub_pattern)
+					return 'NOT {}'.format(sub_pattern)
 		else:
 			raise NotImplementedError
 
@@ -1104,7 +1066,7 @@ def build_lookup_dict(db_paths, sp_data_folder):
 			result = engine.get_table_values(table_name)
 			headers = [desc[0] for desc in result.description]   
 
-			if compound_pk_check and len(table_constraints)==2:  # Note: atm we just focus on binary table relationship.
+			if compound_pk_check and table_constraints:
 				table_name = 'rel_{}'.format(table_name)
 			if table_name not in lookup_dict[db_name]:
 				lookup_dict[db_name][table_name] = headers
@@ -1189,7 +1151,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			
-			if db_name == 'hospital_1' :   
+			if db_name == 'hospital_1' and i==3996 :   
 				all_table_fields = lookup_dict[db_name]	
 
 				# 1. Extract database name, questions and SQL queries

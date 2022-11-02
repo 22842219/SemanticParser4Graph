@@ -174,7 +174,7 @@
             "Brand",
             "Description"
         ],
-        "rel_Prescribes": [
+        "Prescribes": [
             "Physician",
             "Patient",
             "Medication",
@@ -193,7 +193,7 @@
             "BlockCode",
             "Unavailable"
         ],
-        "rel_On_Call": [
+        "On_Call": [
             "Nurse",
             "BlockFloor",
             "BlockCode",
@@ -207,7 +207,7 @@
             "StayStart",
             "StayEnd"
         ],
-        "rel_Undergoes": [
+        "Undergoes": [
             "Patient",
             "Procedures",
             "Stay",
@@ -256,7 +256,7 @@
             "train_id",
             "station_id"
         ],
-        "rel_weekly_weather": [
+        "weekly_weather": [
             "station_id",
             "day_of_week",
             "high_temperature",
@@ -496,7 +496,7 @@
             "city",
             "installation_date"
         ],
-        "rel_status": [
+        "status": [
             "station_id",
             "bikes_available",
             "docks_available",
@@ -633,7 +633,7 @@
             "product_quantity",
             "other_order_item_details"
         ],
-        "rel_Invoice_Line_Items": [
+        "Invoice_Line_Items": [
             "order_item_id",
             "invoice_number",
             "product_id",
@@ -997,7 +997,7 @@
             "property_address",
             "other_details"
         ],
-        "rel_Residents": [
+        "Residents": [
             "resident_id",
             "property_id",
             "date_moved_in",
@@ -1015,7 +1015,7 @@
             "service_type_code",
             "service_details"
         ],
-        "rel_Residents_Services": [
+        "Residents_Services": [
             "resident_id",
             "service_id",
             "date_moved_in",
@@ -1047,12 +1047,12 @@
             "property_id",
             "date_moved_in"
         ],
-        "rel_Timed_Status_of_Things": [
+        "Timed_Status_of_Things": [
             "thing_id",
             "Date_and_Date",
             "Status_of_Thing_Code"
         ],
-        "rel_Timed_Locations_of_Things": [
+        "Timed_Locations_of_Things": [
             "thing_id",
             "Date_and_Time",
             "Location_Code"
@@ -1168,7 +1168,7 @@
             "winner_seed",
             "year"
         ],
-        "rel_rankings": [
+        "rankings": [
             "ranking_date",
             "ranking",
             "player_id",
@@ -1476,7 +1476,7 @@
             "Weekly_rank",
             "Share"
         ],
-        "rel_show": [
+        "show": [
             "Show_ID",
             "Performance_ID",
             "If_first_show",
@@ -1639,7 +1639,7 @@
             "MANAGER_ID",
             "DEPARTMENT_ID"
         ],
-        "rel_job_history": [
+        "job_history": [
             "EMPLOYEE_ID",
             "START_DATE",
             "END_DATE",
@@ -1717,7 +1717,7 @@
             "StuID",
             "DNO"
         ],
-        "rel_Enrolled_in": [
+        "Enrolled_in": [
             "StuID",
             "CID",
             "Grade"
@@ -1824,7 +1824,7 @@
             "dept_name",
             "salary"
         ],
-        "rel_section": [
+        "section": [
             "course_id",
             "sec_id",
             "semester",
@@ -1833,7 +1833,7 @@
             "room_number",
             "time_slot_id"
         ],
-        "rel_teaches": [
+        "teaches": [
             "ID",
             "course_id",
             "sec_id",
@@ -1846,7 +1846,7 @@
             "dept_name",
             "tot_cred"
         ],
-        "rel_takes": [
+        "takes": [
             "ID",
             "course_id",
             "sec_id",
@@ -1946,7 +1946,7 @@
             "employee_name",
             "other_details"
         ],
-        "rel_Document_Drafts": [
+        "Document_Drafts": [
             "document_id",
             "draft_number",
             "draft_details"
@@ -1956,7 +1956,7 @@
             "draft_number",
             "copy_number"
         ],
-        "rel_Circulation_History": [
+        "Circulation_History": [
             "document_id",
             "draft_number",
             "copy_number",
@@ -1983,7 +1983,7 @@
             "Open_Date",
             "Continuation_of"
         ],
-        "rel_wedding": [
+        "wedding": [
             "Church_ID",
             "Male_ID",
             "Female_ID",
@@ -2162,7 +2162,7 @@
             "capital",
             "density"
         ],
-        "rel_city": [
+        "city": [
             "city_name",
             "population",
             "country_name",
@@ -2185,7 +2185,7 @@
             "country_name",
             "state_name"
         ],
-        "rel_mountain": [
+        "mountain": [
             "mountain_name",
             "mountain_altitude",
             "country_name",
@@ -2380,25 +2380,25 @@
             "Year",
             "CampusFee"
         ],
-        "rel_degrees": [
+        "degrees": [
             "Year",
             "Campus",
             "Degrees"
         ],
-        "rel_discipline_enrollments": [
+        "discipline_enrollments": [
             "Campus",
             "Discipline",
             "Year",
             "Undergraduate",
             "Graduate"
         ],
-        "rel_enrollments": [
+        "enrollments": [
             "Campus",
             "Year",
             "TotalEnrollment_AY",
             "FTE_AY"
         ],
-        "rel_faculty": [
+        "faculty": [
             "Campus",
             "Year",
             "Faculty"
@@ -2525,7 +2525,7 @@
             "Starting_Year",
             "Age"
         ],
-        "rel_repair_assignment": [
+        "repair_assignment": [
             "technician_id",
             "repair_ID",
             "Machine_ID"
@@ -2611,7 +2611,7 @@
             "Venue",
             "Num_of_Audience"
         ],
-        "rel_debate_people": [
+        "debate_people": [
             "Debate_ID",
             "Affirmative",
             "Negative",
@@ -2633,7 +2633,7 @@
             "paperID",
             "title"
         ],
-        "rel_Authorship": [
+        "Authorship": [
             "authID",
             "instID",
             "paperID",
@@ -2680,7 +2680,7 @@
             "date_of_enrolment",
             "date_of_completion"
         ],
-        "rel_Student_Tests_Taken": [
+        "Student_Tests_Taken": [
             "registration_id",
             "date_test_taken",
             "test_result"
@@ -2756,7 +2756,7 @@
             "employee_name",
             "employee_phone"
         ],
-        "rel_Order_Deliveries": [
+        "Order_Deliveries": [
             "location_code",
             "actual_order_id",
             "delivery_status_code",
@@ -2875,7 +2875,7 @@
             "Date_of_Birth",
             "Other_Details"
         ],
-        "rel_Document_Locations": [
+        "Document_Locations": [
             "Document_ID",
             "Location_Code",
             "Date_in_Location_From",
@@ -3058,7 +3058,7 @@
             "Advisor",
             "city_code"
         ],
-        "rel_Voting_record": [
+        "Voting_record": [
             "StuID",
             "Registration_Date",
             "Election_Cycle",
@@ -3107,7 +3107,7 @@
             "phone_number",
             "cell_mobile_phone_number"
         ],
-        "rel_Customer_Payments": [
+        "Customer_Payments": [
             "customer_id",
             "datetime_payment",
             "payment_method_code",
@@ -3135,7 +3135,7 @@
             "IHSAA_Football_Class",
             "County"
         ],
-        "rel_budget": [
+        "budget": [
             "School_id",
             "Year",
             "Budgeted",
@@ -3279,7 +3279,7 @@
             "Country",
             "College_ID"
         ],
-        "rel_round": [
+        "round": [
             "Round_ID",
             "Member_ID",
             "Decoration_Theme",
@@ -3637,7 +3637,7 @@
             "product_description",
             "product_price"
         ],
-        "rel_Complaints": [
+        "Complaints": [
             "complaint_id",
             "product_id",
             "customer_id",
@@ -3868,7 +3868,7 @@
         ]
     },
     "baseball_1": {
-        "rel_all_star": [
+        "all_star": [
             "player_id",
             "year",
             "game_num",
@@ -3901,7 +3901,7 @@
             "g_ph",
             "g_pr"
         ],
-        "rel_manager_award": [
+        "manager_award": [
             "player_id",
             "award_id",
             "year",
@@ -3909,7 +3909,7 @@
             "tie",
             "notes"
         ],
-        "rel_player_award": [
+        "player_award": [
             "player_id",
             "award_id",
             "year",
@@ -3926,7 +3926,7 @@
             "points_max",
             "votes_first"
         ],
-        "rel_player_award_vote": [
+        "player_award_vote": [
             "award_id",
             "year",
             "league_id",
@@ -3935,7 +3935,7 @@
             "points_max",
             "votes_first"
         ],
-        "rel_batting": [
+        "batting": [
             "player_id",
             "year",
             "stint",
@@ -3988,7 +3988,7 @@
             "college_id",
             "year"
         ],
-        "rel_fielding": [
+        "fielding": [
             "player_id",
             "year",
             "stint",
@@ -4008,7 +4008,7 @@
             "cs",
             "zr"
         ],
-        "rel_fielding_outfield": [
+        "fielding_outfield": [
             "player_id",
             "year",
             "stint",
@@ -4035,7 +4035,7 @@
             "sb",
             "cs"
         ],
-        "rel_hall_of_fame": [
+        "hall_of_fame": [
             "player_id",
             "yearid",
             "votedby",
@@ -4057,7 +4057,7 @@
             "openings",
             "attendance"
         ],
-        "rel_manager": [
+        "manager": [
             "player_id",
             "year",
             "team_id",
@@ -4069,7 +4069,7 @@
             "rank",
             "plyr_mgr"
         ],
-        "rel_manager_half": [
+        "manager_half": [
             "player_id",
             "year",
             "team_id",
@@ -4507,7 +4507,7 @@
             "address_type",
             "date_address_to"
         ],
-        "rel_Customer_Contact_Channels": [
+        "Customer_Contact_Channels": [
             "customer_id",
             "channel_code",
             "active_from_date",
@@ -4554,7 +4554,7 @@
             "sales_transaction_id",
             "sales_details"
         ],
-        "rel_Purchases": [
+        "Purchases": [
             "purchase_transaction_id",
             "purchase_details"
         ],
@@ -4584,7 +4584,7 @@
             "GameID",
             "Hours_Played"
         ],
-        "rel_SportsInfo": [
+        "SportsInfo": [
             "StuID",
             "SportName",
             "HoursPerWeek",
@@ -4859,7 +4859,7 @@
             "Region",
             "Start_year"
         ],
-        "rel_club_rank": [
+        "club_rank": [
             "Rank",
             "Club_ID",
             "Gold",
@@ -4883,7 +4883,7 @@
             "Competition_type",
             "Country"
         ],
-        "rel_competition_result": [
+        "competition_result": [
             "Competition_ID",
             "Club_ID_1",
             "Club_ID_2",
@@ -5094,7 +5094,7 @@
             "bedroom_count",
             "room_count"
         ],
-        "rel_Apartment_Facilities": [
+        "Apartment_Facilities": [
             "apt_id",
             "facility_code"
         ],
@@ -5287,7 +5287,7 @@
             "Start_from",
             "Is_full_time"
         ],
-        "rel_evaluation": [
+        "evaluation": [
             "Employee_ID",
             "Year_awarded",
             "Bonus"
@@ -5547,13 +5547,13 @@
             "Level_of_membership",
             "Address"
         ],
-        "rel_happy_hour": [
+        "happy_hour": [
             "HH_ID",
             "Shop_ID",
             "Month",
             "Num_of_shaff_in_charge"
         ],
-        "rel_happy_hour_member": [
+        "happy_hour_member": [
             "HH_ID",
             "Member_ID",
             "Total_amount"
@@ -5745,7 +5745,7 @@
             "monthly_rental",
             "other_details"
         ],
-        "rel_Students_in_Detention": [
+        "Students_in_Detention": [
             "student_id",
             "detention_id",
             "incident_id"
@@ -5780,7 +5780,7 @@
             "Capital",
             "Code2"
         ],
-        "rel_countrylanguage": [
+        "countrylanguage": [
             "CountryCode",
             "Language",
             "IsOfficial",
@@ -6092,7 +6092,7 @@
             "Artist_ID",
             "Ticket_Price"
         ],
-        "rel_exhibition_record": [
+        "exhibition_record": [
             "Exhibition_ID",
             "Date",
             "Attendance"
@@ -6334,7 +6334,7 @@
             "Coach_ID",
             "Starting_year"
         ],
-        "rel_match_result": [
+        "match_result": [
             "Rank",
             "Club_ID",
             "Gold",
@@ -6413,7 +6413,7 @@
             "candidate_id",
             "candidate_details"
         ],
-        "rel_Candidate_Assessments": [
+        "Candidate_Assessments": [
             "candidate_id",
             "qualification",
             "assessment_date",
@@ -6571,7 +6571,7 @@
             "Class",
             "Division"
         ],
-        "rel_school_performance": [
+        "school_performance": [
             "School_Id",
             "School_Year",
             "Class_A",

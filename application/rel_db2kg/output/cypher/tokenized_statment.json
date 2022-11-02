@@ -21,7 +21,7 @@
       ],
       "Token_Name_Label": [
             "Nurse",
-            "on_call"
+            "On_Call"
       ],
       "Token_Operator": "."
 }

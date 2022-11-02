@@ -27338,4 +27338,3225 @@ size 364612006
             ]
         ]
     }
-][][][][][][][][][][][][][][][]
+][][][][][][][][][][][][][][][][][][][][
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are on call.",
+        "cypher_query": "MATCH (T1:Nurse)-[]-(T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Nurse",
+                "On_Call"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are on call.",
+        "cypher_query": "MATCH (T1:Nurse)-[]-(T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Nurse",
+                "On_Call"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "hospital_1",
+        "question": "Find the patient who most recently stayed in room 111.",
+        "cypher_query": "MATCH (s:Stay)\nWHERE s.Room=111\nRETURN s.Patient\nORDER BY s.StayStart DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "s",
+                "Room",
+                "Patient",
+                "StayStart"
+            ],
+            "Token_Name_Label": "Stay",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "111"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the id of the patient who stayed in room 111 most recently?",
+        "cypher_query": "MATCH (s:Stay)\nWHERE s.Room=111\nRETURN s.Patient\nORDER BY s.StayStart DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "s",
+                "Room",
+                "Patient",
+                "StayStart"
+            ],
+            "Token_Name_Label": "Stay",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "111"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the unique block codes that have available rooms?",
+        "cypher_query": "MATCH (r:Room)\nWHERE r.Unavailable=0\nRETURN DISTINCT r.BlockCode",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "Unavailable",
+                "BlockCode"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "0"
+        },
+        "answers": [
+            [
+                1
+            ],
+            [
+                2
+            ],
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Tell me the distinct block codes where some rooms are available.",
+        "cypher_query": "MATCH (r:Room)\nWHERE r.Unavailable=0\nRETURN DISTINCT r.BlockCode",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "Unavailable",
+                "BlockCode"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "0"
+        },
+        "answers": [
+            [
+                1
+            ],
+            [
+                2
+            ],
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many different types of rooms are there?",
+        "cypher_query": "MATCH (r:Room)\nWITH DISTINCT r.RoomType AS roomtype\nRETURN count(roomtype)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH DISTINCT",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "RoomType",
+                "roomtype"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of distinct room types available.",
+        "cypher_query": "MATCH (r:Room)\nWITH DISTINCT r.RoomType AS roomtype\nRETURN count(roomtype)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH DISTINCT",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "RoomType",
+                "roomtype"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the patient who has the most recent undergoing treatment?",
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "u",
+                "Patient",
+                "DateUndergoes"
+            ],
+            "Token_Name_Label": "Undergoes",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which patient is undergoing the most recent treatment?",
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "u",
+                "Patient",
+                "DateUndergoes"
+            ],
+            "Token_Name_Label": "Undergoes",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the names of all distinct nurses ordered by alphabetical order?",
+        "cypher_query": "MATCH (n:Nurse)\nRETURN DISTINCT n.Name\nORDER BY n.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "n",
+            "Token_Name_Label": "Nurse",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the alphabetically ordered list of all the distinct names of nurses?",
+        "cypher_query": "MATCH (n:Nurse)\nRETURN DISTINCT n.Name\nORDER BY n.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "n",
+            "Token_Name_Label": "Nurse",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are nursing an undergoing treatment.",
+        "cypher_query": "MATCH (T1:Undergoes)-[]-(T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Undergoes",
+                "Nurse"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which nurses are in charge of patients undergoing treatments?",
+        "cypher_query": "MATCH (T1:Undergoes)-[]-(T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Undergoes",
+                "Nurse"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the names of all distinct medications, ordered in an alphabetical order.",
+        "cypher_query": "MATCH (m:Medication)\nRETURN DISTINCT m.Name\nORDER BY m.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "m",
+            "Token_Name_Label": "Medication",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Awakin"
+            ],
+            [
+                "Crescavitin"
+            ],
+            [
+                "Melioraurin"
+            ],
+            [
+                "Procrastin-X"
+            ],
+            [
+                "Thesisin"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the alphabetically ordered list of all distinct medications?",
+        "cypher_query": "MATCH (m:Medication)\nRETURN DISTINCT m.Name\nORDER BY m.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "m",
+            "Token_Name_Label": "Medication",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Awakin"
+            ],
+            [
+                "Crescavitin"
+            ],
+            [
+                "Melioraurin"
+            ],
+            [
+                "Procrastin-X"
+            ],
+            [
+                "Thesisin"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the highest cost, lowest cost and average cost of procedures?",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN max(p.Cost),min(p.Cost),avg(p.Cost)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Name_Function": [
+                "max",
+                "min",
+                "avg"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                10000.0,
+                25.0,
+                4324.857142857143
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Tell me the highest, lowest, and average cost of procedures.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN max(p.Cost),min(p.Cost),avg(p.Cost)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Name_Function": [
+                "max",
+                "min",
+                "avg"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                10000.0,
+                25.0,
+                4324.857142857143
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the name and cost of all procedures sorted by the cost from the highest to the lowest.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name,p.Cost\nORDER BY p.Cost DESC",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Complete Walletectomy",
+                10000.0
+            ],
+            [
+                "Reversible Pancreomyoplasty",
+                5600.0
+            ],
+            [
+                "Obfuscated Dermogastrotomy",
+                4899.0
+            ],
+            [
+                "Folded Demiophtalmectomy",
+                4500.0
+            ],
+            [
+                "Obtuse Pyloric Recombobulation",
+                3750.0
+            ],
+            [
+                "Reverse Rhinopodoplasty",
+                1500.0
+            ],
+            [
+                "Follicular Demiectomy",
+                25.0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Sort the list of names and costs of all procedures in the descending order of cost.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name,p.Cost\nORDER BY p.Cost DESC",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Complete Walletectomy",
+                10000.0
+            ],
+            [
+                "Reversible Pancreomyoplasty",
+                5600.0
+            ],
+            [
+                "Obfuscated Dermogastrotomy",
+                4899.0
+            ],
+            [
+                "Folded Demiophtalmectomy",
+                4500.0
+            ],
+            [
+                "Obtuse Pyloric Recombobulation",
+                3750.0
+            ],
+            [
+                "Reverse Rhinopodoplasty",
+                1500.0
+            ],
+            [
+                "Follicular Demiectomy",
+                25.0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the three most expensive procedures.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name\nORDER BY p.Cost\nLIMIT 3",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "3"
+        },
+        "answers": [
+            [
+                "Follicular Demiectomy"
+            ],
+            [
+                "Reverse Rhinopodoplasty"
+            ],
+            [
+                "Obtuse Pyloric Recombobulation"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the three most costly procedures?",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name\nORDER BY p.Cost\nLIMIT 3",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "3"
+        },
+        "answers": [
+            [
+                "Follicular Demiectomy"
+            ],
+            [
+                "Reverse Rhinopodoplasty"
+            ],
+            [
+                "Obtuse Pyloric Recombobulation"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many appointments are there?",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Count how many appointments have been made in total.",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are on call.",
+        "cypher_query": "MATCH (T1:Nurse)-[]-(T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Nurse",
+                "On_Call"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the distinct names of nurses on call?",
+        "cypher_query": "MATCH (T1:Nurse)-[]-(T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Nurse",
+                "On_Call"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    }
+][][][][][][][][][][][][][][][][][][][][][][][][][][
+    {
+        "db_id": "hospital_1",
+        "question": "How many appointments are there?",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    }
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients are not using Procrastin-X as medication?",
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes)-[]-(T2:Medication)\nWHERE T2.Name='Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "Name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ")-[",
+                "]-("
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "T1",
+                "T2",
+                "SSN",
+                "Patient"
+            ],
+            "Token_Name_Label": [
+                "Patient",
+                "Prescribes",
+                "Medication"
+            ],
+            "Token_Operator": [
+                ".",
+                "=",
+                "AND",
+                "NOT",
+                "in",
+                "DISTINCT"
+            ],
+            "Token_Literal_String": "'Procrastin-X'",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                3
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "hospital_1",
+        "question": "Find the patient who most recently stayed in room 111.",
+        "cypher_query": "MATCH (s:Stay)\nWHERE s.Room=111\nRETURN s.Patient\nORDER BY s.StayStart DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "s",
+                "Room",
+                "Patient",
+                "StayStart"
+            ],
+            "Token_Name_Label": "Stay",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "111"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the id of the patient who stayed in room 111 most recently?",
+        "cypher_query": "MATCH (s:Stay)\nWHERE s.Room=111\nRETURN s.Patient\nORDER BY s.StayStart DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "s",
+                "Room",
+                "Patient",
+                "StayStart"
+            ],
+            "Token_Name_Label": "Stay",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "111"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the unique block codes that have available rooms?",
+        "cypher_query": "MATCH (r:Room)\nWHERE r.Unavailable=0\nRETURN DISTINCT r.BlockCode",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "Unavailable",
+                "BlockCode"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "0"
+        },
+        "answers": [
+            [
+                1
+            ],
+            [
+                2
+            ],
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Tell me the distinct block codes where some rooms are available.",
+        "cypher_query": "MATCH (r:Room)\nWHERE r.Unavailable=0\nRETURN DISTINCT r.BlockCode",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "Unavailable",
+                "BlockCode"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "0"
+        },
+        "answers": [
+            [
+                1
+            ],
+            [
+                2
+            ],
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many different types of rooms are there?",
+        "cypher_query": "MATCH (r:Room)\nWITH DISTINCT r.RoomType AS roomtype\nRETURN count(roomtype)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH DISTINCT",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "RoomType",
+                "roomtype"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of distinct room types available.",
+        "cypher_query": "MATCH (r:Room)\nWITH DISTINCT r.RoomType AS roomtype\nRETURN count(roomtype)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH DISTINCT",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "RoomType",
+                "roomtype"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the patient who has the most recent undergoing treatment?",
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "u",
+                "Patient",
+                "DateUndergoes"
+            ],
+            "Token_Name_Label": "Undergoes",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which patient is undergoing the most recent treatment?",
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "u",
+                "Patient",
+                "DateUndergoes"
+            ],
+            "Token_Name_Label": "Undergoes",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the names of all distinct nurses ordered by alphabetical order?",
+        "cypher_query": "MATCH (n:Nurse)\nRETURN DISTINCT n.Name\nORDER BY n.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "n",
+            "Token_Name_Label": "Nurse",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the alphabetically ordered list of all the distinct names of nurses?",
+        "cypher_query": "MATCH (n:Nurse)\nRETURN DISTINCT n.Name\nORDER BY n.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "n",
+            "Token_Name_Label": "Nurse",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are nursing an undergoing treatment.",
+        "cypher_query": "MATCH (T1:Undergoes)-[]-(T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Undergoes",
+                "Nurse"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which nurses are in charge of patients undergoing treatments?",
+        "cypher_query": "MATCH (T1:Undergoes)-[]-(T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Undergoes",
+                "Nurse"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the names of all distinct medications, ordered in an alphabetical order.",
+        "cypher_query": "MATCH (m:Medication)\nRETURN DISTINCT m.Name\nORDER BY m.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "m",
+            "Token_Name_Label": "Medication",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Awakin"
+            ],
+            [
+                "Crescavitin"
+            ],
+            [
+                "Melioraurin"
+            ],
+            [
+                "Procrastin-X"
+            ],
+            [
+                "Thesisin"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the alphabetically ordered list of all distinct medications?",
+        "cypher_query": "MATCH (m:Medication)\nRETURN DISTINCT m.Name\nORDER BY m.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "m",
+            "Token_Name_Label": "Medication",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Awakin"
+            ],
+            [
+                "Crescavitin"
+            ],
+            [
+                "Melioraurin"
+            ],
+            [
+                "Procrastin-X"
+            ],
+            [
+                "Thesisin"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the highest cost, lowest cost and average cost of procedures?",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN max(p.Cost),min(p.Cost),avg(p.Cost)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Name_Function": [
+                "max",
+                "min",
+                "avg"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                10000.0,
+                25.0,
+                4324.857142857143
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Tell me the highest, lowest, and average cost of procedures.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN max(p.Cost),min(p.Cost),avg(p.Cost)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Name_Function": [
+                "max",
+                "min",
+                "avg"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                10000.0,
+                25.0,
+                4324.857142857143
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the name and cost of all procedures sorted by the cost from the highest to the lowest.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name,p.Cost\nORDER BY p.Cost DESC",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Complete Walletectomy",
+                10000.0
+            ],
+            [
+                "Reversible Pancreomyoplasty",
+                5600.0
+            ],
+            [
+                "Obfuscated Dermogastrotomy",
+                4899.0
+            ],
+            [
+                "Folded Demiophtalmectomy",
+                4500.0
+            ],
+            [
+                "Obtuse Pyloric Recombobulation",
+                3750.0
+            ],
+            [
+                "Reverse Rhinopodoplasty",
+                1500.0
+            ],
+            [
+                "Follicular Demiectomy",
+                25.0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Sort the list of names and costs of all procedures in the descending order of cost.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name,p.Cost\nORDER BY p.Cost DESC",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Complete Walletectomy",
+                10000.0
+            ],
+            [
+                "Reversible Pancreomyoplasty",
+                5600.0
+            ],
+            [
+                "Obfuscated Dermogastrotomy",
+                4899.0
+            ],
+            [
+                "Folded Demiophtalmectomy",
+                4500.0
+            ],
+            [
+                "Obtuse Pyloric Recombobulation",
+                3750.0
+            ],
+            [
+                "Reverse Rhinopodoplasty",
+                1500.0
+            ],
+            [
+                "Follicular Demiectomy",
+                25.0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the three most expensive procedures.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name\nORDER BY p.Cost\nLIMIT 3",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "3"
+        },
+        "answers": [
+            [
+                "Follicular Demiectomy"
+            ],
+            [
+                "Reverse Rhinopodoplasty"
+            ],
+            [
+                "Obtuse Pyloric Recombobulation"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the three most costly procedures?",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name\nORDER BY p.Cost\nLIMIT 3",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "3"
+        },
+        "answers": [
+            [
+                "Follicular Demiectomy"
+            ],
+            [
+                "Reverse Rhinopodoplasty"
+            ],
+            [
+                "Obtuse Pyloric Recombobulation"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of patients who are not using the medication of Procrastin-X.",
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes)-[]-(T2:Medication)\nWHERE T2.Name='Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "Name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ")-[",
+                "]-("
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "T1",
+                "T2",
+                "SSN",
+                "Patient"
+            ],
+            "Token_Name_Label": [
+                "Patient",
+                "Prescribes",
+                "Medication"
+            ],
+            "Token_Operator": [
+                ".",
+                "=",
+                "AND",
+                "NOT",
+                "in",
+                "DISTINCT"
+            ],
+            "Token_Literal_String": "'Procrastin-X'",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients are not using Procrastin-X as medication?",
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes)-[]-(T2:Medication)\nWHERE T2.Name='Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "Name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ")-[",
+                "]-("
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "T1",
+                "T2",
+                "SSN",
+                "Patient"
+            ],
+            "Token_Name_Label": [
+                "Patient",
+                "Prescribes",
+                "Medication"
+            ],
+            "Token_Operator": [
+                ".",
+                "=",
+                "AND",
+                "NOT",
+                "in",
+                "DISTINCT"
+            ],
+            "Token_Literal_String": "'Procrastin-X'",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many appointments are there?",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Count how many appointments have been made in total.",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are on call.",
+        "cypher_query": "MATCH (T1:Nurse)-[]-(T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Nurse",
+                "On_Call"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the distinct names of nurses on call?",
+        "cypher_query": "MATCH (T1:Nurse)-[]-(T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Nurse",
+                "On_Call"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "hospital_1",
+        "question": "Find the patient who most recently stayed in room 111.",
+        "cypher_query": "MATCH (s:Stay)\nWHERE s.Room = 111\nRETURN s.Patient\nORDER BY s.StayStart DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "s",
+                "Room",
+                "Patient",
+                "StayStart"
+            ],
+            "Token_Name_Label": "Stay",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "111"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the id of the patient who stayed in room 111 most recently?",
+        "cypher_query": "MATCH (s:Stay)\nWHERE s.Room = 111\nRETURN s.Patient\nORDER BY s.StayStart DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "s",
+                "Room",
+                "Patient",
+                "StayStart"
+            ],
+            "Token_Name_Label": "Stay",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "111"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the unique block codes that have available rooms?",
+        "cypher_query": "MATCH (r:Room)\nWHERE r.Unavailable = 0\nRETURN DISTINCT r.BlockCode",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "Unavailable",
+                "BlockCode"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "0"
+        },
+        "answers": [
+            [
+                1
+            ],
+            [
+                2
+            ],
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Tell me the distinct block codes where some rooms are available.",
+        "cypher_query": "MATCH (r:Room)\nWHERE r.Unavailable = 0\nRETURN DISTINCT r.BlockCode",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "Unavailable",
+                "BlockCode"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "0"
+        },
+        "answers": [
+            [
+                1
+            ],
+            [
+                2
+            ],
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many different types of rooms are there?",
+        "cypher_query": "MATCH (r:Room)\nWITH DISTINCT r.RoomType AS roomtype\nRETURN count(roomtype)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH DISTINCT",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "RoomType",
+                "roomtype"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of distinct room types available.",
+        "cypher_query": "MATCH (r:Room)\nWITH DISTINCT r.RoomType AS roomtype\nRETURN count(roomtype)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH DISTINCT",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "r",
+                "RoomType",
+                "roomtype"
+            ],
+            "Token_Name_Label": "Room",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the patient who has the most recent undergoing treatment?",
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "u",
+                "Patient",
+                "DateUndergoes"
+            ],
+            "Token_Name_Label": "Undergoes",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which patient is undergoing the most recent treatment?",
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "u",
+                "Patient",
+                "DateUndergoes"
+            ],
+            "Token_Name_Label": "Undergoes",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                100000001
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the names of all distinct nurses ordered by alphabetical order?",
+        "cypher_query": "MATCH (n:Nurse)\nRETURN DISTINCT n.Name\nORDER BY n.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "n",
+            "Token_Name_Label": "Nurse",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the alphabetically ordered list of all the distinct names of nurses?",
+        "cypher_query": "MATCH (n:Nurse)\nRETURN DISTINCT n.Name\nORDER BY n.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "n",
+            "Token_Name_Label": "Nurse",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are nursing an undergoing treatment.",
+        "cypher_query": "MATCH (T1:Undergoes)-[]-(T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Undergoes",
+                "Nurse"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which nurses are in charge of patients undergoing treatments?",
+        "cypher_query": "MATCH (T1:Undergoes)-[]-(T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Undergoes",
+                "Nurse"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the names of all distinct medications, ordered in an alphabetical order.",
+        "cypher_query": "MATCH (m:Medication)\nRETURN DISTINCT m.Name\nORDER BY m.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "m",
+            "Token_Name_Label": "Medication",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Awakin"
+            ],
+            [
+                "Crescavitin"
+            ],
+            [
+                "Melioraurin"
+            ],
+            [
+                "Procrastin-X"
+            ],
+            [
+                "Thesisin"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the alphabetically ordered list of all distinct medications?",
+        "cypher_query": "MATCH (m:Medication)\nRETURN DISTINCT m.Name\nORDER BY m.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "m",
+            "Token_Name_Label": "Medication",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Awakin"
+            ],
+            [
+                "Crescavitin"
+            ],
+            [
+                "Melioraurin"
+            ],
+            [
+                "Procrastin-X"
+            ],
+            [
+                "Thesisin"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the name and cost of all procedures sorted by the cost from the highest to the lowest.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name,p.Cost\nORDER BY p.Cost DESC",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Complete Walletectomy",
+                10000.0
+            ],
+            [
+                "Reversible Pancreomyoplasty",
+                5600.0
+            ],
+            [
+                "Obfuscated Dermogastrotomy",
+                4899.0
+            ],
+            [
+                "Folded Demiophtalmectomy",
+                4500.0
+            ],
+            [
+                "Obtuse Pyloric Recombobulation",
+                3750.0
+            ],
+            [
+                "Reverse Rhinopodoplasty",
+                1500.0
+            ],
+            [
+                "Follicular Demiectomy",
+                25.0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Sort the list of names and costs of all procedures in the descending order of cost.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name,p.Cost\nORDER BY p.Cost DESC",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Complete Walletectomy",
+                10000.0
+            ],
+            [
+                "Reversible Pancreomyoplasty",
+                5600.0
+            ],
+            [
+                "Obfuscated Dermogastrotomy",
+                4899.0
+            ],
+            [
+                "Folded Demiophtalmectomy",
+                4500.0
+            ],
+            [
+                "Obtuse Pyloric Recombobulation",
+                3750.0
+            ],
+            [
+                "Reverse Rhinopodoplasty",
+                1500.0
+            ],
+            [
+                "Follicular Demiectomy",
+                25.0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the three most expensive procedures.",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name\nORDER BY p.Cost\nLIMIT 3",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "3"
+        },
+        "answers": [
+            [
+                "Follicular Demiectomy"
+            ],
+            [
+                "Reverse Rhinopodoplasty"
+            ],
+            [
+                "Obtuse Pyloric Recombobulation"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the three most costly procedures?",
+        "cypher_query": "MATCH (p:Procedures)\nRETURN p.Name\nORDER BY p.Cost\nLIMIT 3",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "Cost"
+            ],
+            "Token_Name_Label": "Procedures",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "3"
+        },
+        "answers": [
+            [
+                "Follicular Demiectomy"
+            ],
+            [
+                "Reverse Rhinopodoplasty"
+            ],
+            [
+                "Obtuse Pyloric Recombobulation"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of patients who are not using the medication of Procrastin-X.",
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes)-[]-(T2:Medication)\nWHERE T2.Name = 'Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "Name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ")-[",
+                "]-("
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "T1",
+                "T2",
+                "SSN",
+                "Patient"
+            ],
+            "Token_Name_Label": [
+                "Patient",
+                "Prescribes",
+                "Medication"
+            ],
+            "Token_Operator": [
+                ".",
+                "=",
+                "AND",
+                "NOT",
+                "in",
+                "DISTINCT"
+            ],
+            "Token_Literal_String": "'Procrastin-X'",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients are not using Procrastin-X as medication?",
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes)-[]-(T2:Medication)\nWHERE T2.Name = 'Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "Name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ")-[",
+                "]-("
+            ],
+            "Token_Name_Variable": [
+                "p",
+                "T1",
+                "T2",
+                "SSN",
+                "Patient"
+            ],
+            "Token_Name_Label": [
+                "Patient",
+                "Prescribes",
+                "Medication"
+            ],
+            "Token_Operator": [
+                ".",
+                "=",
+                "AND",
+                "NOT",
+                "in",
+                "DISTINCT"
+            ],
+            "Token_Literal_String": "'Procrastin-X'",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many appointments are there?",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Count how many appointments have been made in total.",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "a",
+            "Token_Name_Label": "Appointment",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                9
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are on call.",
+        "cypher_query": "MATCH (T1:Nurse)-[]-(T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Nurse",
+                "On_Call"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the distinct names of nurses on call?",
+        "cypher_query": "MATCH (T1:Nurse)-[]-(T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN DISTINCT",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Nurse",
+                "On_Call"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ]
+    }
+]
