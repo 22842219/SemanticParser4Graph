@@ -1,7 +1,7 @@
 {
       "Token_Keyword": [
             "MATCH",
-            "RETURN DISTINCT",
+            "RETURN",
             "Name"
       ],
       "Token_Text_Whitespace": [
@@ -11,8 +11,6 @@
       "Token_Punctuation": [
             "(",
             ":",
-            ")-[",
-            "]-(",
             ")"
       ],
       "Token_Name_Variable": [
@@ -20,8 +18,8 @@
             "T2"
       ],
       "Token_Name_Label": [
-            "Nurse",
-            "On_Call"
+            "Appointment",
+            "Physician"
       ],
       "Token_Operator": "."
 }

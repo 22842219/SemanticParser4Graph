@@ -57,7 +57,7 @@ class DBengine:
             if info is not None:
                 id, seq, ref_table, from_, to_, on_update, on_delete, match = info
                 table_constraints.append(
-                {"column": from_, "ref_table": ref_table, "ref_column": to_}
+                {"this_table": table_name, "column": from_, "ref_table": ref_table, "ref_column": to_}
                 )
                 pks_fks_dict[from_]= to_  # ref_column (aka pk in ref_table) is supposed to be the same with column. 
         return table_constraints, pks_fks_dict
@@ -449,6 +449,77 @@ class RelDB2KGraphBuilder(RelDBDataset):
             #     table_name, this_column, ref_table ,ref_column)
         return  ref_table, ref_column, is_self_constraint_kf
 
+    def table2edge(self, db):
+        # Note: Open graph transaction again.
+        self.tx = self.graph.begin()
+        tx = self.tx
+        print("************Start Building Table2Edge****************")
+        for table in db.tables:
+            table_name = table.table_name
+
+            print(f"Running {table_name} in {db.db_name}")
+            if len(table.rows)==0:
+                self.logger.error("There is no content in table {} of {}!".format(table_name, db.db_name))
+                continue
+            if table_name.lower().startswith('has'):
+                for i, row_dict in enumerate(table.rows):
+                    print("chek it out:", row_dict)
+                    assert 1>2
+            else:
+                if table.table_constraints:
+                    print(f'Building graph edge directly from {table_name}.')       
+                    for i, row_dict in enumerate(table.rows):
+                        print(f'row: {row_dict}')
+                        matched_nodes = []
+                        for constraint in table.table_constraints:
+                            print(f'constraint: {constraint}')
+                            ref_table = constraint['ref_table']
+                            ref_column = constraint['ref_column']
+                            this_column = constraint['column']
+                            value = row_dict[this_column]
+
+                            if math.isnan(value):
+                                print(f'{this_column} is {value}.')
+                                continue 
+                            elif type(value)!=int:
+                                value = '"{}"'.format(value)
+                                
+                            ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
+                                db.tables_pks, constraint, db.tables_headers)
+                            # print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
+                            # print(f' The type of {value} is {type(value)}')
+                            # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
+                    
+                            if table.check_compound_pk:    
+                                cypher_query =  "match (n:{}) where n.{}={} return n".format(ref_table, ref_column, value)
+                                matched = self.graph.run(cypher_query).data()
+                                # print(f'cypher_query: {cypher_query}')
+                                # print(f'matched: {matched, len(matched)}')
+                                
+                                if matched and len(matched)==1:
+                                    matched_nodes.append(matched[0])
+                                else:
+                                    self.logger.error("There are multiple matched graph nodes when building graph edge, \
+                                    regarding {} table in {} database.".format(table_name, db.db_name))
+                                    # raise NotImplementedError
+                                if len(table.table_constraints) ==2:
+                                    # Case: a whole table is turned into graph edges, 
+                                    # e.g., in department_management.db, the table `management` is the case, 
+                                    # however, there is an issue in this particular case. To be able to sucessfully 
+                                    # build a graph edge, graph nodes should be created already. Unlike case two, the 
+                                    # head and tail nodes of a edge come form the same table, this case's targeted nodes 
+                                    # come from other tables, which means other tables should be sucessfully turned into 
+                                    # graph components already. 
+                                    # To solve this problem, I retrive the whole database a second time. 
+                                    # print(matched_nodes, len(matched_nodes))
+                                
+                                    if len(matched_nodes) ==2:
+                                        # class py2neo.data.Relationship(start_node, type, end_node, **properties)
+                                        rel = Relationship(matched_nodes[0]['n'], table_name, matched_nodes[1]['n'], **row_dict) 
+                                        tx.create(rel)
+                                     
+        self.graph.commit(tx)
+
     def build_edges (self, db):
         # Note: Open graph transaction again.
         self.tx = self.graph.begin()
@@ -487,6 +558,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         print(f'row: {row_dict}')
                         matched_nodes = []
                         for constraint in table.table_constraints:
+                            print(f'constraint: {constraint}')
                             ref_table = constraint['ref_table']
                             ref_column = constraint['ref_column']
                             this_column = constraint['column']
@@ -501,7 +573,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                                 db.tables_pks, constraint, db.tables_headers)
                             print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
-                            print(f' They type of {value} is {type(value)}')
+                            print(f' The type of {value} is {type(value)}')
                             print(f'is_self_constraint_kf: {is_self_constraint_kf}')
 
                             if len(table.table_constraints)!=2 and not table.check_compound_pk:
@@ -512,26 +584,36 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                 # along with `HAS_MUSICAL` is curated based on the FK, musical
                             
                                 # TODO: if type(row_dict[this_column]) ==str:
-                                cypher_query =  "MATCH (m:{}), (n:{}) where m.{}={} and n.{}={} return m, n".format(table_name, ref_table, \
+                                cypher_query =  "match (m:{}), (n:{}) where m.{}={} and n.{}={} return m, n".format(table_name, ref_table, \
                                     this_column, value,  ref_column, value)
                                 returned_nodes = self.graph.run(cypher_query).data()
                                 print(f'cypher_query: {cypher_query}')
                                 print(f'returned_nodes: {returned_nodes}')
                                 if isinstance(returned_nodes, list):
-                                    for matched in returned_nodes:
-                                        # Note: advoid creating duplicate edges.
-                                        rel_check = "MATCH ({})-[r]-({}) return count(r)".format(matched['m'].labels, matched['n'].labels)
-                                        returned_edges = self.graph.run(rel_check).data()
-                                        if len(returned_edges)==0:
-                                            rel = Relationship(matched['m'], 'HAS_{}'.format(ref_table.upper()), matched['n']) 
-                                            tx.create(rel)
-                                            print(rel)
-
+                                    # NOTE: deal with many-to-one mapping, or one-to-many mapping. 
+                                    group_m = [node for node in returned_nodes if 'm' in node ]
+                                    group_n = [node for node in returned_nodes if 'n' in node ]
+                                    # print("----------------------------------------------debug------------------------------------------------------")
+                                    # print(f'group_m: {group_m}, group_n: {group_n}')
+                                    if group_m and group_n:
+                                        for m in group_m:
+                                            for n in group_n:
+                                                # print(m['m'].labels, n['n'].labels)
+                                                # # Note: advoid creating duplicate edges.
+                                                rel_check = "match ({})-[r]-({}) RETURN r".format(m['m'].labels, n['n'].labels)
+                                                rest = self.graph.run(rel_check).data()
+                                                
+                                                print(f'rel_check: {rel_check}')
+                                                print(f'returned_rest:{rest}')
+                                                if len(rest)==0:
+                                                    rel = Relationship(m['m'], '{}_AppearsIn_{}'.format(table_name.capitalize(), ref_table.capitalize()), n['n']) 
+                                                    tx.create(rel)
+                                                    print(rel)
                             if table.check_compound_pk:
-                                cypher_query =  "MATCH (n:{}) where n.{}={} return n".format(ref_table, ref_column, value)
+                                cypher_query =  "match (n:{}) where n.{}={} return n".format(ref_table, ref_column, value)
                                 matched = self.graph.run(cypher_query).data()
-                                print(f'cypher_query: {cypher_query}')
-                                print(f'matched: {matched, len(matched)}')
+                                # print(f'cypher_query: {cypher_query}')
+                                # print(f'matched: {matched, len(matched)}')
                                 
                                 if matched and len(matched)==1:
                                     matched_nodes.append(matched[0])
@@ -550,19 +632,16 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                     # To solve this problem, I retrive the whole database a second time. 
                                     print(matched_nodes, len(matched_nodes))
                                 
-                                    if len(matched_nodes) ==2:
-                                        # class py2neo.data.Relationship(start_node, type, end_node, **properties)
-                                        rel = Relationship(matched_nodes[0]['n'], table_name, matched_nodes[1]['n'], **row_dict) 
-                                        tx.create(rel)
-                                else:
-                                    # TODO: hyper_edge? or hyper_node?
-                                    hyper_node = Node(table.table_name,**row_dict)
-                                    print("hyper_node:", hyper_node)
-                                    tx.create(hyper_node)
-                                    for node in matched_nodes:
-                                        rel = Relationship(hyper_node, 'HAS_{}'.format(ref_table.upper()), node['n']) 
-                                        tx.create(rel)
-                                            
+                                    if len(matched_nodes) !=2:
+                                        # TODO: A place holder for hyper graph, where each row of this table is a hyper edge? 
+                                        # NOTE: It is supposed to a hyper_edge, but Neo4j can not visulize hyper edges, so we refer each hyper edge as a graph node. 
+                                        hyper_node = Node(table.table_name,**row_dict) 
+                                        print("hyper_node:", hyper_node)
+                                        tx.create(hyper_node)
+                                        for node in matched_nodes:
+                                            rel = Relationship(hyper_node, '{}_AppearsIn_{}'.format(table_name.capitalize(), ref_table.capitalize()), node['n']) 
+                                            tx.create(rel)
+                                                
                 
         self.graph.commit(tx) 
     
@@ -578,6 +657,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 self.graph.delete_all()
             print("************Start building graph directly from relational table schema****************")
             self.build_nodes(db, tx)
+            self.table2edge(db)
             self.build_edges(db)
     
           

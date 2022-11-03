@@ -83560,4 +83560,301 @@ size 364612006
             ]
         ]
     }
+][
+    {
+        "db_id": "hospital_1",
+        "question": "Tell me the employee id of the head of the department with the least employees.",
+        "cypher_query": "MATCH (d:Department)\nWITH count(d.DepartmentID) AS count, d.Head AS Head\nRETURN Head\nORDER BY count\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "d",
+                "DepartmentID",
+                "count",
+                "Head"
+            ],
+            "Token_Name_Label": "Department",
+            "Token_Name_Function": "count",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "what is the name and position of the head whose department has least number of employees?",
+        "cypher_query": "MATCH (T1:Department)-[]-(T2:Physician)\nWITH T2.Name AS Name, count(T2.departmentID) AS count, T2.Position AS Position\nRETURN Name,Position\nORDER BY count\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "Name",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "departmentID",
+                "count",
+                "Position"
+            ],
+            "Token_Name_Label": [
+                "Department",
+                "Physician"
+            ],
+            "Token_Operator": ".",
+            "Token_Name_Function": "count",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Percival Cox",
+                "Senior Attending Physician"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the name and position of the head of the department with the least employees.",
+        "cypher_query": "MATCH (T1:Department)-[]-(T2:Physician)\nWITH T2.Name AS Name, count(T2.departmentID) AS count, T2.Position AS Position\nRETURN Name,Position\nORDER BY count\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "Name",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "departmentID",
+                "count",
+                "Position"
+            ],
+            "Token_Name_Label": [
+                "Department",
+                "Physician"
+            ],
+            "Token_Operator": ".",
+            "Token_Name_Function": "count",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Percival Cox",
+                "Senior Attending Physician"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are names of patients who made an appointment?",
+        "cypher_query": "MATCH (T1:Appointment) MATCH (T2:Patient)\nRETURN T2.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Appointment",
+                "Patient"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "John Smith"
+            ],
+            [
+                "Grace Ritchie"
+            ],
+            [
+                "Random J. Patient"
+            ],
+            [
+                "Dennis Doe"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the names of patients who have made appointments.",
+        "cypher_query": "MATCH (T1:Appointment) MATCH (T2:Patient)\nRETURN T2.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "Appointment",
+                "Patient"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "John Smith"
+            ],
+            [
+                "Grace Ritchie"
+            ],
+            [
+                "Random J. Patient"
+            ],
+            [
+                "Dennis Doe"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the id of the appointment with the most recent start date?",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN a.AppointmentID\nORDER BY a.Start DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "Start",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "a",
+                "AppointmentID"
+            ],
+            "Token_Name_Label": "Appointment",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                86213939
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the id of the appointment that started most recently?",
+        "cypher_query": "MATCH (a:Appointment)\nRETURN a.AppointmentID\nORDER BY a.Start DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "Start",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "a",
+                "AppointmentID"
+            ],
+            "Token_Name_Label": "Appointment",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                86213939
+            ]
+        ]
+    }
 ]

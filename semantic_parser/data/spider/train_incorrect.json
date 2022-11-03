@@ -59632,4 +59632,240 @@
             ]
         ]
     }
+][
+    {
+        "db_id": "hospital_1",
+        "question": "what are name and phone number of patients who had more than one appointment?",
+        "sql_query": "SELECT name ,  phone FROM appointment AS T1 JOIN patient AS T2 ON T1.patient  =  T2.ssn GROUP BY T1.patient HAVING count(*)  >  1",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "phone"
+                }
+            ],
+            "from": [
+                {
+                    "value": "appointment",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.patient",
+                            "T2.ssn"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.patient"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    1
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "John Smith",
+                "555-0256"
+            ],
+            [
+                "Grace Ritchie",
+                "555-0512"
+            ],
+            [
+                "Dennis Doe",
+                "555-2048"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Appointment) MATCH (T2:Patient)\nWITH T2.Name AS Name, T2.Phone AS Phone, COUNT(\"*\") AS COUNT\nWHERE COUNT > 1\nRETURN Name,Phone",
+        "cypher_ans": [
+            [
+                "John Smith",
+                "555-0256"
+            ],
+            [
+                "Grace Ritchie",
+                "555-0512"
+            ],
+            [
+                "Random J. Patient",
+                "555-1204"
+            ],
+            [
+                "Dennis Doe",
+                "555-2048"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which patients made more than one appointment? Tell me the name and phone number of these patients.",
+        "sql_query": "SELECT name ,  phone FROM appointment AS T1 JOIN patient AS T2 ON T1.patient  =  T2.ssn GROUP BY T1.patient HAVING count(*)  >  1",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "name"
+                },
+                {
+                    "value": "phone"
+                }
+            ],
+            "from": [
+                {
+                    "value": "appointment",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.patient",
+                            "T2.ssn"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.patient"
+            },
+            "having": {
+                "gt": [
+                    {
+                        "count": "*"
+                    },
+                    1
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "John Smith",
+                "555-0256"
+            ],
+            [
+                "Grace Ritchie",
+                "555-0512"
+            ],
+            [
+                "Dennis Doe",
+                "555-2048"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Appointment) MATCH (T2:Patient)\nWITH T2.Name AS Name, T2.Phone AS Phone, COUNT(\"*\") AS COUNT\nWHERE COUNT > 1\nRETURN Name,Phone",
+        "cypher_ans": [
+            [
+                "John Smith",
+                "555-0256"
+            ],
+            [
+                "Grace Ritchie",
+                "555-0512"
+            ],
+            [
+                "Random J. Patient",
+                "555-1204"
+            ],
+            [
+                "Dennis Doe",
+                "555-2048"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "List the name of physicians who took some appointment.",
+        "sql_query": "SELECT T2.name FROM appointment AS T1 JOIN physician AS T2 ON T1.Physician  =  T2.EmployeeID",
+        "parsed_sql": {
+            "select": {
+                "value": "T2.name"
+            },
+            "from": [
+                {
+                    "value": "appointment",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "physician",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Physician",
+                            "T2.EmployeeID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "John Dorian"
+            ],
+            [
+                "Elliot Reid"
+            ],
+            [
+                "Percival Cox"
+            ],
+            [
+                "Christopher Turk"
+            ],
+            [
+                "Molly Clock"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Appointment) MATCH (T2:Physician)\nRETURN T2.Name",
+        "cypher_ans": [
+            [
+                "John Dorian"
+            ],
+            [
+                "Elliot Reid"
+            ],
+            [
+                "Christopher Turk"
+            ],
+            [
+                "Percival Cox"
+            ],
+            [
+                "Bob Kelso"
+            ],
+            [
+                "Todd Quinlan"
+            ],
+            [
+                "John Wen"
+            ],
+            [
+                "Keith Dudemeister"
+            ],
+            [
+                "Molly Clock"
+            ]
+        ]
+    }
 ]
