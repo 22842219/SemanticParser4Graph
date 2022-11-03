@@ -324,9 +324,10 @@ class RelDB2KGraphBuilder(RelDBDataset):
     Attributes:
         paths (string): 
         logger: 
-        defined_fields (dict): A dictionary of defined structured fields.
-        node_normaliser (LexicalNormaliser): A LexicalNormaliser whose purpose is to clean the nodes, resolving issues such as making 'leaks', 'leaking' etc resolve to a single 'leak' node.
-        nodes_properties (List): A list of node properties (dict).    
+        defined_fields (dict): A dictionary of defined structured fields. 
+        node_normaliser (LexicalNormaliser): A LexicalNormaliser whose purpose is to clean the nodes, \\
+             resolving issues such as making 'leaks', 'leaking' etc resolve to a single 'leak' node. 
+        Note: defined_fields and node_normaliser are placeholders. 
     """
 
     def __init__( self, paths, logger, env_file, node_normaliser=None, defined_fields=None):
@@ -578,6 +579,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
             print("************Start building graph directly from relational table schema****************")
             self.build_nodes(db, tx)
             self.build_edges(db)
+    
           
             
 

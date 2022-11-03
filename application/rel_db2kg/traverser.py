@@ -74,7 +74,6 @@ class SchemaGroundedTraverser(object):
                 table_name = self.get_table_name_by_alias(table_name)
             return self.schema.is_table_name(table_name) and self.schema.is_field_name(field_name)
         else:
-            print("sz;", s)
             return self.schema.is_field_name(s)
 
     @debug_wrapper
