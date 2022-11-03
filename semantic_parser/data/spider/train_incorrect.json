@@ -59868,4 +59868,3779 @@
             ]
         ]
     }
+][][
+    {
+        "db_id": "hospital_1",
+        "question": "What is the name of the patient who made the most recent appointment?",
+        "sql_query": "SELECT T1.name FROM patient AS T1 JOIN appointment AS T2 ON T1.ssn = T2.patient ORDER BY T2.start DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "appointment",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.ssn",
+                            "T2.patient"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.start",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "Dennis Doe"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient)-[]-(T2:Appointment)\nRETURN T1.Name\nORDER BY T2.start DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "John Smith"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the name of the patient who made the appointment with the most recent start date.",
+        "sql_query": "SELECT T1.name FROM patient AS T1 JOIN appointment AS T2 ON T1.ssn = T2.patient ORDER BY T2.start DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "appointment",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.ssn",
+                            "T2.patient"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.start",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "Dennis Doe"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient)-[]-(T2:Appointment)\nRETURN T1.Name\nORDER BY T2.start DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "John Smith"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients' prescriptions are made by physician John Dorian?",
+        "sql_query": "SELECT count(T1.SSN) FROM patient AS T1 JOIN prescribes AS T2 ON T1.SSN  =  T2.patient JOIN physician AS T3 ON T2.physician  =  T3.employeeid WHERE T3.name = \"John Dorian\"",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "T1.SSN"
+                }
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.SSN",
+                            "T2.patient"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "physician",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T2.physician",
+                            "T3.employeeid"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T3.name",
+                    "John Dorian"
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient) MATCH (T2:Prescribes) MATCH (T3:Physician) MATCH (T2:Prescribes) MATCH (T3:Physician)\nWHERE T3.Name = \"John Dorian\"\nRETURN COUNT(T1.SSN)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of patients' prescriptions physician John Dorian made.",
+        "sql_query": "SELECT count(T1.SSN) FROM patient AS T1 JOIN prescribes AS T2 ON T1.SSN  =  T2.patient JOIN physician AS T3 ON T2.physician  =  T3.employeeid WHERE T3.name = \"John Dorian\"",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "T1.SSN"
+                }
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.SSN",
+                            "T2.patient"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "physician",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T2.physician",
+                            "T3.employeeid"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T3.name",
+                    "John Dorian"
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient) MATCH (T2:Prescribes) MATCH (T3:Physician) MATCH (T2:Prescribes) MATCH (T3:Physician)\nWHERE T3.Name = \"John Dorian\"\nRETURN COUNT(T1.SSN)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients do each physician take care of? List their names and number of patients they take care of.",
+        "sql_query": "SELECT T1.name ,  count(*) FROM physician AS T1 JOIN patient AS T2 ON T1.employeeid  =  T2.PCP GROUP BY T1.employeeid",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.name"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.PCP"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.employeeid"
+            }
+        },
+        "sql_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                2
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician)-[]-(T2:Patient)\nWITH count(T1.EmployeeID) AS count, T1.Name AS Name\nRETURN Name,COUNT(\"*\")",
+        "cypher_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                1
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Return the name of each physician and the number of patients he or she treats.",
+        "sql_query": "SELECT T1.name ,  count(*) FROM physician AS T1 JOIN patient AS T2 ON T1.employeeid  =  T2.PCP GROUP BY T1.employeeid",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.name"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.PCP"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.employeeid"
+            }
+        },
+        "sql_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                2
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician)-[]-(T2:Patient)\nWITH count(T1.EmployeeID) AS count, T1.Name AS Name\nRETURN Name,COUNT(\"*\")",
+        "cypher_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                1
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of rooms located on each block floor.",
+        "sql_query": "SELECT count(*) ,  T1.blockfloor FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockfloor",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockfloor"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockfloor"
+            }
+        },
+        "sql_ans": [
+            [
+                9,
+                1
+            ],
+            [
+                9,
+                2
+            ],
+            [
+                9,
+                3
+            ],
+            [
+                9,
+                4
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH T1.BlockFloor AS BlockFloor, count(T1.BlockFloor) AS count\nRETURN COUNT(\"*\"),BlockFloor",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ],
+            [
+                1,
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many rooms does each block floor have?",
+        "sql_query": "SELECT count(*) ,  T1.blockfloor FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockfloor",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockfloor"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockfloor"
+            }
+        },
+        "sql_ans": [
+            [
+                9,
+                1
+            ],
+            [
+                9,
+                2
+            ],
+            [
+                9,
+                3
+            ],
+            [
+                9,
+                4
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH T1.BlockFloor AS BlockFloor, count(T1.BlockFloor) AS count\nRETURN COUNT(\"*\"),BlockFloor",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ],
+            [
+                1,
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of rooms for different block code?",
+        "sql_query": "SELECT count(*) ,  T1.blockcode FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockcode",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockcode"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockcode"
+            }
+        },
+        "sql_ans": [
+            [
+                12,
+                1
+            ],
+            [
+                12,
+                2
+            ],
+            [
+                12,
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH count(T1.BlockCode) AS count, T1.BlockCode AS BlockCode\nRETURN COUNT(\"*\"),BlockCode",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many rooms are located for each block code?",
+        "sql_query": "SELECT count(*) ,  T1.blockcode FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockcode",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockcode"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockcode"
+            }
+        },
+        "sql_ans": [
+            [
+                12,
+                1
+            ],
+            [
+                12,
+                2
+            ],
+            [
+                12,
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH count(T1.BlockCode) AS count, T1.BlockCode AS BlockCode\nRETURN COUNT(\"*\"),BlockCode",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of medications prescribed for each brand.",
+        "sql_query": "SELECT count(*) ,  T1.name FROM medication AS T1 JOIN prescribes AS T2 ON T1.code = T2.medication GROUP BY T1.brand",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "medication",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.code",
+                            "T2.medication"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.brand"
+            }
+        },
+        "sql_ans": [
+            [
+                2,
+                "Thesisin"
+            ],
+            [
+                1,
+                "Procrastin-X"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Medication) MATCH (T2:Prescribes)\nWITH count(T1.Brand) AS count, T1.Name AS Name\nRETURN COUNT(\"*\"),Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many medications are prescribed for each brand?",
+        "sql_query": "SELECT count(*) ,  T1.name FROM medication AS T1 JOIN prescribes AS T2 ON T1.code = T2.medication GROUP BY T1.brand",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "medication",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.code",
+                            "T2.medication"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.brand"
+            }
+        },
+        "sql_ans": [
+            [
+                2,
+                "Thesisin"
+            ],
+            [
+                1,
+                "Procrastin-X"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Medication) MATCH (T2:Prescribes)\nWITH count(T1.Brand) AS count, T1.Name AS Name\nRETURN COUNT(\"*\"),Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the name of physicians whose position title contains the word 'senior'.",
+        "sql_query": "SELECT name FROM physician WHERE POSITION LIKE '%senior%'",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "physician",
+            "where": {
+                "like": [
+                    "POSITION",
+                    {
+                        "literal": "%senior%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "Percival Cox"
+            ]
+        ],
+        "cypher_query": "MATCH (p:Physician)\nWHERE p.Position =~'.*[s|s]enior.*'\nRETURN p.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the names of the physicians who have 'senior' in their titles.",
+        "sql_query": "SELECT name FROM physician WHERE POSITION LIKE '%senior%'",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "physician",
+            "where": {
+                "like": [
+                    "POSITION",
+                    {
+                        "literal": "%senior%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "Percival Cox"
+            ]
+        ],
+        "cypher_query": "MATCH (p:Physician)\nWHERE p.Position =~'.*[s|s]enior.*'\nRETURN p.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the patient who has the most recent undergoing treatment?",
+        "sql_query": "SELECT patient FROM undergoes ORDER BY dateundergoes LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "patient"
+            },
+            "from": "undergoes",
+            "orderby": {
+                "value": "dateundergoes"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                100000001
+            ]
+        ],
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which patient is undergoing the most recent treatment?",
+        "sql_query": "SELECT patient FROM undergoes ORDER BY dateundergoes LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "patient"
+            },
+            "from": "undergoes",
+            "orderby": {
+                "value": "dateundergoes"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                100000001
+            ]
+        ],
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of all patients who have an undergoing treatment and are staying in room 111.",
+        "sql_query": "SELECT DISTINCT T2.name FROM undergoes AS T1 JOIN patient AS T2 ON T1.patient = T2.SSN JOIN stay AS T3 ON T1.Stay  =  T3.StayID WHERE T3.room  =  111",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T2.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "undergoes",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.patient",
+                            "T2.SSN"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "stay",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Stay",
+                            "T3.StayID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T3.room",
+                    111
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "John Smith"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Undergoes) MATCH (T2:Patient) MATCH (T3:Stay) MATCH (T2:Patient) MATCH (T3:Stay)\nWHERE T3.Room = 111\nRETURN DISTINCT T2.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the names of patients who are staying in room 111 and have an undergoing treatment?",
+        "sql_query": "SELECT DISTINCT T2.name FROM undergoes AS T1 JOIN patient AS T2 ON T1.patient = T2.SSN JOIN stay AS T3 ON T1.Stay  =  T3.StayID WHERE T3.room  =  111",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T2.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "undergoes",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.patient",
+                            "T2.SSN"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "stay",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Stay",
+                            "T3.StayID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T3.room",
+                    111
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "John Smith"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Undergoes) MATCH (T2:Patient) MATCH (T3:Stay) MATCH (T2:Patient) MATCH (T3:Stay)\nWHERE T3.Room = 111\nRETURN DISTINCT T2.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are nursing an undergoing treatment.",
+        "sql_query": "SELECT DISTINCT T2.name FROM undergoes AS T1 JOIN nurse AS T2 ON T1.AssistingNurse  =  T2.EmployeeID",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T2.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "undergoes",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "nurse",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.AssistingNurse",
+                            "T2.EmployeeID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Undergoes) MATCH (T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which nurses are in charge of patients undergoing treatments?",
+        "sql_query": "SELECT DISTINCT T2.name FROM undergoes AS T1 JOIN nurse AS T2 ON T1.AssistingNurse  =  T2.EmployeeID",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T2.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "undergoes",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "nurse",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.AssistingNurse",
+                            "T2.EmployeeID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Undergoes) MATCH (T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the names of the physician who prescribed the highest dose?",
+        "sql_query": "SELECT T1.name FROM physician AS T1 JOIN prescribes AS T2 ON T1.employeeid = T2.physician ORDER BY T2.dose DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.physician"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.dose",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "John Dorian"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician) MATCH (T2:Prescribes)\nRETURN T1.Name\nORDER BY T2.dose DESC\nLIMIT 1",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the physician who prescribed the highest dose. What is his or her name?",
+        "sql_query": "SELECT T1.name FROM physician AS T1 JOIN prescribes AS T2 ON T1.employeeid = T2.physician ORDER BY T2.dose DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.physician"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.dose",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "John Dorian"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician) MATCH (T2:Prescribes)\nRETURN T1.Name\nORDER BY T2.dose DESC\nLIMIT 1",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of patients who are not using the medication of Procrastin-X.",
+        "sql_query": "SELECT count(*) FROM patient WHERE SSN NOT IN ( SELECT T1.patient FROM Prescribes AS T1 JOIN Medication AS T2 ON T1.Medication  =  T2.Code WHERE T2.name  =  'Procrastin-X' )",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "patient",
+            "where": {
+                "nin": [
+                    "SSN",
+                    {
+                        "select": {
+                            "value": "T1.patient"
+                        },
+                        "from": [
+                            {
+                                "value": "Prescribes",
+                                "name": "T1",
+                                "is_table": true
+                            },
+                            {
+                                "join": {
+                                    "name": "T2",
+                                    "value": "Medication",
+                                    "is_table": true
+                                },
+                                "on": {
+                                    "eq": [
+                                        "T1.Medication",
+                                        "T2.Code"
+                                    ]
+                                }
+                            }
+                        ],
+                        "where": {
+                            "eq": [
+                                "T2.name",
+                                {
+                                    "literal": "Procrastin-X"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes) MATCH (T2:Medication)\nWHERE T2.Name = 'Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients are not using Procrastin-X as medication?",
+        "sql_query": "SELECT count(*) FROM patient WHERE SSN NOT IN ( SELECT T1.patient FROM Prescribes AS T1 JOIN Medication AS T2 ON T1.Medication  =  T2.Code WHERE T2.name  =  'Procrastin-X' )",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "patient",
+            "where": {
+                "nin": [
+                    "SSN",
+                    {
+                        "select": {
+                            "value": "T1.patient"
+                        },
+                        "from": [
+                            {
+                                "value": "Prescribes",
+                                "name": "T1",
+                                "is_table": true
+                            },
+                            {
+                                "join": {
+                                    "name": "T2",
+                                    "value": "Medication",
+                                    "is_table": true
+                                },
+                                "on": {
+                                    "eq": [
+                                        "T1.Medication",
+                                        "T2.Code"
+                                    ]
+                                }
+                            }
+                        ],
+                        "where": {
+                            "eq": [
+                                "T2.name",
+                                {
+                                    "literal": "Procrastin-X"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes) MATCH (T2:Medication)\nWHERE T2.Name = 'Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are on call.",
+        "sql_query": "SELECT DISTINCT T1.name FROM nurse AS T1 JOIN on_call AS T2 ON T1.EmployeeID  =  T2.nurse",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T1.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "nurse",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "on_call",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.EmployeeID",
+                            "T2.nurse"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Nurse) MATCH (T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the distinct names of nurses on call?",
+        "sql_query": "SELECT DISTINCT T1.name FROM nurse AS T1 JOIN on_call AS T2 ON T1.EmployeeID  =  T2.nurse",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T1.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "nurse",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "on_call",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.EmployeeID",
+                            "T2.nurse"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Nurse) MATCH (T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "cypher_ans": []
+    }
+][
+    {
+        "db_id": "hospital_1",
+        "question": "What is the name of the patient who made the most recent appointment?",
+        "sql_query": "SELECT T1.name FROM patient AS T1 JOIN appointment AS T2 ON T1.ssn = T2.patient ORDER BY T2.start DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "appointment",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.ssn",
+                            "T2.patient"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.start",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "Dennis Doe"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient)-[]-(T2:Appointment)\nRETURN T1.Name\nORDER BY T2.start DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "John Smith"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the name of the patient who made the appointment with the most recent start date.",
+        "sql_query": "SELECT T1.name FROM patient AS T1 JOIN appointment AS T2 ON T1.ssn = T2.patient ORDER BY T2.start DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "appointment",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.ssn",
+                            "T2.patient"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.start",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "Dennis Doe"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient)-[]-(T2:Appointment)\nRETURN T1.Name\nORDER BY T2.start DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "John Smith"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients' prescriptions are made by physician John Dorian?",
+        "sql_query": "SELECT count(T1.SSN) FROM patient AS T1 JOIN prescribes AS T2 ON T1.SSN  =  T2.patient JOIN physician AS T3 ON T2.physician  =  T3.employeeid WHERE T3.name = \"John Dorian\"",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "T1.SSN"
+                }
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.SSN",
+                            "T2.patient"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "physician",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T2.physician",
+                            "T3.employeeid"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T3.name",
+                    "John Dorian"
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient) MATCH (T2:Prescribes) MATCH (T3:Physician) MATCH (T2:Prescribes) MATCH (T3:Physician)\nWHERE T3.Name = \"John Dorian\"\nRETURN COUNT(T1.SSN)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of patients' prescriptions physician John Dorian made.",
+        "sql_query": "SELECT count(T1.SSN) FROM patient AS T1 JOIN prescribes AS T2 ON T1.SSN  =  T2.patient JOIN physician AS T3 ON T2.physician  =  T3.employeeid WHERE T3.name = \"John Dorian\"",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "T1.SSN"
+                }
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.SSN",
+                            "T2.patient"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "physician",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T2.physician",
+                            "T3.employeeid"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T3.name",
+                    "John Dorian"
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient) MATCH (T2:Prescribes) MATCH (T3:Physician) MATCH (T2:Prescribes) MATCH (T3:Physician)\nWHERE T3.Name = \"John Dorian\"\nRETURN COUNT(T1.SSN)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients do each physician take care of? List their names and number of patients they take care of.",
+        "sql_query": "SELECT T1.name ,  count(*) FROM physician AS T1 JOIN patient AS T2 ON T1.employeeid  =  T2.PCP GROUP BY T1.employeeid",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.name"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.PCP"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.employeeid"
+            }
+        },
+        "sql_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                2
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician)-[]-(T2:Patient)\nWITH count(T1.EmployeeID) AS count, T1.Name AS Name\nRETURN Name,COUNT(\"*\")",
+        "cypher_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                1
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Return the name of each physician and the number of patients he or she treats.",
+        "sql_query": "SELECT T1.name ,  count(*) FROM physician AS T1 JOIN patient AS T2 ON T1.employeeid  =  T2.PCP GROUP BY T1.employeeid",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.name"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.PCP"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.employeeid"
+            }
+        },
+        "sql_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                2
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician)-[]-(T2:Patient)\nWITH count(T1.EmployeeID) AS count, T1.Name AS Name\nRETURN Name,COUNT(\"*\")",
+        "cypher_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                1
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of rooms located on each block floor.",
+        "sql_query": "SELECT count(*) ,  T1.blockfloor FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockfloor",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockfloor"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockfloor"
+            }
+        },
+        "sql_ans": [
+            [
+                9,
+                1
+            ],
+            [
+                9,
+                2
+            ],
+            [
+                9,
+                3
+            ],
+            [
+                9,
+                4
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH T1.BlockFloor AS BlockFloor, count(T1.BlockFloor) AS count\nRETURN COUNT(\"*\"),BlockFloor",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ],
+            [
+                1,
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many rooms does each block floor have?",
+        "sql_query": "SELECT count(*) ,  T1.blockfloor FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockfloor",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockfloor"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockfloor"
+            }
+        },
+        "sql_ans": [
+            [
+                9,
+                1
+            ],
+            [
+                9,
+                2
+            ],
+            [
+                9,
+                3
+            ],
+            [
+                9,
+                4
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH T1.BlockFloor AS BlockFloor, count(T1.BlockFloor) AS count\nRETURN COUNT(\"*\"),BlockFloor",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ],
+            [
+                1,
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of rooms for different block code?",
+        "sql_query": "SELECT count(*) ,  T1.blockcode FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockcode",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockcode"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockcode"
+            }
+        },
+        "sql_ans": [
+            [
+                12,
+                1
+            ],
+            [
+                12,
+                2
+            ],
+            [
+                12,
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH count(T1.BlockCode) AS count, T1.BlockCode AS BlockCode\nRETURN COUNT(\"*\"),BlockCode",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many rooms are located for each block code?",
+        "sql_query": "SELECT count(*) ,  T1.blockcode FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockcode",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockcode"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockcode"
+            }
+        },
+        "sql_ans": [
+            [
+                12,
+                1
+            ],
+            [
+                12,
+                2
+            ],
+            [
+                12,
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH count(T1.BlockCode) AS count, T1.BlockCode AS BlockCode\nRETURN COUNT(\"*\"),BlockCode",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of medications prescribed for each brand.",
+        "sql_query": "SELECT count(*) ,  T1.name FROM medication AS T1 JOIN prescribes AS T2 ON T1.code = T2.medication GROUP BY T1.brand",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "medication",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.code",
+                            "T2.medication"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.brand"
+            }
+        },
+        "sql_ans": [
+            [
+                2,
+                "Thesisin"
+            ],
+            [
+                1,
+                "Procrastin-X"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Medication) MATCH (T2:Prescribes)\nWITH count(T1.Brand) AS count, T1.Name AS Name\nRETURN COUNT(\"*\"),Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many medications are prescribed for each brand?",
+        "sql_query": "SELECT count(*) ,  T1.name FROM medication AS T1 JOIN prescribes AS T2 ON T1.code = T2.medication GROUP BY T1.brand",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "medication",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.code",
+                            "T2.medication"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.brand"
+            }
+        },
+        "sql_ans": [
+            [
+                2,
+                "Thesisin"
+            ],
+            [
+                1,
+                "Procrastin-X"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Medication) MATCH (T2:Prescribes)\nWITH count(T1.Brand) AS count, T1.Name AS Name\nRETURN COUNT(\"*\"),Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the name of physicians whose position title contains the word 'senior'.",
+        "sql_query": "SELECT name FROM physician WHERE POSITION LIKE '%senior%'",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "physician",
+            "where": {
+                "like": [
+                    "POSITION",
+                    {
+                        "literal": "%senior%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "Percival Cox"
+            ]
+        ],
+        "cypher_query": "MATCH (p:Physician)\nWHERE p.Position =~'.*[s|s]enior.*'\nRETURN p.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the names of the physicians who have 'senior' in their titles.",
+        "sql_query": "SELECT name FROM physician WHERE POSITION LIKE '%senior%'",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "physician",
+            "where": {
+                "like": [
+                    "POSITION",
+                    {
+                        "literal": "%senior%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "Percival Cox"
+            ]
+        ],
+        "cypher_query": "MATCH (p:Physician)\nWHERE p.Position =~'.*[s|s]enior.*'\nRETURN p.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the patient who has the most recent undergoing treatment?",
+        "sql_query": "SELECT patient FROM undergoes ORDER BY dateundergoes LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "patient"
+            },
+            "from": "undergoes",
+            "orderby": {
+                "value": "dateundergoes"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                100000001
+            ]
+        ],
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which patient is undergoing the most recent treatment?",
+        "sql_query": "SELECT patient FROM undergoes ORDER BY dateundergoes LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "patient"
+            },
+            "from": "undergoes",
+            "orderby": {
+                "value": "dateundergoes"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                100000001
+            ]
+        ],
+        "cypher_query": "MATCH (u:Undergoes)\nRETURN u.Patient\nORDER BY u.DateUndergoes\nLIMIT 1",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of all patients who have an undergoing treatment and are staying in room 111.",
+        "sql_query": "SELECT DISTINCT T2.name FROM undergoes AS T1 JOIN patient AS T2 ON T1.patient = T2.SSN JOIN stay AS T3 ON T1.Stay  =  T3.StayID WHERE T3.room  =  111",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T2.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "undergoes",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.patient",
+                            "T2.SSN"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "stay",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Stay",
+                            "T3.StayID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T3.room",
+                    111
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "John Smith"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Undergoes) MATCH (T2:Patient) MATCH (T3:Stay) MATCH (T2:Patient) MATCH (T3:Stay)\nWHERE T3.Room = 111\nRETURN DISTINCT T2.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the names of patients who are staying in room 111 and have an undergoing treatment?",
+        "sql_query": "SELECT DISTINCT T2.name FROM undergoes AS T1 JOIN patient AS T2 ON T1.patient = T2.SSN JOIN stay AS T3 ON T1.Stay  =  T3.StayID WHERE T3.room  =  111",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T2.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "undergoes",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.patient",
+                            "T2.SSN"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "stay",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.Stay",
+                            "T3.StayID"
+                        ]
+                    }
+                }
+            ],
+            "where": {
+                "eq": [
+                    "T3.room",
+                    111
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "John Smith"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Undergoes) MATCH (T2:Patient) MATCH (T3:Stay) MATCH (T2:Patient) MATCH (T3:Stay)\nWHERE T3.Room = 111\nRETURN DISTINCT T2.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are nursing an undergoing treatment.",
+        "sql_query": "SELECT DISTINCT T2.name FROM undergoes AS T1 JOIN nurse AS T2 ON T1.AssistingNurse  =  T2.EmployeeID",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T2.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "undergoes",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "nurse",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.AssistingNurse",
+                            "T2.EmployeeID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Undergoes) MATCH (T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which nurses are in charge of patients undergoing treatments?",
+        "sql_query": "SELECT DISTINCT T2.name FROM undergoes AS T1 JOIN nurse AS T2 ON T1.AssistingNurse  =  T2.EmployeeID",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T2.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "undergoes",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "nurse",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.AssistingNurse",
+                            "T2.EmployeeID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Undergoes) MATCH (T2:Nurse)\nRETURN DISTINCT T2.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the names of the physician who prescribed the highest dose?",
+        "sql_query": "SELECT T1.name FROM physician AS T1 JOIN prescribes AS T2 ON T1.employeeid = T2.physician ORDER BY T2.dose DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.physician"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.dose",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "John Dorian"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician) MATCH (T2:Prescribes)\nRETURN T1.Name\nORDER BY T2.dose DESC\nLIMIT 1",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the physician who prescribed the highest dose. What is his or her name?",
+        "sql_query": "SELECT T1.name FROM physician AS T1 JOIN prescribes AS T2 ON T1.employeeid = T2.physician ORDER BY T2.dose DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.physician"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.dose",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "John Dorian"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician) MATCH (T2:Prescribes)\nRETURN T1.Name\nORDER BY T2.dose DESC\nLIMIT 1",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of patients who are not using the medication of Procrastin-X.",
+        "sql_query": "SELECT count(*) FROM patient WHERE SSN NOT IN ( SELECT T1.patient FROM Prescribes AS T1 JOIN Medication AS T2 ON T1.Medication  =  T2.Code WHERE T2.name  =  'Procrastin-X' )",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "patient",
+            "where": {
+                "nin": [
+                    "SSN",
+                    {
+                        "select": {
+                            "value": "T1.patient"
+                        },
+                        "from": [
+                            {
+                                "value": "Prescribes",
+                                "name": "T1",
+                                "is_table": true
+                            },
+                            {
+                                "join": {
+                                    "name": "T2",
+                                    "value": "Medication",
+                                    "is_table": true
+                                },
+                                "on": {
+                                    "eq": [
+                                        "T1.Medication",
+                                        "T2.Code"
+                                    ]
+                                }
+                            }
+                        ],
+                        "where": {
+                            "eq": [
+                                "T2.name",
+                                {
+                                    "literal": "Procrastin-X"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes) MATCH (T2:Medication)\nWHERE T2.Name = 'Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients are not using Procrastin-X as medication?",
+        "sql_query": "SELECT count(*) FROM patient WHERE SSN NOT IN ( SELECT T1.patient FROM Prescribes AS T1 JOIN Medication AS T2 ON T1.Medication  =  T2.Code WHERE T2.name  =  'Procrastin-X' )",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "patient",
+            "where": {
+                "nin": [
+                    "SSN",
+                    {
+                        "select": {
+                            "value": "T1.patient"
+                        },
+                        "from": [
+                            {
+                                "value": "Prescribes",
+                                "name": "T1",
+                                "is_table": true
+                            },
+                            {
+                                "join": {
+                                    "name": "T2",
+                                    "value": "Medication",
+                                    "is_table": true
+                                },
+                                "on": {
+                                    "eq": [
+                                        "T1.Medication",
+                                        "T2.Code"
+                                    ]
+                                }
+                            }
+                        ],
+                        "where": {
+                            "eq": [
+                                "T2.name",
+                                {
+                                    "literal": "Procrastin-X"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (p:Patient) MATCH (T1:Prescribes) MATCH (T2:Medication)\nWHERE T2.Name = 'Procrastin-X' AND NOT p.SSN in T1.Patient\nRETURN count(DISTINCT p.SSN)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the names of nurses who are on call.",
+        "sql_query": "SELECT DISTINCT T1.name FROM nurse AS T1 JOIN on_call AS T2 ON T1.EmployeeID  =  T2.nurse",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T1.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "nurse",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "on_call",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.EmployeeID",
+                            "T2.nurse"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Nurse) MATCH (T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the distinct names of nurses on call?",
+        "sql_query": "SELECT DISTINCT T1.name FROM nurse AS T1 JOIN on_call AS T2 ON T1.EmployeeID  =  T2.nurse",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "distinct": {
+                        "value": "T1.name"
+                    }
+                }
+            },
+            "from": [
+                {
+                    "value": "nurse",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "on_call",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.EmployeeID",
+                            "T2.nurse"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sql_ans": [
+            [
+                "Carla Espinosa"
+            ],
+            [
+                "Laverne Roberts"
+            ],
+            [
+                "Paul Flowers"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Nurse) MATCH (T2:On_Call)\nRETURN DISTINCT T1.Name",
+        "cypher_ans": []
+    }
+][
+    {
+        "db_id": "hospital_1",
+        "question": "what is the name and position of the head whose department has least number of employees?",
+        "sql_query": "SELECT T2.name ,  T2.position FROM department AS T1 JOIN physician AS T2 ON T1.head  =  T2.EmployeeID GROUP BY departmentID ORDER BY count(departmentID) LIMIT 1;",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.name"
+                },
+                {
+                    "value": "T2.position"
+                }
+            ],
+            "from": [
+                {
+                    "value": "department",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "physician",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.head",
+                            "T2.EmployeeID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "departmentID"
+            },
+            "orderby": {
+                "value": {
+                    "count": "departmentID"
+                }
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "Percival Cox",
+                "Senior Attending Physician"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Department)-[]-(T2:Physician)\nWITH T2.Name AS Name, T2.Position AS Position, count(T2.departmentID) AS count\nRETURN Name,Position\nORDER BY count\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "Christopher Turk",
+                "Surgical Attending Physician"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the name and position of the head of the department with the least employees.",
+        "sql_query": "SELECT T2.name ,  T2.position FROM department AS T1 JOIN physician AS T2 ON T1.head  =  T2.EmployeeID GROUP BY departmentID ORDER BY count(departmentID) LIMIT 1;",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T2.name"
+                },
+                {
+                    "value": "T2.position"
+                }
+            ],
+            "from": [
+                {
+                    "value": "department",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "physician",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.head",
+                            "T2.EmployeeID"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "departmentID"
+            },
+            "orderby": {
+                "value": {
+                    "count": "departmentID"
+                }
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "Percival Cox",
+                "Senior Attending Physician"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Department)-[]-(T2:Physician)\nWITH T2.Name AS Name, T2.Position AS Position, count(T2.departmentID) AS count\nRETURN Name,Position\nORDER BY count\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "Christopher Turk",
+                "Surgical Attending Physician"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What is the name of the patient who made the most recent appointment?",
+        "sql_query": "SELECT T1.name FROM patient AS T1 JOIN appointment AS T2 ON T1.ssn = T2.patient ORDER BY T2.start DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "appointment",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.ssn",
+                            "T2.patient"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.start",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "Dennis Doe"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient)-[]-(T2:Appointment)\nRETURN T1.Name\nORDER BY T2.start DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "John Smith"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the name of the patient who made the appointment with the most recent start date.",
+        "sql_query": "SELECT T1.name FROM patient AS T1 JOIN appointment AS T2 ON T1.ssn = T2.patient ORDER BY T2.start DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "patient",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "appointment",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.ssn",
+                            "T2.patient"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T2.start",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "Dennis Doe"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Patient)-[]-(T2:Appointment)\nRETURN T1.Name\nORDER BY T2.start DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "John Smith"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many patients do each physician take care of? List their names and number of patients they take care of.",
+        "sql_query": "SELECT T1.name ,  count(*) FROM physician AS T1 JOIN patient AS T2 ON T1.employeeid  =  T2.PCP GROUP BY T1.employeeid",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.name"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.PCP"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.employeeid"
+            }
+        },
+        "sql_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                2
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician)-[]-(T2:Patient)\nWITH count(T1.EmployeeID) AS count, T1.Name AS Name\nRETURN Name,COUNT(\"*\")",
+        "cypher_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                1
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Return the name of each physician and the number of patients he or she treats.",
+        "sql_query": "SELECT T1.name ,  count(*) FROM physician AS T1 JOIN patient AS T2 ON T1.employeeid  =  T2.PCP GROUP BY T1.employeeid",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "T1.name"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "patient",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.PCP"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.employeeid"
+            }
+        },
+        "sql_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                2
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician)-[]-(T2:Patient)\nWITH count(T1.EmployeeID) AS count, T1.Name AS Name\nRETURN Name,COUNT(\"*\")",
+        "cypher_ans": [
+            [
+                "John Dorian",
+                1
+            ],
+            [
+                "Elliot Reid",
+                1
+            ],
+            [
+                "Christopher Turk",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of rooms located on each block floor.",
+        "sql_query": "SELECT count(*) ,  T1.blockfloor FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockfloor",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockfloor"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockfloor"
+            }
+        },
+        "sql_ans": [
+            [
+                9,
+                1
+            ],
+            [
+                9,
+                2
+            ],
+            [
+                9,
+                3
+            ],
+            [
+                9,
+                4
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH count(T1.BlockFloor) AS count, T1.BlockFloor AS BlockFloor\nRETURN COUNT(\"*\"),BlockFloor",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ],
+            [
+                1,
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many rooms does each block floor have?",
+        "sql_query": "SELECT count(*) ,  T1.blockfloor FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockfloor",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockfloor"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockfloor"
+            }
+        },
+        "sql_ans": [
+            [
+                9,
+                1
+            ],
+            [
+                9,
+                2
+            ],
+            [
+                9,
+                3
+            ],
+            [
+                9,
+                4
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH count(T1.BlockFloor) AS count, T1.BlockFloor AS BlockFloor\nRETURN COUNT(\"*\"),BlockFloor",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ],
+            [
+                1,
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of rooms for different block code?",
+        "sql_query": "SELECT count(*) ,  T1.blockcode FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockcode",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockcode"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockcode"
+            }
+        },
+        "sql_ans": [
+            [
+                12,
+                1
+            ],
+            [
+                12,
+                2
+            ],
+            [
+                12,
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH count(T1.BlockCode) AS count, T1.BlockCode AS BlockCode\nRETURN COUNT(\"*\"),BlockCode",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many rooms are located for each block code?",
+        "sql_query": "SELECT count(*) ,  T1.blockcode FROM BLOCK AS T1 JOIN room AS T2 ON T1.blockfloor  =  T2.blockfloor AND T1.blockcode  =  T2.blockcode GROUP BY T1.blockcode",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.blockcode"
+                }
+            ],
+            "from": [
+                {
+                    "value": "BLOCK",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "room",
+                        "is_table": true
+                    },
+                    "on": {
+                        "and": [
+                            {
+                                "eq": [
+                                    "T1.blockfloor",
+                                    "T2.blockfloor"
+                                ]
+                            },
+                            {
+                                "eq": [
+                                    "T1.blockcode",
+                                    "T2.blockcode"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.blockcode"
+            }
+        },
+        "sql_ans": [
+            [
+                12,
+                1
+            ],
+            [
+                12,
+                2
+            ],
+            [
+                12,
+                3
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Block) MATCH (T2:Room)\nWITH count(T1.BlockCode) AS count, T1.BlockCode AS BlockCode\nRETURN COUNT(\"*\"),BlockCode",
+        "cypher_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the number of medications prescribed for each brand.",
+        "sql_query": "SELECT count(*) ,  T1.name FROM medication AS T1 JOIN prescribes AS T2 ON T1.code = T2.medication GROUP BY T1.brand",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "medication",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.code",
+                            "T2.medication"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.brand"
+            }
+        },
+        "sql_ans": [
+            [
+                2,
+                "Thesisin"
+            ],
+            [
+                1,
+                "Procrastin-X"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Medication)-[]-(T2:Prescribes)\nWITH T1.Name AS Name, count(T1.Brand) AS count\nRETURN COUNT(\"*\"),Name",
+        "cypher_ans": [
+            [
+                1,
+                "Procrastin-X"
+            ],
+            [
+                1,
+                "Thesisin"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "How many medications are prescribed for each brand?",
+        "sql_query": "SELECT count(*) ,  T1.name FROM medication AS T1 JOIN prescribes AS T2 ON T1.code = T2.medication GROUP BY T1.brand",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                },
+                {
+                    "value": "T1.name"
+                }
+            ],
+            "from": [
+                {
+                    "value": "medication",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "prescribes",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.code",
+                            "T2.medication"
+                        ]
+                    }
+                }
+            ],
+            "groupby": {
+                "value": "T1.brand"
+            }
+        },
+        "sql_ans": [
+            [
+                2,
+                "Thesisin"
+            ],
+            [
+                1,
+                "Procrastin-X"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Medication)-[]-(T2:Prescribes)\nWITH T1.Name AS Name, count(T1.Brand) AS count\nRETURN COUNT(\"*\"),Name",
+        "cypher_ans": [
+            [
+                1,
+                "Procrastin-X"
+            ],
+            [
+                1,
+                "Thesisin"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the name of physicians whose position title contains the word 'senior'.",
+        "sql_query": "SELECT name FROM physician WHERE POSITION LIKE '%senior%'",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "physician",
+            "where": {
+                "like": [
+                    "POSITION",
+                    {
+                        "literal": "%senior%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "Percival Cox"
+            ]
+        ],
+        "cypher_query": "MATCH (p:Physician)\nWHERE p.Position =~'.*[s|s]enior.*'\nRETURN p.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "What are the names of the physicians who have 'senior' in their titles.",
+        "sql_query": "SELECT name FROM physician WHERE POSITION LIKE '%senior%'",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "physician",
+            "where": {
+                "like": [
+                    "POSITION",
+                    {
+                        "literal": "%senior%"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "Percival Cox"
+            ]
+        ],
+        "cypher_query": "MATCH (p:Physician)\nWHERE p.Position =~'.*[s|s]enior.*'\nRETURN p.Name",
+        "cypher_ans": []
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Find the physician who was trained in the most expensive procedure?",
+        "sql_query": "SELECT T1.name FROM physician AS T1 JOIN trained_in AS T2 ON T1.employeeid  =  T2.physician JOIN procedures AS T3 ON T3.code  =  T2.treatment ORDER BY T3.cost DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "trained_in",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.physician"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "procedures",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T3.code",
+                            "T2.treatment"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T3.cost",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "John Wen"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician)-[T2:Trained_In]-(T3:Procedures)\nRETURN T1.Name\nORDER BY T3.cost DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "Christopher Turk"
+            ]
+        ]
+    },
+    {
+        "db_id": "hospital_1",
+        "question": "Which physician was trained in the procedure that costs the most.",
+        "sql_query": "SELECT T1.name FROM physician AS T1 JOIN trained_in AS T2 ON T1.employeeid  =  T2.physician JOIN procedures AS T3 ON T3.code  =  T2.treatment ORDER BY T3.cost DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "T1.name"
+            },
+            "from": [
+                {
+                    "value": "physician",
+                    "name": "T1",
+                    "is_table": true
+                },
+                {
+                    "join": {
+                        "name": "T2",
+                        "value": "trained_in",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T1.employeeid",
+                            "T2.physician"
+                        ]
+                    }
+                },
+                {
+                    "join": {
+                        "name": "T3",
+                        "value": "procedures",
+                        "is_table": true
+                    },
+                    "on": {
+                        "eq": [
+                            "T3.code",
+                            "T2.treatment"
+                        ]
+                    }
+                }
+            ],
+            "orderby": {
+                "value": "T3.cost",
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "John Wen"
+            ]
+        ],
+        "cypher_query": "MATCH (T1:Physician)-[T2:Trained_In]-(T3:Procedures)\nRETURN T1.Name\nORDER BY T3.cost DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "Christopher Turk"
+            ]
+        ]
+    }
 ]

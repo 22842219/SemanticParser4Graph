@@ -525,7 +525,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         self.tx = self.graph.begin()
         tx = self.tx
 
-        print("************START BUILDING GRAPH EDGE****************")
+        print("************START BUILDING SUB-GRAPH (NODE + CURATED EDGE)****************")
         for table in db.tables:
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
@@ -572,9 +572,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                 
                             ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                                 db.tables_pks, constraint, db.tables_headers)
-                            print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
-                            print(f' The type of {value} is {type(value)}')
-                            print(f'is_self_constraint_kf: {is_self_constraint_kf}')
+                            # print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
+                            # print(f' The type of {value} is {type(value)}')
+                            # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
 
                             if len(table.table_constraints)!=2 and not table.check_compound_pk:
                                 # if not table.check_compound_pk:
@@ -602,7 +602,6 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                                 # # Note: advoid creating duplicate edges.
                                                 rel_check = "match ({})-[r]-({}) RETURN r".format(m['m'].labels, n['n'].labels)
                                                 rest = self.graph.run(rel_check).data()
-                                                
                                                 print(f'rel_check: {rel_check}')
                                                 print(f'returned_rest:{rest}')
                                                 if len(rest)==0:
@@ -621,7 +620,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                     self.logger.error("There are multiple matched graph nodes when building graph edge, \
                                     regarding {} table in {} database.".format(table_name, db.db_name))
                                     # raise NotImplementedError
-                                if len(table.table_constraints) ==2:
+                                if len(table.table_constraints) !=2:
                                     # Case: a whole table is turned into graph edges, 
                                     # e.g., in department_management.db, the table `management` is the case, 
                                     # however, there is an issue in this particular case. To be able to sucessfully 
@@ -636,7 +635,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                         # TODO: A place holder for hyper graph, where each row of this table is a hyper edge? 
                                         # NOTE: It is supposed to a hyper_edge, but Neo4j can not visulize hyper edges, so we refer each hyper edge as a graph node. 
                                         hyper_node = Node(table.table_name,**row_dict) 
-                                        print("hyper_node:", hyper_node)
+                                        print(f'table_name: {table_name}, potential_hyper_node?: {hyper_node}')
                                         tx.create(hyper_node)
                                         for node in matched_nodes:
                                             rel = Relationship(hyper_node, '{}_AppearsIn_{}'.format(table_name.capitalize(), ref_table.capitalize()), node['n']) 

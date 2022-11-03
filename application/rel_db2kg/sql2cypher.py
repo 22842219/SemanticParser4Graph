@@ -1318,7 +1318,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			
-			if db_name == 'hospital_1' and 3900<i <=3910:   
+			if db_name == 'hospital_1' :   
 				all_table_fields = lookup_dict[db_name]	
 
 				# 1. Extract database name, questions and SQL queries
