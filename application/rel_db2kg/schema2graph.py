@@ -363,7 +363,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         tx.create(tb)
         print(tb)   
 
-    def build_nodes(self, db, tx):
+    def table2nodes(self, db, tx):
         
         # Note: Open graph transaction again.
         self.tx = self.graph.begin()
@@ -520,7 +520,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                      
         self.graph.commit(tx)
 
-    def build_edges (self, db):
+    def build_subgraph (self, db):
         # Note: Open graph transaction again.
         self.tx = self.graph.begin()
         tx = self.tx
@@ -656,9 +656,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 # Note: i is the index of relational database. 
                 self.graph.delete_all()
             print("************Start building graph directly from relational table schema****************")
-            self.build_nodes(db, tx)
+            self.table2nodes(db, tx)
             self.table2edge(db)
-            self.build_edges(db)
+            self.build_subgraph(db)
     
           
             
