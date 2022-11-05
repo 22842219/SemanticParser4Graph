@@ -257,7 +257,7 @@ class RelDBDataset:
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             # test
-            if db_name == 'hospital_1':
+            if db_name == 'department_management' :
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
                 # engine = rel_db_object.engine
@@ -385,6 +385,14 @@ class RelDB2KGraphBuilder(RelDBDataset):
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
             print(f"{table_name} in {db.db_name}")
+
+            table_node = Node("Table", name='tb:{}'.format( table_name))
+            tx.create(table_node)
+            # e.g. musical_db is an instance of "Domain".
+            rel_tb = Relationship(table_node, "Part_Of", db_node)
+            tx.create(rel_tb)
+            print(rel_tb)
+
             if len(table.rows)==0:
                 continue
             if table_name.lower().startswith('has'):
@@ -651,9 +659,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
         
         for i, db in enumerate(self.dataset.rel_dbs):          
 
-            if i==0:
-                # Note: i is the index of relational database. 
-                self.graph.delete_all()
+            # if i==0:
+            #     # Note: i is the index of relational database. 
+            #     self.graph.delete_all()
             print("************Start building graph directly from relational table schema****************")
             self.table2nodes(db, tx)
             self.table2edge(db)
