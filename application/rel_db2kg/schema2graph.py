@@ -673,8 +673,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
      
             
     
+    
 def main():
-    import glob
+    import glob, argparse
     import configparser
     config = configparser.ConfigParser()
     config.read('../config.ini')
@@ -683,15 +684,27 @@ def main():
     raw_folder = filenames['raw_folder']
     env_file = filenames['env_file']
 
-    raw_spider_folder = os.path.join(raw_folder, 'spider')
+    parser = argparse.ArgumentParser(description='relational database to graph database.')
+    # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
+    parser.add_argument('--spider', help='build graph from spider.', action='store_true')
+    parser.add_argument('--wikisql', help='build graph from wikisql.', action='store_true')
+    args = parser.parse_args()
 
-    db_folder = os.path.join(raw_spider_folder,  'database')
+    if args.spider:
+        raw_spider_folder = os.path.join(raw_folder, 'spider')
+        db_folder = os.path.join(raw_spider_folder,  'database')
+        spider_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+        RelDB2KGraphBuilder(spider_dbs,  Logger(), env_file).build_graph()
+    
+    if args.wikisql:
+        raw_wikisql_folder = os.path.join(raw_folder, 'wikisql1.1')
+        wikisql_dbs = glob.glob(raw_wikisql_folder + '/*.db', recursive = True) 
+        print(f'wikisql db files: {wikisql_dbs}')
 
-    spider_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
-
-    RelDB2KGraphBuilder(spider_dbs,  Logger(), env_file).build_graph()
+        # RelDB2KGraphBuilder(wikisql_dbs,  Logger(), env_file).build_graph()
 
 if __name__ == "__main__":
-    Fire(main)
+    # Fire(main)
+    main()
 
 

@@ -302,12 +302,31 @@ class Formatter(SchemaGroundedTraverser):
 												if 'MATCH' in every:
 													sub_match_parts = [token.strip('()[]')  for path in every.split('MATCH') if path for token in path.strip().split('-') if':' in token]	
 													sub_query_where = [outer_query]
-										
+
+													nested_where_conditioned = {}
+													if re.findall('WHERE.*\\n', part):
+														where_condition = re.findall('WHERE.*\\n', part)
+														if len(where_condition)==1:
+															where_content = [i.strip() for i in where_condition[0].split('WHERE') if i]
+															for fm_content in where_content:
+																for op in ['<>', '>', '<', '>=', '<=', '=']:
+																	if op in fm_content:
+																		[tfm, content ]= fm_content.split(op)
+																		if '.' in tfm:
+																			[table_key, fm] = tfm.split('.')
+																			print(f'zzy: {op, tfm, content, table_key, fm}')
+																			nested_where_conditioned[table_key] = '{{ {}:{} }}'.format(fm, content)
+														else:
+															raise NotImplementedError
+														
+													print(f'sub_match_partszzy {sub_match_parts}')
 													for i, path in enumerate(sub_match_parts):
 														table_key, tb = path.split(":")
 														is_rel_table, tb = self.rel_table_check_and_normalization(tb)
+														# # check value condition
+														if table_key in nested_where_conditioned:
+															tb = '{} {}'.format(tb, nested_where_conditioned[table_key])
 														if is_rel_table:
-															
 															sub_query_where.append('-[:{}]-'.format(tb)) # NOTE: SHOULD NOT HAVE NODE VARIABLE
 															if i==len(sub_match_parts)-1:
 																sub_query_where.append('()')
@@ -315,7 +334,7 @@ class Formatter(SchemaGroundedTraverser):
 															sub_query_where.append('(:{})'.format(tb)) # NOTE: SHOULD NOT HAVE NODE VARIABLE
 												
 													if not is_rel_table:
-														sub_query_where = '-[]-'.join(sub_query_where)
+														sub_query_where = '-[]-'.join(sub_query_where)										
 
 													if  'NOT' in part:
 														where_parts.append('NOT {}'.format(''.join(sub_query_where)))
@@ -328,12 +347,12 @@ class Formatter(SchemaGroundedTraverser):
 														outer_path_in_sub_query = False
 														match_parts.append(every)
 
-												elif 'WHERE' in every:
+												if 'WHERE' in every:
 													sub_query_where= ' '.join([i.strip() for i in every.split('WHERE') if i])
 													where_parts.append(sub_query_where)
-													# print(f'every: {every}, sub_query_where: {sub_query_where}')
+													print(f'nested_where_clause: {every}, sub_query_where: {sub_query_where}')
 
-												elif 'NOT' in every:
+												if 'NOT' in every:
 													sub_query_field = every.split('NOT')[-1].strip()
 													if outer_query_field and outer_query_tb:
 														outer_query_field = self.normalize_mentioned_field(outer_query_field, outer_query_tb, self.db_lookup_dict[outer_query_tb])
@@ -598,7 +617,7 @@ class Formatter(SchemaGroundedTraverser):
 
 		print("*******debgu from*******")
 		if 'from' in json:
-			from_ = json['from']
+			from_ = json['from']	
 
 			if isinstance(from_, dict):
 				# Case: MATCH () or MATCH ()-[r]-()
@@ -606,10 +625,12 @@ class Formatter(SchemaGroundedTraverser):
 				if isinstance(table, string_types):
 					table = self.normalize_mentioned_tb(table)
 					is_rel_table, tb = self.rel_table_check_and_normalization(table)
+					
 					if is_rel_table:
 						tb = 'rel_{}'.format(table)
+						return 'MATCH ()-[{}:{}]-()'.format(table[0].lower(), table)
 					self.table_alias_lookup.update({table[0].lower():tb})
-					return 'MATCH {}:{}'.format(table[0].lower(), table)
+					return 'MATCH ({}:{})'.format(table[0].lower(), table)
 			
 			if not isinstance(from_, list):
 				if isinstance(from_, string_types):
@@ -651,10 +672,11 @@ class Formatter(SchemaGroundedTraverser):
 				reformat_parts = []		
 				for i, every in enumerate(parts):
 					alias, joint_table= every.split('.')
+
 					# step: check relational table
 					is_rel_table, joint_table = self.rel_table_check_and_normalization(joint_table)
 					# print(f'joint_table: {joint_table}, is_rel_table: {is_rel_table}')
-		
+
 					if is_rel_table:
 
 						node_flag = False # As a signal to specify only exist graph nodes. 
@@ -755,8 +777,8 @@ class Formatter(SchemaGroundedTraverser):
 
 	def where(self, json):
 		if 'where' in json:	
-			# print("****debug where****")
-			
+			print("***********debug where***************")
+		
 			if isNested(json):
 				nested_pattern = self.dispatch(json['where'])
 				return nested_pattern
@@ -990,7 +1012,7 @@ class Formatter(SchemaGroundedTraverser):
 						
 						
 						return_nodes.append(normalized_field)
-	
+
 						
 				if is_with:
 					with_statement = 'WITH {}'.format(', '.join(set(with_parts)))
@@ -1053,7 +1075,30 @@ class Formatter(SchemaGroundedTraverser):
 			return 'OFFSET {0}'.format(self.dispatch(json['offset']))	
 		
 	def union(self, json):
-		return ' UNION '.join(self.format(query) for query in json)	
+		# print(f'return nodes in select:', return_nodes)
+		# if 'union' in json:
+		# 	for idx, rn in enumerate(return_nodes):
+		# 		[alias, fm] = rn.split('.')
+		# 		print(rn, fm)
+		# 		return_nodes[idx] = '{} AS {}'.format(rn, fm)
+		union_ = []
+		for query in json:
+			print(f'query in union:', query)
+			rest =  self.format(query)
+			return_idx = rest.index('RETURN')
+			print("heyyy index:", return_idx)
+			return_content = rest[return_idx+6:]
+			print("union heyyyy:", return_content)
+			return_nodes = return_content.split(',')
+			for i, node in enumerate(return_nodes):
+				if '.' in node:
+					[alias, fm] = node.split('.')
+					rest+='  AS {}'.format(fm.lower())
+
+			union_.append(rest)
+
+
+		return ' \nUNION\n'.join(union_)	
 
 	def intersect(self, json):
 		'''
@@ -1394,7 +1439,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			
-			if db_name in ['hospital_1', 'department_management', 'musical']:  
+			if db_name in [ 'hospital_1'] and i in [3902, 3903, 3904, 3905, 3906, 3907, 3916, 3917, 3918, 3919, 3920, 3921, 3922, 3923, 3926, 3927, 3932, 3933, 3934, 3935, 3940, 3941, 3942, 3943, 3944, 3945, 3946, 3947, 3950, 3951, 3960, 3961, 3962, 3963, 3964, 3965, 3974, 3975, 3980, 3981]:  
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
 						evaluate[db_name]=[]

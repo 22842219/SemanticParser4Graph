@@ -1,27 +1,43 @@
 {
       "Token_Keyword": [
             "MATCH",
-            "RETURN DISTINCT",
-            "Name"
+            "WHERE",
+            "RETURN",
+            "Name",
+            "AS",
+            "name",
+            "UNION"
       ],
       "Token_Text_Whitespace": [
             " ",
-            "\n"
+            "\n",
+            "  ",
+            " \n"
       ],
       "Token_Punctuation": [
             "(",
             ":",
+            ")",
             ")-[",
-            "]-(",
-            ")"
+            "]-("
       ],
       "Token_Name_Variable": [
+            "p",
+            "Cost",
             "T1",
-            "T2"
+            "T2",
+            "T3"
       ],
       "Token_Name_Label": [
-            "Nurse",
-            "On_Call"
+            "Procedures",
+            "Physician",
+            "Trained_In"
       ],
-      "Token_Operator": "."
+      "Token_Operator": [
+            ".",
+            ">",
+            "="
+      ],
+      "Token_Literal_Number_Integer": "1000",
+      "Token_Literal_String": "\"John Wen\""
 }

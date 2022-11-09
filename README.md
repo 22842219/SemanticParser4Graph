@@ -25,7 +25,7 @@ We recommend using virtual environments to run this code:
 
 ```shell
 python -m virtualenv venv
-venv\Scripts\activate
+source venv\Scripts\activate
 ```
 
 Python packages can be installed via:
@@ -114,6 +114,7 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    python schema2graph.py
 
    ```
+
    Translate SQL queries to Cypher queries.
 
    ```shell

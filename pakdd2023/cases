@@ -1,0 +1,16 @@
+databse: hospital_1
+all_table_fields: {'Physician': ['EmployeeID', 'Name', 'Position', 'SSN'], 'Department': ['DepartmentID', 'Name', 'Head'], 'rel_Affiliated_With': ['Physician', 'Department', 'PrimaryAffiliation'], 'Procedures': ['Code', 'Name', 'Cost'], 'rel_Trained_In': ['Physician', 'Treatment', 'CertificationDate', 'CertificationExpires'], 'Patient': ['SSN', 'Name', 'Address', 'Phone', 'InsuranceID', 'PCP'], 'Nurse': ['EmployeeID', 'Name', 'Position', 'Registered', 'SSN'], 'Appointment': ['AppointmentID', 'Patient', 'PrepNurse', 'Physician', 'Start', 'End', 'ExaminationRoom'], 'Medication': ['Code', 'Name', 'Brand', 'Description'], 'Prescribes': ['Physician', 'Patient', 'Medication', 'Date', 'Appointment', 'Dose'], 'Block': ['BlockFloor', 'BlockCode'], 'Room': ['RoomNumber', 'RoomType', 'BlockFloor', 'BlockCode', 'Unavailable'], 'On_Call': ['Nurse', 'BlockFloor', 'BlockCode', 'OnCallStart', 'OnCallEnd'], 'Stay': ['StayID', 'Patient', 'Room', 'StayStart', 'StayEnd'], 'Undergoes': ['Patient', 'Procedures', 'Stay', 'DateUndergoes', 'Physician', 'AssistingNurse']}
+question: What are the procedures that cost more than 1000 or are specialized in by physician John Wen?
+
+**************SQL Query***************
+sql: SELECT name FROM procedures WHERE cost  >  1000 UNION SELECT T3.name FROM physician AS T1 JOIN trained_in AS T2 ON T1.employeeid  =  T2.physician JOIN procedures AS T3 ON T3.code  =  T2.treatment WHERE T1.name  =  "John Wen"
+sql_ans: [['Complete Walletectomy'], ['Folded Demiophtalmectomy'], ['Follicular Demiectomy'], ['Obfuscated Dermogastrotomy'], ['Obtuse Pyloric Recombobulation'], ['Reverse Rhinopodoplasty'], ['Reversible Pancreomyoplasty']]
+
+**************Cypher Query***************
+MATCH (p:Procedures)
+WHERE p.Cost > 1000
+RETURN p.Name as Name
+UNION 
+MATCH (T1:Physician)-[T2:Trained_In]-(T3:Procedures)
+WHERE T1.Name = "John Wen"
+RETURN T3.Name as Name
