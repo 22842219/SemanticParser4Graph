@@ -1,1 +1,2276 @@
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][
+    {
+        "db_id": "singer",
+        "question": "List the name of singers whose citizenship is not \"France\".",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Citizenship <> 'France'\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'France'"
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ],
+            [
+                "Iris Fontbona"
+            ],
+            [
+                "Jacqueline Mars"
+            ],
+            [
+                "Gina Rinehart"
+            ],
+            [
+                "Susanne Klatten"
+            ],
+            [
+                "Abigail Johnson"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers who are not French citizens?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Citizenship <> 'France'\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'France'"
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ],
+            [
+                "Iris Fontbona"
+            ],
+            [
+                "Jacqueline Mars"
+            ],
+            [
+                "Gina Rinehart"
+            ],
+            [
+                "Susanne Klatten"
+            ],
+            [
+                "Abigail Johnson"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the name of singers whose birth year is either 1948 or 1949?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Birth_Year = 1948 OR si.Birth_Year = 1949\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Birth_Year"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=",
+                "OR"
+            ],
+            "Token_Literal_Number_Integer": [
+                "1948",
+                "1949"
+            ]
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers whose birth years are either 1948 or 1949?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Birth_Year = 1948 OR si.Birth_Year = 1949\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Birth_Year"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=",
+                "OR"
+            ],
+            "Token_Literal_Number_Integer": [
+                "1948",
+                "1949"
+            ]
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Please show the most common citizenship of singers.",
+        "cypher_query": "MATCH (si:singer)\nWITH count(si.Citizenship) AS count, si.Citizenship AS Citizenship\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship",
+                "count"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Name_Function": "count",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "United States"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the most common singer citizenship ?",
+        "cypher_query": "MATCH (si:singer)\nWITH count(si.Citizenship) AS count, si.Citizenship AS Citizenship\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship",
+                "count"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Name_Function": "count",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "United States"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "concert_singer",
+        "question": "What is the average, minimum, and maximum age of all singers from France?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Country = 'France'\nRETURN avg(si.Age),min(si.Age),max(si.Age)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Country",
+                "Age"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'France'",
+            "Token_Name_Function": [
+                "avg",
+                "min",
+                "max"
+            ]
+        },
+        "answers": [
+            [
+                34.5,
+                25,
+                43
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the average, minimum, and maximum age for all French singers?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Country = 'France'\nRETURN avg(si.Age),min(si.Age),max(si.Age)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Country",
+                "Age"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'France'",
+            "Token_Name_Function": [
+                "avg",
+                "min",
+                "max"
+            ]
+        },
+        "answers": [
+            [
+                34.5,
+                25,
+                43
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "Show the name and the release year of the song by the youngest singer.",
+        "cypher_query": "MATCH (si:singer)\nRETURN si.Song_Name,si.Song_release_year\nORDER BY si.Age\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Song_Name",
+                "Song_release_year",
+                "Age"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Love",
+                "2016"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are the names and release years for all the songs of the youngest singer?",
+        "cypher_query": "MATCH (si:singer)\nRETURN si.Song_Name,si.Song_release_year\nORDER BY si.Age\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Song_Name",
+                "Song_release_year",
+                "Age"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Love",
+                "2016"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are all distinct countries where singers above age 20 are from?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Age > 20\nRETURN DISTINCT si.Country",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Age",
+                "Country"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "20"
+        },
+        "answers": [
+            [
+                "Netherlands"
+            ],
+            [
+                "United States"
+            ],
+            [
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are  the different countries with singers above age 20?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Age > 20\nRETURN DISTINCT si.Country",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Age",
+                "Country"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "20"
+        },
+        "answers": [
+            [
+                "Netherlands"
+            ],
+            [
+                "United States"
+            ],
+            [
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "Show location and name for all stadiums with a capacity between 5000 and 10000.",
+        "cypher_query": "MATCH (st:stadium)\nWHERE 5000<=st.Capacity<=10000\nRETURN st.Location,st.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity",
+                "Location"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Literal_Number_Integer": [
+                "5000",
+                "10000"
+            ],
+            "Token_Operator": [
+                "<=",
+                "."
+            ]
+        },
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are the locations and names of all stations with capacity between 5000 and 10000?",
+        "cypher_query": "MATCH (st:stadium)\nWHERE 5000<=st.Capacity<=10000\nRETURN st.Location,st.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity",
+                "Location"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Literal_Number_Integer": [
+                "5000",
+                "10000"
+            ],
+            "Token_Operator": [
+                "<=",
+                "."
+            ]
+        },
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the average and maximum capacities for all stadiums ?",
+        "cypher_query": "MATCH (st:stadium)\nRETURN avg(st.Capacity),max(st.Capacity)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Name_Function": [
+                "avg",
+                "max"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                10621.666666666666,
+                52500
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the name and capacity for the stadium with highest average attendance?",
+        "cypher_query": "MATCH (st:stadium)\nRETURN st.Name,st.Capacity\nORDER BY st.Average DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity",
+                "Average"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Stark's Park",
+                10104
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the name and capacity for the stadium with the highest average attendance?",
+        "cypher_query": "MATCH (st:stadium)\nRETURN st.Name,st.Capacity\nORDER BY st.Average DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity",
+                "Average"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Stark's Park",
+                10104
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "what is the name and nation of the singer who have a song having 'Hey' in its name?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Song_Name =~'.*[H|h]ey.*'\nRETURN si.Name,si.Country",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Song_Name",
+                "Country"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=~"
+            ],
+            "Token_Literal_String": "'.*[H|h]ey.*'"
+        },
+        "answers": [
+            [
+                "Justin Brown",
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the name and country of origin of every singer who has a song with the word 'Hey' in its title?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Song_Name =~'.*[H|h]ey.*'\nRETURN si.Name,si.Country",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Song_Name",
+                "Country"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=~"
+            ],
+            "Token_Literal_String": "'.*[H|h]ey.*'"
+        },
+        "answers": [
+            [
+                "Justin Brown",
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers whose citizenship is not \"France\".",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Citizenship <> 'France'\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'France'"
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ],
+            [
+                "Iris Fontbona"
+            ],
+            [
+                "Jacqueline Mars"
+            ],
+            [
+                "Gina Rinehart"
+            ],
+            [
+                "Susanne Klatten"
+            ],
+            [
+                "Abigail Johnson"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers who are not French citizens?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Citizenship <> 'France'\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'France'"
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ],
+            [
+                "Iris Fontbona"
+            ],
+            [
+                "Jacqueline Mars"
+            ],
+            [
+                "Gina Rinehart"
+            ],
+            [
+                "Susanne Klatten"
+            ],
+            [
+                "Abigail Johnson"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the name of singers whose birth year is either 1948 or 1949?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Birth_Year = 1948 OR si.Birth_Year = 1949\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Birth_Year"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=",
+                "OR"
+            ],
+            "Token_Literal_Number_Integer": [
+                "1948",
+                "1949"
+            ]
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers whose birth years are either 1948 or 1949?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Birth_Year = 1948 OR si.Birth_Year = 1949\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Birth_Year"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=",
+                "OR"
+            ],
+            "Token_Literal_Number_Integer": [
+                "1948",
+                "1949"
+            ]
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Please show the most common citizenship of singers.",
+        "cypher_query": "MATCH (si:singer)\nWITH si.Citizenship AS Citizenship, count(si.Citizenship) AS count\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship",
+                "count"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "United States"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the most common singer citizenship ?",
+        "cypher_query": "MATCH (si:singer)\nWITH si.Citizenship AS Citizenship, count(si.Citizenship) AS count\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship",
+                "count"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "United States"
+            ]
+        ]
+    },
+    {
+        "db_id": "real_estate_properties",
+        "question": "How many available features are there in total?",
+        "cypher_query": "MATCH (ot:Other_Available_Features)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "ot",
+            "Token_Name_Label": "Other_Available_Features",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "real_estate_properties",
+        "question": "What is the feature type name of feature AirCon?",
+        "cypher_query": "MATCH (T1:Other_Available_Features)-[]-(T2:Ref_Feature_Types)\nWHERE T1.feature_name = 'AirCon'\nRETURN T2.feature_type_name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "feature_name",
+                "feature_type_name"
+            ],
+            "Token_Name_Label": [
+                "Other_Available_Features",
+                "Ref_Feature_Types"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'AirCon'"
+        },
+        "answers": [
+            [
+                "Amenity, eg Pool."
+            ]
+        ]
+    },
+    {
+        "db_id": "real_estate_properties",
+        "question": "Show the property type descriptions of properties belonging to that code.",
+        "cypher_query": "MATCH (T1:Properties)-[]-(T2:Ref_Property_Types)\nWITH count(T1.property_type_code) AS count, T2.property_type_description AS property_type_description\nRETURN property_type_description",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "property_type_code",
+                "count",
+                "property_type_description"
+            ],
+            "Token_Name_Label": [
+                "Properties",
+                "Ref_Property_Types"
+            ],
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                "House, Bungalow, etc."
+            ],
+            [
+                "Apartment, Flat, Condo, etc."
+            ],
+            [
+                "Field, Meadow."
+            ],
+            [
+                "Other, to be determined."
+            ],
+            [
+                "Shop, Retail Outlet."
+            ]
+        ]
+    },
+    {
+        "db_id": "real_estate_properties",
+        "question": "What are the names of properties that are either houses or apartments with more than 1 room?",
+        "cypher_query": "MATCH (pr:Properties)\nWHERE pr.property_type_code = 'House'\nRETURN pr.property_name  AS property_name \nUNION\nMATCH (pr:Properties)\nWHERE pr.property_type_code = 'Apartment' AND pr.room_count > 1\nRETURN pr.property_name  AS property_name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "AS",
+                "UNION"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n",
+                "  ",
+                " \n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "pr",
+                "property_type_code",
+                "property_name",
+                "room_count"
+            ],
+            "Token_Name_Label": "Properties",
+            "Token_Operator": [
+                ".",
+                "=",
+                "AND",
+                ">"
+            ],
+            "Token_Literal_String": [
+                "'House'",
+                "'Apartment'"
+            ],
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "park"
+            ],
+            [
+                "the cole"
+            ],
+            [
+                "parc east"
+            ],
+            [
+                "vogue"
+            ],
+            [
+                "longacre"
+            ],
+            [
+                "renoir"
+            ],
+            [
+                "ten tower"
+            ],
+            [
+                "parc coliseum"
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "concert_singer",
+        "question": "What is the average, minimum, and maximum age of all singers from France?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Country = 'France'\nRETURN avg(si.Age),min(si.Age),max(si.Age)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Country",
+                "Age"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'France'",
+            "Token_Name_Function": [
+                "avg",
+                "min",
+                "max"
+            ]
+        },
+        "answers": [
+            [
+                34.5,
+                25,
+                43
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the average, minimum, and maximum age for all French singers?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Country = 'France'\nRETURN avg(si.Age),min(si.Age),max(si.Age)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Country",
+                "Age"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'France'",
+            "Token_Name_Function": [
+                "avg",
+                "min",
+                "max"
+            ]
+        },
+        "answers": [
+            [
+                34.5,
+                25,
+                43
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "Show the name and the release year of the song by the youngest singer.",
+        "cypher_query": "MATCH (si:singer)\nRETURN si.Song_Name,si.Song_release_year\nORDER BY si.Age\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Song_Name",
+                "Song_release_year",
+                "Age"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Love",
+                "2016"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are the names and release years for all the songs of the youngest singer?",
+        "cypher_query": "MATCH (si:singer)\nRETURN si.Song_Name,si.Song_release_year\nORDER BY si.Age\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Song_Name",
+                "Song_release_year",
+                "Age"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Love",
+                "2016"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are all distinct countries where singers above age 20 are from?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Age > 20\nRETURN DISTINCT si.Country",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Age",
+                "Country"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "20"
+        },
+        "answers": [
+            [
+                "Netherlands"
+            ],
+            [
+                "United States"
+            ],
+            [
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are  the different countries with singers above age 20?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Age > 20\nRETURN DISTINCT si.Country",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Age",
+                "Country"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "20"
+        },
+        "answers": [
+            [
+                "Netherlands"
+            ],
+            [
+                "United States"
+            ],
+            [
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "Show location and name for all stadiums with a capacity between 5000 and 10000.",
+        "cypher_query": "MATCH (st:stadium)\nWHERE 5000<=st.Capacity<=10000\nRETURN st.Location,st.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity",
+                "Location"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Literal_Number_Integer": [
+                "5000",
+                "10000"
+            ],
+            "Token_Operator": [
+                "<=",
+                "."
+            ]
+        },
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are the locations and names of all stations with capacity between 5000 and 10000?",
+        "cypher_query": "MATCH (st:stadium)\nWHERE 5000<=st.Capacity<=10000\nRETURN st.Location,st.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity",
+                "Location"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Literal_Number_Integer": [
+                "5000",
+                "10000"
+            ],
+            "Token_Operator": [
+                "<=",
+                "."
+            ]
+        },
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the average and maximum capacities for all stadiums ?",
+        "cypher_query": "MATCH (st:stadium)\nRETURN avg(st.Capacity),max(st.Capacity)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Name_Function": [
+                "avg",
+                "max"
+            ],
+            "Token_Operator": "."
+        },
+        "answers": [
+            [
+                10621.666666666666,
+                52500
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the name and capacity for the stadium with highest average attendance?",
+        "cypher_query": "MATCH (st:stadium)\nRETURN st.Name,st.Capacity\nORDER BY st.Average DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity",
+                "Average"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Stark's Park",
+                10104
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the name and capacity for the stadium with the highest average attendance?",
+        "cypher_query": "MATCH (st:stadium)\nRETURN st.Name,st.Capacity\nORDER BY st.Average DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "st",
+                "Capacity",
+                "Average"
+            ],
+            "Token_Name_Label": "stadium",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "Stark's Park",
+                10104
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "what is the name and nation of the singer who have a song having 'Hey' in its name?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Song_Name =~'.*[H|h]ey.*'\nRETURN si.Name,si.Country",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Song_Name",
+                "Country"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=~"
+            ],
+            "Token_Literal_String": "'.*[H|h]ey.*'"
+        },
+        "answers": [
+            [
+                "Justin Brown",
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the name and country of origin of every singer who has a song with the word 'Hey' in its title?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Song_Name =~'.*[H|h]ey.*'\nRETURN si.Name,si.Country",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Song_Name",
+                "Country"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=~"
+            ],
+            "Token_Literal_String": "'.*[H|h]ey.*'"
+        },
+        "answers": [
+            [
+                "Justin Brown",
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "List the name of singers whose citizenship is not \"France\".",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Citizenship <> 'France'\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'France'"
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ],
+            [
+                "Iris Fontbona"
+            ],
+            [
+                "Jacqueline Mars"
+            ],
+            [
+                "Gina Rinehart"
+            ],
+            [
+                "Susanne Klatten"
+            ],
+            [
+                "Abigail Johnson"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers who are not French citizens?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Citizenship <> 'France'\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'France'"
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ],
+            [
+                "Iris Fontbona"
+            ],
+            [
+                "Jacqueline Mars"
+            ],
+            [
+                "Gina Rinehart"
+            ],
+            [
+                "Susanne Klatten"
+            ],
+            [
+                "Abigail Johnson"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Show the name of singers whose birth year is either 1948 or 1949?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Birth_Year = 1948 OR si.Birth_Year = 1949\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Birth_Year"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=",
+                "OR"
+            ],
+            "Token_Literal_Number_Integer": [
+                "1948",
+                "1949"
+            ]
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers whose birth years are either 1948 or 1949?",
+        "cypher_query": "MATCH (si:singer)\nWHERE si.Birth_Year = 1948 OR si.Birth_Year = 1949\nRETURN si.Name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Birth_Year"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Operator": [
+                ".",
+                "=",
+                "OR"
+            ],
+            "Token_Literal_Number_Integer": [
+                "1948",
+                "1949"
+            ]
+        },
+        "answers": [
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "Please show the most common citizenship of singers.",
+        "cypher_query": "MATCH (si:singer)\nWITH count(si.Citizenship) AS count, si.Citizenship AS Citizenship\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship",
+                "count"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Name_Function": "count",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "United States"
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What is the most common singer citizenship ?",
+        "cypher_query": "MATCH (si:singer)\nWITH count(si.Citizenship) AS count, si.Citizenship AS Citizenship\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "si",
+                "Citizenship",
+                "count"
+            ],
+            "Token_Name_Label": "singer",
+            "Token_Name_Function": "count",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "United States"
+            ]
+        ]
+    },
+    {
+        "db_id": "real_estate_properties",
+        "question": "How many available features are there in total?",
+        "cypher_query": "MATCH (ot:Other_Available_Features)\nRETURN count(*)",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "ot",
+            "Token_Name_Label": "Other_Available_Features",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "answers": [
+            [
+                3
+            ]
+        ]
+    },
+    {
+        "db_id": "real_estate_properties",
+        "question": "What is the feature type name of feature AirCon?",
+        "cypher_query": "MATCH (T1:Other_Available_Features)-[]-(T2:Ref_Feature_Types)\nWHERE T1.feature_name = 'AirCon'\nRETURN T2.feature_type_name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "feature_name",
+                "feature_type_name"
+            ],
+            "Token_Name_Label": [
+                "Other_Available_Features",
+                "Ref_Feature_Types"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'AirCon'"
+        },
+        "answers": [
+            [
+                "Amenity, eg Pool."
+            ]
+        ]
+    },
+    {
+        "db_id": "real_estate_properties",
+        "question": "Show the property type descriptions of properties belonging to that code.",
+        "cypher_query": "MATCH (T1:Properties)-[]-(T2:Ref_Property_Types)\nWITH T2.property_type_description AS property_type_description, count(T1.property_type_code) AS count\nRETURN property_type_description",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "property_type_description",
+                "property_type_code",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "Properties",
+                "Ref_Property_Types"
+            ],
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "answers": [
+            [
+                "House, Bungalow, etc."
+            ],
+            [
+                "Apartment, Flat, Condo, etc."
+            ],
+            [
+                "Field, Meadow."
+            ],
+            [
+                "Other, to be determined."
+            ],
+            [
+                "Shop, Retail Outlet."
+            ]
+        ]
+    },
+    {
+        "db_id": "real_estate_properties",
+        "question": "What are the names of properties that are either houses or apartments with more than 1 room?",
+        "cypher_query": "MATCH (pr:Properties)\nWHERE pr.property_type_code = 'House'\nRETURN pr.property_name  AS property_name \nUNION\nMATCH (pr:Properties)\nWHERE pr.property_type_code = 'Apartment' AND pr.room_count > 1\nRETURN pr.property_name  AS property_name",
+        "parsed_cpypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "AS",
+                "UNION"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n",
+                "  ",
+                " \n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "pr",
+                "property_type_code",
+                "property_name",
+                "room_count"
+            ],
+            "Token_Name_Label": "Properties",
+            "Token_Operator": [
+                ".",
+                "=",
+                "AND",
+                ">"
+            ],
+            "Token_Literal_String": [
+                "'House'",
+                "'Apartment'"
+            ],
+            "Token_Literal_Number_Integer": "1"
+        },
+        "answers": [
+            [
+                "park"
+            ],
+            [
+                "the cole"
+            ],
+            [
+                "parc east"
+            ],
+            [
+                "vogue"
+            ],
+            [
+                "longacre"
+            ],
+            [
+                "renoir"
+            ],
+            [
+                "ten tower"
+            ],
+            [
+                "parc coliseum"
+            ]
+        ]
+    }
+]

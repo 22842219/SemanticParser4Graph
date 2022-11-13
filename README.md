@@ -111,7 +111,7 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 
    ```shell
    cd application/rel_db2kg
-   python schema2graph.py
+   python schema2graph.py --spider
 
    ```
 

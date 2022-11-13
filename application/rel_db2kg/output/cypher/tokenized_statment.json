@@ -3,9 +3,7 @@
             "MATCH",
             "WHERE",
             "RETURN",
-            "Name",
             "AS",
-            "name",
             "UNION"
       ],
       "Token_Text_Whitespace": [
@@ -17,27 +15,24 @@
       "Token_Punctuation": [
             "(",
             ":",
-            ")",
-            ")-[",
-            "]-("
+            ")"
       ],
       "Token_Name_Variable": [
-            "p",
-            "Cost",
-            "T1",
-            "T2",
-            "T3"
+            "pr",
+            "property_type_code",
+            "property_name",
+            "room_count"
       ],
-      "Token_Name_Label": [
-            "Procedures",
-            "Physician",
-            "Trained_In"
-      ],
+      "Token_Name_Label": "Properties",
       "Token_Operator": [
             ".",
-            ">",
-            "="
+            "=",
+            "AND",
+            ">"
       ],
-      "Token_Literal_Number_Integer": "1000",
-      "Token_Literal_String": "\"John Wen\""
+      "Token_Literal_String": [
+            "'House'",
+            "'Apartment'"
+      ],
+      "Token_Literal_Number_Integer": "1"
 }
