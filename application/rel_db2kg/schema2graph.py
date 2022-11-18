@@ -525,7 +525,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
                 
                         if table.check_compound_pk:    
-                            cypher_query =  "match (n:{}) where n.{}={} return n".format(ref_table, ref_column, value)
+                            cypher_query =  "match (n:`{}.{}`) where n.{}={} return n".format(db.db_name, ref_table, ref_column, value)
                             matched = self.graph.run(cypher_query).data()
                             # print(f'cypher_query: {cypher_query}')
                             # print(f'matched: {matched, len(matched)}')
@@ -689,10 +689,12 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 self.build_schema_nodes(tx)
             print("************Start building graph directly from relational table schema****************")
             if not drop_flag:
+                # test
+                # if db.db_name == 'department_management':
                 self.table2nodes(db, tx)
                 self.table2edge(db)
                 self.build_subgraph(db)
-    
+        
             
             
 
