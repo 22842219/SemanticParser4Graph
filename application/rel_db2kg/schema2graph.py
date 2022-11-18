@@ -261,76 +261,77 @@ class RelDBDataset:
         for i, db_path in enumerate(paths):
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
-            # test
-            if db_name:
-                # create realational database object.
-                rel_db_object = RelDB(fdb = db_path, db_name=db_name)
-                # engine = rel_db_object.engine
-                table_infos = rel_db_object.engine.get_table_names()
-                for table_info in table_infos:
-                    table_name = table_info[0]
-                    # Export tables to neo4j/import as csv files.                           
-                    table_records = rel_db_object.engine.get_table_values(table_name)
-                    table_headers = [desc[0] for desc in table_records.description]    
-                    print(f'table_name: {table_name}, table_headers {table_headers}' )
+            drop_flag = False
+            # create realational database object.
+            rel_db_object = RelDB(fdb = db_path, db_name=db_name)
+            # engine = rel_db_object.engine
+            table_infos = rel_db_object.engine.get_table_names()
+            for table_info in table_infos:
+                table_name = table_info[0]
+                # Export tables to neo4j/import as csv files.                           
+                table_records = rel_db_object.engine.get_table_values(table_name)
+                table_headers = [desc[0] for desc in table_records.description]    
+                print(f'table_name: {table_name}, table_headers {table_headers}' )
 
-                    df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
-                    # Drop duplicate rows in place.
-                    df.drop_duplicates(inplace=True)
-                    data = df.transpose().to_dict().values()  # to keep the origial data types.
+                df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
+                # Drop duplicate rows in place.
+                df.drop_duplicates(inplace=True)
+                data = df.transpose().to_dict().values()  # to keep the origial data types.
 
-                    if table_headers == None:
-                        self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
-                        continue 
-
-                    # create table object. Note: one file w.r.t. one table object. 
-                    table_object = RelTable(table_name=table_name, table_headers=table_headers)
-
-                    # Check if relational table. If yes, then we rewrite the table name starting with
-                    table_constraints, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
-                    primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
-
-
-                    # Create a dictionary {table_name:table_headers}
-                    rel_db_object.tables_headers[table_name] = table_headers
-
-                    check_compound_pk =  rel_db_object.engine.check_compound_pk(primary_keys)
-                    # Create a dictionary {table_name:pks},
-                    if not check_compound_pk:
-                        rel_db_object.tables_pks[table_name] = primary_keys[0][0]
-                    else:
-                        rel_db_object.tables_pks[table_name] = [pk[0] for pk in primary_keys]
-
-                    table_object.table_constraints = table_constraints
-                    table_object.check_compound_pk = check_compound_pk
+                #NOTE: for statistics and data filtering
+                content_statistics.append((db_name, table_name, len(data)))
+                if len(data)>=4000:  # we set a threshold for the experiments.
+                    filter_list.append((db_name, table_name, len(data)))
+                    filter_dbs.append(db_name)
+                    drop_flag=True
                     
-                    # create table header category in the format of table_header -> table_name -> db_name. 
-                    if table_headers:
-                        
-                        entity_ref = TableSchema(
-                                db_name, table_name, table_headers
-                            )
-                        rel_db_object.add_schema(entity_ref)
+    
+                #NOTE: for statistics and data filtering
 
-                        #NOTE: for statistics and data filtering
-                        content_statistics.append((db_name, table_name, len(data)))
-                        if len(data)>=10000:  # we set a threshold for the experiments.
-                            filter_list.append((db_name, table_name, len(data)))
-                            filter_dbs.append(db_name)
-                            continue
-                        if db_name in filter_dbs:
-                            continue
-                        #NOTE: for statistics and data filtering
 
-                        for row in data:
-                            table_row = {k: row[k] for k in row}                
-                            table_object.add_row( row_dict=table_row)
-                        rel_db_object.add_tables(table_object)
-                rel_dbs.append(rel_db_object)
-        with open('/Users/ziyuzhao/Desktop/SemanticParser4Graph/application/rel_db2kg/filter_list', 'w') as f:
+                if table_headers == None:
+                    self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
+                    continue 
+
+                # create table object. Note: one file w.r.t. one table object. 
+                table_object = RelTable(table_name=table_name, table_headers=table_headers)
+
+                # Check if relational table. If yes, then we rewrite the table name starting with
+                table_constraints, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
+                primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
+
+
+                # Create a dictionary {table_name:table_headers}
+                rel_db_object.tables_headers[table_name] = table_headers
+
+                check_compound_pk =  rel_db_object.engine.check_compound_pk(primary_keys)
+                # Create a dictionary {table_name:pks},
+                if not check_compound_pk:
+                    rel_db_object.tables_pks[table_name] = primary_keys[0][0]
+                else:
+                    rel_db_object.tables_pks[table_name] = [pk[0] for pk in primary_keys]
+
+                table_object.table_constraints = table_constraints
+                table_object.check_compound_pk = check_compound_pk
+                
+                # create table header category in the format of table_header -> table_name -> db_name. 
+                if table_headers:
+                    
+                    entity_ref = TableSchema(
+                            db_name, table_name, table_headers
+                        )
+                    rel_db_object.add_schema(entity_ref)
+                    for row in data:
+                        table_row = {k: row[k] for k in row}                
+                        table_object.add_row( row_dict=table_row)
+                    rel_db_object.add_tables(table_object)
+            rel_dbs.append((drop_flag, rel_db_object))
+    
+       
+        with open('/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/filter_list', 'w') as f:
             for line in filter_list:
                 f.write(f"{line}\n")
-        with open('/Users/ziyuzhao/Desktop/SemanticParser4Graph/application/rel_db2kg/content_statistics', 'w') as f:
+        with open('/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/content_statistics', 'w') as f:
             for line in content_statistics:
                 f.write(f"{line}\n")
         
@@ -435,7 +436,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     # e.g., in musical.db, the table `musical` is the case.
                     for i, row_dict in enumerate(table.rows):
                         print(row_dict)
-                        r = Node(table.table_name,**row_dict)
+                        r = Node('{}.{}'.format(db.db_name, table.table_name), **row_dict)
                         print("row node:", r)
                         tx.create(r)
             
@@ -548,7 +549,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             
                                 if len(matched_nodes) ==2:
                                     # class py2neo.data.Relationship(start_node, type, end_node, **properties)
-                                    rel = Relationship(matched_nodes[0]['n'], table_name, matched_nodes[1]['n'], **row_dict) 
+                                    rel = Relationship(matched_nodes[0]['n'], '{}.{}'.format(db.db_name, table_name), matched_nodes[1]['n'], **row_dict) 
                                     tx.create(rel)
                                     
         self.graph.commit(tx)
@@ -622,7 +623,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         
                             # TODO: if type(row_dict[this_column]) ==str:
                             if table_name!=ref_table:
-                                cypher_query =  "match (m:{})-[r]-(n:{}) return r".format(table_name, ref_table)
+                                cypher_query =  "match (m:`{}.{}`)-[r]-(n:`{}.{}`) return r".format(db.db_name, table_name, db.db_name, ref_table)
                                 returned_rels = self.graph.run(cypher_query).data()
                                 print(f'cypher_query: {cypher_query}, db_name: {db.db_name}')
                                 print(f'returned_rels: {returned_rels}, db_name: {db.db_name}')
@@ -630,17 +631,17 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                 if len(returned_rels)==0:
                                     # NOTE: deal with many-to-one mapping, or one-to-many mapping. 
                                     print("----------------------------------------------debug------------------------------------------------------")
-                                    matching_query =  "match (m:{}) match (n:{}) where m.{}={} and n.{}={} return m, n".format(table_name, ref_table, \
+                                    matching_query =  "match (m:`{}.{}`) match (n:`{}.{}`) where m.{}={} and n.{}={} return m, n".format(db.db_name, table_name, db.db_name, ref_table, \
                                     this_column, value,  ref_column, value)
                                     returned_nodes = self.graph.run(matching_query).data()
                                     for matching in returned_nodes:
-                                        rel_type = '{}_HAS_{}'.format(table_name.capitalize(), ref_table.capitalize())
+                                        rel_type = '{}.{}_HAS_{}.{}'.format(db.db_name, table_name.capitalize(), db.db_name, ref_table.capitalize())
                                         rel = Relationship(matching['m'], rel_type, matching['n'])
                                         tx.create(rel)
                                         print(rel)
                        
                         if table.check_compound_pk:
-                            cypher_query =  "match (n:{}) where n.{}={} return n".format(ref_table, ref_column, value)
+                            cypher_query =  "match (n:`{}.{}`) where n.{}={} return n".format(db.db_name, ref_table, ref_column, value)
                             matched = self.graph.run(cypher_query).data()
                             # print(f'cypher_query: {cypher_query}')
                             # print(f'matched: {matched, len(matched)}')
@@ -665,11 +666,11 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                 if len(matched_nodes) !=2:
                                     # TODO: A place holder for hyper graph, where each row of this table is a hyper edge? 
                                     # NOTE: It is supposed to a hyper_edge, but Neo4j can not visulize hyper edges, so we refer each hyper edge as a graph node. 
-                                    hyper_node = Node(table.table_name,**row_dict) 
+                                    hyper_node = Node('{}.{}'.format(db.db_name, table.table_name), **row_dict) 
                                     print(f'table_name: {table_name}, potential_hyper_node?: {hyper_node}')
                                     tx.create(hyper_node)
                                     for node in matched_nodes:
-                                        rel = Relationship(hyper_node, '{}_HAS_{}'.format(table_name.capitalize(), ref_table.capitalize()), node['n']) 
+                                        rel = Relationship(hyper_node, '{}.{}_HAS_{}.{}'.format(db.db_name, table_name.capitalize(), db.db_name, ref_table.capitalize()), node['n']) 
                                         tx.create(rel)
                                             
                 
@@ -680,16 +681,17 @@ class RelDB2KGraphBuilder(RelDBDataset):
         tx = self.tx
        
         
-        for i, db in enumerate(self.dataset.rel_dbs):          
-
+        for i, rel_db in enumerate(self.dataset.rel_dbs):          
+            (drop_flag, db) = rel_db
             if i==0:
                 # Note: i is the index of relational database. 
                 self.graph.delete_all()
                 self.build_schema_nodes(tx)
             print("************Start building graph directly from relational table schema****************")
-            self.table2nodes(db, tx)
-            self.table2edge(db)
-            self.build_subgraph(db)
+            if not drop_flag:
+                self.table2nodes(db, tx)
+                self.table2edge(db)
+                self.build_subgraph(db)
     
             
             

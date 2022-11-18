@@ -1,32 +1,12 @@
 
 from __future__ import with_statement
-from ast import arg
-from itertools import count
-from numbers import Rational
 import os, sys
-import string
 import re
-from tabnanny import check
-from time import sleep
-from flask import g
-from idna import InvalidCodepointContext
 from moz_sql_parser import parse
 import json
-from numpy import TooHardError, disp
-
-from pandas import isna
-from psycopg2 import OperationalError
-from sklearn import metrics
-
 from sqlalchemy import table
-from torch import init_num_threads, isin, norm, norm_except_dim
-from transformers import TFFlaubertForQuestionAnsweringSimple
 
-
-
-from moz_sql_parser.keywords import PARTITION
 from mo_future import text, string_types
-
 
 # to add the module path
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
@@ -1394,11 +1374,11 @@ def main():
 	filenames = config["FILENAMES"]
 
 	raw_data_folder = filenames['raw_folder']
-	sp_folder = filenames['sp_folder']
+	root = filenames['root']
+	sp_data_folder = os.path.join(root, 'semantic_parser', 'data')
 
 	raw_spider_folder = os.path.join(raw_data_folder, 'spider')
 
-	spider_json_folder = os.path.join(raw_data_folder, 'spider')
 	# spider_lookup_up= os.path.join(sp_folder, 'spider', 'lookup_dict.json')
 
 	neo4j_uri = filenames['neo4j_uri']
@@ -1410,34 +1390,34 @@ def main():
 
 	db_folder = os.path.join(raw_spider_folder,  'database')
 	db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
-	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_folder)
+	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_data_folder)
 
 
-	with open('/Users/ziyuzhao/Desktop/SemanticParser4Graph/application/rel_db2kg/content_statistics') as f:
+	with open(os.path.join(root, 'application', 'rel_db2kg', 'content_statistics')) as f:
 		graph_db_list = []
 		for line in f.readlines():
 			line = [i.strip('()\'') for i in line.split(',')]
 			if line[0] not in graph_db_list:
 				graph_db_list.append(line[0])
 
-	metrics_file = '/Users/ziyuzhao/Desktop/SemanticParser4Graph/application/rel_db2kg/metrics'
+	metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics')
 
 	
 	# Output folder path
-	sp_out_folder = os.path.join(sp_folder, 'spider')  
+	sp_out_folder = os.path.join(sp_data_folder, 'spider')  
 
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
 
 	for split in ['train', 'dev']:
    
-		json_file = os.path.join(spider_json_folder, '{}.json'.format(split))
+		json_file = os.path.join(raw_spider_folder, '{}.json'.format(split))
 		# print(json_file)
 		f = open(json_file)
 		data = json.load(f)
 
 		# # test output file
-		# cypher_file_musical  = os.path.join(spider_json_folder, '{}_{}_cypher.json'.format('musical', split))
+		# cypher_file_musical  = os.path.join(raw_spider_folder, '{}_{}_cypher.json'.format('musical', split))
 
 		correct_qa_pairs = []      
 		incorrect_qa_pairs = []
