@@ -23,14 +23,6 @@ from py2neo import Graph
 from py2neo.matching import *
 from py2neo.data import Node, Relationship
 from environs import Env
-import configparser
-config = configparser.ConfigParser()
-config.read('../config.ini')
-filenames = config["FILENAMES"]
-env_file = filenames['env_file']
-env = Env()
-env.read_env(env_file)
-graph = Graph(password=env("GRAPH_PASSWORD"))
 
 
 

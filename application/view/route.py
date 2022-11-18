@@ -38,6 +38,7 @@ def load_config():
     :return: new CLI config
     """
     parser = ConfigParser()
+
     parser.read(os.getcwd() + '/conf/db.ini')
     db = parser['current']['db']
     output_only = parser['export']['export_method']
