@@ -11,21 +11,20 @@
       "Token_Punctuation": [
             "(",
             ":",
-            ")"
+            ")",
+            ")-[",
+            "]-("
       ],
       "Token_Name_Variable": [
-            "musical",
-            "Award",
-            "Nominee"
+            "assets",
+            "asset_model"
       ],
-      "Token_Name_Label": "`musical.musical`",
+      "Token_Name_Label": [
+            "`assets_maintenance.Assets`",
+            "`assets_maintenance.Fault_Log`"
+      ],
       "Token_Operator": [
-            ".",
-            "=",
-            "OR"
-      ],
-      "Token_Literal_String": [
-            "'Tony Award'",
-            "'Cleavant Derricks'"
+            "NOT",
+            "."
       ]
 }

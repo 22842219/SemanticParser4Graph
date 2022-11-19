@@ -950,26 +950,6 @@
     "num_of_rows": 8
   },
   {
-    "db_name": "orchestra",
-    "table_name": "conductor",
-    "num_of_rows": 12
-  },
-  {
-    "db_name": "orchestra",
-    "table_name": "orchestra",
-    "num_of_rows": 12
-  },
-  {
-    "db_name": "orchestra",
-    "table_name": "performance",
-    "num_of_rows": 11
-  },
-  {
-    "db_name": "orchestra",
-    "table_name": "show",
-    "num_of_rows": 5
-  },
-  {
     "db_name": "pets_1",
     "table_name": "Student",
     "num_of_rows": 34
@@ -1662,6 +1642,26 @@
   {
     "db_name": "company_employee",
     "table_name": "employment",
+    "num_of_rows": 5
+  },
+  {
+    "db_name": "orchestra",
+    "table_name": "conductor",
+    "num_of_rows": 12
+  },
+  {
+    "db_name": "orchestra",
+    "table_name": "orchestra",
+    "num_of_rows": 12
+  },
+  {
+    "db_name": "orchestra",
+    "table_name": "performance",
+    "num_of_rows": 11
+  },
+  {
+    "db_name": "orchestra",
+    "table_name": "show",
     "num_of_rows": 5
   },
   {

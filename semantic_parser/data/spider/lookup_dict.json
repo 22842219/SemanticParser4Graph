@@ -1451,39 +1451,6 @@
             "screen_mode"
         ]
     },
-    "orchestra": {
-        "conductor": [
-            "Conductor_ID",
-            "Name",
-            "Age",
-            "Nationality",
-            "Year_of_Work"
-        ],
-        "orchestra": [
-            "Orchestra_ID",
-            "Orchestra",
-            "Conductor_ID",
-            "Record_Company",
-            "Year_of_Founded",
-            "Major_Record_Format"
-        ],
-        "performance": [
-            "Performance_ID",
-            "Orchestra_ID",
-            "Type",
-            "Date",
-            "Official_ratings_(millions)",
-            "Weekly_rank",
-            "Share"
-        ],
-        "show": [
-            "Show_ID",
-            "Performance_ID",
-            "If_first_show",
-            "Result",
-            "Attendance"
-        ]
-    },
     "pets_1": {
         "Student": [
             "StuID",
@@ -2426,6 +2393,39 @@
             "Company_ID",
             "People_ID",
             "Year_working"
+        ]
+    },
+    "orchestra": {
+        "conductor": [
+            "Conductor_ID",
+            "Name",
+            "Age",
+            "Nationality",
+            "Year_of_Work"
+        ],
+        "orchestra": [
+            "Orchestra_ID",
+            "Orchestra",
+            "Conductor_ID",
+            "Record_Company",
+            "Year_of_Founded",
+            "Major_Record_Format"
+        ],
+        "performance": [
+            "Performance_ID",
+            "Orchestra_ID",
+            "Type",
+            "Date",
+            "Official_ratings_(millions)",
+            "Weekly_rank",
+            "Share"
+        ],
+        "show": [
+            "Show_ID",
+            "Performance_ID",
+            "If_first_show",
+            "Result",
+            "Attendance"
         ]
     },
     "car_1": {

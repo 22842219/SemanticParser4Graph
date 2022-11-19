@@ -1432,7 +1432,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			
-			if db_name in graph_db_list:
+			if db_name in ['assets_maintenance']:
 				print(f'db: {db_name}')
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
@@ -1451,7 +1451,8 @@ def main():
 				
 
 				# 2. Access database, execute SQL query and get result.              
-				db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))   
+				db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))  
+				print(db_path) 
 				engine = DBengine(db_path)
 				sql_result = []
 				try:
