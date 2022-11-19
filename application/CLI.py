@@ -7,7 +7,7 @@ from ConvertDB import ConvertDB
 from configparser import ConfigParser, ParsingError, NoSectionError
 from unsw.SQLParser import SQLParser
 import jsonlines
-
+from py2neo import Graph
 
 from rel_db2kg.sql2cypher import Formatter
 
@@ -19,6 +19,11 @@ sp_folder = filenames['sp_folder']
 
 spider_json_folder = os.path.join(raw_data_folder, 'spider')
 spider_lookup_up = os.path.join(sp_folder, 'spider', 'lookup_dict.json')
+
+neo4j_uri = filenames['neo4j_uri']
+neo4j_user = filenames['neo4j_user']
+neo4j_password = filenames['neo4j_password']
+graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
 class CLI:
     _config_path = "conf/db.ini"
@@ -120,9 +125,10 @@ class CLI:
         if  self.db_name == 'sqlite3':
             sqlite3_config = config['sqlite3']
             all_table_fields = spider_lookup_dict[sqlite3_config['database']]
+           
         parsed_sql = parse(sql_query)	
         print(parsed_sql)
-        formatter  = Formatter(all_table_fields)
+        formatter  = Formatter( sqlite3_config['database'], all_table_fields, graph)
         sql2cypher = formatter.format(parsed_sql)
         print("sql2cypher:", sql2cypher)
         return sql2cypher
