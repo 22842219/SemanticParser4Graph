@@ -211,7 +211,7 @@ class Formatter(SchemaGroundedTraverser):
 	# _nin = Operator('NOT')
 	# _count = Operator('count')
 
-	def __init__(self, db_lookup_dict: dict, graph, in_execution_order = True, verbose = False ):
+	def __init__(self, db_name, db_lookup_dict: dict, graph, in_execution_order = True, verbose = False ):
 		super().__init__( verbose)
 
 		'''
@@ -233,6 +233,7 @@ class Formatter(SchemaGroundedTraverser):
 
 		'''
 		# self.schema = schema
+		self.db_name = db_name
 		self.in_execution_order = in_execution_order
 		self.db_lookup_dict = db_lookup_dict
 		self.logger =Logger()
@@ -308,16 +309,18 @@ class Formatter(SchemaGroundedTraverser):
 													print(f'sub_match_partszzy {sub_match_parts}')
 													for i, path in enumerate(sub_match_parts):
 														table_key, tb = path.split(":")
+
 														is_rel_table, tb = self.rel_table_check_and_normalization(tb)
+													
 														# # check value condition
 														if table_key in nested_where_conditioned:
 															tb = '{} {}'.format(tb, nested_where_conditioned[table_key])
 														if is_rel_table:
-															sub_query_where.append('-[:{}]-'.format(tb)) # NOTE: SHOULD NOT HAVE NODE VARIABLE
+															sub_query_where.append('-[:`{}.{}`]-'.format(self.db_name, tb)) # NOTE: SHOULD NOT HAVE NODE VARIABLE
 															if i==len(sub_match_parts)-1:
 																sub_query_where.append('()')
 														else:
-															sub_query_where.append('(:{})'.format(tb)) # NOTE: SHOULD NOT HAVE NODE VARIABLE
+															sub_query_where.append('(:`{}.{}`)'.format(self.db_name, tb)) # NOTE: SHOULD NOT HAVE NODE VARIABLE
 												
 													if not is_rel_table:
 														sub_query_where = '-[]-'.join(sub_query_where)										
@@ -422,7 +425,7 @@ class Formatter(SchemaGroundedTraverser):
 				table_key = list(self.table_alias_lookup.keys())[idx]
 			else:
 				
-				table_key = tb_name.lower()[:2]
+				table_key = tb_name.lower()
 		
 		tfms = [fm.lower() for fm in lookup_fields]
 		for idx, tfm in enumerate(tfms):
@@ -437,7 +440,7 @@ class Formatter(SchemaGroundedTraverser):
 		print("*****************rel_table_check_and_normalization*****************")
 		is_rel_table=False
 		if '.' in tb_name:
-			table_key, tb_name = tb_name.split('.')
+			_, tb_name = tb_name.strip('`').split('.')
 		if tb_name.startswith('rel_'):
 			is_rel_table = True
 			tb_name = tb_name[4:]
@@ -597,9 +600,9 @@ class Formatter(SchemaGroundedTraverser):
 				if '.' in table_name:
 					table_key, table_name = table_name.split('.')	
 				else:
-					table_key= table_name.lower()[:2]
+					table_key= table_name.lower()
 				is_rel_table, tb = self.rel_table_check_and_normalization(table_name)
-				
+				# print(f'is_rel_table: {is_rel_table}, tb: {tb}')
 				self.table_alias_lookup.update({table_key:tb})
 
 			joint_conds = []
@@ -607,18 +610,25 @@ class Formatter(SchemaGroundedTraverser):
 				for join_key in sql_join_keywords:
 					if join_key in every:
 						is_join = True	
-				if is_join:
+
+			if is_join:
+				for every in from_:
 					for conjuntor in ['and', 'or']:
-						if conjuntor in every['on']:
+						if 'on' in every and conjuntor in every['on']:
 							is_join = False
 							is_conjuntor = True
 							joint_conds.append(self.dispatch(every['on'])) # e.g., hospital_1, id: 3935
 
 					if not is_conjuntor:
-						conds = every['on']['eq']
-						for joint_on in conds:
-							alias, _ = joint_on.split('.')
-							joint_conds.append(alias)
+						if 'on' in every:
+							conds = every['on']['eq']
+							for joint_on in conds:
+								alias, _ = joint_on.split('.')
+								joint_conds.append(alias)
+						elif 'name' in every:
+							joint_conds.append(every['name'])
+						elif 'join' in every and 'name' in every['join']:
+							joint_conds.append(every['join']['name'])
 				
 			
 			print(f'table_alias_lookup: {self.table_alias_lookup}, joint_conds: {joint_conds}')
@@ -652,7 +662,7 @@ class Formatter(SchemaGroundedTraverser):
 							# In case, edge is mentioned in the first place.
 							reformat_parts.append('()')
 
-						pattern = '-[{}:{}]-'.format(alias, joint_table)
+						pattern = '-[{}:`{}.{}`]-'.format(alias, self.db_name, joint_table)
 						is_rel_table = False
 						reformat_parts.append(pattern)
 
@@ -665,7 +675,7 @@ class Formatter(SchemaGroundedTraverser):
 					else:
 					
 						# graph node pattern
-						pattern = '({}:{})'.format(alias, joint_table)	
+						pattern = '({}:`{}.{}`)'.format(alias, self.db_name, joint_table)	
 						reformat_parts.append(pattern)
 						edge_pattern = '-[]-'
 						reformat_parts.append(edge_pattern)
@@ -684,19 +694,23 @@ class Formatter(SchemaGroundedTraverser):
 						if i == len(parts)-1:
 							# Case: (T1:)-[]-(T2)
 							reformat_parts.pop()
-							# print(f'joint_tb_alias: { joint_tb_alias}')
+							# print(f'joint_tb_alias: { joint_tb_alias}, joint_conds:{joint_conds}')
 							if no_exist_rel:
 								reformat_parts = []
-								inserted_position_ids = -1
+								iterating_idx = -1
 								# example (id: 3951) in hospital_1, (T3:Stay)-[]-(T1:Undergoes)-[]-(T2:Patient)
 								for i, key in enumerate(joint_conds): # e.g., ['T1', 'T2', 'T1', 'T3']
-									# print(key, inserted_position_ids, joint_tb_alias[key], reformat_parts)
-									if inserted_position_ids!=-1:
-										reformat_parts.insert(inserted_position_ids, joint_tb_alias[key])
-									elif joint_tb_alias[key] not in reformat_parts and inserted_position_ids==-1:
+									# print(key, iterating_idx, joint_tb_alias[key], reformat_parts)
+									if iterating_idx!=-1:
+										if iterating_idx<len(reformat_parts)-1:
+											reformat_parts.insert(iterating_idx, joint_tb_alias[key])
+										else:
+											reformat_parts.insert(iterating_idx+1, joint_tb_alias[key])
+									elif joint_tb_alias[key] not in reformat_parts and iterating_idx==-1:
 										reformat_parts.append(joint_tb_alias[key])
 									elif joint_tb_alias[key] in reformat_parts: 
-										inserted_position_ids = reformat_parts.index(joint_tb_alias[key])
+										iterating_idx = reformat_parts.index(joint_tb_alias[key])
+									
 									
 
 
@@ -716,14 +730,14 @@ class Formatter(SchemaGroundedTraverser):
 					if '.' in part:
 						alias, _= part.split('.')
 					else:
-						alias = table_name.lower()[:2]
+						alias = table_name.lower()
 
 					if i==0 and i==len(parts)-1 and is_rel_table: # only mention one graph edge
 						# reformat_parts= '()-[{}:{}]-()'.format(alias, table_name)
-						return 'MATCH {}'.format('()-[{}:{}]-()'.format(alias, table_name))	
+						return 'MATCH {}'.format('()-[{}:`{}.{}`]-()'.format(alias, self.db_name, table_name))	
 
 					elif not is_rel_table: # onely mention one graph node
-						reformat_parts.append('({}:{})'.format(alias, table_name))
+						reformat_parts.append('({}:`{}.{}`)'.format(alias, self.db_name, table_name))
 
 				if is_conjuntor:
 					reformat_parts = ' MATCH '.join(reformat_parts)
@@ -920,8 +934,10 @@ class Formatter(SchemaGroundedTraverser):
 							in_field, table = self.in_field(select_field)
 							print(f' in_field: {in_field}, table: {table}')
 
-						# is_rel_table, table = self.rel_table_check_and_normalization(table)	
-						# print(f' is_rel_table?: {is_rel_table}, table: {table}')
+						is_rel_table, table = self.rel_table_check_and_normalization(table)	
+						print(f' is_rel_table?: {is_rel_table}, table: {table}')
+						if is_rel_table:
+							table = 'rel_{}'.format(table)
 						normalized_field = self.normalize_mentioned_field(select_field, table, self.db_lookup_dict[table])	
 						print(f'  normalized_field: {normalized_field}')
 						
@@ -1422,7 +1438,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			
-			if db_name in  ['musical', 'hospital_1', 'department_management', 'assets_maintenance', 'concert_singer', 'real_estate_properties', 'singer']:
+			if db_name:
 				print(f'db: {db_name}')
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
@@ -1445,9 +1461,10 @@ def main():
 				engine = DBengine(db_path)
 				sql_result = []
 				try:
-					for res in  engine.execute(sql_query).fetchall():
-						if list(res) not in sql_result:
-							sql_result.append(list(res) )
+					# for res in  engine.execute(sql_query).fetchall():
+					# 	if list(res) not in sql_result:
+					# 		sql_result.append(list(res) )
+					sql_result = engine.execute(sql_query).fetchall()
 				except:
 					logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_query))
 					continue
@@ -1470,7 +1487,7 @@ def main():
 					print(f'parsed_sql: {parsed_sql}')
 
 					try:
-						formatter  = Formatter( all_table_fields, graph)
+						formatter  = Formatter( db_name, all_table_fields, graph)
 						sql2cypher = formatter.format(parsed_sql)
 						print("**************Cypher Query***************")
 						print(sql2cypher)
@@ -1485,15 +1502,16 @@ def main():
 							cypher_res = graph.run(sql2cypher).data()
 							cypher_ans = []
 							for dict_ in cypher_res:
-								if list(dict_.values()) not in cypher_ans:
-									cypher_ans.append(list(dict_.values()))
+								# if tuple(dict_.values()) not in cypher_ans:
+								cypher_ans.append(tuple(dict_.values()))
 			
 							# sort results for the comparision
 							cypher_sorted = sorted(cypher_ans, key=lambda x: x[0])
 							sql_sorted =  sorted(sql_result, key=lambda x: x[0]) 
+							# print(f'sql_sorted: {sql_sorted}')
+							# print(f'cypher_sorted: {cypher_sorted}')
 
-							if cypher_sorted == sql_sorted:
-			
+							if not set(cypher_sorted)-set(sql_sorted):
 								print(f'correct_ans: {cypher_ans}') 
 								correct_qa_pairs.append({'db_id':db_name, 'question':question, \
 								'cypher_query':sql2cypher, 'parsed_cpypher':tokenized_statment, \
