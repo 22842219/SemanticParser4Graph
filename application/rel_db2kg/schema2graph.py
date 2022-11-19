@@ -12,7 +12,7 @@ from environs import Env
 from fire import Fire
 
 
-from utils import Logger
+from utils import Logger, save2json
 import sqlite3
 import pandas as pd
 
@@ -262,8 +262,8 @@ class RelDBDataset:
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             drop_flag = False
-            # test
-        # if db_name == 'assets_maintenance':
+        # test
+        # if db_name in ['department_management', 'musical']:
             # create realational database object.
             rel_db_object = RelDB(fdb = db_path, db_name=db_name)
             # engine = rel_db_object.engine
@@ -280,10 +280,15 @@ class RelDBDataset:
                 # df.drop_duplicates(inplace=True)
                 data = df.transpose().to_dict().values()  # to keep the origial data types.
 
-                #NOTE: for statistics and data filtering
-                content_statistics.append((db_name, table_name, len(data)))
-                if len(data)>=4000:  # we set a threshold for the experiments.
-                    filter_list.append((db_name, table_name, len(data)))
+                #NOTE: for statistics and data filtering            
+                every = {}  
+                every['db_name'] = db_name
+                every['table_name']= table_name
+                every['num_of_rows'] = len(data)
+                if every not in content_statistics:
+                    content_statistics.append(every)
+                if len(data)>4000:  # we set a threshold for the experiments.
+                    filter_list.append(every)
                     filter_dbs.append(db_name)
                     drop_flag=True
                     
@@ -330,12 +335,9 @@ class RelDBDataset:
             rel_dbs.append((drop_flag, rel_db_object))
     
         
-        with open('/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/filter_list', 'w') as f:
-            for line in filter_list:
-                f.write(f"{line}\n")
-        with open('/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/content_statistics', 'w') as f:
-            for line in content_statistics:
-                f.write(f"{line}\n")
+
+        save2json(content_statistics, '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/content_statistics.json')
+        save2json(filter_list, '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/filter_list.json')
         
 
         return rel_dbs
@@ -523,7 +525,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             print(f'matched: {matched, len(matched)}')
                             
                             if matched:
-                                matched_nodes.extend(matched[0])
+                                print(f'matched[0]: {matched[0]}')
+                                matched_nodes.extend([matched[0]])
+                                print(matched_nodes, len(matched_nodes))
                             # else:
                             #     self.logger.error("There are multiple matched graph nodes {} when building graph edge, \
                             #     regarding {} table in {} database.".format(matched, table_name, db.db_name))  
@@ -553,7 +557,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                         rel = Relationship(matching['m'], rel_type, matching['n'])
                                         tx.create(rel)
                                         print(rel)
-                        
+                    
+                    print(matched_nodes, len(matched_nodes))
                     if len(matched_nodes) ==2:
                         # Case: a whole table is turned into graph edges, 
                         # e.g., in department_management.db, the table `management` is the case, 
@@ -563,7 +568,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         # come from other tables, which means other tables should be sucessfully turned into 
                         # graph components already. 
                         # To solve this problem, I retrive the whole database a second time. 
-                        # print(matched_nodes, len(matched_nodes))
+                      
                         
                         # class py2neo.data.Relationship(start_node, type, end_node, **properties)
                         print(f'********************************Building graph edge directly from {table_name}.***************************')   
@@ -574,12 +579,17 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         print(f'********************Building curate graph from the contraints of {table_name}.***********************')   
                         # TODO: A place holder for hyper graph, where each row of this table is a hyper edge? 
                         # NOTE: It is supposed to a hyper_edge, but Neo4j can not visulize hyper edges, so we refer each hyper edge as a graph node. 
-                        hyper_node = Node('{}.{}'.format(db.db_name, table.table_name), **row_dict) 
-                        print(f'table_name: {table_name}, potential_hyper_node?: {hyper_node}')
-                        tx.create(hyper_node)
-                        for node in matched_nodes:
-                            rel = Relationship(hyper_node, '{}.{}_HAS_{}.{}'.format(db.db_name, table_name.capitalize(), db.db_name, ref_table.capitalize()), node['n']) 
-                            tx.create(rel)  
+                        checking_nodes_query =  "match (n:`{}.{}`)  return n".format(db.db_name, table.table_name)
+                        checking_res = self.graph.run(checking_nodes_query).data()
+                        # print(f'checking_nodes_query: {checking_nodes_query}')
+                        # print(f'matched: {checking_res, len(checking_res)}')
+                        if not checking_res:
+                            hyper_node = Node('{}.{}'.format(db.db_name, table.table_name), **row_dict) 
+                            print(f'table_name: {table_name}, potential_hyper_node?: {hyper_node}')
+                            tx.create(hyper_node)
+                            for node in matched_nodes:
+                                rel = Relationship(hyper_node, '{}.{}_HAS_{}.{}'.format(db.db_name, table_name.capitalize(), db.db_name, ref_table.capitalize()), node['n']) 
+                                tx.create(rel)  
 
             
         self.graph.commit(tx)
@@ -599,11 +609,11 @@ class RelDB2KGraphBuilder(RelDBDataset):
             print("************Start building graph directly from relational table schema****************")
             if not drop_flag:
                 # test
-                # if db.db_name == 'department_management':
+                # if db.db_name in ['department_management', 'musical']:
                 self.table2nodes(db, tx)
                 self.build_graph_components(db)
             
-            
+        
 
      
             

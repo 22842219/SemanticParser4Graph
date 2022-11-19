@@ -15,7 +15,7 @@ sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR)))
 import utils as utils
 from traverser import SchemaGroundedTraverser
 from sql_keywords import sql_join_keywords
-from utils import Logger
+from utils import Logger, read_json
 
 from schema2graph import DBengine
 
@@ -1400,15 +1400,9 @@ def main():
 	db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_data_folder)
 
-
-	with open(os.path.join(root, 'application', 'rel_db2kg', 'content_statistics')) as f:
-		graph_db_list = []
-		for line in f.readlines():
-			line = [i.strip('()\'') for i in line.split(',')]
-			if line[0] not in graph_db_list:
-				graph_db_list.append(line[0])
-
-	metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics')
+	all_db_list = list(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'content_statistics.json'))]))
+	filtered_list = list(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'filter_list.json'))]))
+	graph_db_list = [every for every in all_db_list if every not in filtered_list]
 
 	
 	# Output folder path
@@ -1438,7 +1432,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			
-			if db_name:
+			if db_name in graph_db_list:
 				print(f'db: {db_name}')
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
@@ -1529,7 +1523,8 @@ def main():
 				except:
 					invalid_parsed_sql[db_name].append(i)
 					logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
-			
+
+		metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics')
 		metrics = execution_accuracy(metrics_file, split, len(correct_qa_pairs), incorrect, invalid_parsed_sql,
 			intersect_sql, except_sql)
 		print(f'metrics: {metrics}')

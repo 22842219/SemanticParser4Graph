@@ -1,7 +1,7 @@
 import re, os, jsonlines
 from difflib import SequenceMatcher
 import os
-import logging
+import logging, json
 import pandas as pd
 
 table_pattern = re.compile('[A-Za-z_]\w+|t')
@@ -78,7 +78,7 @@ def is_subquery(json):
            'except' in json 
 
 
-def save2json(json_file, output_filename):
+def save2json(data, output_filename):
     if not os.path.exists(os.path.dirname(output_filename)):
         try:
             os.makedirs(os.path.dirname(output_filename))
@@ -86,11 +86,17 @@ def save2json(json_file, output_filename):
         except OSError as exc:
             if exc.errno != errno.EEXITST:
                 raise
-            
-    with jsonlines.open(output_filename, 'a') as writer:
-        for row in json_file:
-            writer.write(row)
+    with open(output_filename, "w") as writer:
+        json.dump(data, writer, indent=2)
 
+    # with jsonlines.open(output_filename, 'w') as writer:
+    #     for row in data:
+    #         writer.write(row)
+
+def read_json(file_path):
+    with open(file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    return data
 
 
 def read(filename):

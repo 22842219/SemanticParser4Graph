@@ -15732,4 +15732,102 @@
             ]
         ]
     }
-]
+][][][][
+    {
+        "db_id": "musical",
+        "question": "How many actors are there?",
+        "sql_query": "SELECT count(*) FROM actor",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "actor"
+        },
+        "sql_ans": [
+            [
+                9
+            ]
+        ],
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                18
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Count the number of actors.",
+        "sql_query": "SELECT count(*) FROM actor",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "actor"
+        },
+        "sql_ans": [
+            [
+                9
+            ]
+        ],
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                18
+            ]
+        ]
+    }
+][
+    {
+        "db_id": "musical",
+        "question": "How many actors are there?",
+        "sql_query": "SELECT count(*) FROM actor",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "actor"
+        },
+        "sql_ans": [
+            [
+                9
+            ]
+        ],
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                18
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "question": "Count the number of actors.",
+        "sql_query": "SELECT count(*) FROM actor",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "actor"
+        },
+        "sql_ans": [
+            [
+                9
+            ]
+        ],
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                18
+            ]
+        ]
+    }
+][][]
