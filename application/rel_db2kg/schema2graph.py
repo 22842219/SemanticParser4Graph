@@ -282,7 +282,7 @@ class RelDBDataset:
 
                 #NOTE: for statistics and data filtering
                 content_statistics.append((db_name, table_name, len(data)))
-                if len(data)>=10000:  # we set a threshold for the experiments.
+                if len(data)>=4000:  # we set a threshold for the experiments.
                     filter_list.append((db_name, table_name, len(data)))
                     filter_dbs.append(db_name)
                     drop_flag=True
@@ -522,12 +522,12 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             print(f'cypher_query: {cypher_query}')
                             print(f'matched: {matched, len(matched)}')
                             
-                            if matched and len(matched)==1:
-                                matched_nodes.append(matched[0])
-                            else:
-                                self.logger.error("There are multiple matched graph nodes {} when building graph edge, \
-                                regarding {} table in {} database.".format(matched, table_name, db.db_name))  
-                                raise NotImplementedError
+                            if matched:
+                                matched_nodes.extend(matched[0])
+                            # else:
+                            #     self.logger.error("There are multiple matched graph nodes {} when building graph edge, \
+                            #     regarding {} table in {} database.".format(matched, table_name, db.db_name))  
+                            #     raise NotImplementedError
                
 
                         if not table.check_compound_pk and len(table.table_constraints) !=2:
@@ -597,7 +597,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 self.graph.delete_all()
                 self.build_schema_nodes(tx)
             print("************Start building graph directly from relational table schema****************")
-            if not drop_flag and db.db_name == 'assets_maintenance':
+            if not drop_flag:
                 # test
                 # if db.db_name == 'department_management':
                 self.table2nodes(db, tx)

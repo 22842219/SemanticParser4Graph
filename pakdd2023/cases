@@ -14,3 +14,22 @@ UNION
 MATCH (T1:Physician)-[T2:Trained_In]-(T3:Procedures)
 WHERE T1.Name = "John Wen"
 RETURN T3.Name as Name
+
+
+
+------------------------
+3131
+databse: assets_maintenance
+question: Which engineer has visited the most times? Show the engineer id, first name and last name.
+**************SQL Query***************
+sql: SELECT T1.engineer_id ,  T1.first_name ,  T1.last_name FROM Maintenance_Engineers AS T1 JOIN Engineer_Visits AS T2 GROUP BY T1.engineer_id ORDER BY count(*) DESC LIMIT 1
+sql_ans: [(1, 'Etha', 'Reinger')]
+**************Cypher Query***************
+MATCH (T1:`assets_maintenance.Maintenance_Engineers`)-[]-(T2:`assets_maintenance.Engineer_Visits`)
+WITH T1.first_name AS first_name, T1.engineer_id AS engineer_id, count(T1.engineer_id) AS count, T1.last_name AS last_name
+RETURN engineer_id,first_name,last_name
+ORDER BY count DESC
+LIMIT 1
+**************Cypher Query***************
+incorrect_ans: [(15, 'Archibald', 'Streich')]
+db: assets_maintenance
