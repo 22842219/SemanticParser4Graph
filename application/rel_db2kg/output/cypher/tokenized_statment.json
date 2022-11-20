@@ -2,29 +2,37 @@
       "Token_Keyword": [
             "MATCH",
             "WHERE",
-            "RETURN"
+            "RETURN",
+            "AS",
+            "UNION"
       ],
       "Token_Text_Whitespace": [
             " ",
-            "\n"
+            "\n",
+            "  ",
+            " \n"
       ],
       "Token_Punctuation": [
             "(",
             ":",
-            ")",
-            ")-[",
-            "]-("
+            ")"
       ],
       "Token_Name_Variable": [
-            "assets",
-            "asset_model"
+            "properties",
+            "property_type_code",
+            "property_name",
+            "room_count"
       ],
-      "Token_Name_Label": [
-            "`assets_maintenance.Assets`",
-            "`assets_maintenance.Fault_Log`"
-      ],
+      "Token_Name_Label": "`real_estate_properties.Properties`",
       "Token_Operator": [
-            "NOT",
-            "."
-      ]
+            ".",
+            "=",
+            "AND",
+            ">"
+      ],
+      "Token_Literal_String": [
+            "'House'",
+            "'Apartment'"
+      ],
+      "Token_Literal_Number_Integer": "1"
 }

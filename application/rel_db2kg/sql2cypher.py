@@ -1432,7 +1432,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			
-			if db_name in ['assets_maintenance']:
+			if db_name in graph_db_list:
 				print(f'db: {db_name}')
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:

@@ -2,7 +2,7 @@
     "split": "train",
     "total": 7398,
     "execution_accuracy": 0.6,
-    "correct_num": 4419,
+    "correct_num": 4417,
     "incorrect": {
         "department_management": [],
         "farm": [
@@ -2722,6 +2722,8 @@
             8020,
             8021,
             8022,
+            8023,
+            8024,
             8025,
             8026,
             8027,
@@ -5253,100 +5255,5 @@
         0.07,
         0.04,
         0.03
-    ]
-}{
-    "split": "train",
-    "total": 90,
-    "execution_accuracy": 0.84,
-    "correct_num": 76,
-    "incorrect": {
-        "hospital_1": [
-            3898,
-            3899,
-            3900,
-            3901,
-            3902,
-            3903,
-            3920,
-            3921,
-            3932,
-            3933,
-            3934,
-            3935,
-            3992,
-            3993
-        ]
-    },
-    "invalid_parsed_sql": {
-        "hospital_1": [
-            3912,
-            3913,
-            3982,
-            3983,
-            3984,
-            3985,
-            3986,
-            3987,
-            3990,
-            3991
-        ]
-    },
-    "intersect_sql": {
-        "hospital_1": [
-            3984,
-            3985,
-            3986,
-            3987
-        ]
-    },
-    "except_sql": {
-        "hospital_1": [
-            3912,
-            3913,
-            3982,
-            3983,
-            3990,
-            3991
-        ]
-    },
-    "report of `invalid_parsed`, `intersect`, `except queries`": [
-        0.11,
-        0.04,
-        0.07
-    ]
-}{
-    "split": "train",
-    "total": 28,
-    "execution_accuracy": 0.82,
-    "correct_num": 23,
-    "incorrect": {
-        "assets_maintenance": [
-            3131,
-            3135,
-            3145,
-            3148,
-            3156
-        ]
-    },
-    "invalid_parsed_sql": {
-        "assets_maintenance": [
-            3126,
-            3130
-        ]
-    },
-    "intersect_sql": {
-        "assets_maintenance": [
-            3126
-        ]
-    },
-    "except_sql": {
-        "assets_maintenance": [
-            3130
-        ]
-    },
-    "report of `invalid_parsed`, `intersect`, `except queries`": [
-        0.07,
-        0.04,
-        0.04
     ]
 }
