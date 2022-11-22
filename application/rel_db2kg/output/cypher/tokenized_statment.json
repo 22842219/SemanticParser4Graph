@@ -1,16 +1,14 @@
 {
       "Token_Keyword": [
             "MATCH",
-            "WHERE",
             "RETURN",
-            "AS",
-            "UNION"
+            "ORDER BY",
+            "ASC",
+            "LIMIT"
       ],
       "Token_Text_Whitespace": [
             " ",
-            "\n",
-            "  ",
-            " \n"
+            "\n"
       ],
       "Token_Punctuation": [
             "(",
@@ -18,21 +16,11 @@
             ")"
       ],
       "Token_Name_Variable": [
-            "properties",
-            "property_type_code",
-            "property_name",
-            "room_count"
+            "publication",
+            "Publication_Date",
+            "Price"
       ],
-      "Token_Name_Label": "`real_estate_properties.Properties`",
-      "Token_Operator": [
-            ".",
-            "=",
-            "AND",
-            ">"
-      ],
-      "Token_Literal_String": [
-            "'House'",
-            "'Apartment'"
-      ],
-      "Token_Literal_Number_Integer": "1"
+      "Token_Name_Label": "`book_2.publication`",
+      "Token_Operator": ".",
+      "Token_Literal_Number_Integer": "3"
 }

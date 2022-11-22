@@ -40,3 +40,68 @@ db: assets_maintenance
 
 ---------------------check the following tables mapping--------------------------
 MATCH p=()-[r:`allergy_1.Has_allergy_HAS_allergy_1.Student`]->() RETURN p LIMIT 25
+db: allergy_1
+Note: table Has_Allergy has no primary key, but two fk-constraints. Based on our current mapping strategy, it will turned to graph nodes and 
+
+create table Allergy_Type (
+       Allergy 		  VARCHAR(20) PRIMARY KEY,
+       AllergyType 	  VARCHAR(20)
+);
+
+create table table_headers (
+       StuID 		 INTEGER,
+       Allergy 		 VARCHAR(20),
+       FOREIGN KEY(StuID) REFERENCES Student(StuID),
+       FOREIGN KEY(Allergy) REFERENCES Allergy_Type(Allergy)
+);
+
+create table Student (
+        StuID        INTEGER PRIMARY KEY,
+        LName        VARCHAR(12),
+        Fname        VARCHAR(12),
+        Age      INTEGER,
+        Sex      VARCHAR(1),
+        Major        INTEGER,
+        Advisor      INTEGER,
+        city_code    VARCHAR(3)
+ );
+
+-------------------------dataset amendation--------------------------
+
+
+ -------------hyper edge examples------------
+ {
+    "db_name": "college_3",
+    "table_name": "Enrolled_in",
+    "num_of_rows": 210,
+    "empty_table": false,
+    "primary_keys": [],
+    "if_compound_pk": true,
+    "table_headers": [
+      "StuID",
+      "CID",
+      "Grade"
+    ],
+    "table_constraints": [
+      {
+        "this_table": "Enrolled_in",
+        "column": "Grade",
+        "ref_table": "Gradeconversion",
+        "ref_column": "lettergrade"
+      },
+      {
+        "this_table": "Enrolled_in",
+        "column": "CID",
+        "ref_table": "Course",
+        "ref_column": "CID"
+      },
+      {
+        "this_table": "Enrolled_in",
+        "column": "StuID",
+        "ref_table": "Student",
+        "ref_column": "StuID"
+      }
+    ],
+    "edge_candidate": true,
+    "has_duplicate_rows": true
+  },

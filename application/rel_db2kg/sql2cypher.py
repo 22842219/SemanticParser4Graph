@@ -1334,7 +1334,7 @@ def build_lookup_dict(db_paths, sp_data_folder):
 	
 
 
-def execution_accuracy(metrics_file, split, correct, incorrect, invalid_parsed_sql, intersect_sql, except_sql):
+def execution_accuracy(metrics_file, split, correct, incorrect, invalid_parsed_sql, intersect_sql, except_sql, data=[]):
 	incorrect_num = 0
 	total =correct
 	for every in [incorrect]:
@@ -1348,10 +1348,10 @@ def execution_accuracy(metrics_file, split, correct, incorrect, invalid_parsed_s
 		for x in list(every.values()):
 			counter +=len(x)
 		if total!=0:
-			invalid_report.append(round(counter/total, 2))
+			invalid_report.append(round(counter/(total+counter), 2))
 		
 	if total !=0:
-		metrics =  {'split': split,
+		every_metric =  {'split': split,
 					'total': total, 
 					'execution_accuracy': round(correct/total, 2),
 					'correct_num': correct,
@@ -1361,11 +1361,13 @@ def execution_accuracy(metrics_file, split, correct, incorrect, invalid_parsed_s
 					'except_sql': except_sql, 
 					'report of `invalid_parsed`, `intersect`, `except queries`' : invalid_report
 				}
+		data.append(every_metric)
 
-		with open(metrics_file, 'a')  as out:
-			json.dump(metrics, out, indent = 4)
+		if len(data)==2:
+			with open(metrics_file, 'w')  as out:
+				json.dump(data, out, indent = 4)
 		
-		return metrics
+		return data
 
 		
 
@@ -1404,7 +1406,6 @@ def main():
 	filtered_list = list(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'filter_list.json'))]))
 	graph_db_list = [every for every in all_db_list if every not in filtered_list]
 
-	
 	# Output folder path
 	sp_out_folder = os.path.join(sp_data_folder, 'spider')  
 
@@ -1429,12 +1430,12 @@ def main():
 		intersect_sql = {}
 		except_sql =  {}
 		
+		
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			
-			if db_name in graph_db_list:
+			# if db_name in graph_db_list:
+			if db_name in ['book_2'] and i in [221]:
 				print(f'db: {db_name}')
-				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
 						evaluate[db_name]=[]
@@ -1505,6 +1506,7 @@ def main():
 							sql_sorted =  sorted(sql_result, key=lambda x: x[0]) 
 							# print(f'sql_sorted: {sql_sorted}')
 							# print(f'cypher_sorted: {cypher_sorted}')
+							
 
 							if not set(cypher_sorted)-set(sql_sorted):
 								print(f'correct_ans: {cypher_ans}') 
@@ -1525,7 +1527,7 @@ def main():
 					invalid_parsed_sql[db_name].append(i)
 					logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
 
-		metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics')
+		metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics.json')
 		metrics = execution_accuracy(metrics_file, split, len(correct_qa_pairs), incorrect, invalid_parsed_sql,
 			intersect_sql, except_sql)
 		print(f'metrics: {metrics}')
