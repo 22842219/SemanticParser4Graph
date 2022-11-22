@@ -1402,9 +1402,10 @@ def main():
 	db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_data_folder)
 
-	all_db_list = list(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'content_statistics.json'))]))
-	filtered_list = list(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'filter_list.json'))]))
-	graph_db_list = [every for every in all_db_list if every not in filtered_list]
+	all_db_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'data_stat.json'))]))
+	filtered_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'data_stat.json'))  if every['num_of_rows']>4000]))
+	graph_db_list = set(all_db_list) - set(filtered_list)
+	print(len(all_db_list), len(filtered_list), len(graph_db_list))
 
 	# Output folder path
 	sp_out_folder = os.path.join(sp_data_folder, 'spider')  
@@ -1433,6 +1434,8 @@ def main():
 		
 		for i, every in enumerate(data):
 			db_name = every['db_id']
+			
+
 			# if db_name in graph_db_list:
 			if db_name in ['book_2'] and i in [221]:
 				print(f'db: {db_name}')

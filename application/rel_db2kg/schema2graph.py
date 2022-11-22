@@ -12,7 +12,7 @@ from environs import Env
 from fire import Fire
 
 
-from utils import Logger, save2json
+from utils import Logger, save2json, read_json
 import sqlite3
 import pandas as pd
 
@@ -254,91 +254,86 @@ class RelDBDataset:
      
     def read_dataset(self, paths):
         rel_dbs = []
-        filter_list =[]
-        content_statistics = []
-        filter_dbs = []
 
         for i, db_path in enumerate(paths):
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             drop_flag = False
-            # test
-        # if db_name in ['department_management', 'musical', 'allergy_1']:
-            # create realational database object.
-            rel_db_object = RelDB(fdb = db_path, db_name=db_name)
-            # engine = rel_db_object.engine
-            table_infos = rel_db_object.engine.get_table_names()
-            for table_info in table_infos:
-                table_name = table_info[0]
-                # Export tables to neo4j/import as csv files.                           
-                table_records = rel_db_object.engine.get_table_values(table_name)
-                table_headers = [desc[0] for desc in table_records.description]    
-                print(f'table_name: {table_name}, table_headers {table_headers}' )
 
-                df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
-                # Do not drop duplicate rows in place, because this action would affect the query results.
-                # df.drop_duplicates(inplace=True)
-                data = df.transpose().to_dict().values()  # to keep the origial data types.
+            ###########################################This is for data consistency checking code#######################
+            
+            missing_data_file = '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/consistency_check/diff_stat.json'
+            check_dbs = []
+            isFile = os.path.isfile(missing_data_file)
+            if isFile:
+                if len(read_json(missing_data_file))==1:
+                    missing_data = read_json(missing_data_file)[0]['belongs_to_registered_dbs']
+                    for missing in missing_data:
+                        if '.' in missing:
+                            missing_db, missing_table = missing.split('.')
+                            if missing_db not in check_dbs:
+                                check_dbs.append(missing_db)
+                if db_name not in check_dbs:
+                    continue
+            ###########################################to make sure the acutal data is the same as expected data#######################
+            
+            if db_name:
+                # create realational database object.
+                rel_db_object = RelDB(fdb = db_path, db_name=db_name)
+                # engine = rel_db_object.engine
+                table_infos = rel_db_object.engine.get_table_names()
+                for table_info in table_infos:
+                    table_name = table_info[0]
+                    # Export tables to neo4j/import as csv files.                           
+                    table_records = rel_db_object.engine.get_table_values(table_name)
+                    table_headers = [desc[0] for desc in table_records.description]    
+                    print(f'table_name: {table_name}, table_headers {table_headers}' )
 
-                #NOTE: for statistics and data filtering            
-                every = {}  
-                every['db_name'] = db_name
-                every['table_name']= table_name
-                every['num_of_rows'] = len(data)
-                if every not in content_statistics:
-                    content_statistics.append(every)
-                if len(data)>4000:  # we set a threshold for the experiments.
-                    filter_list.append(every)
-                    filter_dbs.append(db_name)
-                    drop_flag=True
+                    df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
+                    # Do not drop duplicate rows in place, because this action would affect the query results.
+                    # df.drop_duplicates(inplace=True)
+                    data = df.transpose().to_dict().values()  # to keep the origial data types.
+
+                    if len(data)>4000:  # we set a threshold for the experiments.
+                        drop_flag=True
+                        
+                    if table_headers == None:
+                        self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
+                        continue 
+
+                    # create table object. Note: one file w.r.t. one table object. 
+                    table_object = RelTable(table_name=table_name, table_headers=table_headers)
+
+                    # Check if relational table. If yes, then we rewrite the table name starting with
+                    table_constraints, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
+                    primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
+
+
+                    # Create a dictionary {table_name:table_headers}
+                    rel_db_object.tables_headers[table_name] = table_headers
+
+                    check_compound_pk =  rel_db_object.engine.check_compound_pk(primary_keys)
+                    # Create a dictionary {table_name:pks},
+                    if not check_compound_pk:
+                        rel_db_object.tables_pks[table_name] = primary_keys[0][0]
+                    else:
+                        rel_db_object.tables_pks[table_name] = [pk[0] for pk in primary_keys]
+
+                    table_object.table_constraints = table_constraints
+                    table_object.check_compound_pk = check_compound_pk
                     
-    
-                #NOTE: for statistics and data filtering
-
-
-                if table_headers == None:
-                    self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
-                    continue 
-
-                # create table object. Note: one file w.r.t. one table object. 
-                table_object = RelTable(table_name=table_name, table_headers=table_headers)
-
-                # Check if relational table. If yes, then we rewrite the table name starting with
-                table_constraints, pks_fks_dict =  rel_db_object.engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
-                primary_keys = rel_db_object.engine.get_primay_keys(table_name) #R[(pk, )]
-
-
-                # Create a dictionary {table_name:table_headers}
-                rel_db_object.tables_headers[table_name] = table_headers
-
-                check_compound_pk =  rel_db_object.engine.check_compound_pk(primary_keys)
-                # Create a dictionary {table_name:pks},
-                if not check_compound_pk:
-                    rel_db_object.tables_pks[table_name] = primary_keys[0][0]
-                else:
-                    rel_db_object.tables_pks[table_name] = [pk[0] for pk in primary_keys]
-
-                table_object.table_constraints = table_constraints
-                table_object.check_compound_pk = check_compound_pk
-                
-                # create table header category in the format of table_header -> table_name -> db_name. 
-                if table_headers:
-                    
-                    entity_ref = TableSchema(
-                            db_name, table_name, table_headers
-                        )
-                    rel_db_object.add_schema(entity_ref)
-                    for row in data:
-                        table_row = {k: row[k] for k in row}                
-                        table_object.add_row( row_dict=table_row)
-                    rel_db_object.add_tables(table_object)
-            rel_dbs.append((drop_flag, rel_db_object))
-    
-        
-
-        save2json(content_statistics, '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/content_statistics.json')
-        save2json(filter_list, '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/filter_list.json')
-        
+                    # create table header category in the format of table_header -> table_name -> db_name. 
+                    if table_headers:
+                        
+                        entity_ref = TableSchema(
+                                db_name, table_name, table_headers
+                            )
+                        rel_db_object.add_schema(entity_ref)
+                        for row in data:
+                            table_row = {k: row[k] for k in row}                
+                            table_object.add_row( row_dict=table_row)
+                        rel_db_object.add_tables(table_object)
+                rel_dbs.append((drop_flag, rel_db_object))
 
         return rel_dbs
             
@@ -422,8 +417,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
             tx.create(rel_tb)
             print(rel_tb)
 
-            if len(table.rows)==0:
-                continue
+            # if len(table.rows)==0:
+            #     continue
 
             # DONE: not table.table_constraints
             if  primary_keys:
@@ -490,9 +485,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
             print(f"Running {table_name} in {db.db_name}")
-            if len(table.rows)==0:
-                self.logger.error("There is no content in table {} of {}!".format(table_name, db.db_name))
-                continue
+            # if len(table.rows)==0:
+            #     self.logger.error("There is no content in table {} of {}!".format(table_name, db.db_name))
+            #     continue
             if table.table_constraints:    
                 for i, row_dict in enumerate(table.rows):
                     print(f'row: {row_dict}')

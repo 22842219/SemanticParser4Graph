@@ -17,6 +17,7 @@
       "Client",
       "Connection"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -38,6 +39,7 @@
       "name",
       "market_share"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -62,6 +64,7 @@
       "browser_id",
       "compatible_since_year"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "accelerator_compatible_browser",
@@ -100,6 +103,7 @@
       "Nominee",
       "Result"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -124,6 +128,7 @@
       "Duration",
       "age"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "actor",
@@ -155,6 +160,7 @@
       "Population",
       "Census_Ranking"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -183,6 +189,7 @@
       "Pigs",
       "Sheep_and_Goats"
     ],
+    "num_of_headers": 10,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -206,6 +213,7 @@
       "Host_city_ID",
       "Hosts"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "farm_competition",
@@ -237,6 +245,7 @@
       "Farm_ID",
       "Rank"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "competition_record",
@@ -270,6 +279,7 @@
       "area_code",
       "state"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -290,6 +300,7 @@
       "contestant_number",
       "contestant_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -313,6 +324,7 @@
       "contestant_number",
       "created"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "VOTES",
@@ -350,6 +362,7 @@
       "Total_Attendance",
       "Capacity_Percentage"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -376,6 +389,7 @@
       "Score",
       "Competition"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "game",
@@ -407,6 +421,7 @@
       "Number_of_matches",
       "Source"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "injury_accident",
@@ -436,6 +451,7 @@
       "Position",
       "SSN"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -457,6 +473,7 @@
       "Name",
       "Head"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Department",
@@ -488,6 +505,7 @@
       "Department",
       "PrimaryAffiliation"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Affiliated_With",
@@ -522,6 +540,7 @@
       "Name",
       "Cost"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -547,6 +566,7 @@
       "CertificationDate",
       "CertificationExpires"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Trained_In",
@@ -584,6 +604,7 @@
       "InsuranceID",
       "PCP"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Patient",
@@ -614,6 +635,7 @@
       "Registered",
       "SSN"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -639,6 +661,7 @@
       "End",
       "ExaminationRoom"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Appointment",
@@ -680,6 +703,7 @@
       "Brand",
       "Description"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -713,6 +737,7 @@
       "Appointment",
       "Dose"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Prescribes",
@@ -761,6 +786,7 @@
       "BlockFloor",
       "BlockCode"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -784,6 +810,7 @@
       "BlockCode",
       "Unavailable"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Room",
@@ -832,6 +859,7 @@
       "OnCallStart",
       "OnCallEnd"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "On_Call",
@@ -874,6 +902,7 @@
       "StayStart",
       "StayEnd"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Stay",
@@ -920,6 +949,7 @@
       "Physician",
       "AssistingNurse"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Undergoes",
@@ -974,6 +1004,7 @@
       "Num_of_Factories",
       "Num_of_Shops"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -996,6 +1027,7 @@
       "Num_of_Component",
       "Market_Rate"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1020,6 +1052,7 @@
       "Furniture_ID",
       "Price_in_Dollar"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "furniture_manufacte",
@@ -1058,6 +1091,7 @@
       "time",
       "interval"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1080,6 +1114,7 @@
       "services",
       "local_authority"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1103,6 +1138,7 @@
       "train_id",
       "station_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "route",
@@ -1143,6 +1179,7 @@
       "precipitation",
       "wind_speed_mph"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "weekly_weather",
@@ -1176,6 +1213,7 @@
       "Killed",
       "Injured"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "perpetrator",
@@ -1206,6 +1244,7 @@
       "Weight",
       "Home Town"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1230,6 +1269,7 @@
       "Damage_millions_USD",
       "Number_Deaths"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1251,6 +1291,7 @@
       "Region_code",
       "Region_name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1275,6 +1316,7 @@
       "Storm_ID",
       "Number_city_affected"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "affected_region",
@@ -1314,6 +1356,7 @@
       "price",
       "aid"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "flight",
@@ -1342,6 +1385,7 @@
       "name",
       "distance"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1363,6 +1407,7 @@
       "name",
       "salary"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1386,6 +1431,7 @@
       "eid",
       "aid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "certificate",
@@ -1422,6 +1468,7 @@
       "Founder",
       "Revenue"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1444,6 +1491,7 @@
       "Price",
       "Manufacturer"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Products",
@@ -1471,6 +1519,7 @@
       "star_rating_code",
       "star_rating_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1493,6 +1542,7 @@
       "Address",
       "Other_Details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1513,6 +1563,7 @@
       "Attraction_Type_Code",
       "Attraction_Type_Description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1533,6 +1584,7 @@
       "Tourist_ID",
       "Tourist_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1553,6 +1605,7 @@
       "Feature_ID",
       "Feature_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1576,6 +1629,7 @@
       "price_range",
       "other_hotel_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Hotels",
@@ -1609,6 +1663,7 @@
       "Opening_Hours",
       "Other_Details"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Tourist_Attractions",
@@ -1642,6 +1697,7 @@
       "Market_ID",
       "Market_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Street_Markets",
@@ -1669,6 +1725,7 @@
       "Shop_ID",
       "Shop_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Shops",
@@ -1696,6 +1753,7 @@
       "Museum_ID",
       "Museum_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Museums",
@@ -1723,6 +1781,7 @@
       "Royal_Family_ID",
       "Royal_Family_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Royal_Family",
@@ -1750,6 +1809,7 @@
       "Theme_Park_ID",
       "Theme_Park_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Theme_Parks",
@@ -1780,6 +1840,7 @@
       "Visit_Date",
       "Visit_Details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Visits",
@@ -1817,6 +1878,7 @@
       "Filename",
       "Other_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Photos",
@@ -1846,6 +1908,7 @@
       "Name",
       "Other_Details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Staff",
@@ -1876,6 +1939,7 @@
       "Tourist_Attraction_ID",
       "Feature_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Tourist_Attraction_Features",
@@ -1911,6 +1975,7 @@
       "Num_of_Staff",
       "Open_Year"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1933,6 +1998,7 @@
       "Level_of_membership",
       "Age"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -1958,6 +2024,7 @@
       "Num_of_Ticket",
       "Total_spent"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "visit",
@@ -1994,6 +2061,7 @@
       "Date",
       "Track_ID"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "race",
@@ -2024,6 +2092,7 @@
       "Seating",
       "Year_Opened"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2045,6 +2114,7 @@
       "state",
       "enr"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2067,6 +2137,7 @@
       "yCard",
       "HS"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2092,6 +2163,7 @@
       "pPos",
       "decision"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Tryout",
@@ -2130,6 +2202,7 @@
       "city",
       "installation_date"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2148,6 +2221,7 @@
       "docks_available",
       "time"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "status",
@@ -2184,6 +2258,7 @@
       "subscription_type",
       "zip_code"
     ],
+    "num_of_headers": 11,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2222,6 +2297,7 @@
       "wind_dir_degrees",
       "zip_code"
     ],
+    "num_of_headers": 24,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2247,6 +2323,7 @@
       "Powertrain",
       "Fuel_Propulsion"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2273,6 +2350,7 @@
       "Join_Year",
       "Team"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2301,6 +2379,7 @@
       "Aircraft_ID",
       "Date"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "pilot_record",
@@ -2344,6 +2423,7 @@
       "state_county_province",
       "country"
     ],
+    "num_of_headers": 12,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2366,6 +2446,7 @@
       "date_order_placed",
       "order_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Orders",
@@ -2394,6 +2475,7 @@
       "order_id",
       "invoice_date"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Invoices",
@@ -2424,6 +2506,7 @@
       "account_name",
       "other_account_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Accounts",
@@ -2452,6 +2535,7 @@
       "product_type_description",
       "vat_rating"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2477,6 +2561,7 @@
       "product_color",
       "product_size"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Products",
@@ -2506,6 +2591,7 @@
       "transaction_comment",
       "other_transaction_details"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Financial_Transactions",
@@ -2542,6 +2628,7 @@
       "product_quantity",
       "other_order_item_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Order_Items",
@@ -2578,6 +2665,7 @@
       "derived_vat_payable",
       "derived_total_cost"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Invoice_Line_Items",
@@ -2621,6 +2709,7 @@
       "Budget_in_Billions",
       "Num_Employees"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2643,6 +2732,7 @@
       "born_state",
       "age"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2667,6 +2757,7 @@
       "head_ID",
       "temporary_acting"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "management",
@@ -2703,6 +2794,7 @@
       "Name",
       "Event_Attendance"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2726,6 +2818,7 @@
       "Age",
       "Years_working"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2750,6 +2843,7 @@
       "Event_ID",
       "Work_Type"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "news_report",
@@ -2790,6 +2884,7 @@
       "Pay_per_view_PPV",
       "Package_Option"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2817,6 +2912,7 @@
       "Weekly_Rank",
       "Channel"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "TV_series",
@@ -2849,6 +2945,7 @@
       "Production_code",
       "Channel"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Cartoon",
@@ -2877,6 +2974,7 @@
       "rating",
       "most_popular_in"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -2899,6 +2997,7 @@
       "gender",
       "preferred_genre"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "artist",
@@ -2929,6 +3028,7 @@
       "duration",
       "formats"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "files",
@@ -2963,6 +3063,7 @@
       "releasedate",
       "resolution"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "song",
@@ -3007,6 +3108,7 @@
       "max_page_size",
       "interface"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3031,6 +3133,7 @@
       "Number_of_product_category",
       "Ranking"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3054,6 +3157,7 @@
       "City_Population",
       "City_Area"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3077,6 +3181,7 @@
       "Store_ID",
       "Product_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "store_product",
@@ -3110,6 +3215,7 @@
       "Store_ID",
       "District_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "store_district",
@@ -3147,6 +3253,7 @@
       "Last_year",
       "Number_of_hosts"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3169,6 +3276,7 @@
       "Nationality",
       "Age"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3193,6 +3301,7 @@
       "Host_ID",
       "Is_Main_in_Charge"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "party_host",
@@ -3230,6 +3339,7 @@
       "Class",
       "Rank"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "captain",
@@ -3261,6 +3371,7 @@
       "Class",
       "Flag"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3281,6 +3392,7 @@
       "Address_ID",
       "address_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3301,6 +3413,7 @@
       "Location_ID",
       "Other_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3323,6 +3436,7 @@
       "Product_Name",
       "Product_Price"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3343,6 +3457,7 @@
       "Party_ID",
       "Party_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3363,6 +3478,7 @@
       "Asset_ID",
       "Other_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3383,6 +3499,7 @@
       "Channel_ID",
       "Other_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3403,6 +3520,7 @@
       "Finance_ID",
       "Other_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3427,6 +3545,7 @@
       "Finance_ID",
       "Location_ID"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Events",
@@ -3467,6 +3586,7 @@
       "Event_ID",
       "Product_ID"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Products_in_Events",
@@ -3504,6 +3624,7 @@
       "Event_ID",
       "Role_Code"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Parties_in_Events",
@@ -3537,6 +3658,7 @@
       "Document_ID",
       "Event_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Agreements",
@@ -3567,6 +3689,7 @@
       "Asset_ID",
       "Event_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Assets_in_Events",
@@ -3600,6 +3723,7 @@
       "characteristic_type_code",
       "characteristic_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3620,6 +3744,7 @@
       "color_code",
       "color_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3641,6 +3766,7 @@
       "product_category_description",
       "unit_of_measure"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3664,6 +3790,7 @@
       "characteristic_name",
       "other_characteristic_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Characteristics",
@@ -3697,6 +3824,7 @@
       "product_description",
       "other_product_details"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Products",
@@ -3727,6 +3855,7 @@
       "characteristic_id",
       "product_characteristic_value"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Product_Characteristics",
@@ -3760,6 +3889,7 @@
       "breed_code",
       "breed_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3781,6 +3911,7 @@
       "charge_type",
       "charge_amount"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3801,6 +3932,7 @@
       "size_code",
       "size_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3821,6 +3953,7 @@
       "treatment_type_code",
       "treatment_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3849,6 +3982,7 @@
       "home_phone",
       "cell_number"
     ],
+    "num_of_headers": 10,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3880,6 +4014,7 @@
       "date_adopted",
       "date_departed"
     ],
+    "num_of_headers": 13,
     "table_constraints": [
       {
         "this_table": "Dogs",
@@ -3934,6 +4069,7 @@
       "home_phone",
       "cell_number"
     ],
+    "num_of_headers": 11,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -3958,6 +4094,7 @@
       "date_of_treatment",
       "cost_of_treatment"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Treatments",
@@ -3997,6 +4134,7 @@
       "customer_id",
       "customer_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4019,6 +4157,7 @@
       "property_address",
       "other_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4048,6 +4187,7 @@
       "date_moved_out",
       "other_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Residents",
@@ -4076,6 +4216,7 @@
       "parent_organization_id",
       "organization_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4098,6 +4239,7 @@
       "service_type_code",
       "service_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Services",
@@ -4133,6 +4275,7 @@
       "date_provided",
       "other_details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Residents_Services",
@@ -4181,6 +4324,7 @@
       "service_type_code",
       "service_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Things",
@@ -4212,6 +4356,7 @@
       "resident_id",
       "thing_id"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Customer_Events",
@@ -4267,6 +4412,7 @@
       "property_id",
       "date_moved_in"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Customer_Event_Notes",
@@ -4301,6 +4447,7 @@
       "Date_and_Date",
       "Status_of_Thing_Code"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Timed_Status_of_Things",
@@ -4335,6 +4482,7 @@
       "Date_and_Time",
       "Location_Code"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Timed_Locations_of_Things",
@@ -4367,6 +4515,7 @@
       "Category",
       "Result"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4391,6 +4540,7 @@
       "Budget_million",
       "Gross_worldwide"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4415,6 +4565,7 @@
       "book_club_id",
       "movie_id"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "culture_company",
@@ -4449,6 +4600,7 @@
       "Name",
       "Age"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4473,6 +4625,7 @@
       "Total_disk_area",
       "Max_disk_Loading"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4498,6 +4651,7 @@
       "Winning_Pilot",
       "Winning_Aircraft"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "match",
@@ -4538,6 +4692,7 @@
       "Aircraft_Movements",
       "Freight_Metric_Tonnes"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4562,6 +4717,7 @@
       "Airport_ID",
       "Aircraft_ID"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "airport_aircraft",
@@ -4599,6 +4755,7 @@
       "birth_date",
       "country_code"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4645,6 +4802,7 @@
       "winner_seed",
       "year"
     ],
+    "num_of_headers": 32,
     "table_constraints": [
       {
         "this_table": "matches",
@@ -4677,6 +4835,7 @@
       "ranking_points",
       "tours"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "rankings",
@@ -4709,6 +4868,7 @@
       "Original_air_date",
       "Production_code"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4732,6 +4892,7 @@
       "Capacity",
       "Location"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4758,6 +4919,7 @@
       "Show_times_per_day",
       "Price"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "schedule",
@@ -4798,6 +4960,7 @@
       "alt",
       "url"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4824,6 +4987,7 @@
       "time",
       "url"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "races",
@@ -4858,6 +5022,7 @@
       "nationality",
       "url"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4878,6 +5043,7 @@
       "statusId",
       "status"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4898,6 +5064,7 @@
       "year",
       "url"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4921,6 +5088,7 @@
       "nationality",
       "url"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -4946,6 +5114,7 @@
       "positionText",
       "wins"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "constructorStandings",
@@ -4995,6 +5164,7 @@
       "fastestLapSpeed",
       "statusId"
     ],
+    "num_of_headers": 18,
     "table_constraints": [
       {
         "this_table": "results",
@@ -5039,6 +5209,7 @@
       "positionText",
       "wins"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "driverStandings",
@@ -5075,6 +5246,7 @@
       "points",
       "status"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "constructorResults",
@@ -5115,6 +5287,7 @@
       "q2",
       "q3"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "qualifying",
@@ -5165,6 +5338,7 @@
       "duration",
       "milliseconds"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "pitStops",
@@ -5208,6 +5382,7 @@
       "time",
       "milliseconds"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "lapTimes",
@@ -5242,6 +5417,7 @@
       "Grape",
       "Color"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5266,6 +5442,7 @@
       "Area",
       "isAVA"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5291,6 +5468,7 @@
       "Cases",
       "Drink"
     ],
+    "num_of_headers": 11,
     "table_constraints": [
       {
         "this_table": "wine",
@@ -5331,6 +5509,7 @@
       "Assets_billion",
       "Market_Value"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5355,6 +5534,7 @@
       "Vice_Manager_Name",
       "Representative_Name"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5379,6 +5559,7 @@
       "Company_ID",
       "Rank_of_the_Year"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "station_company",
@@ -5415,6 +5596,7 @@
       "gender",
       "job"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5432,6 +5614,7 @@
       "friend",
       "year"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "PersonFriend",
@@ -5467,6 +5650,7 @@
       "Capital",
       "Official_native_language"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5487,6 +5671,7 @@
       "Team_id",
       "Name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5513,6 +5698,7 @@
       "Draft_Class",
       "College"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "match_season",
@@ -5551,6 +5737,7 @@
       "Doubles_WL",
       "Team"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "player",
@@ -5583,6 +5770,7 @@
       "WiFi",
       "Bluetooth"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5608,6 +5796,7 @@
       "map",
       "Type"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5633,6 +5822,7 @@
       "chip_model",
       "screen_mode"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "phone",
@@ -5672,6 +5862,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5688,6 +5879,7 @@
       "StuID",
       "PetID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Has_Pet",
@@ -5723,6 +5915,7 @@
       "pet_age",
       "weight"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5743,6 +5936,7 @@
       "document_type_code",
       "document_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5767,6 +5961,7 @@
       "response_received_date",
       "other_details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Documents",
@@ -5804,6 +5999,7 @@
       "grant_end_date",
       "other_details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Grants",
@@ -5831,6 +6027,7 @@
       "organisation_type",
       "organisation_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5852,6 +6049,7 @@
       "organisation_type",
       "organisation_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Organisations",
@@ -5876,6 +6074,7 @@
       "outcome_code",
       "outcome_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Project_Outcomes",
@@ -5913,6 +6112,7 @@
       "date_to",
       "other_details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Project_Staff",
@@ -5947,6 +6147,7 @@
       "organisation_id",
       "project_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Projects",
@@ -5974,6 +6175,7 @@
       "outcome_code",
       "outcome_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -5995,6 +6197,7 @@
       "employer_organisation_id",
       "staff_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Research_Staff",
@@ -6022,6 +6225,7 @@
       "role_code",
       "role_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6044,6 +6248,7 @@
       "task_details",
       "eg Agree Objectives"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Tasks",
@@ -6075,6 +6280,7 @@
       "Format",
       "Catalogue"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6099,6 +6305,7 @@
       "Region_ID",
       "Party_name"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "party",
@@ -6128,6 +6335,7 @@
       "Party_ID",
       "In_office"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "member",
@@ -6157,6 +6365,7 @@
       "Party_ID",
       "Member_in_charge_ID"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "party_events",
@@ -6190,6 +6399,7 @@
       "REGION_ID",
       "REGION_NAME"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6211,6 +6421,7 @@
       "COUNTRY_NAME",
       "REGION_ID"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "countries",
@@ -6240,6 +6451,7 @@
       "MANAGER_ID",
       "LOCATION_ID"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6262,6 +6474,7 @@
       "MIN_SALARY",
       "MAX_SALARY"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6291,6 +6504,7 @@
       "MANAGER_ID",
       "DEPARTMENT_ID"
     ],
+    "num_of_headers": 11,
     "table_constraints": [
       {
         "this_table": "employees",
@@ -6330,6 +6544,7 @@
       "JOB_ID",
       "DEPARTMENT_ID"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "job_history",
@@ -6373,6 +6588,7 @@
       "STATE_PROVINCE",
       "COUNTRY_ID"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "locations",
@@ -6400,6 +6616,7 @@
       "SSN",
       "Name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6421,6 +6638,7 @@
       "Name",
       "Hours"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6444,6 +6662,7 @@
       "Scientist",
       "Project"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "AssignedTo",
@@ -6483,6 +6702,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6509,6 +6729,7 @@
       "Room",
       "Building"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6533,6 +6754,7 @@
       "Building",
       "DPhone"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6550,6 +6772,7 @@
       "DNO",
       "Appt_Type"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Member_of",
@@ -6588,6 +6811,7 @@
       "Hours",
       "DNO"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Course",
@@ -6617,6 +6841,7 @@
       "StuID",
       "DNO"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Minor_in",
@@ -6647,6 +6872,7 @@
       "CID",
       "Grade"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Enrolled_in",
@@ -6686,6 +6912,7 @@
       "lettergrade",
       "gradepoint"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6706,6 +6933,7 @@
       "Template_Type_Code",
       "Template_Type_Description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6730,6 +6958,7 @@
       "Date_Effective_To",
       "Template_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Templates",
@@ -6760,6 +6989,7 @@
       "Document_Description",
       "Other_Details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Documents",
@@ -6789,6 +7019,7 @@
       "Paragraph_Text",
       "Other_Details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Paragraphs",
@@ -6817,6 +7048,7 @@
       "COUNTY",
       "REGION"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6840,6 +7072,7 @@
       "CITY_NAME",
       "RATING"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "RESTAURANT",
@@ -6869,6 +7102,7 @@
       "STREET_NAME",
       "CITY_NAME"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "LOCATION",
@@ -6905,6 +7139,7 @@
       "Launch",
       "Owner"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6928,6 +7163,7 @@
       "Share_in_percent",
       "Rating_in_percent"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -6952,6 +7188,7 @@
       "Program_ID",
       "Time_of_day"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "broadcast",
@@ -6990,6 +7227,7 @@
       "Date",
       "Share_in_percent"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "broadcast_share",
@@ -7027,6 +7265,7 @@
       "room_number",
       "capacity"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7048,6 +7287,7 @@
       "building",
       "budget"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7070,6 +7310,7 @@
       "dept_name",
       "credits"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "course",
@@ -7099,6 +7340,7 @@
       "dept_name",
       "salary"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "instructor",
@@ -7140,6 +7382,7 @@
       "room_number",
       "time_slot_id"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "section",
@@ -7194,6 +7437,7 @@
       "semester",
       "year"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "teaches",
@@ -7247,6 +7491,7 @@
       "dept_name",
       "tot_cred"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "student",
@@ -7290,6 +7535,7 @@
       "year",
       "grade"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "takes",
@@ -7341,6 +7587,7 @@
       "s_ID",
       "i_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "advisor",
@@ -7387,6 +7634,7 @@
       "end_hr",
       "end_min"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7410,6 +7658,7 @@
       "course_id",
       "prereq_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "prereq",
@@ -7444,6 +7693,7 @@
       "Staring_Date",
       "Course"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7466,6 +7716,7 @@
       "Age",
       "Hometown"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7493,6 +7744,7 @@
       "Teacher_ID",
       "Grade"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "course_arrange",
@@ -7532,6 +7784,7 @@
       "Oppose_rate",
       "Unsure_rate"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "candidate",
@@ -7563,6 +7816,7 @@
       "Height",
       "Weight"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7583,6 +7837,7 @@
       "document_type_code",
       "document_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7603,6 +7858,7 @@
       "role_code",
       "role_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7623,6 +7879,7 @@
       "address_id",
       "address_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7643,6 +7900,7 @@
       "document_status_code",
       "document_status_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7664,6 +7922,7 @@
       "shipping_agent_name",
       "shipping_agent_description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7689,6 +7948,7 @@
       "receipt_number",
       "other_details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Documents",
@@ -7730,6 +7990,7 @@
       "employee_name",
       "other_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Employees",
@@ -7761,6 +8022,7 @@
       "draft_number",
       "draft_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Document_Drafts",
@@ -7795,6 +8057,7 @@
       "draft_number",
       "copy_number"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Draft_Copies",
@@ -7839,6 +8102,7 @@
       "copy_number",
       "employee_id"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Circulation_History",
@@ -7888,6 +8152,7 @@
       "mailed_to_address_id",
       "mailing_date"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Documents_Mailed",
@@ -7924,6 +8189,7 @@
       "Is_Male",
       "Age"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7947,6 +8213,7 @@
       "Open_Date",
       "Continuation_of"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -7975,6 +8242,7 @@
       "Female_ID",
       "Year"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "wedding",
@@ -8023,6 +8291,7 @@
       "rating",
       "state"
     ],
+    "num_of_headers": 11,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8044,6 +8313,7 @@
       "business_id",
       "category_name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "category",
@@ -8072,6 +8342,7 @@
       "user_id",
       "name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8094,6 +8365,7 @@
       "count",
       "day"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "checkin",
@@ -8122,6 +8394,7 @@
       "business_id",
       "neighbourhood_name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "neighbourhood",
@@ -8154,6 +8427,7 @@
       "year",
       "month"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "review",
@@ -8192,6 +8466,7 @@
       "year",
       "month"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "tip",
@@ -8225,6 +8500,7 @@
       "role_code",
       "role_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8248,6 +8524,7 @@
       "user_login",
       "password"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Users",
@@ -8276,6 +8553,7 @@
       "parent_document_structure_code",
       "document_structure_description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8297,6 +8575,7 @@
       "parent_functional_area_code",
       "functional_area_description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8319,6 +8598,7 @@
       "image_name",
       "image_url"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8342,6 +8622,7 @@
       "access_count",
       "document_name"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Documents",
@@ -8365,6 +8646,7 @@
       "document_code",
       "functional_area_code"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Document_Functional_Areas",
@@ -8401,6 +8683,7 @@
       "section_code",
       "section_title"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Document_Sections",
@@ -8431,6 +8714,7 @@
       "section_id",
       "image_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Document_Sections_Images",
@@ -8467,6 +8751,7 @@
       "city",
       "state"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8493,6 +8778,7 @@
       "branch_ID",
       "state"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "customer",
@@ -8523,6 +8809,7 @@
       "branch_ID",
       "amount"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "loan",
@@ -8561,6 +8848,7 @@
       "Location",
       "ObjectNumber"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8585,6 +8873,7 @@
       "Arrival",
       "Railway_ID"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "train",
@@ -8616,6 +8905,7 @@
       "Age",
       "Level"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8640,6 +8930,7 @@
       "Manager_ID",
       "From_Year"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "railway_manage",
@@ -8677,6 +8968,7 @@
       "capital",
       "density"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8702,6 +8994,7 @@
       "country_name",
       "state_name"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "city",
@@ -8732,6 +9025,7 @@
       "state_name",
       "border"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "border_info",
@@ -8768,6 +9062,7 @@
       "highest_point",
       "lowest_elevation"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "highlow",
@@ -8793,6 +9088,7 @@
       "country_name",
       "state_name"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8818,6 +9114,7 @@
       "country_name",
       "state_name"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "mountain",
@@ -8847,6 +9144,7 @@
       "country_name",
       "traverse"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "river",
@@ -8876,6 +9174,7 @@
       "last_name",
       "last_update"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8902,6 +9201,7 @@
       "phone",
       "last_update"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "address",
@@ -8930,6 +9230,7 @@
       "name",
       "last_update"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -8952,6 +9253,7 @@
       "country_id",
       "last_update"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "city",
@@ -8980,6 +9282,7 @@
       "country",
       "last_update"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9007,6 +9310,7 @@
       "create_date",
       "last_update"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "customer",
@@ -9051,6 +9355,7 @@
       "special_features",
       "last_update"
     ],
+    "num_of_headers": 13,
     "table_constraints": [
       {
         "this_table": "film",
@@ -9088,6 +9393,7 @@
       "film_id",
       "last_update"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "film_actor",
@@ -9125,6 +9431,7 @@
       "category_id",
       "last_update"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "film_category",
@@ -9159,6 +9466,7 @@
       "title",
       "description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9181,6 +9489,7 @@
       "store_id",
       "last_update"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "inventory",
@@ -9215,6 +9524,7 @@
       "name",
       "last_update"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9240,6 +9550,7 @@
       "payment_date",
       "last_update"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "payment",
@@ -9284,6 +9595,7 @@
       "staff_id",
       "last_update"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "rental",
@@ -9332,6 +9644,7 @@
       "password",
       "last_update"
     ],
+    "num_of_headers": 11,
     "table_constraints": [
       {
         "this_table": "staff",
@@ -9361,6 +9674,7 @@
       "address_id",
       "last_update"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "store",
@@ -9396,6 +9710,7 @@
       "year",
       "director"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9416,6 +9731,7 @@
       "rID",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9434,6 +9750,7 @@
       "stars",
       "ratingDate"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Rating",
@@ -9471,6 +9788,7 @@
       "ICAO",
       "name"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9495,6 +9813,7 @@
       "Incorporated_in",
       "Group_Equity_Shareholding"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9521,6 +9840,7 @@
       "airport_id",
       "company_id"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "flight",
@@ -9557,6 +9877,7 @@
       "County",
       "Year"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9578,6 +9899,7 @@
       "Year",
       "CampusFee"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "csu_fees",
@@ -9609,6 +9931,7 @@
       "Campus",
       "Degrees"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "degrees",
@@ -9642,6 +9965,7 @@
       "Undergraduate",
       "Graduate"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "discipline_enrollments",
@@ -9674,6 +9998,7 @@
       "TotalEnrollment_AY",
       "FTE_AY"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "enrollments",
@@ -9698,6 +10023,7 @@
       "Year",
       "Faculty"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "faculty",
@@ -9728,6 +10054,7 @@
       "Nationality",
       "Graduation_College"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9754,6 +10081,7 @@
       "Assets_in_Billion",
       "Market_Value_in_Billion"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9778,6 +10106,7 @@
       "People_ID",
       "Year_working"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "employment",
@@ -9814,6 +10143,7 @@
       "Nationality",
       "Year_of_Work"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9838,6 +10168,7 @@
       "Year_of_Founded",
       "Major_Record_Format"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "orchestra",
@@ -9870,6 +10201,7 @@
       "Weekly_rank",
       "Share"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "performance",
@@ -9896,6 +10228,7 @@
       "Result",
       "Attendance"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "show",
@@ -9923,6 +10256,7 @@
       "ContId",
       "Continent"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -9944,6 +10278,7 @@
       "CountryName",
       "Continent"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "countries",
@@ -9973,6 +10308,7 @@
       "FullName",
       "Country"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "car_makers",
@@ -10001,6 +10337,7 @@
       "Maker",
       "Model"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "model_list",
@@ -10029,6 +10366,7 @@
       "Model",
       "Make"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "car_names",
@@ -10062,6 +10400,7 @@
       "Accelerate",
       "Year"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "cars_data",
@@ -10091,6 +10430,7 @@
       "account_name",
       "other_account_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10116,6 +10456,7 @@
       "customer_email",
       "other_customer_details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10141,6 +10482,7 @@
       "date_valid_to",
       "other_card_details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10164,6 +10506,7 @@
       "transaction_comment",
       "other_transaction_details"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Financial_Transactions",
@@ -10199,6 +10542,7 @@
       "Launch_Date",
       "Notes"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10224,6 +10568,7 @@
       "value_points",
       "quality_rank"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10247,6 +10592,7 @@
       "Starting_Year",
       "Age"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10274,6 +10620,7 @@
       "repair_ID",
       "Machine_ID"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "repair_assignment",
@@ -10316,6 +10663,7 @@
       "Hometown",
       "Level"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10340,6 +10688,7 @@
       "City",
       "membership_amount"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10361,6 +10710,7 @@
       "Branch_ID",
       "Register_Year"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "membership_register_branch",
@@ -10402,6 +10752,7 @@
       "Year",
       "Total_pounds"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "purchase",
@@ -10439,6 +10790,7 @@
       "Location",
       "Event"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10463,6 +10815,7 @@
       "Elimination_Move",
       "Time"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Elimination",
@@ -10492,6 +10845,7 @@
       "Nationality",
       "Role"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10515,6 +10869,7 @@
       "Location",
       "Attendance"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10539,6 +10894,7 @@
       "Performance_ID",
       "Num_of_Pieces"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "member_attendance",
@@ -10575,6 +10931,7 @@
       "Party",
       "Age"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10597,6 +10954,7 @@
       "Venue",
       "Num_of_Audience"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10625,6 +10983,7 @@
       "Negative",
       "If_Affirmative_Win"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "debate_people",
@@ -10665,6 +11024,7 @@
       "name",
       "country"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10686,6 +11046,7 @@
       "lname",
       "fname"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10706,6 +11067,7 @@
       "paperID",
       "title"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10734,6 +11096,7 @@
       "paperID",
       "authOrder"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Authorship",
@@ -10780,6 +11143,7 @@
       "gender_mf",
       "address_line_1"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10806,6 +11170,7 @@
       "middle_name",
       "family_name"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10826,6 +11191,7 @@
       "subject_id",
       "subject_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10849,6 +11215,7 @@
       "course_name",
       "course_description"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Courses",
@@ -10885,6 +11252,7 @@
       "date_of_enrolment",
       "date_of_completion"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Student_Course_Enrolment",
@@ -10915,6 +11283,7 @@
       "date_test_taken",
       "test_result"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Student_Tests_Taken",
@@ -10944,6 +11313,7 @@
       "product_price",
       "product_description"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10968,6 +11338,7 @@
       "state_province_county",
       "country"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -10992,6 +11363,7 @@
       "customer_email",
       "date_became_customer"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11012,6 +11384,7 @@
       "regular_order_id",
       "distributer_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Regular_Orders",
@@ -11035,6 +11408,7 @@
       "regular_order_id",
       "product_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Regular_Order_Products",
@@ -11070,6 +11444,7 @@
       "regular_order_id",
       "actual_order_date"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Actual_Orders",
@@ -11093,6 +11468,7 @@
       "actual_order_id",
       "product_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Actual_Order_Products",
@@ -11125,6 +11501,7 @@
       "address_type",
       "date_to"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Customer_Addresses",
@@ -11159,6 +11536,7 @@
       "route_name",
       "other_route_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11181,6 +11559,7 @@
       "location_address_id",
       "location_name"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Delivery_Route_Locations",
@@ -11215,6 +11594,7 @@
       "truck_licence_number",
       "truck_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11237,6 +11617,7 @@
       "employee_name",
       "employee_phone"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Employees",
@@ -11264,6 +11645,7 @@
       "truck_id",
       "delivery_date"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Order_Deliveries",
@@ -11311,6 +11693,7 @@
       "name",
       "oid"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11332,6 +11715,7 @@
       "homepage",
       "name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11352,6 +11736,7 @@
       "did",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11375,6 +11760,7 @@
       "aid",
       "did"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "domain_author",
@@ -11411,6 +11797,7 @@
       "cid",
       "did"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "domain_conference",
@@ -11445,6 +11832,7 @@
       "jid",
       "name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11468,6 +11856,7 @@
       "did",
       "jid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "domain_journal",
@@ -11501,6 +11890,7 @@
       "keyword",
       "kid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11524,6 +11914,7 @@
       "did",
       "kid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "domain_keyword",
@@ -11563,6 +11954,7 @@
       "title",
       "year"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "publication",
@@ -11599,6 +11991,7 @@
       "did",
       "pid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "domain_publication",
@@ -11634,6 +12027,7 @@
       "name",
       "oid"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11657,6 +12051,7 @@
       "pid",
       "kid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "publication_keyword",
@@ -11693,6 +12088,7 @@
       "aid",
       "pid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "writes",
@@ -11722,6 +12118,7 @@
       "cited",
       "citing"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "cite",
@@ -11756,6 +12153,7 @@
       "Document_Type_Name",
       "Document_Type_Description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11776,6 +12174,7 @@
       "Calendar_Date",
       "Day_Number"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11797,6 +12196,7 @@
       "Location_Name",
       "Location_Description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11818,6 +12218,7 @@
       "Role_Name",
       "Role_Description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -11842,6 +12243,7 @@
       "Document_Description",
       "Other_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "All_Documents",
@@ -11879,6 +12281,7 @@
       "Date_of_Birth",
       "Other_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Employees",
@@ -11914,6 +12317,7 @@
       "Date_in_Location_From",
       "Date_in_Locaton_To"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Document_Locations",
@@ -11963,6 +12367,7 @@
       "Actual_Destruction_Date",
       "Other_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Documents_to_be_Destroyed",
@@ -12018,6 +12423,7 @@
       "Year",
       "Num_of_Audience"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12039,6 +12445,7 @@
       "Type",
       "Name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12063,6 +12470,7 @@
       "Festival_ID",
       "Result"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "nomination",
@@ -12096,6 +12504,7 @@
       "address_id",
       "address_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12117,6 +12526,7 @@
       "staff_gender",
       "staff_name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12138,6 +12548,7 @@
       "supplier_name",
       "supplier_phone"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12158,6 +12569,7 @@
       "dept_store_chain_id",
       "dept_store_chain_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12183,6 +12595,7 @@
       "customer_phone",
       "customer_email"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12205,6 +12618,7 @@
       "product_name",
       "product_price"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12230,6 +12644,7 @@
       "date_from",
       "date_to"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Supplier_Addresses",
@@ -12268,6 +12683,7 @@
       "date_from",
       "date_to"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Customer_Addresses",
@@ -12303,6 +12719,7 @@
       "order_status_code",
       "order_date"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Customer_Orders",
@@ -12334,6 +12751,7 @@
       "store_phone",
       "store_email"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Department_Stores",
@@ -12362,6 +12780,7 @@
       "dept_store_id",
       "department_name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Departments",
@@ -12390,6 +12809,7 @@
       "order_id",
       "product_id"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Order_Items",
@@ -12430,6 +12850,7 @@
       "total_amount_purchased",
       "total_value_purchased"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Product_Suppliers",
@@ -12469,6 +12890,7 @@
       "job_title_code",
       "date_assigned_to"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Staff_Department_Assignments",
@@ -12506,6 +12928,7 @@
       "state_province_county",
       "country"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12528,6 +12951,7 @@
       "product_name",
       "product_price"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12553,6 +12977,7 @@
       "customer_phone",
       "customer_email"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12577,6 +13002,7 @@
       "last_name",
       "contact_phone"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12595,6 +13021,7 @@
       "date_from",
       "date_to"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Customer_Address_History",
@@ -12630,6 +13057,7 @@
       "order_date",
       "order_status_code"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Customer_Orders",
@@ -12655,6 +13083,7 @@
       "product_id",
       "order_quantity"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Order_Items",
@@ -12694,6 +13123,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12717,6 +13147,7 @@
       "Class_President_Vote",
       "Class_Senator_Vote"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Voting_record",
@@ -12784,6 +13215,7 @@
       "state_province_county",
       "country"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12811,6 +13243,7 @@
       "date_joined_staff",
       "date_left_staff"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Staff",
@@ -12838,6 +13271,7 @@
       "vehicle_id",
       "vehicle_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -12867,6 +13301,7 @@
       "phone_number",
       "cell_mobile_phone_number"
     ],
+    "num_of_headers": 11,
     "table_constraints": [
       {
         "this_table": "Customers",
@@ -12899,6 +13334,7 @@
       "payment_method_code",
       "amount_payment"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Customer_Payments",
@@ -12932,6 +13368,7 @@
       "lesson_time",
       "price"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Lessons",
@@ -12977,6 +13414,7 @@
       "IHSAA_Football_Class",
       "County"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13005,6 +13443,7 @@
       "total_budget_percent_invested",
       "Budget_invested_percent"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "budget",
@@ -13034,6 +13473,7 @@
       "donator_name",
       "amount"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "endowment",
@@ -13068,6 +13508,7 @@
       "Opened",
       "Status"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "roller_coaster",
@@ -13098,6 +13539,7 @@
       "Area",
       "Languages"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13120,6 +13562,7 @@
       "Theme",
       "Sales"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13141,6 +13584,7 @@
       "Name",
       "Age"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13165,6 +13609,7 @@
       "Journal_ID",
       "Work_Type"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "journal_committee",
@@ -13204,6 +13649,7 @@
       "airline",
       "codeshare"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "routes",
@@ -13250,6 +13696,7 @@
       "iata",
       "icao"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13275,6 +13722,7 @@
       "country",
       "active"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13301,6 +13749,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13323,6 +13772,7 @@
       "ClubDesc",
       "ClubLocation"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13340,6 +13790,7 @@
       "ClubID",
       "Position"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Member_of_club",
@@ -13373,6 +13824,7 @@
       "i_id",
       "title"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13396,6 +13848,7 @@
       "rating",
       "rank"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "review",
@@ -13429,6 +13882,7 @@
       "u_id",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13446,6 +13900,7 @@
       "target_u_id",
       "trust"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "trust",
@@ -13481,6 +13936,7 @@
       "Leader_Name",
       "College_Location"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13503,6 +13959,7 @@
       "Country",
       "College_ID"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "member",
@@ -13535,6 +13992,7 @@
       "Decoration_Theme",
       "Rank_in_Round"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "round",
@@ -13564,6 +14022,7 @@
       "nationality",
       "gender"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13588,6 +14047,7 @@
       "length_meters",
       "length_feet"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "bridge",
@@ -13620,6 +14080,7 @@
       "built_year",
       "notes"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "mill",
@@ -13653,6 +14114,7 @@
       "Main_Services",
       "Number_of_Platforms"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13675,6 +14137,7 @@
       "Time",
       "Service"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13698,6 +14161,7 @@
       "Train_ID",
       "Station_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "train_station",
@@ -13731,6 +14195,7 @@
       "Allergy",
       "AllergyType"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13747,6 +14212,7 @@
       "StuID",
       "Allergy"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Has_Allergy",
@@ -13786,6 +14252,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13846,6 +14313,7 @@
       "gk_positioning",
       "gk_reflexes"
     ],
+    "num_of_headers": 42,
     "table_constraints": [
       {
         "this_table": "Player_Attributes",
@@ -13875,6 +14343,7 @@
       "name",
       "seq"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13900,6 +14369,7 @@
       "height",
       "weight"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13921,6 +14391,7 @@
       "country_id",
       "name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "League",
@@ -13948,6 +14419,7 @@
       "id",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -13971,6 +14443,7 @@
       "team_long_name",
       "team_short_name"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14014,6 +14487,7 @@
       "defenceTeamWidthClass",
       "defenceDefenderLineClass"
     ],
+    "num_of_headers": 25,
     "table_constraints": [
       {
         "this_table": "Team_Attributes",
@@ -14052,6 +14526,7 @@
       "Seats",
       "Place"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "election",
@@ -14082,6 +14557,7 @@
       "Party",
       "Lifespan"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14106,6 +14582,7 @@
       "Regional_Population",
       "GDP"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14130,6 +14607,7 @@
       "Result",
       "Competition"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14160,6 +14638,7 @@
       "Nov",
       "Dec"
     ],
+    "num_of_headers": 12,
     "table_constraints": [
       {
         "this_table": "temperature",
@@ -14188,6 +14667,7 @@
       "Match_ID",
       "Host_City"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "hosting_city",
@@ -14222,6 +14702,7 @@
       "premises_type",
       "premise_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14243,6 +14724,7 @@
       "product_category",
       "product_name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14269,6 +14751,7 @@
       "customer_login",
       "customer_password"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14292,6 +14775,7 @@
       "mailshot_start_date",
       "mailshot_end_date"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14311,6 +14795,7 @@
       "address_type_code",
       "date_address_to"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Customer_Addresses",
@@ -14349,6 +14834,7 @@
       "order_delivered_datetime",
       "order_shipping_charges"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Customer_Orders",
@@ -14374,6 +14860,7 @@
       "outcome_code",
       "mailshot_customer_date"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Mailshot_Customers",
@@ -14408,6 +14895,7 @@
       "item_delivered_datetime",
       "item_order_quantity"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Order_Items",
@@ -14443,6 +14931,7 @@
       "Abbreviation",
       "Country"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14466,6 +14955,7 @@
       "Country",
       "CountryAbbrev"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14491,6 +14981,7 @@
       "SourceAirport",
       "DestAirport"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "flights",
@@ -14528,6 +15019,7 @@
       "Money_Rank",
       "Earnings"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "poker_player",
@@ -14558,6 +15050,7 @@
       "Birth_Date",
       "Height"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14582,6 +15075,7 @@
       "email_address",
       "phone_number"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14608,6 +15102,7 @@
       "email_address",
       "phone_number"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14634,6 +15129,7 @@
       "product_description",
       "product_price"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14657,6 +15153,7 @@
       "date_complaint_closed",
       "staff_id"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Complaints",
@@ -14700,6 +15197,7 @@
       "Pno",
       "Hours"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14728,6 +15226,7 @@
       "Super_ssn",
       "Dno"
     ],
+    "num_of_headers": 10,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14750,6 +15249,7 @@
       "Mgr_ssn",
       "Mgr_start_date"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14772,6 +15272,7 @@
       "Plocation",
       "Dnum"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14798,6 +15299,7 @@
       "Bdate",
       "Relationship"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14821,6 +15323,7 @@
       "Dnumber",
       "Dlocation"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14846,6 +15349,7 @@
       "Lowest",
       "Average"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14871,6 +15375,7 @@
       "Age",
       "Is_male"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14894,6 +15399,7 @@
       "Stadium_ID",
       "Year"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "concert",
@@ -14924,6 +15430,7 @@
       "concert_ID",
       "Singer_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "singer_in_concert",
@@ -14958,6 +15465,7 @@
       "Document_Type_Name",
       "Document_Type_Description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14978,6 +15486,7 @@
       "Budget_Type_Code",
       "Budget_Type_Description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -14998,6 +15507,7 @@
       "Project_ID",
       "Project_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -15023,6 +15533,7 @@
       "Document_Description",
       "Other_Details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Documents",
@@ -15056,6 +15567,7 @@
       "Statement_ID",
       "Statement_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Statements",
@@ -15084,6 +15596,7 @@
       "Budget_Type_Code",
       "Document_Details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Documents_with_Expenses",
@@ -15118,6 +15631,7 @@
       "Statement_ID",
       "Account_Details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Accounts",
@@ -15145,6 +15659,7 @@
       "Customer_ID",
       "Customer_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -15165,6 +15680,7 @@
       "Staff_ID",
       "Staff_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -15188,6 +15704,7 @@
       "Start_Date",
       "End_Date"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Policies",
@@ -15221,6 +15738,7 @@
       "Amount_Claimed",
       "Amount_Piad"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Claim_Headers",
@@ -15253,6 +15771,7 @@
       "Created_by_Staff_ID",
       "Created_Date"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Claims_Documents",
@@ -15288,6 +15807,7 @@
       "Claim_Status_Name",
       "Claim_Status_Description"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -15311,6 +15831,7 @@
       "Claim_Stage_ID",
       "Staff_ID"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Claims_Processing",
@@ -15344,6 +15865,7 @@
       "Customer_ID",
       "Customer_Details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -15367,6 +15889,7 @@
       "Start_Date",
       "End_Date"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Customer_Policies",
@@ -15398,6 +15921,7 @@
       "Amount_Claimed",
       "Amount_Settled"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Claims",
@@ -15430,6 +15954,7 @@
       "Amount_Settled",
       "Customer_Policy_ID"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Settlements",
@@ -15460,6 +15985,7 @@
       "Date_Payment_Made",
       "Amount_Payment"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Payments",
@@ -15494,6 +16020,7 @@
       "Police_force",
       "Location"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -15521,6 +16048,7 @@
       "Multiracial",
       "Hispanic"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "city",
@@ -15550,6 +16078,7 @@
       "gp",
       "starting_pos"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "all_star",
@@ -15592,6 +16121,7 @@
       "g_ph",
       "g_pr"
     ],
+    "num_of_headers": 21,
     "table_constraints": [
       {
         "this_table": "appearances",
@@ -15625,6 +16155,7 @@
       "tie",
       "notes"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "manager_award",
@@ -15652,6 +16183,7 @@
       "tie",
       "notes"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "player_award",
@@ -15680,6 +16212,7 @@
       "points_max",
       "votes_first"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -15701,6 +16234,7 @@
       "points_max",
       "votes_first"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "player_award_vote",
@@ -15744,6 +16278,7 @@
       "sf",
       "g_idp"
     ],
+    "num_of_headers": 22,
     "table_constraints": [
       {
         "this_table": "batting",
@@ -15787,6 +16322,7 @@
       "sf",
       "g_idp"
     ],
+    "num_of_headers": 22,
     "table_constraints": [
       {
         "this_table": "batting_postseason",
@@ -15817,6 +16353,7 @@
       "college_id",
       "year"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "player_college",
@@ -15862,6 +16399,7 @@
       "cs",
       "zr"
     ],
+    "num_of_headers": 18,
     "table_constraints": [
       {
         "this_table": "fielding",
@@ -15889,6 +16427,7 @@
       "gcf",
       "grf"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "fielding_outfield",
@@ -15927,6 +16466,7 @@
       "sb",
       "cs"
     ],
+    "num_of_headers": 17,
     "table_constraints": [
       {
         "this_table": "fielding_postseason",
@@ -15963,6 +16503,7 @@
       "category",
       "needed_note"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "hall_of_fame",
@@ -15993,6 +16534,7 @@
       "openings",
       "attendance"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "home_game",
@@ -16030,6 +16572,7 @@
       "rank",
       "plyr_mgr"
     ],
+    "num_of_headers": 10,
     "table_constraints": [
       {
         "this_table": "manager",
@@ -16061,6 +16604,7 @@
       "l",
       "rank"
     ],
+    "num_of_headers": 10,
     "table_constraints": [
       {
         "this_table": "manager_half",
@@ -16106,6 +16650,7 @@
       "retro_id",
       "bbref_id"
     ],
+    "num_of_headers": 24,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16126,6 +16671,7 @@
       "state",
       "country"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16170,6 +16716,7 @@
       "sf",
       "g_idp"
     ],
+    "num_of_headers": 30,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16214,6 +16761,7 @@
       "sf",
       "g_idp"
     ],
+    "num_of_headers": 30,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16233,6 +16781,7 @@
       "player_id",
       "salary"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16252,6 +16801,7 @@
       "state",
       "country"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16275,6 +16825,7 @@
       "losses",
       "ties"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16337,6 +16888,7 @@
       "team_id_lahman45",
       "team_id_retro"
     ],
+    "num_of_headers": 48,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16355,6 +16907,7 @@
       "active",
       "na_assoc"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16379,6 +16932,7 @@
       "w",
       "l"
     ],
+    "num_of_headers": 10,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16403,6 +16957,7 @@
       "birth_city",
       "birth_year"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16424,6 +16979,7 @@
       "msid",
       "cid"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16446,6 +17002,7 @@
       "aid",
       "role"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "cast",
@@ -16479,6 +17036,7 @@
       "gid",
       "genre"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16500,6 +17058,7 @@
       "msid",
       "gid"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "classification",
@@ -16534,6 +17093,7 @@
       "name",
       "country_code"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16558,6 +17118,7 @@
       "birth_city",
       "birth_year"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16582,6 +17143,7 @@
       "birth_city",
       "birth_year"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16603,6 +17165,7 @@
       "msid",
       "did"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "directed_by",
@@ -16636,6 +17199,7 @@
       "id",
       "keyword"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16657,6 +17221,7 @@
       "msid",
       "pid"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "made_by",
@@ -16693,6 +17258,7 @@
       "title_aka",
       "budget"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16714,6 +17280,7 @@
       "msid",
       "kid"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "tags",
@@ -16752,6 +17319,7 @@
       "title_aka",
       "budget"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16777,6 +17345,7 @@
       "birth_city",
       "birth_year"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16794,6 +17363,7 @@
       "msid",
       "wid"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "written_by",
@@ -16827,6 +17397,7 @@
       "SongId",
       "Title"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16850,6 +17421,7 @@
       "Label",
       "Type"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16871,6 +17443,7 @@
       "Firstname",
       "Lastname"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -16898,6 +17471,7 @@
       "BandmateId",
       "Instrument"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Instruments",
@@ -16935,6 +17509,7 @@
       "Bandmate",
       "StagePosition"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Performance",
@@ -16972,6 +17547,7 @@
       "Position",
       "SongId"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Tracklists",
@@ -17009,6 +17585,7 @@
       "Bandmate",
       "Type"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Vocals",
@@ -17043,6 +17620,7 @@
       "name",
       "grade"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17066,6 +17644,7 @@
       "student_id",
       "friend_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Friend",
@@ -17102,6 +17681,7 @@
       "student_id",
       "liked_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Likes",
@@ -17139,6 +17719,7 @@
       "Range",
       "Country"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17163,6 +17744,7 @@
       "Points",
       "Mountain_ID"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "climber",
@@ -17199,6 +17781,7 @@
       "meter_700",
       "Time"
     ],
+    "num_of_headers": 11,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17223,6 +17806,7 @@
       "Country",
       "Opening_year"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17245,6 +17829,7 @@
       "Stadium_ID",
       "Year"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "event",
@@ -17277,6 +17862,7 @@
       "Swimmer_ID",
       "Event_ID"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "record",
@@ -17315,6 +17901,7 @@
       "country",
       "other_address_details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17335,6 +17922,7 @@
       "product_id",
       "product_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17358,6 +17946,7 @@
       "date_became_customer",
       "other_customer_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17377,6 +17966,7 @@
       "address_type",
       "date_address_to"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Customer_Addresses",
@@ -17409,6 +17999,7 @@
       "active_to_date",
       "contact_number"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Customer_Contact_Channels",
@@ -17439,6 +18030,7 @@
       "order_date",
       "order_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Customer_Orders",
@@ -17463,6 +18055,7 @@
       "product_id",
       "order_quantity"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Order_Items",
@@ -17496,6 +18089,7 @@
       "investor_id",
       "Investor_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17517,6 +18111,7 @@
       "investor_id",
       "lot_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Lots",
@@ -17544,6 +18139,7 @@
       "transaction_type_code",
       "transaction_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17569,6 +18165,7 @@
       "share_count",
       "other_details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Transactions",
@@ -17602,6 +18199,7 @@
       "sales_transaction_id",
       "sales_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Sales",
@@ -17625,6 +18223,7 @@
       "purchase_transaction_id",
       "purchase_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Purchases",
@@ -17648,6 +18247,7 @@
       "transaction_id",
       "lot_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Transactions_Lots",
@@ -17687,6 +18287,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17708,6 +18309,7 @@
       "GName",
       "GType"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17725,6 +18327,7 @@
       "GameID",
       "Hours_Played"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Plays_Games",
@@ -17757,6 +18360,7 @@
       "GamesPlayed",
       "OnScholarship"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "SportsInfo",
@@ -17784,6 +18388,7 @@
       "payment_method_code",
       "payment_method_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17805,6 +18410,7 @@
       "Parent_Service_Type_Code",
       "Service_Type_Description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17829,6 +18435,7 @@
       "State_County",
       "Other_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17852,6 +18459,7 @@
       "Product_Description",
       "Other_Product_Service_Details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17874,6 +18482,7 @@
       "Marketing_Region_Descriptrion",
       "Other_Details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -17898,6 +18507,7 @@
       "Customer_Phone",
       "Other_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Clients",
@@ -17931,6 +18541,7 @@
       "Store_Email_Address",
       "Other_Details"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Drama_Workshop_Groups",
@@ -17962,6 +18573,7 @@
       "Customer_Email_Address",
       "Other_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Performers",
@@ -17993,6 +18605,7 @@
       "Customer_Email_Address",
       "Other_Details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Customers",
@@ -18025,6 +18638,7 @@
       "Store_Email_Address",
       "Other_Details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Stores",
@@ -18065,6 +18679,7 @@
       "Actual_Delivery_Date",
       "Other_Order_Details"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Bookings",
@@ -18101,6 +18716,7 @@
       "Order_ID",
       "Performer_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Performers_in_Bookings",
@@ -18139,6 +18755,7 @@
       "Actual_Delivery_Date",
       "Other_Order_Details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Customer_Orders",
@@ -18175,6 +18792,7 @@
       "Order_Quantity",
       "Other_Item_Details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Order_Items",
@@ -18213,6 +18831,7 @@
       "Other_Item_Details",
       "Order_Item_ID"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Invoices",
@@ -18257,6 +18876,7 @@
       "Product_Price",
       "Other_Product_Service_Details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Services",
@@ -18293,6 +18913,7 @@
       "Order_ID",
       "Product_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Bookings_Services",
@@ -18331,6 +18952,7 @@
       "Order_Quantity",
       "Other_Item_Details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Invoice_Items",
@@ -18378,6 +19000,7 @@
       "Population",
       "Zip_code"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18404,6 +19027,7 @@
       "Attorney_General",
       "US_Senate"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18429,6 +19053,7 @@
       "First_Elected",
       "Committee"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "election",
@@ -18465,6 +19090,7 @@
       "Publication_Date",
       "Price"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "publication",
@@ -18494,6 +19120,7 @@
       "Issues",
       "Writer"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18517,6 +19144,7 @@
       "Famous_Title",
       "Famous_Release_date"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18541,6 +19169,7 @@
       "Song",
       "Artist_ID"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "volume",
@@ -18572,6 +19201,7 @@
       "Volume",
       "Result"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "music_festival",
@@ -18599,6 +19229,7 @@
       "custid",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18619,6 +19250,7 @@
       "custid",
       "balance"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "SAVINGS",
@@ -18646,6 +19278,7 @@
       "custid",
       "balance"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "CHECKING",
@@ -18673,6 +19306,7 @@
       "Service_ID",
       "Service_Type_Code"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18694,6 +19328,7 @@
       "Participant_Type_Code",
       "Participant_Details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18715,6 +19350,7 @@
       "Service_ID",
       "Event_Details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Events",
@@ -18745,6 +19381,7 @@
       "Event_ID",
       "Participant_ID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Participants_in_Events",
@@ -18782,6 +19419,7 @@
       "Applications",
       "Software_Platform"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18805,6 +19443,7 @@
       "Open_Date",
       "Open_Year"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18829,6 +19468,7 @@
       "Device_ID",
       "Quantity"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "stock",
@@ -18864,6 +19504,7 @@
       "Region",
       "Start_year"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18891,6 +19532,7 @@
       "Bronze",
       "Total"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "club_rank",
@@ -18924,6 +19566,7 @@
       "Goals",
       "Points"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "player",
@@ -18953,6 +19596,7 @@
       "Competition_type",
       "Country"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -18981,6 +19625,7 @@
       "Club_ID_2",
       "Score"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "competition_result",
@@ -19022,6 +19667,7 @@
       "Venue",
       "Name"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19044,6 +19690,7 @@
       "Author",
       "College"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19068,6 +19715,7 @@
       "Workshop_ID",
       "Result"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Acceptance",
@@ -19102,6 +19750,7 @@
       "customer_name",
       "customer_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19123,6 +19772,7 @@
       "invoice_date",
       "invoice_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19146,6 +19796,7 @@
       "date_order_placed",
       "order_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Orders",
@@ -19174,6 +19825,7 @@
       "product_name",
       "product_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19197,6 +19849,7 @@
       "order_item_status",
       "order_item_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Order_Items",
@@ -19234,6 +19887,7 @@
       "shipment_date",
       "other_shipment_details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Shipments",
@@ -19263,6 +19917,7 @@
       "shipment_id",
       "order_item_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Shipment_Items",
@@ -19299,6 +19954,7 @@
       "Home_city",
       "Age"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19322,6 +19978,7 @@
       "Location",
       "Type"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19347,6 +20004,7 @@
       "Years_Working",
       "If_full_time"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "school_bus",
@@ -19384,6 +20042,7 @@
       "Height_feet",
       "Floors"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19411,6 +20070,7 @@
       "Primary_Conference",
       "building_id"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Institution",
@@ -19443,6 +20103,7 @@
       "sequence_identity_to_human_protein",
       "Institution_id"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "protein",
@@ -19470,6 +20131,7 @@
       "actid",
       "activity_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19486,6 +20148,7 @@
       "stuid",
       "actid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Participates_in",
@@ -19515,6 +20178,7 @@
       "FacID",
       "actid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Faculty_Participates_in",
@@ -19554,6 +20218,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19580,6 +20245,7 @@
       "Room",
       "Building"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19603,6 +20269,7 @@
       "Carrier",
       "Price"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19626,6 +20293,7 @@
       "Num_of_shops",
       "Ranking"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19650,6 +20318,7 @@
       "Phone_ID",
       "Num_of_stock"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "phone_market",
@@ -19686,6 +20355,7 @@
       "Money_Requested",
       "Investor"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "entrepreneur",
@@ -19716,6 +20386,7 @@
       "Weight",
       "Date_of_Birth"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19741,6 +20412,7 @@
       "building_manager",
       "building_phone"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19766,6 +20438,7 @@
       "bedroom_count",
       "room_count"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Apartments",
@@ -19796,6 +20469,7 @@
       "apt_id",
       "facility_code"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Apartment_Facilities",
@@ -19826,6 +20500,7 @@
       "guest_last_name",
       "date_of_birth"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19850,6 +20525,7 @@
       "booking_start_date",
       "booking_end_date"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Apartment_Bookings",
@@ -19885,6 +20561,7 @@
       "status_date",
       "available_yn"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "View_Unit_Status",
@@ -19920,6 +20597,7 @@
       "Trade_Name",
       "FDA_approved"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19945,6 +20623,7 @@
       "OMIM",
       "Porphyria"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -19969,6 +20648,7 @@
       "medicine_id",
       "interaction_type"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "medicine_enzyme_interaction",
@@ -20008,6 +20688,7 @@
       "Horizontal_Bar_Points",
       "Total_Points"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "gymnast",
@@ -20038,6 +20719,7 @@
       "Height",
       "Hometown"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20063,6 +20745,7 @@
       "Grade",
       "Classroom"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20087,6 +20770,7 @@
       "FirstName",
       "Classroom"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20107,6 +20791,7 @@
       "id",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20123,6 +20808,7 @@
       "name",
       "seq"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20144,6 +20830,7 @@
       "title",
       "artist_id"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "albums",
@@ -20184,6 +20871,7 @@
       "fax",
       "email"
     ],
+    "num_of_headers": 15,
     "table_constraints": [
       {
         "this_table": "employees",
@@ -20222,6 +20910,7 @@
       "email",
       "support_rep_id"
     ],
+    "num_of_headers": 13,
     "table_constraints": [
       {
         "this_table": "customers",
@@ -20249,6 +20938,7 @@
       "id",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20276,6 +20966,7 @@
       "billing_postal_code",
       "total"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "invoices",
@@ -20303,6 +20994,7 @@
       "id",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20330,6 +21022,7 @@
       "bytes",
       "unit_price"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "tracks",
@@ -20372,6 +21065,7 @@
       "unit_price",
       "quantity"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "invoice_lines",
@@ -20405,6 +21099,7 @@
       "id",
       "name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20428,6 +21123,7 @@
       "playlist_id",
       "track_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "playlist_tracks",
@@ -20463,6 +21159,7 @@
       "Age",
       "City"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20487,6 +21184,7 @@
       "Number_products",
       "Manager_name"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20509,6 +21207,7 @@
       "Start_from",
       "Is_full_time"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "hiring",
@@ -20546,6 +21245,7 @@
       "Year_awarded",
       "Bonus"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "evaluation",
@@ -20577,6 +21277,7 @@
       "CLASS_ROOM",
       "PROF_NUM"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "CLASS",
@@ -20612,6 +21313,7 @@
       "CRS_DESCRIPTION",
       "CRS_CREDIT"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "COURSE",
@@ -20643,6 +21345,7 @@
       "DEPT_ADDRESS",
       "DEPT_EXTENSION"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "DEPARTMENT",
@@ -20675,6 +21378,7 @@
       "EMP_HIREDATE",
       "EMP_DOB"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20692,6 +21396,7 @@
       "STU_NUM",
       "ENROLL_GRADE"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "ENROLL",
@@ -20724,6 +21429,7 @@
       "PROF_EXTENSION",
       "PROF_HIGH_DEGREE"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "PROFESSOR",
@@ -20767,6 +21473,7 @@
       "STU_PHONE",
       "PROF_NUM"
     ],
+    "num_of_headers": 12,
     "table_constraints": [
       {
         "this_table": "STUDENT",
@@ -20794,6 +21501,7 @@
       "master_customer_id",
       "cmi_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -20815,6 +21523,7 @@
       "master_customer_id",
       "source_system_code"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "CMI_Cross_References",
@@ -20842,6 +21551,7 @@
       "council_tax_id",
       "cmi_cross_ref_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Council_Tax",
@@ -20869,6 +21579,7 @@
       "business_rates_id",
       "cmi_cross_ref_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Business_Rates",
@@ -20896,6 +21607,7 @@
       "council_tax_id",
       "cmi_cross_ref_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Benefits_Overpayments",
@@ -20923,6 +21635,7 @@
       "council_tax_id",
       "cmi_cross_ref_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Parking_Fines",
@@ -20950,6 +21663,7 @@
       "council_tax_id",
       "cmi_cross_ref_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Rent_Arrears",
@@ -20977,6 +21691,7 @@
       "electoral_register_id",
       "cmi_cross_ref_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Electoral_Register",
@@ -21008,6 +21723,7 @@
       "Stories",
       "Status"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21034,6 +21750,7 @@
       "Assets_billion",
       "Market_Value_billion"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21058,6 +21775,7 @@
       "company_id",
       "move_in_year"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Office_locations",
@@ -21095,6 +21813,7 @@
       "latin_commander",
       "result"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21120,6 +21839,7 @@
       "location",
       "disposition_of_ship"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "ship",
@@ -21150,6 +21870,7 @@
       "killed",
       "injured"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "death",
@@ -21183,6 +21904,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21201,6 +21923,7 @@
       "student_capacity",
       "gender"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21217,6 +21940,7 @@
       "amenid",
       "amenity_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21233,6 +21957,7 @@
       "dormid",
       "amenid"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Has_amenity",
@@ -21263,6 +21988,7 @@
       "dormid",
       "room_number"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Lives_in",
@@ -21297,6 +22023,7 @@
       "date_issued",
       "coupon_amount"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21323,6 +22050,7 @@
       "date_became_customer",
       "date_last_hire"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Customers",
@@ -21359,6 +22087,7 @@
       "amount_outstanding",
       "amount_of_refund"
     ],
+    "num_of_headers": 11,
     "table_constraints": [
       {
         "this_table": "Bookings",
@@ -21389,6 +22118,7 @@
       "product_name",
       "product_description"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21415,6 +22145,7 @@
       "amount_due",
       "amount_paid"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Payments",
@@ -21455,6 +22186,7 @@
       "booked_count",
       "booked_amount"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Products_Booked",
@@ -21490,6 +22222,7 @@
       "status_date",
       "available_yn"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "View_Product_Availability",
@@ -21526,6 +22259,7 @@
       "Score",
       "Open_Year"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21551,6 +22285,7 @@
       "Level_of_membership",
       "Address"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21579,6 +22314,7 @@
       "Month",
       "Num_of_shaff_in_charge"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "happy_hour",
@@ -21610,6 +22346,7 @@
       "Member_ID",
       "Total_amount"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "happy_hour_member",
@@ -21640,6 +22377,7 @@
       "Net_Worth_Millions",
       "Citizenship"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21663,6 +22401,7 @@
       "Sales",
       "Highest_Position"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "song",
@@ -21691,6 +22430,7 @@
       "Title",
       "ArtistId"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Album",
@@ -21718,6 +22458,7 @@
       "ArtistId",
       "Name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21749,6 +22490,7 @@
       "Email",
       "SupportRepId"
     ],
+    "num_of_headers": 13,
     "table_constraints": [
       {
         "this_table": "Customer",
@@ -21789,6 +22531,7 @@
       "Fax",
       "Email"
     ],
+    "num_of_headers": 15,
     "table_constraints": [
       {
         "this_table": "Employee",
@@ -21816,6 +22559,7 @@
       "GenreId",
       "Name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21843,6 +22587,7 @@
       "BillingPostalCode",
       "Total"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Invoice",
@@ -21873,6 +22618,7 @@
       "UnitPrice",
       "Quantity"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "InvoiceLine",
@@ -21906,6 +22652,7 @@
       "MediaTypeId",
       "Name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21926,6 +22673,7 @@
       "PlaylistId",
       "Name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -21949,6 +22697,7 @@
       "PlaylistId",
       "TrackId"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "PlaylistTrack",
@@ -21989,6 +22738,7 @@
       "Bytes",
       "UnitPrice"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Track",
@@ -22028,6 +22778,7 @@
       "address_type_code",
       "address_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22048,6 +22799,7 @@
       "detention_type_code",
       "detention_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22068,6 +22820,7 @@
       "incident_type_code",
       "incident_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22095,6 +22848,7 @@
       "country",
       "other_address_details"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22123,6 +22877,7 @@
       "date_left_university",
       "other_student_details"
     ],
+    "num_of_headers": 10,
     "table_constraints": [
       {
         "this_table": "Students",
@@ -22157,6 +22912,7 @@
       "email_address",
       "other_details"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Teachers",
@@ -22184,6 +22940,7 @@
       "text_of_notes",
       "other_details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Assessment_Notes",
@@ -22223,6 +22980,7 @@
       "recommendations",
       "other_details"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Behavior_Incident",
@@ -22261,6 +23019,7 @@
       "detention_summary",
       "other_details"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "Detention",
@@ -22294,6 +23053,7 @@
       "monthly_rental",
       "other_details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Student_Addresses",
@@ -22324,6 +23084,7 @@
       "detention_id",
       "incident_id"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Students_in_Detention",
@@ -22366,6 +23127,7 @@
       "District",
       "Population"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "city",
@@ -22389,6 +23151,7 @@
       "name",
       "seq"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22422,6 +23185,7 @@
       "Capital",
       "Code2"
     ],
+    "num_of_headers": 15,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22447,6 +23211,7 @@
       "IsOfficial",
       "Percentage"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "countrylanguage",
@@ -22484,6 +23249,7 @@
       "All_Road",
       "All_Neutral"
     ],
+    "num_of_headers": 12,
     "table_constraints": [
       {
         "this_table": "basketball_match",
@@ -22517,6 +23283,7 @@
       "Nickname",
       "Primary_conference"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22541,6 +23308,7 @@
       "Range",
       "Country"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22564,6 +23332,7 @@
       "focal_length_mm",
       "max_aperture"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22587,6 +23356,7 @@
       "color",
       "name"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "photos",
@@ -22620,6 +23390,7 @@
       "venueId",
       "venueName"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22640,6 +23411,7 @@
       "authorId",
       "authorName"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22660,6 +23432,7 @@
       "datasetId",
       "datasetName"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22680,6 +23453,7 @@
       "journalId",
       "journalName"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22700,6 +23474,7 @@
       "keyphraseId",
       "keyphraseName"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22725,6 +23500,7 @@
       "numCitedBy",
       "journalId"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "paper",
@@ -22761,6 +23537,7 @@
       "citingPaperId",
       "citedPaperId"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "cite",
@@ -22797,6 +23574,7 @@
       "paperId",
       "datasetId"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22820,6 +23598,7 @@
       "paperId",
       "keyphraseId"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "paperKeyphrase",
@@ -22856,6 +23635,7 @@
       "paperId",
       "authorId"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "writes",
@@ -22890,6 +23670,7 @@
       "attribute_name",
       "attribute_data_type"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22913,6 +23694,7 @@
       "date_of_publication",
       "date_of_latest_revision"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -22934,6 +23716,7 @@
       "catalog_id",
       "catalog_level_name"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Catalog_Structure",
@@ -22973,6 +23756,7 @@
       "height",
       "width"
     ],
+    "num_of_headers": 14,
     "table_constraints": [
       {
         "this_table": "Catalog_Contents",
@@ -22998,6 +23782,7 @@
       "attribute_id",
       "attribute_value"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Catalog_Contents_Additional_Attributes",
@@ -23031,6 +23816,7 @@
       "feature_type_code",
       "feature_type_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23051,6 +23837,7 @@
       "property_type_code",
       "property_type_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23073,6 +23860,7 @@
       "feature_name",
       "feature_description"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Other_Available_Features",
@@ -23124,6 +23912,7 @@
       "shp_feature_3",
       "other_property_details"
     ],
+    "num_of_headers": 26,
     "table_constraints": [
       {
         "this_table": "Properties",
@@ -23148,6 +23937,7 @@
       "feature_id",
       "property_feature_description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Other_Property_Features",
@@ -23188,6 +23978,7 @@
       "country",
       "other_address_details"
     ],
+    "num_of_headers": 9,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23210,6 +24001,7 @@
       "course_description",
       "other_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23232,6 +24024,7 @@
       "department_description",
       "other_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23255,6 +24048,7 @@
       "degree_summary_description",
       "other_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Degree_Programs",
@@ -23285,6 +24079,7 @@
       "section_description",
       "other_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Sections",
@@ -23314,6 +24109,7 @@
       "semester_description",
       "other_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23344,6 +24140,7 @@
       "date_left",
       "other_student_details"
     ],
+    "num_of_headers": 12,
     "table_constraints": [
       {
         "this_table": "Students",
@@ -23380,6 +24177,7 @@
       "student_id",
       "other_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Student_Enrolment",
@@ -23420,6 +24218,7 @@
       "course_id",
       "student_enrolment_id"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Student_Enrolment_Courses",
@@ -23454,6 +24253,7 @@
       "transcript_date",
       "other_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23470,6 +24270,7 @@
       "student_course_id",
       "transcript_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Transcript_Contents",
@@ -23506,6 +24307,7 @@
       "Director",
       "Gross_in_dollar"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23527,6 +24329,7 @@
       "Country",
       "Number_cities"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23552,6 +24355,7 @@
       "Market_ID",
       "Year"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "film_market_estimation",
@@ -23588,6 +24392,7 @@
       "Year_Join",
       "Age"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23611,6 +24416,7 @@
       "Artist_ID",
       "Ticket_Price"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "exhibition",
@@ -23642,6 +24448,7 @@
       "Date",
       "Attendance"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "exhibition_record",
@@ -23673,6 +24480,7 @@
       "state_province_county",
       "country"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23695,6 +24503,7 @@
       "service_name",
       "service_descriptio"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23719,6 +24528,7 @@
       "form_name",
       "form_description"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Forms",
@@ -23751,6 +24561,7 @@
       "individual_address",
       "individual_last_name"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23773,6 +24584,7 @@
       "organization_name",
       "uk_vat_number"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23795,6 +24607,7 @@
       "party_phone",
       "party_email"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23820,6 +24633,7 @@
       "date_contact_from",
       "date_contact_to"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Organization_Contact_Individuals",
@@ -23859,6 +24673,7 @@
       "address_type_code",
       "date_address_to"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Party_Addresses",
@@ -23898,6 +24713,7 @@
       "form_status_code",
       "date_fully_completed"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Party_Forms",
@@ -23930,6 +24746,7 @@
       "service_datetime",
       "booking_made_date"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Party_Services",
@@ -23963,6 +24780,7 @@
       "Customer_ID",
       "Customer_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -23983,6 +24801,7 @@
       "Service_ID",
       "Service_name"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24004,6 +24823,7 @@
       "policy_type_code",
       "Customer_Phone"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24029,6 +24849,7 @@
       "Date_Opened",
       "Date_Closed"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Customers_Policies",
@@ -24064,6 +24885,7 @@
       "Policy_ID",
       "Service_ID"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "First_Notification_of_Loss",
@@ -24104,6 +24926,7 @@
       "FNOL_ID",
       "Effective_Date"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Claims",
@@ -24133,6 +24956,7 @@
       "Effective_Date",
       "Settlement_Amount"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Settlements",
@@ -24166,6 +24990,7 @@
       "Advisor",
       "city_code"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24188,6 +25013,7 @@
       "Address",
       "Rating"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24204,6 +25030,7 @@
       "ResID",
       "ResTypeID"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Type_Of_Restaurant",
@@ -24238,6 +25065,7 @@
       "ResTypeName",
       "ResTypeDescription"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24256,6 +25084,7 @@
       "Time",
       "Spent"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Visits_Restaurant",
@@ -24294,6 +25123,7 @@
       "basePrice",
       "decor"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24321,6 +25151,7 @@
       "Adults",
       "Kids"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Reservations",
@@ -24348,6 +25179,7 @@
       "problem_category_code",
       "problem_category_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24375,6 +25207,7 @@
       "log_entry_fix",
       "other_log_details"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Problem_Log",
@@ -24420,6 +25253,7 @@
       "problem_status_code",
       "problem_status_description"
     ],
+    "num_of_headers": 2,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24441,6 +25275,7 @@
       "product_name",
       "product_details"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24463,6 +25298,7 @@
       "staff_last_name",
       "other_staff_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24489,6 +25325,7 @@
       "problem_description",
       "other_problem_details"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Problems",
@@ -24534,6 +25371,7 @@
       "Votes",
       "Rank"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24556,6 +25394,7 @@
       "Region",
       "Start_year"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24579,6 +25418,7 @@
       "Club_ID",
       "Rank"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "coach",
@@ -24610,6 +25450,7 @@
       "Coach_ID",
       "Starting_year"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "player_coach",
@@ -24651,6 +25492,7 @@
       "Bronze",
       "Points"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "match_result",
@@ -24683,6 +25525,7 @@
       "Speed_knots",
       "Fate"
     ],
+    "num_of_headers": 7,
     "table_constraints": [
       {
         "this_table": "mission",
@@ -24713,6 +25556,7 @@
       "Nationality",
       "Tonnage"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24738,6 +25582,7 @@
       "state_province_county",
       "country"
     ],
+    "num_of_headers": 7,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24764,6 +25609,7 @@
       "login_name",
       "password"
     ],
+    "num_of_headers": 8,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24784,6 +25630,7 @@
       "student_id",
       "student_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Students",
@@ -24813,6 +25660,7 @@
       "course_description",
       "other_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -24836,6 +25684,7 @@
       "date_from",
       "date_to"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "People_Addresses",
@@ -24873,6 +25722,7 @@
       "course_id",
       "registration_date"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Student_Course_Registrations",
@@ -24910,6 +25760,7 @@
       "course_id",
       "date_of_attendance"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Student_Course_Attendance",
@@ -24943,6 +25794,7 @@
       "candidate_id",
       "candidate_details"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Candidates",
@@ -24975,6 +25827,7 @@
       "assessment_date",
       "asessment_outcome_code"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "Candidate_Assessments",
@@ -25005,6 +25858,7 @@
       "company_address",
       "other_company_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -25028,6 +25882,7 @@
       "contract_end_date",
       "other_contract_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Maintenance_Contracts",
@@ -25058,6 +25913,7 @@
       "chargeable_amount",
       "other_part_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -25079,6 +25935,7 @@
       "skill_code",
       "skill_description"
     ],
+    "num_of_headers": 3,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -25101,6 +25958,7 @@
       "gender",
       "other_staff_details"
     ],
+    "num_of_headers": 4,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -25128,6 +25986,7 @@
       "asset_disposed_date",
       "other_asset_details"
     ],
+    "num_of_headers": 9,
     "table_constraints": [
       {
         "this_table": "Assets",
@@ -25157,6 +26016,7 @@
       "asset_id",
       "part_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Asset_Parts",
@@ -25193,6 +26053,7 @@
       "last_name",
       "other_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Maintenance_Engineers",
@@ -25216,6 +26077,7 @@
       "engineer_id",
       "skill_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Engineer_Skills",
@@ -25253,6 +26115,7 @@
       "fault_description",
       "other_fault_details"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "Fault_Log",
@@ -25292,6 +26155,7 @@
       "visit_end_datetime",
       "other_visit_details"
     ],
+    "num_of_headers": 8,
     "table_constraints": [
       {
         "this_table": "Engineer_Visits",
@@ -25334,6 +26198,7 @@
       "fault_description",
       "other_fault_details"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "Part_Faults",
@@ -25358,6 +26223,7 @@
       "part_fault_id",
       "fault_status"
     ],
+    "num_of_headers": 3,
     "table_constraints": [
       {
         "this_table": "Fault_Log_Parts",
@@ -25387,6 +26253,7 @@
       "part_fault_id",
       "skill_id"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "Skills_Required_To_Fix",
@@ -25423,6 +26290,7 @@
       "f1",
       "f2"
     ],
+    "num_of_headers": 2,
     "table_constraints": [
       {
         "this_table": "follows",
@@ -25458,6 +26326,7 @@
       "text",
       "createdate"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "tweets",
@@ -25488,6 +26357,7 @@
       "partitionid",
       "followers"
     ],
+    "num_of_headers": 5,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -25511,6 +26381,7 @@
       "Clean_Jerk",
       "Total"
     ],
+    "num_of_headers": 5,
     "table_constraints": [
       {
         "this_table": "body_builder",
@@ -25542,6 +26413,7 @@
       "Birth_Date",
       "Birth_Place"
     ],
+    "num_of_headers": 6,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -25570,6 +26442,7 @@
       "Year_Entered_Competition",
       "School_Colors"
     ],
+    "num_of_headers": 10,
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
@@ -25594,6 +26467,7 @@
       "Class",
       "Division"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "school_details",
@@ -25626,6 +26500,7 @@
       "Class_A",
       "Class_AA"
     ],
+    "num_of_headers": 4,
     "table_constraints": [
       {
         "this_table": "school_performance",
@@ -25657,6 +26532,7 @@
       "Position",
       "School_ID"
     ],
+    "num_of_headers": 6,
     "table_constraints": [
       {
         "this_table": "player",
