@@ -262,8 +262,8 @@ class RelDBDataset:
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             drop_flag = False
-        # test
-        # if db_name in ['department_management', 'musical']:
+            # test
+        # if db_name in ['department_management', 'musical', 'allergy_1']:
             # create realational database object.
             rel_db_object = RelDB(fdb = db_path, db_name=db_name)
             # engine = rel_db_object.engine
@@ -488,7 +488,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         print("************Start Building Graph Components****************")
         for table in db.tables:
             table_name = table.table_name
-
+            primary_keys = db.tables_pks[table_name]
             print(f"Running {table_name} in {db.db_name}")
             if len(table.rows)==0:
                 self.logger.error("There is no content in table {} of {}!".format(table_name, db.db_name))
@@ -497,6 +497,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 for i, row_dict in enumerate(table.rows):
                     print(f'row: {row_dict}')
                     matched_nodes = []
+                    fks = [constraint['column'] for constraint in table.table_constraints]
                     for constraint in table.table_constraints:
                         print(f'constraint: {constraint}')
                         ref_table = constraint['ref_table']
@@ -532,6 +533,20 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             #     self.logger.error("There are multiple matched graph nodes {} when building graph edge, \
                             #     regarding {} table in {} database.".format(matched, table_name, db.db_name))  
                             #     raise NotImplementedError
+                        
+                        if not primary_keys and len(table.table_constraints) ==2:
+                            # class py2neo.data.Relationship(start_node, type, end_node, **properties)
+                            # Note: we consider tables whose do not have the no primary keys but 2 constraints, and turn them into graph edges. 
+                            cypher_query =   "match (m:`{}.{}`) match (n:`{}.{}`) where m.{}={} and n.{}={} return m, n".format(db.db_name, table_name, db.db_name, ref_table, \
+                                    this_column, value,  ref_column, value)
+                            matched = self.graph.run(cypher_query).data()
+                            print(f'cypher_query: {cypher_query}')
+                            print(f'matched: {matched, len(matched)}')
+
+                            if matched:
+                                print(f'matched[0]: {matched[0]}')
+                                matched_nodes.extend([matched[0]])
+                                print(matched_nodes, len(matched_nodes))
                
 
                         if not table.check_compound_pk and len(table.table_constraints) !=2:
@@ -558,6 +573,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                         tx.create(rel)
                                         print(rel)
                     
+
                     print(matched_nodes, len(matched_nodes))
                     if len(matched_nodes) ==2:
                         # Case: a whole table is turned into graph edges, 
@@ -572,7 +588,11 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         
                         # class py2neo.data.Relationship(start_node, type, end_node, **properties)
                         print(f'********************************Building graph edge directly from {table_name}.***************************')   
-                        rel = Relationship(matched_nodes[0]['n'], '{}.{}'.format(db.db_name, table_name), matched_nodes[1]['n'], **row_dict) 
+                        # NOTE: we remove the foreign keys from each graph edge's property set, for the sake of the consistency of graph database.
+                        # to make sure the update of head or tail nodes would not violate the data consistency. 
+                        update_row_dict = {k: row_dict[k] for k in row_dict if k not in fks}  
+                        print(f'update_row_dict: {update_row_dict}')
+                        rel = Relationship(matched_nodes[0]['n'], '{}.{}'.format(db.db_name, table_name), matched_nodes[1]['n'], **update_row_dict) 
                         tx.create(rel)
 
                     else:
