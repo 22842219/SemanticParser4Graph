@@ -1,5 +1,6 @@
-import os
+import os, sys, json, csv
 import pandas as pd
+sys.path.append('..')
 from schema2graph import DBengine, RelDB, RelTable, TableSchema
 from utils import Logger, save2json, read_json
 
@@ -101,20 +102,47 @@ def check_difference(root, logger):
             if every['db_name'] not in filtered_list])
         print(f' num_of_all_tables: {len(all_tables_list)}, num_of_expected_graph_tables: {len(expected_graph_tables_list)}')
        
-        schema_map_file = os.path.join(root, 'pakdd2023', 'schemaMap.csv')
+        schema_map_file = os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'schemaMap.json')
         isSchemaMap = os.path.isfile(schema_map_file)
         if isSchemaMap:
-            actual_dbs = []
-            actual_tables = []
-            with open(schema_map_file, 'r') as f:
-                for line in f.readlines():
-                    graph_label, _, _, _,_,_ = line.split(',')
-                    if '.' in graph_label:
-                        actual_db, actual_table = graph_label.split('.')
-                        if actual_db not in actual_dbs:
-                            actual_dbs.append(actual_db)
-                        if graph_label not in actual_tables:
-                            actual_tables.append(graph_label)
+            actual_stat = {}
+            actual_stat['nodes'] = {}
+            actual_stat['edges'] = {}
+            data = read_json(schema_map_file)
+            total_unique_db =[]
+            lookup_dict = {'name': 'nodes', 'type':'edges'}
+            for variant in list(lookup_dict.keys()):
+                counter=0
+                curated_counter = 0
+                db_counter = 0
+                for line in data:
+                    if variant in line and '.' in line[variant]:  
+                        print(variant, line, line[variant])
+                        split_res = line[variant].split('.')
+                        db = split_res[0]
+                        tb = split_res[1]
+                        if db not in total_unique_db:
+                            total_unique_db.append(db)
+
+                        if db not in actual_stat[lookup_dict[variant]]:   
+                            actual_stat[lookup_dict[variant]][db]=[]
+                            db_counter+=1
+
+                        actual_stat[lookup_dict[variant]][db].append({tb: line['count']})
+                        counter+=line['count']
+                        if len(split_res)==3:
+                            curated_counter+=line['count']
+
+                actual_stat['{}_counter'.format(lookup_dict[variant])]= counter
+                actual_stat['curated_edges'] = curated_counter
+                actual_stat['db_counter_in_{}'.format(lookup_dict[variant])] =db_counter
+            actual_stat['total_unique_db'] = total_unique_db
+            actual_stat['num_of_total_unique_db'] = len(total_unique_db)
+            save2json(actual_stat, os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'actual_stat.json'))
+
+                
+            assert 1>2
+       
 
 
 
@@ -171,7 +199,7 @@ def main():
     import glob, argparse
     import configparser
     config = configparser.ConfigParser()
-    config.read('../config.ini')
+    config.read('../../config.ini')
     filenames = config["FILENAMES"]
 
     raw_folder = filenames['raw_folder']
