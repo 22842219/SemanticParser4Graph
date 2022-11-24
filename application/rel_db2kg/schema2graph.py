@@ -278,7 +278,7 @@ class RelDBDataset:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
             
-            if db_name in ['race_track', 'musical', 'department_management', 'imdb', 'hospital_1']:
+            if db_name in ['hospital_1']:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
                 # engine = rel_db_object.engine
@@ -404,28 +404,28 @@ class RelDB2KGraphBuilder(RelDBDataset):
         tx = self.tx
 
         print("************START BUILDING GRAPH NODES****************")
-        if  db.db_name is not None:
-            # create databse node
-            db_node = Node("Domain", name='db:{}'.format( db.db_name))
-            print("db_node:", db_node)
-            tx.create(db_node)
+        # if  db.db_name is not None:
+            # # create databse node
+            # db_node = Node("Domain", name='db:{}'.format( db.db_name))
+            # print("db_node:", db_node)
+            # tx.create(db_node)
 
-            # e.g. musical_db is an instance of "Domain".
-            tb = Relationship(db_node, "Instance_of_Domain", self.domain_base_node)
-            tx.create(tb)
-            print(tb)
+            # # e.g. musical_db is an instance of "Domain".
+            # tb = Relationship(db_node, "Instance_of_Domain", self.domain_base_node)
+            # tx.create(tb)
+            # print(tb)
 
         for table in db.tables:
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
             print(f"{table_name} in {db.db_name}")
 
-            table_node = Node("Table", name='tb:{}'.format( table_name))
-            tx.create(table_node)
+            # table_node = Node("Table", name='tb:{}'.format( table_name))
+            # tx.create(table_node)
             # e.g. musical_db is an instance of "Domain".
-            rel_tb = Relationship(table_node, "Part_Of", db_node)
-            tx.create(rel_tb)
-            print(rel_tb)
+            # rel_tb = Relationship(table_node, "Part_Of", db_node)
+            # tx.create(rel_tb)
+            # print(rel_tb)
 
             # if len(table.rows)==0:
             #     continue
@@ -501,6 +501,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 print(f'row: {row_dict}')
                 ref_lookup_dict = {}
                 this_lookup_dict = {}
+         
                 for constraint in table.table_constraints:
                     print(f'constraint: {constraint}')
                     ref_table = constraint['ref_table']
@@ -525,29 +526,29 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     # print(f' The type of {value} is {type(value)}')
                     # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
 
-
-                    if table_name not in this_lookup_dict:
-                        this_lookup_dict[table_name] = []
-                    if ref_table not in ref_lookup_dict:
-                        ref_lookup_dict[ref_table] = []
-                    if value=='':
-                        this_lookup_dict[table_name].append('{}.{}'.format(table_name.lower(), this_column)) # {ref_table: ['ref_tb_alias.ref_column: value']}
-                        ref_lookup_dict[ref_table].append('{}.{}'.format(ref_table.lower(), ref_column))
-
-                    else:
-                        this_lookup_dict[table_name].append({'{}.{}'.format(table_name.lower(), this_column):value})
-                        ref_lookup_dict[ref_table].append({'{}.{}'.format(ref_table.lower(), ref_column):value}) # {ref_table: [{ref_tb_alias.ref_column: value}]}
+                    for id, every_lookup_dict in enumerate([this_lookup_dict, ref_lookup_dict]):
+                        column = [this_column, ref_column][id]
+                        tb_name = [table_name, ref_table][id]
+                        
+                        if tb_name not in every_lookup_dict:
+                            every_lookup_dict[tb_name] = []
+                        if value=='':
+                            every_lookup_dict[tb_name].append('{}.{}'.format(tb_name.lower(), column)) # e.g., {ref_table: ['ref_tb_alias.ref_column: value']}
+                        else:
+                            every_lookup_dict[tb_name].append({'{}.{}'.format(tb_name.lower(), column):value})# e.g., {ref_table: [{ref_tb_alias.ref_column: value}]}
+                     
 
                 
                 print(f'graph_patterns_lookup_dict: {ref_lookup_dict}')
                 refs_constraints[i]=ref_lookup_dict
                 this_constraints[i]=this_lookup_dict
-                for idx, variant in enumerate(['ref', 'this']):
+                for idx, _ in enumerate(['ref', 'this']):
                     lookup_dict = [ref_lookup_dict, this_lookup_dict][idx]
                     total = [refs_matched_nodes, this_matched_nodes][idx]
-                    matched = []
+                    matched = {}
                     print(lookup_dict, matched, total)
                     for key, values in lookup_dict.items():
+                        matched[key.lower()]=[]
                         cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
                         cypher_where = []
                         for cond_i in values:
@@ -568,8 +569,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         if matched_res:
                             for every in matched_res:
                                 for alias, node in every.items():
-                                    print(f'matched node: {node}')
-                                    matched.append(node )
+                                    matched[alias].append(node )
                     print(f'matched_nodes: {matched}, {len(matched)}')
                     total[i] = matched
                 
@@ -588,11 +588,13 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 primary_keys = [primary_keys]
             print(f"Running {table_name} in {db.db_name} with {table.table_headers}")
             if table.table_constraints:
-                _, refs_matched_nodes, _, _ = self.get_constraints_lookup_dict(db, table)
+                refs_constraints, refs_matched_nodes, _, _ = self.get_constraints_lookup_dict(db, table)
                 ref_tables = set([constraint['ref_table'] for constraint in table.table_constraints ])
                 fks = [constraint['column'] for constraint in table.table_constraints]
                 for i, row_dict in enumerate(table.rows):
-                    ref_matched = refs_matched_nodes[i]
+                    refs_matched = refs_matched_nodes[i]
+                    
+                    print(f'ref_matched: {refs_matched}')
                     if len(ref_tables)==2:
                         # and  (not primary_keys or table.check_compound_pk):
                         # class py2neo.data.Relationship(start_node, type, end_node, **properties)
@@ -613,14 +615,19 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         #     print(len(ref_tables))
                         #     print(not primary_keys or table.check_compound_pk)
                         #     assert 1>2
-                        if len(ref_matched)==2:
-                            # the reason to choose the second element in matched nodes as the start node, is we observe the nature of relational database
-                            # design and the way of our implementation. It is just an assumption based on some limtited observation.
-                            rel = Relationship(ref_matched[1], '{}.{}'.format(db.db_name, table_name), ref_matched[0], **update_row_dict) 
-                            tx.create(rel)
+                        ref_constraints = list(refs_constraints[i].keys())
+                        for start in refs_matched[ref_constraints[1].lower()]:
+                            for end in refs_matched[ref_constraints[0].lower()]:
+                                rel = Relationship(start, '{}.{}'.format(db.db_name, table_name), end, **update_row_dict) 
+                                tx.create(rel)
+                        
+                        # if len(ref_matched)==2:
+                        #     # the reason to choose the second element in matched nodes as the start node, is we observe the nature of relational database
+                        #     # design and the way of our implementation. It is just an assumption based on some limtited observation.
+                        #     rel = Relationship(ref_matched[1], '{}.{}'.format(db.db_name, table_name), ref_matched[0], **update_row_dict) 
+                        #     tx.create(rel)
                             
-                        else:
-                            raise NotImplementedError
+               
         self.graph.commit(tx)
 
     def build_edges(self, db):
@@ -639,41 +646,24 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 refs_constraints, refs_matched_nodes, this_constraints, this_matched_nodes = self.get_constraints_lookup_dict( db, table)
                 for i, row_dict in enumerate(table.rows):
                     print(f'row: {row_dict}')
-                    ref_matched =refs_matched_nodes[i]
+                    refs_matched =refs_matched_nodes[i]
                     this_matched = this_matched_nodes[i]
-                    ref_lookup_dict = refs_constraints[i]
-                    this_lookup_dict = this_constraints[i]
-                    print(this_lookup_dict)
                     if len(ref_tables) not in [0, 2]:
                         # NOTE: deal with one-to-one (with curated edge), many-to-one mapping, or one-to-many mapping.
-                        print(f'table_name: {table_name}, ref_lookup_dict: {ref_lookup_dict}, this_lookup_dict: {this_lookup_dict}')
-                        for key, values in this_lookup_dict.items():
-                            cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
-                            cypher_where = []
-                            for v in values:
-                                for cond_i in values:
-                                    for k, v in cond_i.items():
-                                        cypher_where.append('{}={}'.format(k, v))
-                            cypher_query = cypher_match + ' where ' + ' and '.join(cypher_where) + ' return {}'.format(key.lower())
-                            print(f'cypher_query: {cypher_query}')
-                            matched = self.graph.run(cypher_query).data()
-                            print(f'every matched: {matched}')
-                            if matched:
-                                for every in matched:
-                                    for alias, node in every.items():
-                                        print(f'matched node: {node}')
-                                        this_matched.append(node )
-                        print(f'this_matched_nodes: {this_matched}, {len(this_matched)}')
-
-                        for ref_node in ref_matched:
-                            for this_node in this_matched:
-                                rel_checker =  "match (m{})-[r]-(n{}) return r".format(this_node.labels, ref_node.labels)
-                                res = self.graph.run(rel_checker).data()
-                                print(f'cypher_query: {rel_checker}, db_name: {db.db_name}')
-                                print(f'returned_rels: {res}, db_name: {db.db_name}')
-                                if not res:
-                                    rel = Relationship(ref_node, '{}_HAS_{}'.format( str(ref_node.labels)[1:].strip('`'), str(this_node.labels)[1:].strip('`')), this_node) 
-                                    tx.create(rel)  
+                        print(f'table_name: {table_name}, ref_lookup_dict: {refs_constraints[i]}')
+                        print(refs_matched)
+                        print(this_matched)
+                        for ref_alias, ref_nodes in refs_matched.items():
+                            for ref_node in ref_nodes:
+                                for this_alias, this_nodes in this_matched.items():
+                                    for this_node in this_nodes:
+                                        rel_checker =  "match (m{})-[r]-(n{}) return r".format(this_node.labels, ref_node.labels)
+                                        res = self.graph.run(rel_checker).data()
+                                        print(f'cypher_query: {rel_checker}, db_name: {db.db_name}')
+                                        print(f'returned_rels: {res}, db_name: {db.db_name}')
+                                        if not res:
+                                            rel = Relationship(ref_node, '{}_HAS_{}'.format( str(ref_node.labels)[1:].strip('`'), str(this_node.labels)[1:].strip('`')), this_node) 
+                                            tx.create(rel)  
 
         self.graph.commit(tx)
 
