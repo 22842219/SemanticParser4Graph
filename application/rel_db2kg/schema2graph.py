@@ -275,10 +275,10 @@ class RelDBDataset:
             #                 if missing_db not in check_dbs:
             #                     check_dbs.append(missing_db)
             #     if db_name not in check_dbs:
-            #         continue
+            #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
             
-            if db_name in [ 'musical', 'department_management', 'imdb']:
+            if db_name in ['hospital_1']:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
                 # engine = rel_db_object.engine
@@ -290,14 +290,18 @@ class RelDBDataset:
                     table_headers = [desc[0] for desc in table_records.description]    
                     print(f'table_name: {table_name}, table_headers {table_headers}' )
 
-                    df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
-                    # Do not drop duplicate rows in place, because this action would affect the query results.
-                    # df.drop_duplicates(inplace=True)
-                    data = df.transpose().to_dict().values()  # to keep the origial data types.
+                    # df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
+                    # # Do not drop duplicate rows in place, because this action would affect the query results.
+                    # # df.drop_duplicates(inplace=True)
+                    # data = df.transpose().to_dict().values()  # to keep the origial data types.
+                    # if table_name=='Prescribes':
+                    #     print(data)
+                    #     assert 1>2
+                    data = table_records.fetchall()
 
                     if len(data)>4000:  # we set a threshold for the experiments.
                         drop_flag=True
-                        
+  
                     if table_headers == None:
                         self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
                         continue 
@@ -332,11 +336,12 @@ class RelDBDataset:
                         rel_db_object.add_schema(entity_ref)
                         if len(data)==0:
                             # deal with no table content issue. 
-                             table_object.add_row( row_dict={k: '' for k in table_headers} )      
+                            table_object.add_row( row_dict={k: '' for k in table_headers} )      
                         else:     
                             for row in data:
-                                table_row = {k: row[k] for k in row}                
+                                table_row = {k: row[i] for i, k in enumerate(table_headers)}  
                                 table_object.add_row( row_dict=table_row)
+                                print(table_row)
                         rel_db_object.add_tables(table_object)
                 rel_dbs.append((drop_flag, rel_db_object))
 
@@ -426,15 +431,17 @@ class RelDB2KGraphBuilder(RelDBDataset):
             #     continue
 
             # DONE: not table.table_constraints
-            if  primary_keys:
-                if  ( len(table.table_constraints)!=2) and (not table.check_compound_pk):
+            ref_tables = set([constraint['ref_table'] for constraint in table.table_constraints ])
+            if  not table.table_constraints\
+                or  ( len(ref_tables)!=2 and bool(primary_keys)):
+                # or (len(table.table_constraints)==2 and not table.check_compound_pk):
         
                     # Case: a whole table is turned into corresponding graph nodes,
                     # this covers the following cases:
                     # 1) the examples, that exist just one primary key and several forign keys,
                     # 2) the examples, that exist compound primary keys, but no foreign keys. 
                     # e.g., in musical.db, the table `musical` is the case.
-                    
+
                     for i, row_dict in enumerate(table.rows):
                         print(row_dict)
                         r = Node('{}.{}'.format(db.db_name, table.table_name), **row_dict)
@@ -481,220 +488,195 @@ class RelDB2KGraphBuilder(RelDBDataset):
             # sql_query = 'SELECT {0}.{1}, {2}.{3} FROM {0} join {2} where {0}.{1} = {2}.{3}'.format(\
             #     table_name, this_column, ref_table ,ref_column)
         return  ref_table, ref_column, is_self_constraint_kf
+    
+    def get_constraints_lookup_dict(self, db, table):
+        table_name = table.table_name
+        print(f"Running {table_name} in {db.db_name} with {table.table_headers}")  
+        if table.table_constraints:
+            refs_constraints ={}
+            refs_matched_nodes = {}
+            this_constraints = {}
+            this_matched_nodes = {}
+            for i, row_dict in enumerate(table.rows):
+                print(f'row: {row_dict}')
+                ref_lookup_dict = {}
+                this_lookup_dict = {}
+                for constraint in table.table_constraints:
+                    print(f'constraint: {constraint}')
+                    ref_table = constraint['ref_table']
+                    ref_column = constraint['ref_column']
+                    this_column = constraint['column']
+                    value = row_dict[this_column]
+                    print(type(value), value)
+                    if value and not isinstance(value, str)  and math.isnan(value):
+                        print(f'{this_column} is {value}.')
+                        continue 
+                    elif value and type(value)!=int:
+                        value = '"{}"'.format(value)
+                        if isinstance(value, str) and not re.findall(r'[a-zA-Z].*', value):
+                            continue
+                    elif value==None:
+                        print(f'{this_column} is {value}.')
+                        continue 
+                        
+                    ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
+                        db.tables_pks, constraint, db.tables_headers)
+                    # print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
+                    # print(f' The type of {value} is {type(value)}')
+                    # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
+                    
+                    if table_name not in this_lookup_dict:
+                        this_lookup_dict[table_name] = []
+                    this_lookup_dict[table_name].append({'{}.{}'.format(table_name.lower(), this_column):value})
+                    if ref_table not in ref_lookup_dict:
+                        ref_lookup_dict[ref_table] = []
+                    ref_lookup_dict[ref_table].append({'{}.{}'.format(ref_table.lower(), ref_column):value})
 
-    def table2edge(self, db):
+                
+                print(f'graph_patterns_lookup_dict: {ref_lookup_dict}')
+                ref_matched = []
+                for key, values in ref_lookup_dict.items():
+                    cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
+                    cypher_where = []
+                    for v in values:
+                        for cond_i in values:
+                            for k, v in cond_i.items():
+                                cypher_where.append('{}={}'.format(k, v))
+                    cypher_query = cypher_match + ' where ' + ' and '.join(cypher_where) + ' return {}'.format(key.lower())
+                    print(f'cypher_query: {cypher_query}')
+                    matched = self.graph.run(cypher_query).data()
+                    print(f'every matched: {matched}')
+                    if matched:
+                        for every in matched:
+                            for alias, node in every.items():
+                                print(f'matched node: {node}')
+                                ref_matched.append(node )
+                print(f'ref_matched_nodes: {ref_matched}, {len(ref_matched)}')
+                this_matched =[]
+                for key, values in this_lookup_dict.items():
+                    cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
+                    cypher_where = []
+                    for v in values:
+                        for cond_i in values:
+                            for k, v in cond_i.items():
+                                cypher_where.append('{}={}'.format(k, v))
+                    cypher_query = cypher_match + ' where ' + ' and '.join(cypher_where) + ' return {}'.format(key.lower())
+                    print(f'cypher_query: {cypher_query}')
+                    matched = self.graph.run(cypher_query).data()
+                    print(f'every matched: {matched}')
+                    if matched:
+                        for every in matched:
+                            for alias, node in every.items():
+                                print(f'matched node: {node}')
+                                this_matched.append(node )
+                print(f'this_matched_nodes: {this_matched}, {len(this_matched)}')
+                refs_constraints[i]=ref_lookup_dict
+                this_constraints[i]=this_lookup_dict
+                refs_matched_nodes[i]=ref_matched
+                this_matched_nodes[i]=this_matched
+            return refs_constraints, refs_matched_nodes, this_constraints, this_matched_nodes
+    
+    def table2edges(self, db):
         # Note: Open graph transaction again.
         self.tx = self.graph.begin()
         tx = self.tx
-        print("************Start Building Graph Components****************")
+        print("************Start Building Graph Edges****************")
         for table in db.tables:
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
             if not isinstance(primary_keys, list):
                 primary_keys = [primary_keys]
             print(f"Running {table_name} in {db.db_name} with {table.table_headers}")
-            if table.table_constraints:    
+            if table.table_constraints:
+                _, refs_matched_nodes, _, _ = self.get_constraints_lookup_dict(db, table)
+                ref_tables = set([constraint['ref_table'] for constraint in table.table_constraints ])
                 fks = [constraint['column'] for constraint in table.table_constraints]
                 for i, row_dict in enumerate(table.rows):
-                    print(f'row: {row_dict}')
-                    matched_nodes = [] 
-                    for constraint in table.table_constraints:
-                        print(f'constraint: {constraint}')
-                        ref_table = constraint['ref_table']
-                        ref_column = constraint['ref_column']
-                        this_column = constraint['column']
-                        value = row_dict[this_column]
-
-                        if value and not isinstance(value, str)  and math.isnan(value):
-                            print(f'{this_column} is {value}.')
-                            continue 
-                        elif value and type(value)!=int:
-                            value = '"{}"'.format(value)
-                            if isinstance(value, str) and not re.findall(r'[a-zA-Z].*', value):
-                                continue
-                            
-                        ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
-                            db.tables_pks, constraint, db.tables_headers)
-                        # print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
-                        # print(f' The type of {value} is {type(value)}')
-                        # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
-                
-                        if  len(table.table_constraints) ==2 :
-                            if not primary_keys \
-                                or (primary_keys and (len(table.table_constraints) + len(primary_keys))==len(table.table_headers))\
-                                or table.check_compound_pk:
-
-                                if value:
-                                    cypher_query =  "match (n:`{}.{}`) where n.{}={} return n".format(db.db_name, ref_table, ref_column, value)
-                                else:
-                                    cypher_query =  "match (n:`{}.{}`)  return n".format(db.db_name, ref_table, ref_column)
-                                matched = self.graph.run(cypher_query).data()
-                                print(f'cypher_query: {cypher_query}')
-                                print(f'matched: {matched, len(matched)}')
-                                
-                                if matched:
-                                    print(f'matched[0]: {matched[0]}')
-                                    matched_nodes.extend([matched[0]])
-                                    print(matched_nodes, len(matched_nodes))
-        
-                                # else:
-                                #     self.logger.error("There are multiple matched graph nodes {} when building graph edge, \
-                                #     regarding {} table in {} database.".format(matched, table_name, db.db_name))  
-                                #     raise NotImplementedError
-                    
-                    print(matched_nodes, len(matched_nodes))
-                
-                    if len(matched_nodes) ==2:
-                        # Case: a whole table is turned into graph edges, 
-                        # e.g., in department_management.db, the table `management` is the case, 
-                        # however, there is an issue in this particular case. To be able to sucessfully 
-                        # build a graph edge, graph nodes should be created already. Unlike case two, the 
-                        # head and tail nodes of a edge come form the same table, this case's targeted nodes 
-                        # come from other tables, which means other tables should be sucessfully turned into 
-                        # graph components already. 
-                        # To solve this problem, I retrive the whole database a second time.          
-                        
+                    ref_matched = refs_matched_nodes[i]
+                    if len(ref_tables)==2:
+                        # and  (not primary_keys or table.check_compound_pk):
                         # class py2neo.data.Relationship(start_node, type, end_node, **properties)
                         print(f'********************************Building graph edge directly from {table_name}.***************************')   
+                        # NOTE: deal with one-to-one by the table itself as edges, aka, a whole table is turned into graph edges, 
+                        # e.g., in department_management.db, the table `management` is the case, however, there is an issue in this particular case. 
+                        # To be able to sucessfully build a graph edge, graph nodes should be created already. 
+                        # Unlike case two, the head and tail nodes of a edge come form the same table, this case's targeted nodes come from other tables, 
+                        # which means other tables should be sucessfully turned into graph components already. 
+                        # To solve this problem, I retrive the whole database a second time.          
+                        
                         # NOTE: we remove the foreign keys from each graph edge's property set, for the sake of the consistency of graph database.
-                        # to make sure the update of head or tail nodes would not violate the data consistency. 
-                        cypher_query =  "match (m:`{}.{}`)-[r]-(n:`{}.{}`) return r".format(db.db_name, table_name, db.db_name, ref_table)
-                        returned_rels = self.graph.run(cypher_query).data()
-
+                        # to make sure the update of head or tail nodes would not violate the data consistency.   
                         update_row_dict = {k: row_dict[k] for k in row_dict if k not in fks}  
                         print(f'update_row_dict: {update_row_dict}')
-                        print(table_name, returned_rels)
 
-                        if returned_rels:
-                            matching_query =  "match (m:`{}.{}`)-[r]-(n:`{}.{}`) where m.{}={} and n.{}={} delete r".format(db.db_name, table_name, db.db_name, ref_table, \
-                                            this_column, value,  ref_column, value)
-                            returned_rels = self.graph.run(cypher_query).data()
-                            assert 'Fix me'
-                        if len(returned_rels)==0:
+                        # if table_name=='Stay':
+                        #     print(len(ref_tables))
+                        #     print(not primary_keys or table.check_compound_pk)
+                        #     assert 1>2
+                        if len(ref_matched)==2:
                             # the reason to choose the second element in matched nodes as the start node, is we observe the nature of relational database
                             # design and the way of our implementation. It is just an assumption based on some limtited observation.
-                            rel = Relationship(matched_nodes[1]['n'], '{}.{}'.format(db.db_name, table_name), matched_nodes[0]['n'], **update_row_dict) 
+                            rel = Relationship(ref_matched[1], '{}.{}'.format(db.db_name, table_name), ref_matched[0], **update_row_dict) 
                             tx.create(rel)
-  
-
-            
+                            
+                        else:
+                            raise NotImplementedError
         self.graph.commit(tx)
 
-    
-    def build_graph_components(self, db):
+    def build_edges(self, db):
         # Note: Open graph transaction again.
         self.tx = self.graph.begin()
         tx = self.tx
-        print("************Start Building Graph Components****************")
-        for table in db.tables:
+        print("************Start Building Graph Edges****************")
+        for table in db.tables:  
             table_name = table.table_name
             primary_keys = db.tables_pks[table_name]
             if not isinstance(primary_keys, list):
                 primary_keys = [primary_keys]
             print(f"Running {table_name} in {db.db_name} with {table.table_headers}")
-            if table.table_constraints:    
-                fks = [constraint['column'] for constraint in table.table_constraints]
+            if table.table_constraints:
+                ref_tables = set([constraint['ref_table'] for constraint in table.table_constraints ])
+                refs_constraints, refs_matched_nodes, this_constraints, this_matched_nodes = self.get_constraints_lookup_dict( db, table)
                 for i, row_dict in enumerate(table.rows):
                     print(f'row: {row_dict}')
-                    matched_nodes = [] 
-                    for constraint in table.table_constraints:
-                        print(f'constraint: {constraint}')
-                        ref_table = constraint['ref_table']
-                        ref_column = constraint['ref_column']
-                        this_column = constraint['column']
-                        value = row_dict[this_column]
+                    ref_matched =refs_matched_nodes[i]
+                    this_matched = this_matched_nodes[i]
+                    ref_lookup_dict = refs_constraints[i]
+                    this_lookup_dict = this_constraints[i]
+                    print(this_lookup_dict)
+                    if len(ref_tables) not in [0, 2]:
+                        # NOTE: deal with one-to-one (with curated edge), many-to-one mapping, or one-to-many mapping.
+                        print(f'table_name: {table_name}, ref_lookup_dict: {ref_lookup_dict}, this_lookup_dict: {this_lookup_dict}')
+                        for key, values in this_lookup_dict.items():
+                            cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
+                            cypher_where = []
+                            for v in values:
+                                for cond_i in values:
+                                    for k, v in cond_i.items():
+                                        cypher_where.append('{}={}'.format(k, v))
+                            cypher_query = cypher_match + ' where ' + ' and '.join(cypher_where) + ' return {}'.format(key.lower())
+                            print(f'cypher_query: {cypher_query}')
+                            matched = self.graph.run(cypher_query).data()
+                            print(f'every matched: {matched}')
+                            if matched:
+                                for every in matched:
+                                    for alias, node in every.items():
+                                        print(f'matched node: {node}')
+                                        this_matched.append(node )
+                        print(f'this_matched_nodes: {this_matched}, {len(this_matched)}')
 
-                        if value and not isinstance(value, str)  and math.isnan(value):
-                            print(f'{this_column} is {value}.')
-                            continue 
-                        elif value and type(value)!=int:
-                            value = '"{}"'.format(value)
-                            if isinstance(value, str) and not re.findall(r'[a-zA-Z].*', value):
-                                continue
-                            
-                        ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
-                            db.tables_pks, constraint, db.tables_headers)
-                        # print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
-                        # print(f' The type of {value} is {type(value)}')
-                        # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
-                
-                        if  len(table.table_constraints) ==2 :
-                            if not primary_keys \
-                                or (primary_keys and (len(table.table_constraints) + len(primary_keys))==len(table.table_headers))\
-                                or table.check_compound_pk:
+                        for ref_node in ref_matched:
+                            for this_node in this_matched:
+                                rel_checker =  "match (m{})-[r]-(n{}) return r".format(this_node.labels, ref_node.labels)
+                                res = self.graph.run(rel_checker).data()
+                                print(f'cypher_query: {rel_checker}, db_name: {db.db_name}')
+                                print(f'returned_rels: {res}, db_name: {db.db_name}')
+                                if not res:
+                                    rel = Relationship(ref_node, '{}_HAS_{}'.format( str(ref_node.labels)[1:].strip('`'), str(this_node.labels)[1:].strip('`')), this_node) 
+                                    tx.create(rel)  
 
-                                if value:
-                                    cypher_query =  "match (n:`{}.{}`) where n.{}={} return n".format(db.db_name, ref_table, ref_column, value)
-                                else:
-                                    cypher_query =  "match (n:`{}.{}`)  return n".format(db.db_name, ref_table, ref_column)
-                                matched = self.graph.run(cypher_query).data()
-                                print(f'cypher_query: {cypher_query}')
-                                print(f'matched: {matched, len(matched)}')
-                                
-                                if matched:
-                                    print(f'matched[0]: {matched[0]}')
-                                    matched_nodes.extend([matched[0]])
-                                    print(matched_nodes, len(matched_nodes))
-        
-                                # else:
-                                #     self.logger.error("There are multiple matched graph nodes {} when building graph edge, \
-                                #     regarding {} table in {} database.".format(matched, table_name, db.db_name))  
-                                #     raise NotImplementedError
-                        
-                        if not table.check_compound_pk and len(table.table_constraints) !=2:
-                            # Case: a whole table is turned into corresponding graph nodes, and some curated graph edges based on w.r.t. foreign keys.
-                            # e.g., in musical.db, the table `actor` is the case, 
-                            # along with `HAS_MUSICAL` is curated based on the FK, musical
-                        
-                            # TODO
-                            if table_name!=ref_table:
-                                cypher_query =  "match (m:`{}.{}`)-[r]-(n:`{}.{}`) return r".format(db.db_name, table_name, db.db_name, ref_table)
-                                returned_rels = self.graph.run(cypher_query).data()
-                                print(f'cypher_query: {cypher_query}, db_name: {db.db_name}')
-                                print(f'returned_rels: {returned_rels}, db_name: {db.db_name}')
-
-                                if len(returned_rels)==0:   
-                                    # NOTE: deal with many-to-one mapping, or one-to-many mapping. 
-                                    print("----------------------------------------------debug------------------------------------------------------")
-                                    if value:
-                                        matching_query =  "match (m:`{}.{}`) match (n:`{}.{}`) where m.{}={} and n.{}={} return m, n".format(db.db_name, table_name, db.db_name, ref_table, \
-                                            this_column, value,  ref_column, value)
-                                    else:
-                                        matching_query =  "match (m:`{}.{}`) match (n:`{}.{}`) return m, n".format(db.db_name, table_name, db.db_name, ref_table)
-                                    returned_nodes = self.graph.run(matching_query).data()
-               
-                                    for matching in returned_nodes:
-                                        rel_type = '{}.{}_HAS_{}.{}'.format(db.db_name, table_name, db.db_name, ref_table)
-                                        if rel_type=='hospital_1.Department_HAS_hospital_1.Physician':
-                                            assert 1>2
-                                        rel = Relationship(matching['m'], rel_type, matching['n'])
-                                        tx.create(rel)
-                                        print(rel)
-                    
-                    print(matched_nodes, len(matched_nodes))
-                
-                    if len(matched_nodes) !=2: 
-                        print(f'********************Building curate graph from the contraints of {table_name}.***********************')   
-                        # TODO: A place holder for hyper graph, where each row of this table is a hyper edge? 
-                        # NOTE: It is supposed to a hyper_edge, but Neo4j can not visulize hyper edges, so we refer each hyper edge as a graph node. 
-                        checking_nodes_query =  "match (n:`{}.{}`)  return n".format(db.db_name, table.table_name)
-                        checking_res = self.graph.run(checking_nodes_query).data()
-                        print(f'checking_nodes_query: {checking_nodes_query}')
-                        print(f'matched: {checking_res, len(checking_res)}')
-                        # print(table_name)
-                        # assert 1>2
-                        if not checking_res:
-                            hyper_node = Node('{}.{}'.format(db.db_name, table.table_name), **row_dict) 
-                            print(f'table_name: {table_name}, potential_hyper_node?: {hyper_node}')
-                            tx.create(hyper_node)
-                            for node in matched_nodes:
-                                rel = Relationship(hyper_node, '{}.{}_HAS_{}.{}'.format(db.db_name, table_name, db.db_name, ref_table), node['n']) 
-                                tx.create(rel)  
-
-            
         self.graph.commit(tx)
 
-    
     def build_graph(self):
         self.tx = self.graph.begin()
         tx = self.tx
@@ -711,8 +693,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 # test
                 # if db.db_name in ['department_management', 'musical']:
                 self.table2nodes(db, tx)
-                self.table2edge(db)
-                self.build_graph_components(db)
+                self.table2edges(db)
+                self.build_edges(db)
+            
             
         
 

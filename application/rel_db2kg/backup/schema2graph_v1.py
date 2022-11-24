@@ -277,7 +277,7 @@ class RelDBDataset:
                     continue
             ###########################################to make sure the acutal data is the same as expected data#######################
             
-            if db_name:
+            if db_name in ['hospital_1']:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
                 # engine = rel_db_object.engine

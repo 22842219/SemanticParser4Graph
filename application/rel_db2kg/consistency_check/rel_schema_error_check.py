@@ -107,31 +107,39 @@ def check_difference(root, logger):
         if isSchemaMap:
             actual_stat = {}
             actual_stat['nodes'] = {}
-            actual_stat['edges'] = {}
+            actual_stat['relationships'] = {}
             data = read_json(schema_map_file)
+            
             total_unique_db =[]
-            lookup_dict = {'name': 'nodes', 'type':'edges'}
+            actual_tables = []
+
+            lookup_dict = {'nodes': 'labels', 'relationships':'type'}
             for variant in list(lookup_dict.keys()):
                 counter=0
                 curated_counter = 0
                 db_counter = 0
-                for line in data:
-                    if variant in line and '.' in line[variant]:  
-                        print(variant, line, line[variant])
-                        split_res = line[variant].split('.')
-                        db = split_res[0]
-                        tb = split_res[1]
-                        if db not in total_unique_db:
-                            total_unique_db.append(db)
+                variant_data = data[0][variant]
+                for line in variant_data:
+                    if lookup_dict[variant] in line:
+                        name =  line[lookup_dict[variant]]
+                        if  '.' in name:  
+                            # print(variant, lookup_dict[variant], name )
+                            split_res = name.split('.')
+                            db = split_res[0]
+                            tb = split_res[1]
+                            if tb not in actual_tables:
+                                actual_tables.append(tb)
+                            if db not in total_unique_db:
+                                total_unique_db.append(db)
 
-                        if db not in actual_stat[lookup_dict[variant]]:   
-                            actual_stat[lookup_dict[variant]][db]=[]
-                            db_counter+=1
+                            if db not in actual_stat[variant]:   
+                                actual_stat[variant][db]=[]
+                                db_counter+=1
 
-                        actual_stat[lookup_dict[variant]][db].append({tb: line['count']})
-                        counter+=line['count']
-                        if len(split_res)==3:
-                            curated_counter+=line['count']
+                            actual_stat[variant][db].append({tb: line['properties']['count']})
+                            counter+=line['properties']['count']
+                            if len(split_res)==3:
+                                curated_counter+=line['properties']['count']
 
                 actual_stat['{}_counter'.format(lookup_dict[variant])]= counter
                 actual_stat['curated_edges'] = curated_counter
@@ -139,15 +147,8 @@ def check_difference(root, logger):
             actual_stat['total_unique_db'] = total_unique_db
             actual_stat['num_of_total_unique_db'] = len(total_unique_db)
             save2json(actual_stat, os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'actual_stat.json'))
-
-                
-            assert 1>2
-       
-
-
-
-                
-            diff_dbs = list(set(tuple(expected_graph_db_list)) - set(tuple(actual_dbs)))
+ 
+            diff_dbs = list(set(tuple(expected_graph_db_list)) - set(tuple(total_unique_db)))
             diff_tbs = list(set(tuple(expected_graph_tables_list)) - set(tuple(actual_tables)))
             belongs_to_missing_dbs = []
             belongs_to_registered_dbs = []
@@ -170,11 +171,13 @@ def check_difference(root, logger):
                 registed_db, _  = registed.split('.')
                 if registed_db not in check_registered_dbs:
                     check_registered_dbs.append(registed_db)
-            print(check_registered_dbs)
+            # print(check_registered_dbs)
 
 
             diff_stat = [{'num_of_expected_graph_dbs':len(expected_graph_db_list), 
                         'num_of_expected_graph_tables_list': len(expected_graph_tables_list), 
+                        'num_of_actual_graph_dbs':len(total_unique_db), 
+                        'num_of_actual_graph_tables_list': len(actual_tables), 
                         'num_of_diff_dbs': len(diff_dbs), 
                         'num_of_diff_tbs': len(diff_tbs),
                         'num_of_missing_tables_in_missing_dbs': len(belongs_to_missing_dbs),
@@ -187,7 +190,7 @@ def check_difference(root, logger):
                         'expected_graph_tables_list': expected_graph_tables_list}]
                     
 
-            save2json(diff_stat, '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/diff_stat.json')
+            save2json(diff_stat, '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/consistency_check/diff_stat.json')
 
 
     else:
