@@ -278,7 +278,7 @@ class RelDBDataset:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
             
-            if db_name in ['hospital_1']:
+            if db_name in ['race_track', 'musical', 'department_management', 'imdb', 'hospital_1']:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
                 # engine = rel_db_object.engine
@@ -494,8 +494,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
         print(f"Running {table_name} in {db.db_name} with {table.table_headers}")  
         if table.table_constraints:
             refs_constraints ={}
-            refs_matched_nodes = {}
             this_constraints = {}
+            refs_matched_nodes = {}
             this_matched_nodes = {}
             for i, row_dict in enumerate(table.rows):
                 print(f'row: {row_dict}')
@@ -524,56 +524,56 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     # print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
                     # print(f' The type of {value} is {type(value)}')
                     # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
-                    
+
+
                     if table_name not in this_lookup_dict:
                         this_lookup_dict[table_name] = []
-                    this_lookup_dict[table_name].append({'{}.{}'.format(table_name.lower(), this_column):value})
                     if ref_table not in ref_lookup_dict:
                         ref_lookup_dict[ref_table] = []
-                    ref_lookup_dict[ref_table].append({'{}.{}'.format(ref_table.lower(), ref_column):value})
+                    if value=='':
+                        this_lookup_dict[table_name].append('{}.{}'.format(table_name.lower(), this_column)) # {ref_table: ['ref_tb_alias.ref_column: value']}
+                        ref_lookup_dict[ref_table].append('{}.{}'.format(ref_table.lower(), ref_column))
+
+                    else:
+                        this_lookup_dict[table_name].append({'{}.{}'.format(table_name.lower(), this_column):value})
+                        ref_lookup_dict[ref_table].append({'{}.{}'.format(ref_table.lower(), ref_column):value}) # {ref_table: [{ref_tb_alias.ref_column: value}]}
 
                 
                 print(f'graph_patterns_lookup_dict: {ref_lookup_dict}')
-                ref_matched = []
-                for key, values in ref_lookup_dict.items():
-                    cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
-                    cypher_where = []
-                    for v in values:
-                        for cond_i in values:
-                            for k, v in cond_i.items():
-                                cypher_where.append('{}={}'.format(k, v))
-                    cypher_query = cypher_match + ' where ' + ' and '.join(cypher_where) + ' return {}'.format(key.lower())
-                    print(f'cypher_query: {cypher_query}')
-                    matched = self.graph.run(cypher_query).data()
-                    print(f'every matched: {matched}')
-                    if matched:
-                        for every in matched:
-                            for alias, node in every.items():
-                                print(f'matched node: {node}')
-                                ref_matched.append(node )
-                print(f'ref_matched_nodes: {ref_matched}, {len(ref_matched)}')
-                this_matched =[]
-                for key, values in this_lookup_dict.items():
-                    cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
-                    cypher_where = []
-                    for v in values:
-                        for cond_i in values:
-                            for k, v in cond_i.items():
-                                cypher_where.append('{}={}'.format(k, v))
-                    cypher_query = cypher_match + ' where ' + ' and '.join(cypher_where) + ' return {}'.format(key.lower())
-                    print(f'cypher_query: {cypher_query}')
-                    matched = self.graph.run(cypher_query).data()
-                    print(f'every matched: {matched}')
-                    if matched:
-                        for every in matched:
-                            for alias, node in every.items():
-                                print(f'matched node: {node}')
-                                this_matched.append(node )
-                print(f'this_matched_nodes: {this_matched}, {len(this_matched)}')
                 refs_constraints[i]=ref_lookup_dict
                 this_constraints[i]=this_lookup_dict
-                refs_matched_nodes[i]=ref_matched
-                this_matched_nodes[i]=this_matched
+                for idx, variant in enumerate(['ref', 'this']):
+                    lookup_dict = [ref_lookup_dict, this_lookup_dict][idx]
+                    total = [refs_matched_nodes, this_matched_nodes][idx]
+                    matched = []
+                    print(lookup_dict, matched, total)
+                    for key, values in lookup_dict.items():
+                        cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
+                        cypher_where = []
+                        for cond_i in values:
+                            if isinstance(cond_i, str):
+                                continue
+                            for k, v in cond_i.items():
+                                cypher_where.append('{}={}'.format(k, v))
+                        if cypher_where!=[]:
+                            cypher_where = ' where ' + ' and '.join(cypher_where) 
+                        else:
+                            cypher_where = ''
+
+                        cypher_query = cypher_match + cypher_where + ' return {}'.format(key.lower())
+                        print(f'cypher_query: {cypher_query}')
+
+                        matched_res = self.graph.run(cypher_query).data()
+                        print(f'every matched: {matched_res}')
+                        if matched_res:
+                            for every in matched_res:
+                                for alias, node in every.items():
+                                    print(f'matched node: {node}')
+                                    matched.append(node )
+                    print(f'matched_nodes: {matched}, {len(matched)}')
+                    total[i] = matched
+                
+     
             return refs_constraints, refs_matched_nodes, this_constraints, this_matched_nodes
     
     def table2edges(self, db):
