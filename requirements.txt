@@ -1,28 +1,24 @@
+# neural network
+pytorch
+transformers
+torchvision
+
+
+# neo4j graph
+py2neo
+neo4j
+
+# others
 revtok
 tqdm
-torchvision
-mo-future>=2.20
 pyparsing
-wandb
 n2w
-matplotlib
-transformers
 asciitree
-apex
 nltk
 rapidfuzz
 
-
-# wikisql
-records
-babel
-tabulate
-scipy
-
 # demo use only
 sqlalchemy
-
-jonlines
 
 #sql parser
 mo-dots
@@ -34,10 +30,10 @@ monotonic
 moz-sql-parser
 mysql-connector-python
 
-# neo4j graph
-py2neo
-neo4j
 
-# neural network
-pytorch
-transformers
+
+# visulaization
+wandb
+matplotlib
+
+

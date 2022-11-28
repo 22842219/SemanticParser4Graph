@@ -76,8 +76,6 @@ class DBengine:
             compound_pk_check=True
         return compound_pk_check
 
-
-
     def close(self):
         self.conn.cursor.close()
    
@@ -348,6 +346,7 @@ class RelDBDataset:
                                 print(table_row)
                         rel_db_object.add_tables(table_object)
                 rel_dbs.append((drop_flag, rel_db_object))
+            
 
         return rel_dbs
             
@@ -675,14 +674,14 @@ class RelDB2KGraphBuilder(RelDBDataset):
 
         self.graph.commit(tx)
 
-    def build_graph(self):
+    def build_graph(self, index):
         self.tx = self.graph.begin()
         tx = self.tx
+        print(self.dataset)
        
-        
         for i, rel_db in enumerate(self.dataset.rel_dbs):          
             (drop_flag, db) = rel_db
-            if i==0:
+            if index==0:
                 # Note: i is the index of relational database. 
                 self.graph.delete_all()
                 self.build_schema_nodes(tx)
@@ -718,7 +717,8 @@ def main():
         raw_spider_folder = os.path.join(raw_folder, 'spider')
         db_folder = os.path.join(raw_spider_folder,  'database')
         spider_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
-        RelDB2KGraphBuilder(spider_dbs,  Logger(), env_file).build_graph()
+        for i, db_path in enumerate(spider_dbs):
+            RelDB2KGraphBuilder([db_path],  Logger(), env_file).build_graph(index = i)
     
     if args.wikisql:
         raw_wikisql_folder = os.path.join(raw_folder, 'wikisql1.1')
