@@ -1,16 +1,16 @@
-revtok==0.0.3
-tqdm==4.27
-torchvision==0.2.1
+revtok
+tqdm
+torchvision
 mo-future>=2.20
-pyparsing==2.3.0
-wandb==0.8.30
+pyparsing
+wandb
 n2w
-matplotlib==3.0.2
-transformers==2.8.0
+matplotlib
+transformers
 asciitree
 apex
-nltk==3.4.5
-rapidfuzz==0.9.1
+nltk
+rapidfuzz
 
 
 # wikisql
@@ -20,19 +20,19 @@ tabulate
 scipy
 
 # demo use only
-sqlalchemy==1.3.20
+sqlalchemy
 
 jonlines
 
 #sql parser
-mo-dots==4.22.21108
-mo-future==3.147.20327
-mo-imports==3.149.20327
-mo-kwargs ==4.22.21108
-mo-logs ==4.23.21108
-monotonic==1.6
-moz-sql-parser==4.40.21126
-mysql-connector-python==8.0.30
+mo-dots
+mo-future
+mo-imports
+mo-kwargs 
+mo-logs 
+monotonic
+moz-sql-parser
+mysql-connector-python
 
 # neo4j graph
 py2neo

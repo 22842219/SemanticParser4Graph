@@ -26,8 +26,10 @@ class DBengine:
     """
 
     def __init__(self, fdb):
+
         self.conn = sqlite3.connect(fdb)      
         self.conn.text_factory = lambda b: b.decode(errors = 'ignore')
+
     
     def execute(self, query):
       cursor = self.conn.cursor()  
@@ -79,7 +81,6 @@ class DBengine:
     def close(self):
         self.conn.cursor.close()
    
-
 # A RelDB (relational database) that stores database name, tables' names and tables' content.
 # Initially has no table content.
 class RelDB(DBengine):
@@ -260,6 +261,7 @@ class RelDBDataset:
             path_compodbnents = db_path.split(os.sep)
             db_name = path_compodbnents[-1].split('.')[0]
             drop_flag = False
+            print(f'db_name: {db_name}, {i}, {db_path}' )
 
             ###########################################This is for data consistency checking code#######################
             
@@ -277,10 +279,11 @@ class RelDBDataset:
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
-            
-            if db_name in ['hospital_1']:
+            # ['cre_Theme_park', 'department_management', 'musical']
+            if db_name:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
+            
                 # engine = rel_db_object.engine
                 table_infos = rel_db_object.engine.get_table_names()
                 for table_info in table_infos:
@@ -288,8 +291,8 @@ class RelDBDataset:
                     # Export tables to neo4j/import as csv files.                           
                     table_records = rel_db_object.engine.get_table_values(table_name)
                     table_headers = [desc[0] for desc in table_records.description]    
-                    print(f'table_name: {table_name}, table_headers {table_headers}' )
-
+                    print(f'db_name: {db_name}, table_name: {table_name}, table_headers {table_headers}' )
+                   
                     # df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
                     # # Do not drop duplicate rows in place, because this action would affect the query results.
                     # # df.drop_duplicates(inplace=True)
@@ -298,6 +301,7 @@ class RelDBDataset:
                     #     print(data)
                     #     assert 1>2
                     data = table_records.fetchall()
+     
 
                     if len(data)>4000:  # we set a threshold for the experiments.
                         drop_flag=True
@@ -375,8 +379,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
         env.read_env(self.env_file)
         self.graph = Graph(password=env("GRAPH_PASSWORD"))
 
-        self.node_matcher = NodeMatcher(self.graph)
-        self.rel_matcher = RelationshipMatcher(self.graph)
+        # self.node_matcher = NodeMatcher(self.graph)
+        # self.rel_matcher = RelationshipMatcher(self.graph)
 
         self.dataset = RelDBDataset(self.paths, self.logger)
 
@@ -433,7 +437,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
             # DONE: not table.table_constraints
             ref_tables = set([constraint['ref_table'] for constraint in table.table_constraints ])
             if  not table.table_constraints\
-                or  ( len(ref_tables)!=2 and bool(primary_keys)):
+                or  ( len(ref_tables)!=2 and bool(primary_keys))\
+                or (len(ref_tables)==2 and not table.check_compound_pk):
                 # or (len(table.table_constraints)==2 and not table.check_compound_pk):
         
                     # Case: a whole table is turned into corresponding graph nodes,
@@ -508,31 +513,36 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     ref_column = constraint['ref_column']
                     this_column = constraint['column']
                     value = row_dict[this_column]
-                    print(type(value), value)
+                    print(f'column value: {type(value)}, {value}')
                     if value and not isinstance(value, str)  and math.isnan(value):
                         print(f'{this_column} is {value}.')
                         continue 
-                    elif value and type(value)!=int:
-                        value = '"{}"'.format(value)
-                        if isinstance(value, str) and not re.findall(r'[a-zA-Z].*', value):
+                    elif value and type(value)==str:
+                        if '"' not in value:
+                            value = '"{}"'.format(value)
+                        elif not re.findall(r'[\'|\"][a-zA-Z].*', value):
                             continue
+                    #     if isinstance(value, str) and not re.findall(r'[a-zA-Z].*', value):
+                            # continue
                     elif value==None:
                         print(f'{this_column} is {value}.')
                         continue 
+                    elif value=='' and len(table.rows)!=0:
+                        continue
                         
                     ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
                         db.tables_pks, constraint, db.tables_headers)
-                    # print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, table_name: {table_name}, this_column: {this_column}')
+                    print( f'ref_column: {ref_column}, ref_table: {ref_table} , is_self_constraint_kf:{is_self_constraint_kf}, \
+                        table_name: {table_name}, this_column: {this_column}')
                     # print(f' The type of {value} is {type(value)}')
                     # print(f'is_self_constraint_kf: {is_self_constraint_kf}')
-
-                    for id, every_lookup_dict in enumerate([this_lookup_dict, ref_lookup_dict]):
-                        column = [this_column, ref_column][id]
-                        tb_name = [table_name, ref_table][id]
-                        
+                    for id, _ in enumerate(['this', 'ref']):
+                        every_lookup_dict =[ref_lookup_dict, this_lookup_dict][id]
+                        column = [ref_column, this_column][id]
+                        tb_name = [ref_table, table_name][id] 
                         if tb_name not in every_lookup_dict:
                             every_lookup_dict[tb_name] = []
-                        if value=='':
+                        if value=='' and len(table.rows)==0:
                             every_lookup_dict[tb_name].append('{}.{}'.format(tb_name.lower(), column)) # e.g., {ref_table: ['ref_tb_alias.ref_column: value']}
                         else:
                             every_lookup_dict[tb_name].append({'{}.{}'.format(tb_name.lower(), column):value})# e.g., {ref_table: [{ref_tb_alias.ref_column: value}]}
@@ -560,7 +570,6 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             cypher_where = ' where ' + ' and '.join(cypher_where) 
                         else:
                             cypher_where = ''
-
                         cypher_query = cypher_match + cypher_where + ' return {}'.format(key.lower())
                         print(f'cypher_query: {cypher_query}')
 
@@ -572,8 +581,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                     matched[alias].append(node )
                     print(f'matched_nodes: {matched}, {len(matched)}')
                     total[i] = matched
-                
-     
+
             return refs_constraints, refs_matched_nodes, this_constraints, this_matched_nodes
     
     def table2edges(self, db):
@@ -593,7 +601,6 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 fks = [constraint['column'] for constraint in table.table_constraints]
                 for i, row_dict in enumerate(table.rows):
                     refs_matched = refs_matched_nodes[i]
-                    
                     print(f'ref_matched: {refs_matched}')
                     if len(ref_tables)==2:
                         # and  (not primary_keys or table.check_compound_pk):
@@ -615,12 +622,15 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         #     print(len(ref_tables))
                         #     print(not primary_keys or table.check_compound_pk)
                         #     assert 1>2
+                        print(f'ref_constraints: {refs_constraints[i]}, table_name: {table_name}')
                         ref_constraints = list(refs_constraints[i].keys())
-                        for start in refs_matched[ref_constraints[1].lower()]:
-                            for end in refs_matched[ref_constraints[0].lower()]:
-                                rel = Relationship(start, '{}.{}'.format(db.db_name, table_name), end, **update_row_dict) 
-                                tx.create(rel)
-                        
+     
+                        if len(ref_constraints)==2:
+                            
+                            for start in refs_matched[ref_constraints[1].lower()]:
+                                for end in refs_matched[ref_constraints[0].lower()]:
+                                    rel = Relationship(start, '{}.{}'.format(db.db_name, table_name), end, **update_row_dict) 
+                                    tx.create(rel)
                         # if len(ref_matched)==2:
                         #     # the reason to choose the second element in matched nodes as the start node, is we observe the nature of relational database
                         #     # design and the way of our implementation. It is just an assumption based on some limtited observation.
@@ -651,8 +661,6 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     if len(ref_tables) not in [0, 2]:
                         # NOTE: deal with one-to-one (with curated edge), many-to-one mapping, or one-to-many mapping.
                         print(f'table_name: {table_name}, ref_lookup_dict: {refs_constraints[i]}')
-                        print(refs_matched)
-                        print(this_matched)
                         for ref_alias, ref_nodes in refs_matched.items():
                             for ref_node in ref_nodes:
                                 for this_alias, this_nodes in this_matched.items():
@@ -662,7 +670,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                         print(f'cypher_query: {rel_checker}, db_name: {db.db_name}')
                                         print(f'returned_rels: {res}, db_name: {db.db_name}')
                                         if not res:
-                                            rel = Relationship(ref_node, '{}_HAS_{}'.format( str(ref_node.labels)[1:].strip('`'), str(this_node.labels)[1:].strip('`')), this_node) 
+                                            rel = Relationship(ref_node, '{}_AppearsIn_{}'.format( str(ref_node.labels)[1:].strip('`'), str(this_node.labels)[1:].strip('`')), this_node) 
                                             tx.create(rel)  
 
         self.graph.commit(tx)
@@ -680,8 +688,6 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 self.build_schema_nodes(tx)
             print("************Start building graph directly from relational table schema****************")
             if not drop_flag:
-                # test
-                # if db.db_name in ['department_management', 'musical']:
                 self.table2nodes(db, tx)
                 self.table2edges(db)
                 self.build_edges(db)
@@ -723,5 +729,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

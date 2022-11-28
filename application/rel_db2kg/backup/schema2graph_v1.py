@@ -262,22 +262,22 @@ class RelDBDataset:
 
             ###########################################This is for data consistency checking code#######################
             
-            missing_data_file = '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/consistency_check/diff_stat.json'
-            check_dbs = []
-            isFile = os.path.isfile(missing_data_file)
-            if isFile:
-                if len(read_json(missing_data_file))==1:
-                    missing_data = read_json(missing_data_file)[0]['belongs_to_registered_dbs']
-                    for missing in missing_data:
-                        if '.' in missing:
-                            missing_db, missing_table = missing.split('.')
-                            if missing_db not in check_dbs:
-                                check_dbs.append(missing_db)
-                if db_name not in check_dbs:
-                    continue
+            # missing_data_file = '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/consistency_check/diff_stat.json'
+            # check_dbs = []
+            # isFile = os.path.isfile(missing_data_file)
+            # if isFile:
+            #     if len(read_json(missing_data_file))==1:
+            #         missing_data = read_json(missing_data_file)[0]['belongs_to_registered_dbs']
+            #         for missing in missing_data:
+            #             if '.' in missing:
+            #                 missing_db, missing_table = missing.split('.')
+            #                 if missing_db not in check_dbs:
+            #                     check_dbs.append(missing_db)
+            #     if db_name not in check_dbs:
+            #         continue
             ###########################################to make sure the acutal data is the same as expected data#######################
             
-            if db_name in ['hospital_1']:
+            if db_name:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
                 # engine = rel_db_object.engine
