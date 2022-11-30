@@ -446,7 +446,7 @@
     {
         "db_id": "department_management",
         "question": "In which year were most departments established?",
-        "cypher_query": "MATCH (department:`department_management.department`)\nWITH department.Creation AS Creation, count(department.Creation) AS count\nRETURN Creation\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (department:`department_management.department`)\nWITH count(department.Creation) AS count, department.Creation AS Creation\nRETURN Creation\nORDER BY count DESC\nLIMIT 1",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -473,8 +473,8 @@
                 "count"
             ],
             "Token_Name_Label": "`department_management.department`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "answers": [
@@ -627,7 +627,7 @@
     {
         "db_id": "department_management",
         "question": "Which department has more than 1 head at a time? List the id, name and the number of heads.",
-        "cypher_query": "MATCH ()-[T2:`department_management.management`]-(T1:`department_management.department`)\nWITH T1.Department_ID AS Department_ID, count(*) AS count, T1.Name AS Name\nWHERE count  > 1\nRETURN Department_ID,Name,count",
+        "cypher_query": "MATCH ()-[T2:`department_management.management`]-(T1:`department_management.department`)\nWITH count(*) AS count, T1.Name AS Name, T1.Department_ID AS Department_ID\nWHERE count  > 1\nRETURN Department_ID,Name,count",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -653,19 +653,19 @@
             "Token_Name_Variable": [
                 "T2",
                 "T1",
-                "Department_ID",
-                "count"
+                "count",
+                "Department_ID"
             ],
             "Token_Name_Label": [
                 "`department_management.management`",
                 "`department_management.department`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "answers": [
@@ -2066,7 +2066,7 @@
     {
         "db_id": "musical",
         "question": "Show different nominees and the number of musicals they have been nominated.",
-        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.Nominee AS Nominee, count(musical.Nominee) AS count\nRETURN Nominee,count",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(musical.Nominee) AS count, musical.Nominee AS Nominee\nRETURN Nominee,count",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2090,8 +2090,8 @@
                 "count"
             ],
             "Token_Name_Label": "`musical.musical`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "answers": [
             [
@@ -2107,7 +2107,7 @@
     {
         "db_id": "musical",
         "question": "How many musicals has each nominee been nominated for?",
-        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.Nominee AS Nominee, count(musical.Nominee) AS count\nRETURN Nominee,count",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(musical.Nominee) AS count, musical.Nominee AS Nominee\nRETURN Nominee,count",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2131,8 +2131,8 @@
                 "count"
             ],
             "Token_Name_Label": "`musical.musical`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "answers": [
             [
@@ -2148,7 +2148,7 @@
     {
         "db_id": "musical",
         "question": "Please show the nominee who has been nominated the greatest number of times.",
-        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.Nominee AS Nominee, count(musical.Nominee) AS count\nRETURN Nominee\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(musical.Nominee) AS count, musical.Nominee AS Nominee\nRETURN Nominee\nORDER BY count DESC\nLIMIT 1",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2175,8 +2175,8 @@
                 "count"
             ],
             "Token_Name_Label": "`musical.musical`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "answers": [
@@ -2188,7 +2188,7 @@
     {
         "db_id": "musical",
         "question": "Who is the nominee who has been nominated for the most musicals?",
-        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.Nominee AS Nominee, count(musical.Nominee) AS count\nRETURN Nominee\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(musical.Nominee) AS count, musical.Nominee AS Nominee\nRETURN Nominee\nORDER BY count DESC\nLIMIT 1",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2215,8 +2215,8 @@
                 "count"
             ],
             "Token_Name_Label": "`musical.musical`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "answers": [
@@ -2228,7 +2228,7 @@
     {
         "db_id": "musical",
         "question": "List the most common result of the musicals.",
-        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(musical.Result) AS count, musical.Result AS Result\nRETURN Result\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.Result AS Result, count(musical.Result) AS count\nRETURN Result\nORDER BY count DESC\nLIMIT 1",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2255,8 +2255,8 @@
                 "count"
             ],
             "Token_Name_Label": "`musical.musical`",
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "answers": [
@@ -2268,7 +2268,7 @@
     {
         "db_id": "musical",
         "question": "Return the most frequent result across all musicals.",
-        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(musical.Result) AS count, musical.Result AS Result\nRETURN Result\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.Result AS Result, count(musical.Result) AS count\nRETURN Result\nORDER BY count DESC\nLIMIT 1",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2295,8 +2295,8 @@
                 "count"
             ],
             "Token_Name_Label": "`musical.musical`",
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "answers": [
@@ -2308,7 +2308,7 @@
     {
         "db_id": "musical",
         "question": "List the nominees that have been nominated more than two musicals.",
-        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.Nominee AS Nominee, count(*) AS count\nWHERE count  > 2\nRETURN Nominee",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(*) AS count, musical.Nominee AS Nominee\nWHERE count  > 2\nRETURN Nominee",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2330,16 +2330,16 @@
             ],
             "Token_Name_Variable": [
                 "musical",
-                "Nominee",
-                "count"
+                "count",
+                "Nominee"
             ],
             "Token_Name_Label": "`musical.musical`",
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "answers": [
@@ -2351,7 +2351,7 @@
     {
         "db_id": "musical",
         "question": "Who are the nominees who have been nominated more than two times?",
-        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.Nominee AS Nominee, count(*) AS count\nWHERE count  > 2\nRETURN Nominee",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(*) AS count, musical.Nominee AS Nominee\nWHERE count  > 2\nRETURN Nominee",
         "parsed_cpypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2373,16 +2373,16 @@
             ],
             "Token_Name_Variable": [
                 "musical",
-                "Nominee",
-                "count"
+                "count",
+                "Nominee"
             ],
             "Token_Name_Label": "`musical.musical`",
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "answers": [

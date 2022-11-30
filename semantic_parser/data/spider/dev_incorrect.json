@@ -1,0 +1,576 @@
+[
+    {
+        "db_id": "concert_singer",
+        "question": "How many singers do we have?",
+        "sql_query": "SELECT count(*) FROM singer",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "singer"
+        },
+        "sql_ans": [
+            [
+                6
+            ]
+        ],
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                12
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the total number of singers?",
+        "sql_query": "SELECT count(*) FROM singer",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "singer"
+        },
+        "sql_ans": [
+            [
+                6
+            ]
+        ],
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                12
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "Show all countries and the number of singers in each country.",
+        "sql_query": "SELECT country ,  count(*) FROM singer GROUP BY country",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "country"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "country"
+            }
+        },
+        "sql_ans": [
+            [
+                "France",
+                4
+            ],
+            [
+                "Netherlands",
+                1
+            ],
+            [
+                "United States",
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWITH count(singer.Country) AS count, singer.Country AS Country\nRETURN Country,count",
+        "cypher_ans": [
+            [
+                "Netherlands",
+                2
+            ],
+            [
+                "United States",
+                2
+            ],
+            [
+                "France",
+                8
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "How many singers are from each country?",
+        "sql_query": "SELECT country ,  count(*) FROM singer GROUP BY country",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": "country"
+                },
+                {
+                    "value": {
+                        "count": "*"
+                    }
+                }
+            ],
+            "from": "singer",
+            "groupby": {
+                "value": "country"
+            }
+        },
+        "sql_ans": [
+            [
+                "France",
+                4
+            ],
+            [
+                "Netherlands",
+                1
+            ],
+            [
+                "United States",
+                1
+            ]
+        ],
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWITH count(singer.Country) AS count, singer.Country AS Country\nRETURN Country,count",
+        "cypher_ans": [
+            [
+                "Netherlands",
+                2
+            ],
+            [
+                "United States",
+                2
+            ],
+            [
+                "France",
+                8
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the maximum capacity and the average of all stadiums ?",
+        "sql_query": "select max(capacity), average from stadium",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "max": "capacity"
+                    }
+                },
+                {
+                    "value": "average"
+                }
+            ],
+            "from": "stadium"
+        },
+        "sql_ans": [
+            [
+                52500,
+                730
+            ]
+        ],
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN max(stadium.Capacity),stadium.Average",
+        "cypher_ans": [
+            [
+                10104,
+                2106
+            ],
+            [
+                11998,
+                1477
+            ],
+            [
+                2000,
+                864
+            ],
+            [
+                52500,
+                730
+            ],
+            [
+                3808,
+                642
+            ],
+            [
+                4125,
+                638
+            ],
+            [
+                3100,
+                637
+            ],
+            [
+                4000,
+                615
+            ],
+            [
+                3960,
+                552
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the average and maximum capacities for all stadiums ?",
+        "sql_query": "select avg(capacity) ,  max(capacity) from stadium",
+        "parsed_sql": {
+            "select": [
+                {
+                    "value": {
+                        "avg": "capacity"
+                    }
+                },
+                {
+                    "value": {
+                        "max": "capacity"
+                    }
+                }
+            ],
+            "from": "stadium"
+        },
+        "sql_ans": [
+            [
+                10621.666666666666,
+                52500
+            ]
+        ],
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN avg(stadium.Capacity),max(stadium.Capacity)",
+        "cypher_ans": [
+            [
+                10621.666666666668,
+                52500
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "How many concerts are there in year 2014 or 2015?",
+        "sql_query": "SELECT count(*) FROM concert WHERE YEAR  =  2014 OR YEAR  =  2015",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "concert",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "YEAR",
+                            2014
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "YEAR",
+                            2015
+                        ]
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                6
+            ]
+        ],
+        "cypher_query": "MATCH (concert:`concert_singer.concert`)\nWHERE concert.Year = 2014 OR concert.Year = 2015\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "How many concerts occurred in 2014 or 2015?",
+        "sql_query": "SELECT count(*) FROM concert WHERE YEAR  =  2014 OR YEAR  =  2015",
+        "parsed_sql": {
+            "select": {
+                "value": {
+                    "count": "*"
+                }
+            },
+            "from": "concert",
+            "where": {
+                "or": [
+                    {
+                        "eq": [
+                            "YEAR",
+                            2014
+                        ]
+                    },
+                    {
+                        "eq": [
+                            "YEAR",
+                            2015
+                        ]
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                6
+            ]
+        ],
+        "cypher_query": "MATCH (concert:`concert_singer.concert`)\nWHERE concert.Year = 2014 OR concert.Year = 2015\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "Which year has most number of concerts?",
+        "sql_query": "SELECT YEAR FROM concert GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "YEAR"
+            },
+            "from": "concert",
+            "groupby": {
+                "value": "YEAR"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "2015"
+            ]
+        ],
+        "cypher_query": "MATCH (concert:`concert_singer.concert`)\nWITH concert.Year AS Year, count(concert.Year) AS count\nRETURN Year\nORDER BY count DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "2014"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What is the year that had the most concerts?",
+        "sql_query": "SELECT YEAR FROM concert GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1",
+        "parsed_sql": {
+            "select": {
+                "value": "YEAR"
+            },
+            "from": "concert",
+            "groupby": {
+                "value": "YEAR"
+            },
+            "orderby": {
+                "value": {
+                    "count": "*"
+                },
+                "sort": "desc"
+            },
+            "limit": 1
+        },
+        "sql_ans": [
+            [
+                "2015"
+            ]
+        ],
+        "cypher_query": "MATCH (concert:`concert_singer.concert`)\nWITH concert.Year AS Year, count(concert.Year) AS count\nRETURN Year\nORDER BY count DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "2014"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "Show the stadium names without any concert.",
+        "sql_query": "SELECT name FROM stadium WHERE stadium_id NOT IN (SELECT stadium_id FROM concert)",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "stadium",
+            "where": {
+                "nin": [
+                    "stadium_id",
+                    {
+                        "select": {
+                            "value": "stadium_id"
+                        },
+                        "from": "concert"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "Bayview Stadium"
+            ],
+            [
+                "Hampden Park"
+            ],
+            [
+                "Forthbank Stadium"
+            ],
+            [
+                "Gayfield Park"
+            ]
+        ],
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nWHERE NOT (stadium:`concert_singer.stadium`)-[]-(:`concert_singer.concert`)\nRETURN stadium.Name",
+        "cypher_ans": [
+            [
+                "Stark's Park"
+            ],
+            [
+                "Somerset Park"
+            ],
+            [
+                "Bayview Stadium"
+            ],
+            [
+                "Hampden Park"
+            ],
+            [
+                "Forthbank Stadium"
+            ],
+            [
+                "Gayfield Park"
+            ],
+            [
+                "Recreation Park"
+            ],
+            [
+                "Balmoor"
+            ],
+            [
+                "Glebe Park"
+            ],
+            [
+                "Stark's Park"
+            ],
+            [
+                "Somerset Park"
+            ],
+            [
+                "Bayview Stadium"
+            ],
+            [
+                "Hampden Park"
+            ],
+            [
+                "Forthbank Stadium"
+            ],
+            [
+                "Gayfield Park"
+            ],
+            [
+                "Recreation Park"
+            ],
+            [
+                "Balmoor"
+            ],
+            [
+                "Glebe Park"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "question": "What are the names of the stadiums without any concerts?",
+        "sql_query": "SELECT name FROM stadium WHERE stadium_id NOT IN (SELECT stadium_id FROM concert)",
+        "parsed_sql": {
+            "select": {
+                "value": "name"
+            },
+            "from": "stadium",
+            "where": {
+                "nin": [
+                    "stadium_id",
+                    {
+                        "select": {
+                            "value": "stadium_id"
+                        },
+                        "from": "concert"
+                    }
+                ]
+            }
+        },
+        "sql_ans": [
+            [
+                "Bayview Stadium"
+            ],
+            [
+                "Hampden Park"
+            ],
+            [
+                "Forthbank Stadium"
+            ],
+            [
+                "Gayfield Park"
+            ]
+        ],
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nWHERE NOT (stadium:`concert_singer.stadium`)-[]-(:`concert_singer.concert`)\nRETURN stadium.Name",
+        "cypher_ans": [
+            [
+                "Stark's Park"
+            ],
+            [
+                "Somerset Park"
+            ],
+            [
+                "Bayview Stadium"
+            ],
+            [
+                "Hampden Park"
+            ],
+            [
+                "Forthbank Stadium"
+            ],
+            [
+                "Gayfield Park"
+            ],
+            [
+                "Recreation Park"
+            ],
+            [
+                "Balmoor"
+            ],
+            [
+                "Glebe Park"
+            ],
+            [
+                "Stark's Park"
+            ],
+            [
+                "Somerset Park"
+            ],
+            [
+                "Bayview Stadium"
+            ],
+            [
+                "Hampden Park"
+            ],
+            [
+                "Forthbank Stadium"
+            ],
+            [
+                "Gayfield Park"
+            ],
+            [
+                "Recreation Park"
+            ],
+            [
+                "Balmoor"
+            ],
+            [
+                "Glebe Park"
+            ]
+        ]
+    }
+]

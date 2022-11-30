@@ -278,7 +278,7 @@ class RelDBDataset:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
             # ['cre_Theme_park', 'department_management', 'musical']
-            if db_name:
+            if db_name in ['concert_singer', 'musical', 'department_management']:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
             
