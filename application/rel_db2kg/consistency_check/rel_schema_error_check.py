@@ -102,7 +102,7 @@ def check_difference(root, logger):
             if every['db_name'] not in filtered_list])
         print(f' num_of_all_tables: {len(all_tables_list)}, num_of_expected_graph_tables: {len(expected_graph_tables_list)}')
        
-        schema_map_file = os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'schemaMap.json')
+        schema_map_file = os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'records.json')
         isSchemaMap = os.path.isfile(schema_map_file)
         if isSchemaMap:
             actual_stat = {}
@@ -122,6 +122,8 @@ def check_difference(root, logger):
                 for line in variant_data:
                     if lookup_dict[variant] in line:
                         name =  line[lookup_dict[variant]]
+                        if isinstance(name, list):
+                            name = name[0]
                         if  '.' in name:  
                             # print(variant, lookup_dict[variant], name )
                             split_res = name.split('.')

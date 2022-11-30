@@ -1402,8 +1402,8 @@ def main():
 	db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_data_folder)
 
-	all_db_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'data_stat.json'))]))
-	filtered_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'data_stat.json'))  if every['num_of_rows']>4000]))
+	all_db_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))]))
+	filtered_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))  if every['num_of_rows']>4000]))
 	graph_db_list = set(all_db_list) - set(filtered_list)
 	print(len(all_db_list), len(filtered_list), len(graph_db_list))
 
@@ -1437,8 +1437,8 @@ def main():
 			
 
 			# if db_name in graph_db_list:
-			if db_name in ['book_2'] and i in [221]:
-				print(f'db: {db_name}')
+			if db_name in [ 'musical', 'department_management']:
+				print(f'hey db: {db_name}')
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
 						evaluate[db_name]=[]
@@ -1456,7 +1456,7 @@ def main():
 
 				# 2. Access database, execute SQL query and get result.              
 				db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))  
-				print(db_path) 
+				# print(db_path) 
 				engine = DBengine(db_path)
 				sql_result = []
 				try:

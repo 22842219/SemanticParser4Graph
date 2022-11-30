@@ -268,7 +268,7 @@ class RelDBDataset:
             # isFile = os.path.isfile(missing_data_file)
             # if isFile:
             #     if len(read_json(missing_data_file))==1:
-            #         missing_data = read_json(missing_data_file)[0]['belongs_to_registered_dbs']
+            #         missing_dbs = read_json(missing_data_file)[0]['dff_dbs']
             #         for missing in missing_data:
             #             if '.' in missing:
             #                 missing_db, missing_table = missing.split('.')

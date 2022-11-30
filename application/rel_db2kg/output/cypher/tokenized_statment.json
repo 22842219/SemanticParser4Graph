@@ -1,10 +1,8 @@
 {
       "Token_Keyword": [
             "MATCH",
-            "RETURN",
-            "ORDER BY",
-            "ASC",
-            "LIMIT"
+            "WHERE",
+            "RETURN"
       ],
       "Token_Text_Whitespace": [
             " ",
@@ -16,11 +14,18 @@
             ")"
       ],
       "Token_Name_Variable": [
-            "publication",
-            "Publication_Date",
-            "Price"
+            "musical",
+            "Award",
+            "Nominee"
       ],
-      "Token_Name_Label": "`book_2.publication`",
-      "Token_Operator": ".",
-      "Token_Literal_Number_Integer": "3"
+      "Token_Name_Label": "`musical.musical`",
+      "Token_Operator": [
+            ".",
+            "=",
+            "OR"
+      ],
+      "Token_Literal_String": [
+            "'Tony Award'",
+            "'Cleavant Derricks'"
+      ]
 }
