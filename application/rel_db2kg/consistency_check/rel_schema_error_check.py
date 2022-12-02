@@ -199,7 +199,58 @@ def check_difference(root, logger):
         logger.warning("Do not exist {} or {}!".format(file_path, schema_map_file))
         raise NotImplementedError
 
+def read_sql(raw_spider_folder):
+    stat_res = {}
+    for split in ['train', 'dev']:
+        json_file = os.path.join(raw_spider_folder, '{}.json'.format(split))
+        # print(json_file)
+        f = open(json_file)
+        data = json.load(f)
 
+        # # test output file
+        # cypher_file_musical  = os.path.join(raw_spider_folder, '{}_{}_cypher.json'.format('musical', split))
+        stat_res[split]=[]
+        intersect_sql = {}
+        except_sql =  {}
+        nested_sql = {}
+        
+        def isNested(json ):
+            check_str = str(json)
+            if len(re.findall(r'FROM|from', check_str)) != 1:
+                return True
+            else:
+                return False
+        
+        for i, every in enumerate(data):
+            db_name = every['db_id']
+            
+
+            # if db_name in graph_db_list:
+            if db_name:
+                print(f'hey db: {db_name}')
+                for evaluate in [ nested_sql, intersect_sql, except_sql]:
+                    if db_name not in evaluate:
+                        evaluate[db_name]=[]
+                    
+                # 1. Extract database name, questions and SQL queries
+                all_table_fields = lookup_dict[db_name]	
+                question = every['question']
+                sql_query = every['query']	
+
+
+                if 'intersect' in sql_query.lower():
+                    intersect_sql[db_name].append(i)
+                if 'except' in sql_query.lower():
+                    except_sql[db_name].append(i)
+                if isNested(sql_query):
+                    nested_sql[db_name].append(i)
+        
+        stat_res[split].apppend(intersect_sql)
+        stat_res[split].apppend(except_sql)
+        stat_res[split].apppend(nested_sql)
+    print(stat_res)
+
+                    
 def main():
     import glob, argparse
     import configparser
@@ -218,6 +269,7 @@ def main():
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
     parser.add_argument('--get', help='get statistical data', action='store_true')
     parser.add_argument('--check', help='check the difference between expected data and actual graph data', action='store_true')
+    parser.add_argument('--complex', help='check the statistics of complex queries and nested subqueries', action='store_true')
     args = parser.parse_args()
 
     if args.get:
@@ -225,6 +277,9 @@ def main():
     
     if args.check:
         check_difference(root, Logger())
+
+    if args.complex:
+        read_sql(root, Logger())
 
 
 if __name__ == "__main__":

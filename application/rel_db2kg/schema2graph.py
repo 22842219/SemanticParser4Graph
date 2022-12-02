@@ -278,7 +278,7 @@ class RelDBDataset:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
             # ['cre_Theme_park', 'department_management', 'musical']
-            if db_name in ['concert_singer', 'musical', 'department_management']:
+            if db_name in ['activity_1']:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
             
@@ -437,7 +437,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
             ref_tables = set([constraint['ref_table'] for constraint in table.table_constraints ])
             if  not table.table_constraints\
                 or  ( len(ref_tables)!=2 and bool(primary_keys))\
-                or (len(ref_tables)==2 and not table.check_compound_pk):
+                or (len(ref_tables)==2 and bool(primary_keys) and not table.check_compound_pk):
                 # or (len(table.table_constraints)==2 and not table.check_compound_pk):
         
                     # Case: a whole table is turned into corresponding graph nodes,
