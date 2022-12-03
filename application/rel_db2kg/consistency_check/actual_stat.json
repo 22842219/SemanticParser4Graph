@@ -31,12 +31,6 @@
         "Faculty": 58
       },
       {
-        "Faculty_Participates_in": 40
-      },
-      {
-        "Participates_in": 70
-      },
-      {
         "Student": 34
       }
     ],
@@ -57,9 +51,6 @@
     "allergy_1": [
       {
         "Allergy_Type": 14
-      },
-      {
-        "Has_Allergy": 59
       },
       {
         "Student": 34
@@ -98,22 +89,13 @@
     ],
     "assets_maintenance": [
       {
-        "Asset_Parts": 15
-      },
-      {
         "Assets": 15
-      },
-      {
-        "Engineer_Skills": 20
       },
       {
         "Engineer_Visits": 15
       },
       {
         "Fault_Log": 15
-      },
-      {
-        "Fault_Log_Parts": 15
       },
       {
         "Maintenance_Contracts": 15
@@ -129,9 +111,6 @@
       },
       {
         "Skills": 3
-      },
-      {
-        "Skills_Required_To_Fix": 15
       },
       {
         "Staff": 15
@@ -156,9 +135,6 @@
         "Addresses": 20
       },
       {
-        "Assessment_Notes": 15
-      },
-      {
         "Behavior_Incident": 15
       },
       {
@@ -172,9 +148,6 @@
       },
       {
         "Ref_Incident_Type": 3
-      },
-      {
-        "Student_Addresses": 20
       },
       {
         "Students": 15
@@ -270,9 +243,6 @@
         "Club": 4
       },
       {
-        "Member_of_club": 4
-      },
-      {
         "Student": 34
       }
     ],
@@ -304,12 +274,6 @@
         "EMPLOYEE": 37
       },
       {
-        "ENROLL": 6
-      },
-      {
-        "PROFESSOR": 22
-      },
-      {
         "STUDENT": 8
       }
     ],
@@ -325,12 +289,6 @@
       },
       {
         "Gradeconversion": 13
-      },
-      {
-        "Member_of": 63
-      },
-      {
-        "Minor_in": 10
       },
       {
         "Student": 34
@@ -629,16 +587,10 @@
     ],
     "customer_deliveries": [
       {
-        "Actual_Order_Products": 15
-      },
-      {
         "Actual_Orders": 15
       },
       {
         "Addresses": 15
-      },
-      {
-        "Customer_Addresses": 15
       },
       {
         "Customers": 15
@@ -656,9 +608,6 @@
         "Products": 6
       },
       {
-        "Regular_Order_Products": 15
-      },
-      {
         "Regular_Orders": 15
       },
       {
@@ -670,16 +619,10 @@
         "Addresses": 15
       },
       {
-        "Customer_Addresses": 15
-      },
-      {
         "Customer_Orders": 15
       },
       {
         "Customers": 15
-      },
-      {
-        "Order_Items": 15
       },
       {
         "Products": 3
@@ -691,9 +634,6 @@
       },
       {
         "Customers": 15
-      },
-      {
-        "Financial_Transactions": 15
       },
       {
         "Invoices": 15
@@ -719,25 +659,16 @@
         "Contacts": 15
       },
       {
-        "Customer_Address_History": 20
-      },
-      {
         "Customer_Orders": 15
       },
       {
         "Customers": 15
       },
       {
-        "Order_Items": 15
-      },
-      {
         "Products": 15
       }
     ],
     "customers_campaigns_ecommerce": [
-      {
-        "Customer_Addresses": 15
-      },
       {
         "Customer_Orders": 15
       },
@@ -746,12 +677,6 @@
       },
       {
         "Mailshot_Campaigns": 20
-      },
-      {
-        "Mailshot_Customers": 15
-      },
-      {
-        "Order_Items": 15
       },
       {
         "Premises": 15
@@ -769,9 +694,6 @@
       },
       {
         "Customers_Cards": 15
-      },
-      {
-        "Financial_Transactions": 15
       }
     ],
     "debate": [
@@ -843,9 +765,6 @@
     ],
     "document_management": [
       {
-        "Document_Functional_Areas": 15
-      },
-      {
         "Document_Sections": 15
       },
       {
@@ -901,12 +820,6 @@
         "Dorm_amenity": 12
       },
       {
-        "Has_amenity": 40
-      },
-      {
-        "Lives_in": 31
-      },
-      {
         "Student": 34
       }
     ],
@@ -945,9 +858,6 @@
       },
       {
         "Parties": 15
-      },
-      {
-        "Party_Services": 15
       },
       {
         "Services": 15
@@ -1086,9 +996,6 @@
       }
     ],
     "game_1": [
-      {
-        "Plays_Games": 10
-      },
       {
         "Student": 34
       },
@@ -1266,9 +1173,6 @@
       },
       {
         "writer": 1
-      },
-      {
-        "written_by": 1
       }
     ],
     "inn_1": [
@@ -1492,9 +1396,6 @@
         "Movie": 8
       },
       {
-        "Rating": 14
-      },
-      {
         "Reviewer": 8
       }
     ],
@@ -1625,9 +1526,6 @@
     ],
     "pets_1": [
       {
-        "Has_Pet": 3
-      },
-      {
         "Pets": 3
       },
       {
@@ -1677,9 +1575,6 @@
         "Catalog_Contents": 15
       },
       {
-        "Catalog_Contents_Additional_Attributes": 15
-      },
-      {
         "Catalog_Structure": 3
       },
       {
@@ -1709,9 +1604,6 @@
     "products_gen_characteristics": [
       {
         "Characteristics": 15
-      },
-      {
-        "Product_Characteristics": 15
       },
       {
         "Products": 15
@@ -1769,9 +1661,6 @@
         "Other_Available_Features": 3
       },
       {
-        "Other_Property_Features": 15
-      },
-      {
         "Properties": 15
       },
       {
@@ -1790,12 +1679,6 @@
       },
       {
         "Student": 34
-      },
-      {
-        "Type_Of_Restaurant": 2
-      },
-      {
-        "Visits_Restaurant": 2
       }
     ],
     "restaurants": [
@@ -2097,9 +1980,6 @@
         "Students": 15
       },
       {
-        "Transcript_Contents": 15
-      },
-      {
         "Transcripts": 15
       }
     ],
@@ -2142,9 +2022,6 @@
         "Organisations": 15
       },
       {
-        "Project_Outcomes": 15
-      },
-      {
         "Project_Staff": 15
       },
       {
@@ -2180,9 +2057,6 @@
         "Products": 15
       },
       {
-        "Shipment_Items": 15
-      },
-      {
         "Shipments": 15
       }
     ],
@@ -2201,9 +2075,6 @@
       },
       {
         "Transactions": 15
-      },
-      {
-        "Transactions_Lots": 15
       }
     ],
     "tracking_software_problems": [
@@ -2294,9 +2165,6 @@
       },
       {
         "grapes": 20
-      },
-      {
-        "wine": 500
       }
     ],
     "workshop_paper": [
@@ -3665,7 +3533,7 @@
       }
     ]
   },
-  "labels_counter": 12837,
+  "labels_counter": 11540,
   "curated_edges": 5639,
   "db_counter_in_labels": 155,
   "type_counter": 7776,

@@ -278,7 +278,7 @@ class RelDBDataset:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
             # ['cre_Theme_park', 'department_management', 'musical']
-            if db_name in ['activity_1']:
+            if db_name in ['academic']:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
             
@@ -513,6 +513,13 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     this_column = constraint['column']
                     value = row_dict[this_column]
                     print(f'column value: {type(value)}, {value}')
+                    # if table_name=='domain_publication':
+                    #     print(bool(value)) #False
+                    #     print( value==None)  #False
+                    #     print(value=='') #True
+                    #     print(len(table.rows))
+                    #     print(value=='' and (len(table.rows) not in [0, 1])) #False
+                    #     assert 1>2
                     if value and not isinstance(value, str)  and math.isnan(value):
                         print(f'{this_column} is {value}.')
                         continue 
@@ -526,7 +533,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     elif value==None:
                         print(f'{this_column} is {value}.')
                         continue 
-                    elif value=='' and len(table.rows)!=0:
+                    elif value=='' and len(table.rows) not in [0, 1] :
                         continue
                         
                     ref_table, ref_column, is_self_constraint_kf = self.create_relationship(table_name, \
@@ -564,6 +571,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             if isinstance(cond_i, str):
                                 continue
                             for k, v in cond_i.items():
+                                if v=='':
+                                    v='""'
                                 cypher_where.append('{}={}'.format(k, v))
                         if cypher_where!=[]:
                             cypher_where = ' where ' + ' and '.join(cypher_where) 
