@@ -278,7 +278,7 @@ class RelDBDataset:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
             # ['cre_Theme_park', 'department_management', 'musical']
-            if db_name in ['academic']:
+            if db_name in ['college_3']:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
             
@@ -435,8 +435,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
 
             # DONE: not table.table_constraints
             ref_tables = set([constraint['ref_table'] for constraint in table.table_constraints ])
-            if  not table.table_constraints\
-                or  ( len(ref_tables)!=2 and bool(primary_keys))\
+            if  not table.table_constraints or  len(ref_tables)!=2 \
                 or (len(ref_tables)==2 and bool(primary_keys) and not table.check_compound_pk):
                 # or (len(table.table_constraints)==2 and not table.check_compound_pk):
         
@@ -445,6 +444,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     # 1) the examples, that exist just one primary key and several forign keys,
                     # 2) the examples, that exist compound primary keys, but no foreign keys. 
                     # e.g., in musical.db, the table `musical` is the case.
+
 
                     for i, row_dict in enumerate(table.rows):
                         print(row_dict)
@@ -610,7 +610,12 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 for i, row_dict in enumerate(table.rows):
                     refs_matched = refs_matched_nodes[i]
                     print(f'ref_matched: {refs_matched}')
-                    if len(ref_tables)==2:
+                    # if table_name=='Minor_in': #debug
+                        # print(len(ref_tables))
+                        # print(table.check_compound_pk)
+                        # print(table.check_compound_pk or not primary_keys)
+                        # assert 1>2
+                    if len(ref_tables)==2 and (table.check_compound_pk or not primary_keys):
                         # and  (not primary_keys or table.check_compound_pk):
                         # class py2neo.data.Relationship(start_node, type, end_node, **properties)
                         print(f'********************************Building graph edge directly from {table_name}.***************************')   
@@ -633,12 +638,11 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         print(f'ref_constraints: {refs_constraints[i]}, table_name: {table_name}')
                         ref_constraints = list(refs_constraints[i].keys())
      
-                        if len(ref_constraints)==2:
-                            
-                            for start in refs_matched[ref_constraints[1].lower()]:
-                                for end in refs_matched[ref_constraints[0].lower()]:
-                                    rel = Relationship(start, '{}.{}'.format(db.db_name, table_name), end, **update_row_dict) 
-                                    tx.create(rel)
+                        # if len(ref_constraints)==2 and bool(primary_keys) and not table.check_compound_pk:
+                        for start in refs_matched[ref_constraints[1].lower()]:
+                            for end in refs_matched[ref_constraints[0].lower()]:
+                                rel = Relationship(start, '{}.{}'.format(db.db_name, table_name), end, **update_row_dict) 
+                                tx.create(rel)
                         # if len(ref_matched)==2:
                         #     # the reason to choose the second element in matched nodes as the start node, is we observe the nature of relational database
                         #     # design and the way of our implementation. It is just an assumption based on some limtited observation.
@@ -678,7 +682,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                         print(f'cypher_query: {rel_checker}, db_name: {db.db_name}')
                                         print(f'returned_rels: {res}, db_name: {db.db_name}')
                                         if not res:
-                                            rel = Relationship(ref_node, '{}_AppearsIn_{}'.format( str(ref_node.labels)[1:].strip('`'), str(this_node.labels)[1:].strip('`')), this_node) 
+                                            rel = Relationship(ref_node, '{}_HAS_{}'.format( str(ref_node.labels)[1:].strip('`'), str(this_node.labels)[1:].strip('`')), this_node) 
                                             tx.create(rel)  
 
         self.graph.commit(tx)
@@ -698,7 +702,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
             if not drop_flag:
                 self.table2nodes(db, tx)
                 self.table2edges(db)
-                self.build_edges(db)
+                self.build_edges(db) # this process should run based on table2node process
             
             
         
