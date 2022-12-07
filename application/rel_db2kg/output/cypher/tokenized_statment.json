@@ -2,11 +2,14 @@
       "Token_Keyword": [
             "MATCH",
             "WHERE",
-            "RETURN"
+            "RETURN",
+            "AS",
+            "UNION"
       ],
       "Token_Text_Whitespace": [
             " ",
             "\n",
+            "  ",
             " \n"
       ],
       "Token_Punctuation": [
@@ -14,8 +17,22 @@
             ":",
             ")"
       ],
-      "Token_Name_Variable": "concert",
-      "Token_Name_Label": "`concert_singer.concert`",
-      "Token_Name_Function": "count",
-      "Token_Operator": "*"
+      "Token_Name_Variable": [
+            "properties",
+            "property_type_code",
+            "property_name",
+            "room_count"
+      ],
+      "Token_Name_Label": "`real_estate_properties.Properties`",
+      "Token_Operator": [
+            ".",
+            "=",
+            "AND",
+            ">"
+      ],
+      "Token_Literal_String": [
+            "'House'",
+            "'Apartment'"
+      ],
+      "Token_Literal_Number_Integer": "1"
 }

@@ -1437,7 +1437,7 @@ def main():
 			
 
 			# if db_name in graph_db_list:
-			if db_name in  ['concert_singer', 'musical', 'department_management']:
+			if db_name:
 				print(f'hey db: {db_name}')
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
