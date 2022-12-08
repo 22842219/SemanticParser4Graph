@@ -1514,7 +1514,7 @@ def main():
 							if not set(cypher_sorted)-set(sql_sorted):
 								print(f'correct_ans: {cypher_ans}') 
 								correct_qa_pairs.append({'db_id':db_name, 'question':question, \
-								'cypher_query':sql2cypher, 'parsed_cpypher':tokenized_statment, \
+								'cypher_query':sql2cypher, 'parsed_cypher':tokenized_statment, \
 								'answers':cypher_ans})
 							else:
 								print(f'incorrect_ans: {cypher_ans}')

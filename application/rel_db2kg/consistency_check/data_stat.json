@@ -2214,7 +2214,7 @@
     "num_of_rows": 8487,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "station_id",
       "bikes_available",
@@ -2270,7 +2270,7 @@
     "num_of_rows": 3665,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "date",
       "max_temperature_f",
@@ -2580,7 +2580,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "transaction_id",
       "account_id",
@@ -2653,7 +2653,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "order_item_id",
       "invoice_number",
@@ -3849,7 +3849,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "product_id",
       "characteristic_id",
@@ -4759,7 +4759,8 @@
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "wta_1",
@@ -4767,7 +4768,7 @@
     "num_of_rows": 278,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "best_of",
       "draw_size",
@@ -4827,7 +4828,7 @@
     "num_of_rows": 510437,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "ranking_date",
       "ranking",
@@ -4846,7 +4847,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": true
+    "has_duplicate_rows": true,
+    "zzy": true
   },
   {
     "db_name": "cinema",
@@ -5131,7 +5133,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "formula_1",
@@ -5187,7 +5190,8 @@
     ],
     "hyper_edge_candidate": true,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "formula_1",
@@ -5226,7 +5230,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "formula_1",
@@ -5263,7 +5268,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "formula_1",
@@ -5454,7 +5460,7 @@
     "num_of_rows": 500,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "No",
       "Grape",
@@ -5608,7 +5614,7 @@
     "num_of_rows": 4,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "name",
       "friend",
@@ -5874,7 +5880,7 @@
     "num_of_rows": 3,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "PetID"
@@ -6068,7 +6074,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "project_id",
       "outcome_code",
@@ -6766,7 +6772,7 @@
     "num_of_rows": 63,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "FacID",
       "DNO",
@@ -6836,7 +6842,7 @@
     "num_of_rows": 10,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "DNO"
@@ -6866,7 +6872,7 @@
     "num_of_rows": 210,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "CID",
@@ -7570,7 +7576,8 @@
     ],
     "hyper_edge_candidate": true,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "college_2",
@@ -8641,7 +8648,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "document_code",
       "functional_area_code"
@@ -9081,7 +9088,7 @@
     "num_of_rows": 0,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "lake_name",
       "area",
@@ -9573,7 +9580,8 @@
     ],
     "hyper_edge_candidate": true,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "sakila_1",
@@ -9618,7 +9626,8 @@
     ],
     "hyper_edge_candidate": true,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "sakila_1",
@@ -9743,7 +9752,7 @@
     "num_of_rows": 14,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "rID",
       "mID",
@@ -10017,7 +10026,7 @@
     "num_of_rows": 69,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "Campus",
       "Year",
@@ -10220,7 +10229,7 @@
     "num_of_rows": 5,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "Show_ID",
       "Performance_ID",
@@ -10494,7 +10503,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "transaction_id",
       "previous_transaction_id",
@@ -11277,7 +11286,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "registration_id",
       "date_test_taken",
@@ -11403,7 +11412,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "regular_order_id",
       "product_id"
@@ -11463,7 +11472,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "actual_order_id",
       "product_id"
@@ -11493,7 +11502,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "customer_id",
       "address_id",
@@ -11636,7 +11645,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "location_code",
       "actual_order_id",
@@ -12113,7 +12122,7 @@
     "num_of_rows": 0,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "cited",
       "citing"
@@ -13014,7 +13023,7 @@
     "num_of_rows": 20,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "customer_id",
       "address_id",
@@ -13076,7 +13085,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "order_item_id",
       "order_id",
@@ -13135,7 +13144,7 @@
     "num_of_rows": 10,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "Registration_Date",
@@ -13672,7 +13681,8 @@
     ],
     "hyper_edge_candidate": true,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "flight_4",
@@ -13784,7 +13794,7 @@
     "num_of_rows": 4,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "ClubID",
@@ -13894,7 +13904,7 @@
     "num_of_rows": 9,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "source_u_id",
       "target_u_id",
@@ -14207,7 +14217,7 @@
     "num_of_rows": 59,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "Allergy"
@@ -14330,7 +14340,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "soccer_1",
@@ -14338,7 +14349,7 @@
     "num_of_rows": 6,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "name",
       "seq"
@@ -14373,7 +14384,8 @@
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "soccer_1",
@@ -14787,7 +14799,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "customer_id",
       "premise_id",
@@ -14853,7 +14865,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "mailshot_id",
       "customer_id",
@@ -14885,7 +14897,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "item_id",
       "order_item_status_code",
@@ -15141,7 +15153,7 @@
     "num_of_rows": 12,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "complaint_id",
       "product_id",
@@ -16067,7 +16079,7 @@
     "num_of_rows": 5069,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16097,7 +16109,7 @@
     "num_of_rows": 100951,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "year",
       "team_id",
@@ -16138,7 +16150,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16146,7 +16159,7 @@
     "num_of_rows": 177,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "award_id",
@@ -16174,7 +16187,7 @@
     "num_of_rows": 6078,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "award_id",
@@ -16202,7 +16215,7 @@
     "num_of_rows": 414,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "award_id",
       "year",
@@ -16224,7 +16237,7 @@
     "num_of_rows": 6795,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "award_id",
       "year",
@@ -16253,7 +16266,7 @@
     "num_of_rows": 101332,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16289,7 +16302,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16297,7 +16311,7 @@
     "num_of_rows": 11690,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "year",
       "round",
@@ -16339,7 +16353,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16347,7 +16362,7 @@
     "num_of_rows": 17350,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "college_id",
@@ -16370,7 +16385,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16378,7 +16394,7 @@
     "num_of_rows": 170526,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16410,7 +16426,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16418,7 +16435,7 @@
     "num_of_rows": 12028,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16438,7 +16455,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16446,7 +16464,7 @@
     "num_of_rows": 12311,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16483,7 +16501,8 @@
     ],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16491,7 +16510,7 @@
     "num_of_rows": 4120,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "yearid",
@@ -16522,7 +16541,7 @@
     "num_of_rows": 2944,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "year",
       "league_id",
@@ -16559,7 +16578,7 @@
     "num_of_rows": 3405,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16591,7 +16610,7 @@
     "num_of_rows": 93,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16623,7 +16642,7 @@
     "num_of_rows": 18846,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "birth_year",
@@ -16654,7 +16673,8 @@
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16662,7 +16682,7 @@
     "num_of_rows": 250,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "park_id",
       "park_name",
@@ -16683,7 +16703,7 @@
     "num_of_rows": 44139,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16720,7 +16740,8 @@
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16728,7 +16749,7 @@
     "num_of_rows": 5109,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "player_id",
       "year",
@@ -16773,7 +16794,7 @@
     "num_of_rows": 25575,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "year",
       "team_id",
@@ -16785,7 +16806,8 @@
     "table_constraints": [],
     "hyper_edge_candidate": false,
     "edge_candidate": false,
-    "has_duplicate_rows": false
+    "has_duplicate_rows": false,
+    "zzy": true
   },
   {
     "db_name": "baseball_1",
@@ -16793,7 +16815,7 @@
     "num_of_rows": 1207,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "college_id",
       "name_full",
@@ -16813,7 +16835,7 @@
     "num_of_rows": 307,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "year",
       "round",
@@ -16837,7 +16859,7 @@
     "num_of_rows": 2805,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "year",
       "league_id",
@@ -16900,7 +16922,7 @@
     "num_of_rows": 120,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "franchise_id",
       "franchise_name",
@@ -16919,7 +16941,7 @@
     "num_of_rows": 52,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "year",
       "league_id",
@@ -17357,7 +17379,7 @@
     "num_of_rows": 0,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "id",
       "msid",
@@ -17958,7 +17980,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "customer_id",
       "address_id",
@@ -17991,7 +18013,7 @@
     "num_of_rows": 20,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "customer_id",
       "channel_code",
@@ -18049,7 +18071,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "order_id",
       "product_id",
@@ -18218,7 +18240,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "purchase_transaction_id",
       "purchase_details"
@@ -18242,7 +18264,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "transaction_id",
       "lot_id"
@@ -18321,7 +18343,7 @@
     "num_of_rows": 10,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "GameID",
@@ -18352,7 +18374,7 @@
     "num_of_rows": 14,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "SportName",
@@ -19912,7 +19934,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "shipment_id",
       "order_item_id"
@@ -20143,7 +20165,7 @@
     "num_of_rows": 70,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "stuid",
       "actid"
@@ -20173,7 +20195,7 @@
     "num_of_rows": 40,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "FacID",
       "actid"
@@ -20803,7 +20825,7 @@
     "num_of_rows": 10,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "name",
       "seq"
@@ -21390,7 +21412,7 @@
     "num_of_rows": 6,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "CLASS_CODE",
       "STU_NUM",
@@ -21421,7 +21443,7 @@
     "num_of_rows": 22,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "EMP_NUM",
       "DEPT_CODE",
@@ -21916,7 +21938,7 @@
     "num_of_rows": 7,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "dormid",
       "dorm_name",
@@ -21935,7 +21957,7 @@
     "num_of_rows": 12,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "amenid",
       "amenity_name"
@@ -21952,7 +21974,7 @@
     "num_of_rows": 40,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "dormid",
       "amenid"
@@ -21982,7 +22004,7 @@
     "num_of_rows": 31,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "stuid",
       "dormid",
@@ -22931,7 +22953,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "notes_id",
       "student_id",
@@ -23044,7 +23066,7 @@
     "num_of_rows": 20,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "student_id",
       "address_id",
@@ -23078,7 +23100,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "student_id",
       "detention_id",
@@ -23146,7 +23168,7 @@
     "num_of_rows": 1,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "name",
       "seq"
@@ -23775,7 +23797,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "catalog_entry_id",
       "catalog_level_number",
@@ -23931,7 +23953,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "property_id",
       "feature_id",
@@ -24265,7 +24287,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "student_course_id",
       "transcript_id"
@@ -24738,7 +24760,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "booking_id",
       "customer_id",
@@ -25025,7 +25047,7 @@
     "num_of_rows": 2,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "ResID",
       "ResTypeID"
@@ -25077,7 +25099,7 @@
     "num_of_rows": 2,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "StuID",
       "ResID",
@@ -26011,7 +26033,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "asset_id",
       "part_id"
@@ -26072,7 +26094,7 @@
     "num_of_rows": 20,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "engineer_id",
       "skill_id"
@@ -26217,7 +26239,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "fault_log_entry_id",
       "part_fault_id",
@@ -26248,7 +26270,7 @@
     "num_of_rows": 15,
     "empty_table": false,
     "primary_keys": [],
-    "if_compound_pk": true,
+    "if_compound_pk": false,
     "table_headers": [
       "part_fault_id",
       "skill_id"

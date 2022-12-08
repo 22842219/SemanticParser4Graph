@@ -1,4 +1,4 @@
-import os, sys, json, csv
+import os, sys, json, csv, re
 import pandas as pd
 sys.path.append('..')
 from schema2graph import DBengine, RelDB, RelTable, TableSchema
@@ -9,6 +9,7 @@ from utils import Logger, save2json, read_json
 def read_dataset(paths, logger):
 
     data_stat =[]
+    filtered_list = []
 
     for i, db_path in enumerate(paths):
         path_compodbnents = db_path.split(os.sep)
@@ -81,7 +82,15 @@ def read_dataset(paths, logger):
                 every['has_duplicate_rows'] = False
 
             data_stat.append(every)
+            if len(data)>4000:
+                if len(data)>10000:
+                    every['zzy']=True
+                filtered_list.append(every)
+
+                
+
     save2json(data_stat, '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/consistency_check/data_stat.json')
+    save2json(filtered_list, '/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/consistency_check/filtered_list.json')
 
 def check_difference(root, logger):
     # Check whether a path pointing to a file
@@ -199,20 +208,81 @@ def check_difference(root, logger):
         logger.warning("Do not exist {} or {}!".format(file_path, schema_map_file))
         raise NotImplementedError
 
-def read_sql(raw_spider_folder):
+def read_cypher(root):
     stat_res = {}
     for split in ['train', 'dev']:
-        json_file = os.path.join(raw_spider_folder, '{}.json'.format(split))
+        json_file = os.path.join(root, 'semantic_parser', 'data', 'spider', '{}_correct.json'.format(split))
         # print(json_file)
         f = open(json_file)
         data = json.load(f)
 
         # # test output file
-        # cypher_file_musical  = os.path.join(raw_spider_folder, '{}_{}_cypher.json'.format('musical', split))
+        # cypher_file_musical  = os.path.join(root, '{}_{}_cypher.json'.format('musical', split))
         stat_res[split]=[]
-        intersect_sql = {}
-        except_sql =  {}
-        nested_sql = {}
+        dbs = []
+        db_counter = 0
+        node_pattern_counter = 0
+        edge_pattern_counter = 0
+        filtering_pattern_counter = 0
+        aggregation_pattern_counter = 0
+        sub_query_pattern_counter = 0
+        agg = ['count', 'avg', 'min', 'max', 'sum']
+
+        for i, every in enumerate(data):
+            db_name = every['db_id']
+            if db_name not in dbs:
+                dbs.append(db_name)
+                db_counter+=1
+            parsed_cypher = every['parsed_cypher']
+            # node patterns: 
+            if ')-[' and ']-(' not in parsed_cypher['Token_Punctuation']:
+                node_pattern_counter+=1
+            # edge patterns: len(Token_Punctuation)>6
+            if ']-(' and ']-(' in parsed_cypher['Token_Punctuation']:
+                edge_pattern_counter+=1
+            # filtering patterns
+            if 'WHERE' in parsed_cypher['Token_Keyword'] \
+                and ('NOT' not in  parsed_cypher['Token_Operator']):
+                filtering_pattern_counter+=1
+            # aggregation patterns
+            if 'Token_Name_Function' in parsed_cypher:
+                aggregation_pattern_counter+=1
+            # subquery patterns 
+            if 'NOT' in parsed_cypher['Token_Operator']:
+                sub_query_pattern_counter+=1
+            match_clause_counter = 0
+            for key in parsed_cypher['Token_Keyword']:
+                if key=='MATCH':
+                    match_clause_counter+=1
+            if match_clause_counter>=2 and 'WHERE' in parsed_cypher['Token_Keyword']:
+                sub_query_pattern_counter+=1
+
+        
+        stat_res[split].append({ "db_counter": db_counter, 
+                'node_pattern_counter':node_pattern_counter,
+                "edge_pattern_counter": edge_pattern_counter, 
+                "filtering_pattern_counter": filtering_pattern_counter,
+                "aggregation_pattern_counter": aggregation_pattern_counter,
+                "sub_query_pattern_counter": sub_query_pattern_counter})
+    print(stat_res)
+
+def read_sql(root):
+    stat_res = {}
+    for split in ['train', 'dev']:
+        json_file = os.path.join('/Users/ziyuzhao/Desktop/raw_data/data/spider', '{}.json'.format(split))
+        # print(json_file)
+        f = open(json_file)
+        data = json.load(f)
+
+        # # test output file
+        # cypher_file_musical  = os.path.join(root, '{}_{}_cypher.json'.format('musical', split))
+        stat_res[split]=[]
+        dbs = []
+        db_counter = 0
+        join_counter = 0
+        nested_counter =0
+        intersect_counter =0
+        except_counter =0
         
         def isNested(json ):
             check_str = str(json)
@@ -223,34 +293,49 @@ def read_sql(raw_spider_folder):
         
         for i, every in enumerate(data):
             db_name = every['db_id']
-            
+            if db_name not in dbs:
+                dbs.append(db_name)
+                db_counter+=1
+            tokens = [token.lower() for token in every["query_toks"]]
+            # join on statements
+            if 'join' in tokens:
+                join_counter+=1
+
 
             # if db_name in graph_db_list:
             if db_name:
-                print(f'hey db: {db_name}')
-                for evaluate in [ nested_sql, intersect_sql, except_sql]:
-                    if db_name not in evaluate:
-                        evaluate[db_name]=[]
+                # print(f'hey db: {db_name}')
+                # for evaluate in [ nested_sql, intersect_sql, except_sql]:
+                #     if db_name not in evaluate:
+                #         evaluate[db_name]=[]
                     
                 # 1. Extract database name, questions and SQL queries
-                all_table_fields = lookup_dict[db_name]	
+                # all_table_fields = lookup_dict[db_name]	
                 question = every['question']
                 sql_query = every['query']	
 
 
                 if 'intersect' in sql_query.lower():
-                    intersect_sql[db_name].append(i)
+                    intersect_counter+=1
+                    # intersect_sql[db_name].append(i)
                 if 'except' in sql_query.lower():
-                    except_sql[db_name].append(i)
+                    except_counter+=1
+                    # except_sql[db_name].append(i)
                 if isNested(sql_query):
-                    nested_sql[db_name].append(i)
-        
-        stat_res[split].apppend(intersect_sql)
-        stat_res[split].apppend(except_sql)
-        stat_res[split].apppend(nested_sql)
+                    nested_counter+=1
+                    # nested_sql[db_name].append(i)
+
+        stat_res[split].append({ "db_counter": db_counter, 
+        'join_counter': [join_counter, join_counter/(i+1)],
+        "intersect_counter": [intersect_counter, intersect_counter/(i+1)],
+        "except_counter": [except_counter, except_counter/(i+1)],
+        "nested_counter": [nested_counter, nested_counter/(i+1)]})
+
+        # f = os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', '{}_stat.json'.format(split))   
+
     print(stat_res)
 
-                    
+                      
 def main():
     import glob, argparse
     import configparser
@@ -269,7 +354,8 @@ def main():
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
     parser.add_argument('--get', help='get statistical data', action='store_true')
     parser.add_argument('--check', help='check the difference between expected data and actual graph data', action='store_true')
-    parser.add_argument('--complex', help='check the statistics of complex queries and nested subqueries', action='store_true')
+    parser.add_argument('--cypherstat', help='check the statistics of cypher queries and nested subqueries', action='store_true')
+    parser.add_argument('--sqlstat', help='check the statistics of sql queries regarding complex queries', action='store_true')
     args = parser.parse_args()
 
     if args.get:
@@ -278,8 +364,11 @@ def main():
     if args.check:
         check_difference(root, Logger())
 
-    if args.complex:
-        read_sql(root, Logger())
+    if args.cypherstat:
+        read_cypher(root)
+    
+    if args.sqlstat:
+        read_sql(root)
 
 
 if __name__ == "__main__":
