@@ -1379,6 +1379,9 @@ def main():
 	from py2neo import Graph
 	lexer = get_lexer_by_name("py2neo.cypher")
 	import configparser
+	import shutil
+
+
 	config = configparser.ConfigParser()
 	config.read('../config.ini')
 	filenames = config["FILENAMES"]
@@ -1424,6 +1427,8 @@ def main():
 		# cypher_file_musical  = os.path.join(raw_spider_folder, '{}_{}_cypher.json'.format('musical', split))
 
 		correct_qa_pairs = []      
+		spider_sub_pairs = []
+		seleted_rel_dbs = []
 		incorrect_qa_pairs = []
 
 		incorrect = {}
@@ -1513,13 +1518,16 @@ def main():
 
 							if not set(cypher_sorted)-set(sql_sorted):
 								print(f'correct_ans: {cypher_ans}') 
-								correct_qa_pairs.append({'db_id':db_name, 'question':question, \
-								'cypher_query':sql2cypher, 'parsed_cypher':tokenized_statment, \
+								correct_qa_pairs.append({'db_id':db_name, 'cypher_query':sql2cypher,\
+								'parsed_cypher':tokenized_statment, 'question':question,
 								'answers':cypher_ans})
+								spider_sub_pairs.append(data[i])
+								if data[i]['db_id'] not in seleted_rel_dbs:
+									seleted_rel_dbs.append(data[i]['db_id'])
 							else:
 								print(f'incorrect_ans: {cypher_ans}')
 								incorrect[db_name].append(i)
-								incorrect_qa_pairs.append({'db_id':db_name, 'question':question, \
+								incorrect_qa_pairs.append({'db_id':db_name, 'query':question, \
 								'sql_query':sql_query, 'parsed_sql':parsed_sql, 'sql_ans':sql_result,\
 								'cypher_query':sql2cypher, 'cypher_ans':cypher_ans})
 					except:
@@ -1535,15 +1543,31 @@ def main():
 			intersect_sql, except_sql)
 		print(f'metrics: {metrics}')
 	
-		correct_output_file = os.path.join(sp_out_folder, '{}_correct.json'.format(split))   
-		with open(correct_output_file, 'a')  as out:
-			json.dump(correct_qa_pairs, out, indent = 4)
+		# correct_output_file = os.path.join(sp_out_folder, '{}_correct.json'.format(split))   
+		# with open(correct_output_file, 'a')  as f1:
+		# 	json.dump(correct_qa_pairs, f1, indent = 4)
 
-		incorrect_output_file = os.path.join(sp_out_folder, '{}_incorrect.json'.format(split))     
-		with open(incorrect_output_file, 'a')  as out:
-			json.dump(incorrect_qa_pairs, out, indent = 4)
-			
+		# incorrect_output_file = os.path.join(sp_out_folder, '{}_incorrect.json'.format(split))     
+		# with open(incorrect_output_file, 'a')  as f2:
+		# 	json.dump(incorrect_qa_pairs, f2, indent = 4)
+
+		# sub_spider = os.path.join(sp_out_folder, '{}_spider_sub.json'.format(split))
+		# with open(sub_spider, 'a')  as f3:
+		# 	json.dump(spider_sub_pairs, f3, indent = 4)
+
+		# Output selected relational dbs folder path
+		sub_rel_dbs_folder = os.path.join(sp_data_folder, 'spider', 'database')  
+
+		if not os.path.exists(sub_rel_dbs_folder):
+			os.makedirs(sub_rel_dbs_folder) 
+
 		
+		for db_name in seleted_rel_dbs:
+			source_dir = os.path.join(db_folder, db_name)
+			destination_dir = os.path.join(sub_rel_dbs_folder, db_name)
+			if not os.path.exists(destination_dir):
+				shutil.copytree(source_dir, destination_dir)
+
 
 if __name__=="__main__":
 	main()
