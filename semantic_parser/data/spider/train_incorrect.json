@@ -89,7 +89,7 @@
                 1009.75
             ]
         ],
-        "cypher_query": "MATCH (city:`farm.city`)\nWITH city.Status AS Status, count(city.Status) AS count\nRETURN Status,count",
+        "cypher_query": "MATCH (city:`farm.city`)\nWITH count(city.Status) AS count, city.Status AS Status\nRETURN Status,count",
         "cypher_ans": [
             [
                 "Town",
@@ -131,7 +131,7 @@
                 1009.75
             ]
         ],
-        "cypher_query": "MATCH (city:`farm.city`)\nWITH city.Status AS Status, count(city.Status) AS count\nRETURN Status,count",
+        "cypher_query": "MATCH (city:`farm.city`)\nWITH count(city.Status) AS count, city.Status AS Status\nRETURN Status,count",
         "cypher_ans": [
             [
                 "Town",
@@ -1398,7 +1398,7 @@
                 "Boeing 737-800"
             ]
         ],
-        "cypher_query": "MATCH ()-[T1:`flight_1.certificate`]-(T2:`flight_1.aircraft`)\nWITH count(T1.aid) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[T1:`flight_1.certificate`]-(T2:`flight_1.aircraft`)\nWITH T2.name AS name, count(T1.aid) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Boeing 747-400"
@@ -1449,7 +1449,7 @@
                 "Boeing 737-800"
             ]
         ],
-        "cypher_query": "MATCH ()-[T1:`flight_1.certificate`]-(T2:`flight_1.aircraft`)\nWITH count(T1.aid) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[T1:`flight_1.certificate`]-(T2:`flight_1.aircraft`)\nWITH T2.name AS name, count(T1.aid) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Boeing 747-400"
@@ -3669,7 +3669,7 @@
                 54.0
             ]
         ],
-        "cypher_query": "MATCH (editor:`journal_committee.editor`)\nWITH editor.Age AS Age, count(editor.Age) AS count\nRETURN Age\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (editor:`journal_committee.editor`)\nWITH count(editor.Age) AS count, editor.Age AS Age\nRETURN Age\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 34.0
@@ -5500,7 +5500,7 @@
                 1
             ]
         ],
-        "cypher_query": "MATCH (phone:`phone_1.phone`)\nWITH count(phone.Company_name) AS count, phone.Company_name AS Company_name\nRETURN Company_name,count\nORDER BY count ASC\nLIMIT 1",
+        "cypher_query": "MATCH (phone:`phone_1.phone`)\nWITH phone.Company_name AS Company_name, count(phone.Company_name) AS count\nRETURN Company_name,count\nORDER BY count ASC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Sony Mobile Communications",
@@ -6434,7 +6434,7 @@
                 "Auer"
             ]
         ],
-        "cypher_query": "MATCH (T1:`customers_and_invoices.Accounts`)-[]-(T2:`customers_and_invoices.Customers`)\nWITH count(T1.customer_id) AS count, T1.customer_id AS customer_id, T2.customer_first_name AS customer_first_name, T2.customer_last_name AS customer_last_name\nRETURN customer_id,customer_first_name,customer_last_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`customers_and_invoices.Accounts`)-[]-(T2:`customers_and_invoices.Customers`)\nWITH T2.customer_first_name AS customer_first_name, T1.customer_id AS customer_id, count(T1.customer_id) AS count, T2.customer_last_name AS customer_last_name\nRETURN customer_id,customer_first_name,customer_last_name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 8,
@@ -6497,7 +6497,7 @@
                 "Auer"
             ]
         ],
-        "cypher_query": "MATCH (T1:`customers_and_invoices.Accounts`)-[]-(T2:`customers_and_invoices.Customers`)\nWITH count(T1.customer_id) AS count, T1.customer_id AS customer_id, T2.customer_first_name AS customer_first_name, T2.customer_last_name AS customer_last_name\nRETURN customer_id,customer_first_name,customer_last_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`customers_and_invoices.Accounts`)-[]-(T2:`customers_and_invoices.Customers`)\nWITH T2.customer_first_name AS customer_first_name, T1.customer_id AS customer_id, count(T1.customer_id) AS count, T2.customer_last_name AS customer_last_name\nRETURN customer_id,customer_first_name,customer_last_name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 8,
@@ -8058,7 +8058,7 @@
                 1
             ]
         ],
-        "cypher_query": "MATCH ()-[T1:`gas_company.station_company`]-(T2:`gas_company.company`)\nWITH count(T1.Company_ID) AS count, T2.Company AS Company\nRETURN Company,count",
+        "cypher_query": "MATCH ()-[T1:`gas_company.station_company`]-(T2:`gas_company.company`)\nWITH T2.Company AS Company, count(T1.Company_ID) AS count\nRETURN Company,count",
         "cypher_ans": [
             [
                 "ExxonMobil",
@@ -8143,7 +8143,7 @@
                 1
             ]
         ],
-        "cypher_query": "MATCH ()-[T1:`gas_company.station_company`]-(T2:`gas_company.company`)\nWITH count(T1.Company_ID) AS count, T2.Company AS Company\nRETURN Company,count",
+        "cypher_query": "MATCH ()-[T1:`gas_company.station_company`]-(T2:`gas_company.company`)\nWITH T2.Company AS Company, count(T1.Company_ID) AS count\nRETURN Company,count",
         "cypher_ans": [
             [
                 "ExxonMobil",
@@ -9013,7 +9013,7 @@
                 150.0
             ]
         ],
-        "cypher_query": "MATCH (rooms:`inn_1.Rooms`)\nWITH count(rooms.bedType) AS count, rooms.bedType AS bedType\nRETURN bedType,count",
+        "cypher_query": "MATCH (rooms:`inn_1.Rooms`)\nWITH rooms.bedType AS bedType, count(rooms.bedType) AS count\nRETURN bedType,count",
         "cypher_ans": [
             [
                 "King",
@@ -9063,7 +9063,7 @@
                 150.0
             ]
         ],
-        "cypher_query": "MATCH (rooms:`inn_1.Rooms`)\nWITH count(rooms.bedType) AS count, rooms.bedType AS bedType\nRETURN bedType,count",
+        "cypher_query": "MATCH (rooms:`inn_1.Rooms`)\nWITH rooms.bedType AS bedType, count(rooms.bedType) AS count\nRETURN bedType,count",
         "cypher_ans": [
             [
                 "King",
@@ -9113,7 +9113,7 @@
                 150.0
             ]
         ],
-        "cypher_query": "MATCH (rooms:`inn_1.Rooms`)\nWITH count(rooms.bedType) AS count, rooms.bedType AS bedType\nRETURN bedType,count",
+        "cypher_query": "MATCH (rooms:`inn_1.Rooms`)\nWITH rooms.bedType AS bedType, count(rooms.bedType) AS count\nRETURN bedType,count",
         "cypher_ans": [
             [
                 "King",
@@ -9163,7 +9163,7 @@
                 150.0
             ]
         ],
-        "cypher_query": "MATCH (rooms:`inn_1.Rooms`)\nWITH count(rooms.bedType) AS count, rooms.bedType AS bedType\nRETURN bedType,count",
+        "cypher_query": "MATCH (rooms:`inn_1.Rooms`)\nWITH rooms.bedType AS bedType, count(rooms.bedType) AS count\nRETURN bedType,count",
         "cypher_ans": [
             [
                 "King",
@@ -9229,7 +9229,7 @@
                 988
             ]
         ],
-        "cypher_query": "MATCH (T1:`storm_record.storm`)-[T2:`storm_record.affected_region`]-()\nWITH count(T1.Storm_ID) AS count, T1.Name AS Name, T1.Max_speed AS Max_speed\nRETURN Name,Max_speed\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`storm_record.storm`)-[T2:`storm_record.affected_region`]-()\nWITH T1.Max_speed AS Max_speed, count(T1.Storm_ID) AS count, T1.Name AS Name\nRETURN Name,Max_speed\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "One",
@@ -9287,7 +9287,7 @@
                 988
             ]
         ],
-        "cypher_query": "MATCH (T1:`storm_record.storm`)-[T2:`storm_record.affected_region`]-()\nWITH count(T1.Storm_ID) AS count, T1.Name AS Name, T1.Max_speed AS Max_speed\nRETURN Name,Max_speed\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`storm_record.storm`)-[T2:`storm_record.affected_region`]-()\nWITH T1.Max_speed AS Max_speed, count(T1.Storm_ID) AS count, T1.Name AS Name\nRETURN Name,Max_speed\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "One",
@@ -9623,7 +9623,7 @@
                 1
             ]
         ],
-        "cypher_query": "MATCH ()-[T1:`news_report.news_report`]-(T2:`news_report.event`)-[]-(T3:`news_report.journalist`)\nWITH T3.Name AS Name, count(T3.Name) AS count\nRETURN Name,count",
+        "cypher_query": "MATCH ()-[T1:`news_report.news_report`]-(T2:`news_report.event`)-[]-(T3:`news_report.journalist`)\nWITH count(T3.Name) AS count, T3.Name AS Name\nRETURN Name,count",
         "cypher_ans": [
             [
                 "Jackie Waring",
@@ -10297,7 +10297,7 @@
                 "Reinger"
             ]
         ],
-        "cypher_query": "MATCH (T1:`assets_maintenance.Maintenance_Engineers`)-[]-(T2:`assets_maintenance.Engineer_Visits`)\nWITH T1.first_name AS first_name, count(T1.engineer_id) AS count, T1.engineer_id AS engineer_id, T1.last_name AS last_name\nRETURN engineer_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`assets_maintenance.Maintenance_Engineers`)-[]-(T2:`assets_maintenance.Engineer_Visits`)\nWITH count(T1.engineer_id) AS count, T1.last_name AS last_name, T1.engineer_id AS engineer_id, T1.first_name AS first_name\nRETURN engineer_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 15,
@@ -10360,7 +10360,7 @@
                 "Reinger"
             ]
         ],
-        "cypher_query": "MATCH (T1:`assets_maintenance.Maintenance_Engineers`)-[]-(T2:`assets_maintenance.Engineer_Visits`)\nWITH T1.first_name AS first_name, count(T1.engineer_id) AS count, T1.engineer_id AS engineer_id, T1.last_name AS last_name\nRETURN engineer_id,first_name,last_name\nORDER BY count ASC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`assets_maintenance.Maintenance_Engineers`)-[]-(T2:`assets_maintenance.Engineer_Visits`)\nWITH count(T1.engineer_id) AS count, T1.last_name AS last_name, T1.engineer_id AS engineer_id, T1.first_name AS first_name\nRETURN engineer_id,first_name,last_name\nORDER BY count ASC\nLIMIT 1",
         "cypher_ans": [
             [
                 8,
@@ -10539,7 +10539,7 @@
                 "Wednesday"
             ]
         ],
-        "cypher_query": "MATCH (weekly_weather:`station_weather.weekly_weather`)\nWITH weekly_weather.day_of_week AS day_of_week, count(weekly_weather.day_of_week) AS count\nRETURN count,day_of_week",
+        "cypher_query": "MATCH (weekly_weather:`station_weather.weekly_weather`)\nWITH count(weekly_weather.day_of_week) AS count, weekly_weather.day_of_week AS day_of_week\nRETURN count,day_of_week",
         "cypher_ans": [
             [
                 4,
@@ -11841,7 +11841,7 @@
                 "1999-12-19"
             ]
         ],
-        "cypher_query": "MATCH (job_history:`hr_1.job_history`)\nWITH count(job_history.EMPLOYEE_ID) AS count, job_history.EMPLOYEE_ID AS EMPLOYEE_ID\nRETURN EMPLOYEE_ID,count",
+        "cypher_query": "MATCH (job_history:`hr_1.job_history`)\nWITH job_history.EMPLOYEE_ID AS EMPLOYEE_ID, count(job_history.EMPLOYEE_ID) AS count\nRETURN EMPLOYEE_ID,count",
         "cypher_ans": [
             [
                 102,
@@ -11931,7 +11931,7 @@
                 "1999-12-19"
             ]
         ],
-        "cypher_query": "MATCH (job_history:`hr_1.job_history`)\nWITH count(job_history.EMPLOYEE_ID) AS count, job_history.EMPLOYEE_ID AS EMPLOYEE_ID\nRETURN EMPLOYEE_ID,count",
+        "cypher_query": "MATCH (job_history:`hr_1.job_history`)\nWITH job_history.EMPLOYEE_ID AS EMPLOYEE_ID, count(job_history.EMPLOYEE_ID) AS count\nRETURN EMPLOYEE_ID,count",
         "cypher_ans": [
             [
                 102,
@@ -12043,7 +12043,7 @@
                 10150.0
             ]
         ],
-        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWHERE employees.COMMISSION_PCT <> 'null'\nWITH employees.DEPARTMENT_ID AS DEPARTMENT_ID, count(employees.DEPARTMENT_ID) AS count\nRETURN DEPARTMENT_ID,count",
+        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWHERE employees.COMMISSION_PCT <> 'null'\nWITH count(employees.DEPARTMENT_ID) AS count, employees.DEPARTMENT_ID AS DEPARTMENT_ID\nRETURN DEPARTMENT_ID,count",
         "cypher_ans": [
             [
                 90,
@@ -12171,7 +12171,7 @@
                 10150.0
             ]
         ],
-        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWHERE employees.COMMISSION_PCT <> 'null'\nWITH employees.DEPARTMENT_ID AS DEPARTMENT_ID, count(employees.DEPARTMENT_ID) AS count\nRETURN DEPARTMENT_ID,count",
+        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWHERE employees.COMMISSION_PCT <> 'null'\nWITH count(employees.DEPARTMENT_ID) AS count, employees.DEPARTMENT_ID AS DEPARTMENT_ID\nRETURN DEPARTMENT_ID,count",
         "cypher_ans": [
             [
                 90,
@@ -12293,7 +12293,7 @@
                 110
             ]
         ],
-        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWITH employees.DEPARTMENT_ID AS DEPARTMENT_ID, count(employees.DEPARTMENT_ID) AS count\nRETURN count,DEPARTMENT_ID",
+        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWITH count(employees.DEPARTMENT_ID) AS count, employees.DEPARTMENT_ID AS DEPARTMENT_ID\nRETURN count,DEPARTMENT_ID",
         "cypher_ans": [
             [
                 3,
@@ -12415,7 +12415,7 @@
                 110
             ]
         ],
-        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWITH employees.DEPARTMENT_ID AS DEPARTMENT_ID, count(employees.DEPARTMENT_ID) AS count\nRETURN count,DEPARTMENT_ID",
+        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWITH count(employees.DEPARTMENT_ID) AS count, employees.DEPARTMENT_ID AS DEPARTMENT_ID\nRETURN count,DEPARTMENT_ID",
         "cypher_ans": [
             [
                 3,
@@ -12582,7 +12582,7 @@
                 12000
             ]
         ],
-        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWITH count(employees.DEPARTMENT_ID) AS count, employees.FIRST_NAME AS FIRST_NAME, employees.DEPARTMENT_ID AS DEPARTMENT_ID, employees.SALARY AS SALARY, employees.LAST_NAME AS LAST_NAME\nRETURN FIRST_NAME,LAST_NAME,SALARY,DEPARTMENT_ID,count",
+        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWITH employees.LAST_NAME AS LAST_NAME, employees.DEPARTMENT_ID AS DEPARTMENT_ID, employees.FIRST_NAME AS FIRST_NAME, employees.SALARY AS SALARY, count(employees.DEPARTMENT_ID) AS count\nRETURN FIRST_NAME,LAST_NAME,SALARY,DEPARTMENT_ID,count",
         "cypher_ans": [
             [
                 "Steven",
@@ -13450,7 +13450,7 @@
                 12000
             ]
         ],
-        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWITH count(employees.DEPARTMENT_ID) AS count, employees.FIRST_NAME AS FIRST_NAME, employees.DEPARTMENT_ID AS DEPARTMENT_ID, employees.SALARY AS SALARY, employees.LAST_NAME AS LAST_NAME\nRETURN FIRST_NAME,LAST_NAME,SALARY,DEPARTMENT_ID,count",
+        "cypher_query": "MATCH (employees:`hr_1.employees`)\nWITH employees.LAST_NAME AS LAST_NAME, employees.DEPARTMENT_ID AS DEPARTMENT_ID, employees.FIRST_NAME AS FIRST_NAME, employees.SALARY AS SALARY, count(employees.DEPARTMENT_ID) AS count\nRETURN FIRST_NAME,LAST_NAME,SALARY,DEPARTMENT_ID,count",
         "cypher_ans": [
             [
                 "Steven",
@@ -14293,7 +14293,7 @@
                 "english"
             ]
         ],
-        "cypher_query": "MATCH (song:`music_1.song`)\nWITH song.languages AS languages, count(song.languages) AS count\nRETURN count,languages",
+        "cypher_query": "MATCH (song:`music_1.song`)\nWITH count(song.languages) AS count, song.languages AS languages\nRETURN count,languages",
         "cypher_ans": [
             [
                 4,
@@ -14335,7 +14335,7 @@
                 "english"
             ]
         ],
-        "cypher_query": "MATCH (song:`music_1.song`)\nWITH song.languages AS languages, count(song.languages) AS count\nRETURN count,languages",
+        "cypher_query": "MATCH (song:`music_1.song`)\nWITH count(song.languages) AS count, song.languages AS languages\nRETURN count,languages",
         "cypher_ans": [
             [
                 4,
@@ -16469,7 +16469,7 @@
                 3932.2
             ]
         ],
-        "cypher_query": "MATCH (ship:`ship_mission.ship`)\nWITH ship.Type AS Type, count(ship.Type) AS count\nRETURN Type,count",
+        "cypher_query": "MATCH (ship:`ship_mission.ship`)\nWITH count(ship.Type) AS count, ship.Type AS Type\nRETURN Type,count",
         "cypher_ans": [
             [
                 "Cargo ship",
@@ -16511,7 +16511,7 @@
                 3932.2
             ]
         ],
-        "cypher_query": "MATCH (ship:`ship_mission.ship`)\nWITH ship.Type AS Type, count(ship.Type) AS count\nRETURN Type,count",
+        "cypher_query": "MATCH (ship:`ship_mission.ship`)\nWITH count(ship.Type) AS count, ship.Type AS Type\nRETURN Type,count",
         "cypher_ans": [
             [
                 "Cargo ship",
@@ -16646,7 +16646,7 @@
                 "Paramount"
             ]
         ],
-        "cypher_query": "MATCH (film:`film_rank.film`)\nWITH film.Studio AS Studio, count(film.Studio) AS count\nRETURN Studio\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (film:`film_rank.film`)\nWITH count(film.Studio) AS count, film.Studio AS Studio\nRETURN Studio\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Columbia"
@@ -16678,7 +16678,7 @@
                 "Paramount"
             ]
         ],
-        "cypher_query": "MATCH (film:`film_rank.film`)\nWITH film.Studio AS Studio, count(film.Studio) AS count\nRETURN Studio\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (film:`film_rank.film`)\nWITH count(film.Studio) AS count, film.Studio AS Studio\nRETURN Studio\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Columbia"
@@ -17737,7 +17737,7 @@
                 "student"
             ]
         ],
-        "cypher_query": "MATCH (person:`network_2.Person`)\nWITH person.job AS job, count(person.job) AS count\nRETURN count,job",
+        "cypher_query": "MATCH (person:`network_2.Person`)\nWITH count(person.job) AS count, person.job AS job\nRETURN count,job",
         "cypher_ans": [
             [
                 2,
@@ -17787,7 +17787,7 @@
                 "student"
             ]
         ],
-        "cypher_query": "MATCH (person:`network_2.Person`)\nWITH person.job AS job, count(person.job) AS count\nRETURN count,job",
+        "cypher_query": "MATCH (person:`network_2.Person`)\nWITH count(person.job) AS count, person.job AS job\nRETURN count,job",
         "cypher_ans": [
             [
                 2,
@@ -17841,7 +17841,7 @@
                 "engineer"
             ]
         ],
-        "cypher_query": "MATCH (person:`network_2.Person`)\nWHERE person.gender = 'male'\nWITH person.job AS job, count(person.job) AS count\nRETURN count,job",
+        "cypher_query": "MATCH (person:`network_2.Person`)\nWHERE person.gender = 'male'\nWITH count(person.job) AS count, person.job AS job\nRETURN count,job",
         "cypher_ans": [
             [
                 1,
@@ -17891,7 +17891,7 @@
                 "engineer"
             ]
         ],
-        "cypher_query": "MATCH (person:`network_2.Person`)\nWHERE person.gender = 'male'\nWITH person.job AS job, count(person.job) AS count\nRETURN count,job",
+        "cypher_query": "MATCH (person:`network_2.Person`)\nWHERE person.gender = 'male'\nWITH count(person.job) AS count, person.job AS job\nRETURN count,job",
         "cypher_ans": [
             [
                 1,
@@ -17937,7 +17937,7 @@
                 "student"
             ]
         ],
-        "cypher_query": "MATCH (person:`network_2.Person`)\nWITH person.job AS job, count(person.job) AS count\nRETURN count,job",
+        "cypher_query": "MATCH (person:`network_2.Person`)\nWITH count(person.job) AS count, person.job AS job\nRETURN count,job",
         "cypher_ans": [
             [
                 2,
@@ -17987,7 +17987,7 @@
                 "student"
             ]
         ],
-        "cypher_query": "MATCH (person:`network_2.Person`)\nWITH person.job AS job, count(person.job) AS count\nRETURN count,job",
+        "cypher_query": "MATCH (person:`network_2.Person`)\nWITH count(person.job) AS count, person.job AS job\nRETURN count,job",
         "cypher_ans": [
             [
                 2,
@@ -18034,7 +18034,7 @@
                 "9bc25a040d5647ced5ec32e1a455e90fafc10bcb"
             ]
         ],
-        "cypher_query": "MATCH (users:`document_management.Users`)\nWITH users.password AS password, users.user_name AS user_name, count(users.role_code) AS count\nRETURN user_name,password\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (users:`document_management.Users`)\nWITH users.password AS password, count(users.role_code) AS count, users.user_name AS user_name\nRETURN user_name,password\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "dickens.elta",
@@ -18073,7 +18073,7 @@
                 "9bc25a040d5647ced5ec32e1a455e90fafc10bcb"
             ]
         ],
-        "cypher_query": "MATCH (users:`document_management.Users`)\nWITH users.password AS password, users.user_name AS user_name, count(users.role_code) AS count\nRETURN user_name,password\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (users:`document_management.Users`)\nWITH users.password AS password, count(users.role_code) AS count, users.user_name AS user_name\nRETURN user_name,password\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "dickens.elta",
@@ -18246,7 +18246,7 @@
                 "Punto Chapultepec"
             ]
         ],
-        "cypher_query": "MATCH ()-[T1:`company_office.Office_locations`]-(T2:`company_office.buildings`)-[]-(T3:`company_office.Companies`)\nWITH T2.name AS name, count(T1.building_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[T1:`company_office.Office_locations`]-(T2:`company_office.buildings`)-[]-(T3:`company_office.Companies`)\nWITH count(T1.building_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Torre Mitikah"
@@ -18310,7 +18310,7 @@
                 "Punto Chapultepec"
             ]
         ],
-        "cypher_query": "MATCH ()-[T1:`company_office.Office_locations`]-(T2:`company_office.buildings`)-[]-(T3:`company_office.Companies`)\nWITH T2.name AS name, count(T1.building_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[T1:`company_office.Office_locations`]-(T2:`company_office.buildings`)-[]-(T3:`company_office.Companies`)\nWITH count(T1.building_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Torre Mitikah"
@@ -18755,7 +18755,7 @@
                 1
             ]
         ],
-        "cypher_query": "MATCH ()-[staff_department_assignments:`department_store.Staff_Department_Assignments`]-()\nWITH staff_department_assignments.department_id AS department_id, count(staff_department_assignments.department_id) AS count\nRETURN department_id\nORDER BY count\nLIMIT 1",
+        "cypher_query": "MATCH ()-[staff_department_assignments:`department_store.Staff_Department_Assignments`]-()\nWITH count(staff_department_assignments.department_id) AS count, staff_department_assignments.department_id AS department_id\nRETURN department_id\nORDER BY count\nLIMIT 1",
         "cypher_ans": [
             [
                 null
@@ -18786,7 +18786,7 @@
                 1
             ]
         ],
-        "cypher_query": "MATCH ()-[staff_department_assignments:`department_store.Staff_Department_Assignments`]-()\nWITH staff_department_assignments.department_id AS department_id, count(staff_department_assignments.department_id) AS count\nRETURN department_id\nORDER BY count\nLIMIT 1",
+        "cypher_query": "MATCH ()-[staff_department_assignments:`department_store.Staff_Department_Assignments`]-()\nWITH count(staff_department_assignments.department_id) AS count, staff_department_assignments.department_id AS department_id\nRETURN department_id\nORDER BY count\nLIMIT 1",
         "cypher_ans": [
             [
                 null
@@ -19323,7 +19323,7 @@
                 "FSU"
             ]
         ],
-        "cypher_query": "MATCH ()-[tryout:`soccer_2.Tryout`]-()\nWITH count(tryout.cName) AS count, tryout.cName AS cName\nRETURN count,cName\nORDER BY count DESC",
+        "cypher_query": "MATCH ()-[tryout:`soccer_2.Tryout`]-()\nWITH tryout.cName AS cName, count(tryout.cName) AS count\nRETURN count,cName\nORDER BY count DESC",
         "cypher_ans": [
             [
                 0,
@@ -19375,7 +19375,7 @@
                 "FSU"
             ]
         ],
-        "cypher_query": "MATCH ()-[tryout:`soccer_2.Tryout`]-()\nWITH count(tryout.cName) AS count, tryout.cName AS cName\nRETURN count,cName\nORDER BY count DESC",
+        "cypher_query": "MATCH ()-[tryout:`soccer_2.Tryout`]-()\nWITH tryout.cName AS cName, count(tryout.cName) AS count\nRETURN count,cName\nORDER BY count DESC",
         "cypher_ans": [
             [
                 0,
@@ -19566,7 +19566,7 @@
                 22000
             ]
         ],
-        "cypher_query": "MATCH (college:`soccer_2.College`)\nWITH college.cName AS cName, count(college.state) AS count, college.state AS state\nRETURN cName,state,count",
+        "cypher_query": "MATCH (college:`soccer_2.College`)\nWITH count(college.state) AS count, college.state AS state, college.cName AS cName\nRETURN cName,state,count",
         "cypher_ans": [
             [
                 "LSU",
@@ -19635,7 +19635,7 @@
                 22000
             ]
         ],
-        "cypher_query": "MATCH (college:`soccer_2.College`)\nWITH college.cName AS cName, count(college.state) AS count, college.state AS state\nRETURN cName,state,count",
+        "cypher_query": "MATCH (college:`soccer_2.College`)\nWITH count(college.state) AS count, college.state AS state, college.cName AS cName\nRETURN cName,state,count",
         "cypher_ans": [
             [
                 "LSU",
@@ -19842,7 +19842,7 @@
                 "striker"
             ]
         ],
-        "cypher_query": "MATCH (T1:`soccer_2.Player`)-[T2:`soccer_2.Tryout`]-()\nWHERE T1.HS > 1000\nWITH T2.pPos AS pPos, count(T2.pPos) AS count\nRETURN count,pPos",
+        "cypher_query": "MATCH (T1:`soccer_2.Player`)-[T2:`soccer_2.Tryout`]-()\nWHERE T1.HS > 1000\nWITH count(T2.pPos) AS count, T2.pPos AS pPos\nRETURN count,pPos",
         "cypher_ans": [
             [
                 3,
@@ -19909,7 +19909,7 @@
                 "striker"
             ]
         ],
-        "cypher_query": "MATCH (T1:`soccer_2.Player`)-[T2:`soccer_2.Tryout`]-()\nWHERE T1.HS > 1000\nWITH T2.pPos AS pPos, count(T2.pPos) AS count\nRETURN count,pPos",
+        "cypher_query": "MATCH (T1:`soccer_2.Player`)-[T2:`soccer_2.Tryout`]-()\nWHERE T1.HS > 1000\nWITH count(T2.pPos) AS count, T2.pPos AS pPos\nRETURN count,pPos",
         "cypher_ans": [
             [
                 3,
@@ -20536,7 +20536,7 @@
             "limit": 1
         },
         "sql_ans": [],
-        "cypher_query": "MATCH ()-[vocals:`music_2.Vocals`]-()\nWITH count(vocals.Type) AS count, vocals.Type AS Type\nRETURN Type\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[vocals:`music_2.Vocals`]-()\nWITH vocals.Type AS Type, count(vocals.Type) AS count\nRETURN Type\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 ""
@@ -20564,7 +20564,7 @@
             "limit": 1
         },
         "sql_ans": [],
-        "cypher_query": "MATCH ()-[vocals:`music_2.Vocals`]-()\nWITH count(vocals.Type) AS count, vocals.Type AS Type\nRETURN Type\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[vocals:`music_2.Vocals`]-()\nWITH vocals.Type AS Type, count(vocals.Type) AS count\nRETURN Type\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 ""
@@ -21048,7 +21048,7 @@
                 "Winchester"
             ]
         ],
-        "cypher_query": "MATCH (T1:`manufactory_1.Products`)-[]-(T2:`manufactory_1.Manufacturers`)\nWITH T2.Name AS Name, count(T2.Name) AS count\nRETURN count,Name",
+        "cypher_query": "MATCH (T1:`manufactory_1.Products`)-[]-(T2:`manufactory_1.Manufacturers`)\nWITH count(T2.Name) AS count, T2.Name AS Name\nRETURN count,Name",
         "cypher_ans": [
             [
                 1,
@@ -21141,7 +21141,7 @@
                 "Winchester"
             ]
         ],
-        "cypher_query": "MATCH (T1:`manufactory_1.Products`)-[]-(T2:`manufactory_1.Manufacturers`)\nWITH T2.Name AS Name, count(T2.Name) AS count\nRETURN count,Name",
+        "cypher_query": "MATCH (T1:`manufactory_1.Products`)-[]-(T2:`manufactory_1.Manufacturers`)\nWITH count(T2.Name) AS count, T2.Name AS Name\nRETURN count,Name",
         "cypher_ans": [
             [
                 1,
@@ -21382,7 +21382,7 @@
                 "Winchester"
             ]
         ],
-        "cypher_query": "MATCH (T1:`manufactory_1.Products`)-[]-(T2:`manufactory_1.Manufacturers`)\nWITH T2.Name AS Name, count(T2.Name) AS count\nRETURN count,Name",
+        "cypher_query": "MATCH (T1:`manufactory_1.Products`)-[]-(T2:`manufactory_1.Manufacturers`)\nWITH count(T2.Name) AS count, T2.Name AS Name\nRETURN count,Name",
         "cypher_ans": [
             [
                 1,
@@ -21475,7 +21475,7 @@
                 "Winchester"
             ]
         ],
-        "cypher_query": "MATCH (T1:`manufactory_1.Products`)-[]-(T2:`manufactory_1.Manufacturers`)\nWITH T2.Name AS Name, count(T2.Name) AS count\nRETURN count,Name",
+        "cypher_query": "MATCH (T1:`manufactory_1.Products`)-[]-(T2:`manufactory_1.Manufacturers`)\nWITH count(T2.Name) AS count, T2.Name AS Name\nRETURN count,Name",
         "cypher_ans": [
             [
                 1,
@@ -21578,7 +21578,7 @@
                 150
             ]
         ],
-        "cypher_query": "MATCH (products:`manufactory_1.Products`)\nWITH products.Name AS Name, count(products.Name) AS count, products.Code AS Code\nRETURN Code,Name,count",
+        "cypher_query": "MATCH (products:`manufactory_1.Products`)\nWITH products.Name AS Name, products.Code AS Code, count(products.Name) AS count\nRETURN Code,Name,count",
         "cypher_ans": [
             [
                 1,
@@ -21712,7 +21712,7 @@
                 150
             ]
         ],
-        "cypher_query": "MATCH (products:`manufactory_1.Products`)\nWITH products.Name AS Name, count(products.Name) AS count, products.Code AS Code\nRETURN Code,Name,count",
+        "cypher_query": "MATCH (products:`manufactory_1.Products`)\nWITH products.Name AS Name, products.Code AS Code, count(products.Name) AS count\nRETURN Code,Name,count",
         "cypher_ans": [
             [
                 1,
@@ -22571,7 +22571,7 @@
                 "Cleo"
             ]
         ],
-        "cypher_query": "MATCH (T1:`customers_and_products_contacts.Customers`)-[]-(T2:`customers_and_products_contacts.Customer_Orders`)\nWITH count(T1.customer_id) AS count, T1.customer_name AS customer_name\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`customers_and_products_contacts.Customers`)-[]-(T2:`customers_and_products_contacts.Customer_Orders`)\nWITH T1.customer_name AS customer_name, count(T1.customer_id) AS count\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Sterling"
@@ -23520,7 +23520,7 @@
                 "Hardware"
             ]
         ],
-        "cypher_query": "MATCH (products:`customer_complaints.Products`)\nWITH count(products.product_category_code) AS count, products.product_category_code AS product_category_code\nRETURN count,product_category_code",
+        "cypher_query": "MATCH (products:`customer_complaints.Products`)\nWITH products.product_category_code AS product_category_code, count(products.product_category_code) AS count\nRETURN count,product_category_code",
         "cypher_ans": [
             [
                 1,
@@ -23570,7 +23570,7 @@
                 "Hardware"
             ]
         ],
-        "cypher_query": "MATCH (products:`customer_complaints.Products`)\nWITH count(products.product_category_code) AS count, products.product_category_code AS product_category_code\nRETURN count,product_category_code",
+        "cypher_query": "MATCH (products:`customer_complaints.Products`)\nWITH products.product_category_code AS product_category_code, count(products.product_category_code) AS count\nRETURN count,product_category_code",
         "cypher_ans": [
             [
                 1,
@@ -23721,7 +23721,7 @@
                 "West Texas State"
             ]
         ],
-        "cypher_query": "MATCH (submission:`workshop_paper.submission`)\nWITH submission.College AS College, count(submission.College) AS count\nRETURN College\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (submission:`workshop_paper.submission`)\nWITH count(submission.College) AS count, submission.College AS College\nRETURN College\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Notre Dame"
@@ -23753,7 +23753,7 @@
                 "West Texas State"
             ]
         ],
-        "cypher_query": "MATCH (submission:`workshop_paper.submission`)\nWITH submission.College AS College, count(submission.College) AS count\nRETURN College\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (submission:`workshop_paper.submission`)\nWITH count(submission.College) AS count, submission.College AS College\nRETURN College\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Notre Dame"
@@ -23830,7 +23830,7 @@
                 11198167.237771427
             ]
         ],
-        "cypher_query": "MATCH (transactions:`tracking_share_transactions.Transactions`)\nWITH transactions.transaction_type_code AS transaction_type_code, count(transactions.transaction_type_code) AS count\nRETURN transaction_type_code,count",
+        "cypher_query": "MATCH (transactions:`tracking_share_transactions.Transactions`)\nWITH count(transactions.transaction_type_code) AS count, transactions.transaction_type_code AS transaction_type_code\nRETURN transaction_type_code,count",
         "cypher_ans": [
             [
                 "SALE",
@@ -24176,7 +24176,7 @@
                 113509913.4784335
             ]
         ],
-        "cypher_query": "MATCH (hotels:`cre_Theme_park.Hotels`)\nWITH hotels.star_rating_code AS star_rating_code, count(hotels.star_rating_code) AS count\nRETURN star_rating_code,count",
+        "cypher_query": "MATCH (hotels:`cre_Theme_park.Hotels`)\nWITH count(hotels.star_rating_code) AS count, hotels.star_rating_code AS star_rating_code\nRETURN star_rating_code,count",
         "cypher_ans": [
             [
                 "5",
@@ -24242,7 +24242,7 @@
                 113509913.4784335
             ]
         ],
-        "cypher_query": "MATCH (hotels:`cre_Theme_park.Hotels`)\nWITH hotels.star_rating_code AS star_rating_code, count(hotels.star_rating_code) AS count\nRETURN star_rating_code,count",
+        "cypher_query": "MATCH (hotels:`cre_Theme_park.Hotels`)\nWITH count(hotels.star_rating_code) AS count, hotels.star_rating_code AS star_rating_code\nRETURN star_rating_code,count",
         "cypher_ans": [
             [
                 "5",
@@ -24296,7 +24296,7 @@
                 81426646.37909974
             ]
         ],
-        "cypher_query": "MATCH (hotels:`cre_Theme_park.Hotels`)\nWITH hotels.pets_allowed_yn AS pets_allowed_yn, count(hotels.pets_allowed_yn) AS count\nRETURN pets_allowed_yn,count",
+        "cypher_query": "MATCH (hotels:`cre_Theme_park.Hotels`)\nWITH count(hotels.pets_allowed_yn) AS count, hotels.pets_allowed_yn AS pets_allowed_yn\nRETURN pets_allowed_yn,count",
         "cypher_ans": [
             [
                 "1",
@@ -24338,7 +24338,7 @@
                 81426646.37909974
             ]
         ],
-        "cypher_query": "MATCH (hotels:`cre_Theme_park.Hotels`)\nWITH hotels.pets_allowed_yn AS pets_allowed_yn, count(hotels.pets_allowed_yn) AS count\nRETURN pets_allowed_yn,count",
+        "cypher_query": "MATCH (hotels:`cre_Theme_park.Hotels`)\nWITH count(hotels.pets_allowed_yn) AS count, hotels.pets_allowed_yn AS pets_allowed_yn\nRETURN pets_allowed_yn,count",
         "cypher_ans": [
             [
                 "1",
@@ -24534,7 +24534,7 @@
                 "Shieber"
             ]
         ],
-        "cypher_query": "MATCH (T1:`game_1.SportsInfo`)-[]-(T2:`game_1.Student`)\nWITH count(T1.StuID) AS count, T2.LName AS LName, T2.Fname AS Fname\nRETURN Fname,LName\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`game_1.SportsInfo`)-[]-(T2:`game_1.Student`)\nWITH T2.Fname AS Fname, count(T1.StuID) AS count, T2.LName AS LName\nRETURN Fname,LName\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Arthur",
@@ -24592,7 +24592,7 @@
                 "Shieber"
             ]
         ],
-        "cypher_query": "MATCH (T1:`game_1.SportsInfo`)-[]-(T2:`game_1.Student`)\nWITH count(T1.StuID) AS count, T2.LName AS LName, T2.Fname AS Fname\nRETURN Fname,LName\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`game_1.SportsInfo`)-[]-(T2:`game_1.Student`)\nWITH T2.Fname AS Fname, count(T1.StuID) AS count, T2.LName AS LName\nRETURN Fname,LName\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Arthur",
@@ -25161,7 +25161,7 @@
                 6546
             ]
         ],
-        "cypher_query": "MATCH (T1:`scientist_1.Projects`)-[T2:`scientist_1.AssignedTo`]-()\nWITH T1.Hours AS Hours, T1.Name AS Name, count(T2.project) AS count\nRETURN Name,Hours\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`scientist_1.Projects`)-[T2:`scientist_1.AssignedTo`]-()\nWITH T1.Hours AS Hours, count(T2.project) AS count, T1.Name AS Name\nRETURN Name,Hours\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Winds: Studying Bernoullis Principle",
@@ -25219,7 +25219,7 @@
                 6546
             ]
         ],
-        "cypher_query": "MATCH (T1:`scientist_1.Projects`)-[T2:`scientist_1.AssignedTo`]-()\nWITH T1.Hours AS Hours, T1.Name AS Name, count(T2.project) AS count\nRETURN Name,Hours\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`scientist_1.Projects`)-[T2:`scientist_1.AssignedTo`]-()\nWITH T1.Hours AS Hours, count(T2.project) AS count, T1.Name AS Name\nRETURN Name,Hours\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Winds: Studying Bernoullis Principle",
@@ -25847,7 +25847,7 @@
                 2
             ]
         ],
-        "cypher_query": "MATCH ()-[T1:`train_station.train_station`]-(T2:`train_station.station`)\nWITH count(T1.Station_ID) AS count, T2.Name AS Name\nRETURN Name,count",
+        "cypher_query": "MATCH ()-[T1:`train_station.train_station`]-(T2:`train_station.station`)\nWITH T2.Name AS Name, count(T1.Station_ID) AS count\nRETURN Name,count",
         "cypher_ans": [
             [
                 "London Waterloo",
@@ -25984,7 +25984,7 @@
                 "Krieger"
             ]
         ],
-        "cypher_query": "MATCH (faculty:`activity_1.Faculty`)\nWITH faculty.Building AS Building, count(faculty.Building) AS count\nRETURN Building\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (faculty:`activity_1.Faculty`)\nWITH count(faculty.Building) AS count, faculty.Building AS Building\nRETURN Building\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Barton"
@@ -26016,7 +26016,7 @@
                 "Krieger"
             ]
         ],
-        "cypher_query": "MATCH (faculty:`activity_1.Faculty`)\nWITH faculty.Building AS Building, count(faculty.Building) AS count\nRETURN Building\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (faculty:`activity_1.Faculty`)\nWITH count(faculty.Building) AS count, faculty.Building AS Building\nRETURN Building\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Barton"
@@ -27049,7 +27049,7 @@
                 "Jeramie"
             ]
         ],
-        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH count(T1.customer_id) AS count, T1.customer_name AS customer_name\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH T1.customer_name AS customer_name, count(T1.customer_id) AS count\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "George"
@@ -27100,7 +27100,7 @@
                 "Jeramie"
             ]
         ],
-        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH count(T1.customer_id) AS count, T1.customer_name AS customer_name\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH T1.customer_name AS customer_name, count(T1.customer_id) AS count\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "George"
@@ -27151,7 +27151,7 @@
                 15
             ]
         ],
-        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH count(T1.customer_id) AS count, T1.customer_id AS customer_id\nRETURN customer_id\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH T1.customer_id AS customer_id, count(T1.customer_id) AS count\nRETURN customer_id\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 2
@@ -27202,7 +27202,7 @@
                 15
             ]
         ],
-        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH count(T1.customer_id) AS count, T1.customer_id AS customer_id\nRETURN customer_id\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH T1.customer_id AS customer_id, count(T1.customer_id) AS count\nRETURN customer_id\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 2
@@ -27253,7 +27253,7 @@
                 "Jeramie"
             ]
         ],
-        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH count(T1.customer_id) AS count, T1.customer_name AS customer_name\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH T1.customer_name AS customer_name, count(T1.customer_id) AS count\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "George"
@@ -27304,7 +27304,7 @@
                 "Jeramie"
             ]
         ],
-        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH count(T1.customer_id) AS count, T1.customer_name AS customer_name\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`tracking_orders.Customers`)-[]-(T2:`tracking_orders.Orders`)\nWITH T1.customer_name AS customer_name, count(T1.customer_id) AS count\nRETURN customer_name\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "George"

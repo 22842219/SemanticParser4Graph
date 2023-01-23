@@ -718,13 +718,13 @@
     },
     {
         "db_id": "concert_singer",
-        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH count(T1.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,count",
+        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "AS",
                 "Name",
+                "AS",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -749,21 +749,21 @@
                 "`concert_singer.concert`",
                 "`concert_singer.stadium`"
             ],
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "Show the stadium name and the number of concerts in each stadium.",
         "answers": []
     },
     {
         "db_id": "concert_singer",
-        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH count(T1.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,count",
+        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "AS",
                 "Name",
+                "AS",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -788,15 +788,15 @@
                 "`concert_singer.concert`",
                 "`concert_singer.stadium`"
             ],
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "For each stadium, how many concerts play there?",
         "answers": []
     },
     {
         "db_id": "concert_singer",
-        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWHERE T1.Year >= 2014\nWITH count(T2.Stadium_ID) AS count, T2.Name AS Name, T2.Capacity AS Capacity\nRETURN Name,Capacity\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWHERE T1.Year >= 2014\nWITH T2.Capacity AS Capacity, count(T2.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,Capacity\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -825,9 +825,9 @@
                 "T1",
                 "T2",
                 "Year",
+                "Capacity",
                 "Stadium_ID",
-                "count",
-                "Capacity"
+                "count"
             ],
             "Token_Name_Label": [
                 "`concert_singer.concert`",
@@ -845,7 +845,7 @@
     },
     {
         "db_id": "concert_singer",
-        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.concert`)\nWITH count(T2.concert_ID) AS count, T2.concert_Name AS concert_Name, T2.Theme AS Theme\nRETURN concert_Name,Theme,count",
+        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.concert`)\nWITH count(T2.concert_ID) AS count, T2.Theme AS Theme, T2.concert_Name AS concert_Name\nRETURN concert_Name,Theme,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -870,8 +870,8 @@
                 "T2",
                 "concert_ID",
                 "count",
-                "concert_Name",
-                "Theme"
+                "Theme",
+                "concert_Name"
             ],
             "Token_Name_Label": [
                 "`concert_singer.singer_in_concert`",
@@ -885,13 +885,13 @@
     },
     {
         "db_id": "concert_singer",
-        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH T2.Name AS Name, count(T2.Singer_ID) AS count\nRETURN Name,count",
+        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH count(T2.Singer_ID) AS count, T2.Name AS Name\nRETURN Name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "Name",
                 "AS",
+                "Name",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -916,21 +916,21 @@
                 "`concert_singer.singer_in_concert`",
                 "`concert_singer.singer`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "List singer names and number of concerts for each singer.",
         "answers": []
     },
     {
         "db_id": "concert_singer",
-        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH T2.Name AS Name, count(T2.Singer_ID) AS count\nRETURN Name,count",
+        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH count(T2.Singer_ID) AS count, T2.Name AS Name\nRETURN Name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "Name",
                 "AS",
+                "Name",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -955,8 +955,8 @@
                 "`concert_singer.singer_in_concert`",
                 "`concert_singer.singer`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "What are the names of the singers and number of concerts for each person?",
         "answers": []
@@ -2113,7 +2113,7 @@
     },
     {
         "db_id": "pets_1",
-        "cypher_query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH count(T1.StuID) AS count, T1.StuID AS StuID\nRETURN count,StuID",
+        "cypher_query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH T1.StuID AS StuID, count(T1.StuID) AS count\nRETURN count,StuID",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2143,15 +2143,15 @@
                 "`pets_1.Student`",
                 "`pets_1.Has_Pet`"
             ],
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "Find the number of pets for each student who has any pet and student id.",
         "answers": []
     },
     {
         "db_id": "pets_1",
-        "cypher_query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH T1.Fname AS Fname, T1.Sex AS Sex, count(*) AS count\nWHERE count  > 1\nRETURN Fname,Sex",
+        "cypher_query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH T1.Fname AS Fname, count(*) AS count, T1.Sex AS Sex\nWHERE count  > 1\nRETURN Fname,Sex",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2177,8 +2177,8 @@
                 "T1",
                 "T2",
                 "Fname",
-                "Sex",
-                "count"
+                "count",
+                "Sex"
             ],
             "Token_Name_Label": [
                 "`pets_1.Student`",
@@ -2197,7 +2197,7 @@
     },
     {
         "db_id": "pets_1",
-        "cypher_query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH T1.Fname AS Fname, T1.Sex AS Sex, count(*) AS count\nWHERE count  > 1\nRETURN Fname,Sex",
+        "cypher_query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH T1.Fname AS Fname, count(*) AS count, T1.Sex AS Sex\nWHERE count  > 1\nRETURN Fname,Sex",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2223,8 +2223,8 @@
                 "T1",
                 "T2",
                 "Fname",
-                "Sex",
-                "count"
+                "count",
+                "Sex"
             ],
             "Token_Name_Label": [
                 "`pets_1.Student`",
@@ -2389,7 +2389,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH count(T1.ContId) AS count, T1.Continent AS Continent, T1.ContId AS ContId\nRETURN ContId,Continent,count",
+        "cypher_query": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH T1.Continent AS Continent, T1.ContId AS ContId, count(T1.ContId) AS count\nRETURN ContId,Continent,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2412,16 +2412,16 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "Continent",
                 "ContId",
-                "count",
-                "Continent"
+                "count"
             ],
             "Token_Name_Label": [
                 "`car_1.continents`",
                 "`car_1.countries`"
             ],
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "How many countries does each continent have? List the continent id, continent name and the number of countries.",
         "answers": [
@@ -2454,7 +2454,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH count(T1.ContId) AS count, T1.Continent AS Continent, T1.ContId AS ContId\nRETURN ContId,Continent,count",
+        "cypher_query": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH T1.Continent AS Continent, T1.ContId AS ContId, count(T1.ContId) AS count\nRETURN ContId,Continent,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2477,16 +2477,16 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "Continent",
                 "ContId",
-                "count",
-                "Continent"
+                "count"
             ],
             "Token_Name_Label": [
                 "`car_1.continents`",
                 "`car_1.countries`"
             ],
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "For each continent, list its id, name, and how many countries it has?",
         "answers": [
@@ -2577,7 +2577,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH count(T1.Id) AS count, T1.FullName AS FullName, T1.Id AS Id\nRETURN FullName,Id,count",
+        "cypher_query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH T1.FullName AS FullName, T1.Id AS Id, count(T1.Id) AS count\nRETURN FullName,Id,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2600,16 +2600,16 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "FullName",
                 "Id",
-                "count",
-                "FullName"
+                "count"
             ],
             "Token_Name_Label": [
                 "`car_1.car_makers`",
                 "`car_1.model_list`"
             ],
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "How many models does each car maker produce? List maker full name, id and the number.",
         "answers": [
@@ -2727,7 +2727,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH count(T1.Id) AS count, T1.FullName AS FullName, T1.Id AS Id\nRETURN FullName,Id,count",
+        "cypher_query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH T1.FullName AS FullName, T1.Id AS Id, count(T1.Id) AS count\nRETURN FullName,Id,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -2750,16 +2750,16 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "FullName",
                 "Id",
-                "count",
-                "FullName"
+                "count"
             ],
             "Token_Name_Label": [
                 "`car_1.car_makers`",
                 "`car_1.model_list`"
             ],
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "What is the full name of each car maker, along with its id and how many models it produces?",
         "answers": [
@@ -3295,7 +3295,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.model_list`)-[]-(T2:`car_1.car_makers`)\nWITH T2.Id AS Id, T2.FullName AS FullName, count(T2.Id) AS count\nRETURN count,FullName,Id",
+        "cypher_query": "MATCH (T1:`car_1.model_list`)-[]-(T2:`car_1.car_makers`)\nWITH count(T2.Id) AS count, T2.FullName AS FullName, T2.Id AS Id\nRETURN count,FullName,Id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -3319,15 +3319,15 @@
                 "T1",
                 "T2",
                 "Id",
-                "FullName",
-                "count"
+                "count",
+                "FullName"
             ],
             "Token_Name_Label": [
                 "`car_1.model_list`",
                 "`car_1.car_makers`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "What is the number of car models that are produced by each maker and what is the id and full name of each maker?",
         "answers": [
@@ -3965,7 +3965,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH T1.CountryId AS CountryId, count(*) AS count, T1.CountryName AS CountryName\nWHERE count  >= 1\nRETURN CountryName,CountryId",
+        "cypher_query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH T1.CountryName AS CountryName, T1.CountryId AS CountryId, count(*) AS count\nWHERE count  >= 1\nRETURN CountryName,CountryId",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -3990,9 +3990,9 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "CountryName",
                 "CountryId",
-                "count",
-                "CountryName"
+                "count"
             ],
             "Token_Name_Label": [
                 "`car_1.countries`",
@@ -4011,7 +4011,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH T1.CountryId AS CountryId, count(*) AS count, T1.CountryName AS CountryName\nWHERE count  >= 1\nRETURN CountryName,CountryId",
+        "cypher_query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH T1.CountryName AS CountryName, T1.CountryId AS CountryId, count(*) AS count\nWHERE count  >= 1\nRETURN CountryName,CountryId",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -4036,9 +4036,9 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "CountryName",
                 "CountryId",
-                "count",
-                "CountryName"
+                "count"
             ],
             "Token_Name_Label": [
                 "`car_1.countries`",
@@ -4057,7 +4057,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH count(*) AS count, T1.CountryName AS CountryName\nWHERE count  >= 3\nRETURN CountryName",
+        "cypher_query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH T1.CountryName AS CountryName, count(*) AS count\nWHERE count  >= 3\nRETURN CountryName",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -4084,8 +4084,8 @@
                 "T1",
                 "T2",
                 "Continent",
-                "count",
-                "CountryName"
+                "CountryName",
+                "count"
             ],
             "Token_Name_Label": [
                 "`car_1.car_makers`",
@@ -4107,7 +4107,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH count(*) AS count, T1.CountryName AS CountryName\nWHERE count  >= 3\nRETURN CountryName",
+        "cypher_query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH T1.CountryName AS CountryName, count(*) AS count\nWHERE count  >= 3\nRETURN CountryName",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -4134,8 +4134,8 @@
                 "T1",
                 "T2",
                 "Continent",
-                "count",
-                "CountryName"
+                "CountryName",
+                "count"
             ],
             "Token_Name_Label": [
                 "`car_1.car_makers`",
@@ -4391,7 +4391,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (car_names:`car_1.car_names`)\nWITH car_names.Model AS Model, count(car_names.Model) AS count\nRETURN Model\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (car_names:`car_1.car_names`)\nWITH count(car_names.Model) AS count, car_names.Model AS Model\nRETURN Model\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -4418,8 +4418,8 @@
                 "count"
             ],
             "Token_Name_Label": "`car_1.car_names`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which model has the most version(make) of cars?",
@@ -4431,7 +4431,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (car_names:`car_1.car_names`)\nWITH car_names.Model AS Model, count(car_names.Model) AS count\nRETURN Model\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (car_names:`car_1.car_names`)\nWITH count(car_names.Model) AS count, car_names.Model AS Model\nRETURN Model\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -4458,8 +4458,8 @@
                 "count"
             ],
             "Token_Name_Label": "`car_1.car_names`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What model has the most different versions?",
@@ -4711,7 +4711,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH T1.Id AS Id, T1.FullName AS FullName, count(*) AS count\nWHERE count  > 3\nRETURN FullName,Id",
+        "cypher_query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH T1.FullName AS FullName, T1.Id AS Id, count(*) AS count\nWHERE count  > 3\nRETURN FullName,Id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -4736,8 +4736,8 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
-                "Id",
                 "FullName",
+                "Id",
                 "count"
             ],
             "Token_Name_Label": [
@@ -4766,7 +4766,7 @@
     },
     {
         "db_id": "car_1",
-        "cypher_query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH T1.Id AS Id, T1.FullName AS FullName, count(*) AS count\nWHERE count  > 3\nRETURN FullName,Id",
+        "cypher_query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH T1.FullName AS FullName, T1.Id AS Id, count(*) AS count\nWHERE count  > 3\nRETURN FullName,Id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -4791,8 +4791,8 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
-                "Id",
                 "FullName",
+                "Id",
                 "count"
             ],
             "Token_Name_Label": [
@@ -7115,7 +7115,7 @@
     },
     {
         "db_id": "flight_2",
-        "cypher_query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH T1.City AS City, count(T1.City) AS count\nRETURN City\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -7148,8 +7148,8 @@
                 "`flight_2.airports`",
                 "`flight_2.flights`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which city has most number of arriving flights?",
@@ -7157,7 +7157,7 @@
     },
     {
         "db_id": "flight_2",
-        "cypher_query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH T1.City AS City, count(T1.City) AS count\nRETURN City\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -7190,8 +7190,8 @@
                 "`flight_2.airports`",
                 "`flight_2.flights`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which city has the most frequent destination airport?",
@@ -7199,7 +7199,7 @@
     },
     {
         "db_id": "flight_2",
-        "cypher_query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH T1.City AS City, count(T1.City) AS count\nRETURN City\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -7232,8 +7232,8 @@
                 "`flight_2.airports`",
                 "`flight_2.flights`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which city has most number of departing flights?",
@@ -7241,7 +7241,7 @@
     },
     {
         "db_id": "flight_2",
-        "cypher_query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH T1.City AS City, count(T1.City) AS count\nRETURN City\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -7274,8 +7274,8 @@
                 "`flight_2.airports`",
                 "`flight_2.flights`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which city is the most frequent source airport?",
@@ -7283,7 +7283,7 @@
     },
     {
         "db_id": "flight_2",
-        "cypher_query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Airline AS Airline, count(T1.Airline) AS count\nRETURN Airline\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(T1.Airline) AS count, T1.Airline AS Airline\nRETURN Airline\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -7316,8 +7316,8 @@
                 "`flight_2.airlines`",
                 "`flight_2.flights`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which airline has most number of flights?",
@@ -7325,7 +7325,7 @@
     },
     {
         "db_id": "flight_2",
-        "cypher_query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Airline AS Airline, count(T1.Airline) AS count\nRETURN Airline\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(T1.Airline) AS count, T1.Airline AS Airline\nRETURN Airline\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -7358,8 +7358,8 @@
                 "`flight_2.airlines`",
                 "`flight_2.flights`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What airline serves the most flights?",
@@ -9217,7 +9217,7 @@
     },
     {
         "db_id": "employee_hire_evaluation",
-        "cypher_query": "MATCH (employee:`employee_hire_evaluation.employee`)\nWHERE employee.Age < 30\nWITH count(*) AS count, employee.City AS City\nWHERE count  > 1\nRETURN City",
+        "cypher_query": "MATCH (employee:`employee_hire_evaluation.employee`)\nWHERE employee.Age < 30\nWITH employee.City AS City, count(*) AS count\nWHERE count  > 1\nRETURN City",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -9240,8 +9240,8 @@
             "Token_Name_Variable": [
                 "employee",
                 "Age",
-                "count",
-                "City"
+                "City",
+                "count"
             ],
             "Token_Name_Label": "`employee_hire_evaluation.employee`",
             "Token_Operator": [
@@ -9265,7 +9265,7 @@
     },
     {
         "db_id": "employee_hire_evaluation",
-        "cypher_query": "MATCH (employee:`employee_hire_evaluation.employee`)\nWHERE employee.Age < 30\nWITH count(*) AS count, employee.City AS City\nWHERE count  > 1\nRETURN City",
+        "cypher_query": "MATCH (employee:`employee_hire_evaluation.employee`)\nWHERE employee.Age < 30\nWITH employee.City AS City, count(*) AS count\nWHERE count  > 1\nRETURN City",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -9288,8 +9288,8 @@
             "Token_Name_Variable": [
                 "employee",
                 "Age",
-                "count",
-                "City"
+                "City",
+                "count"
             ],
             "Token_Name_Label": "`employee_hire_evaluation.employee`",
             "Token_Operator": [
@@ -9313,7 +9313,7 @@
     },
     {
         "db_id": "employee_hire_evaluation",
-        "cypher_query": "MATCH (shop:`employee_hire_evaluation.shop`)\nWITH count(shop.Location) AS count, shop.Location AS Location\nRETURN count,Location",
+        "cypher_query": "MATCH (shop:`employee_hire_evaluation.shop`)\nWITH shop.Location AS Location, count(shop.Location) AS count\nRETURN count,Location",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -9337,8 +9337,8 @@
                 "count"
             ],
             "Token_Name_Label": "`employee_hire_evaluation.shop`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "Find the number of shops in each location.",
         "answers": [
@@ -9382,7 +9382,7 @@
     },
     {
         "db_id": "employee_hire_evaluation",
-        "cypher_query": "MATCH (shop:`employee_hire_evaluation.shop`)\nWITH count(shop.Location) AS count, shop.Location AS Location\nRETURN count,Location",
+        "cypher_query": "MATCH (shop:`employee_hire_evaluation.shop`)\nWITH shop.Location AS Location, count(shop.Location) AS count\nRETURN count,Location",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -9406,8 +9406,8 @@
                 "count"
             ],
             "Token_Name_Label": "`employee_hire_evaluation.shop`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "How many shops are there in each location?",
         "answers": [
@@ -10435,7 +10435,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Documents`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)\nWITH count(T1.Template_ID) AS count, T1.Template_ID AS Template_ID, T2.Template_Type_Code AS Template_Type_Code\nRETURN Template_ID,Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Documents`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)\nWITH count(T1.Template_ID) AS count, T2.Template_Type_Code AS Template_Type_Code, T1.Template_ID AS Template_ID\nRETURN Template_ID,Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -10483,7 +10483,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Documents`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)\nWITH count(T1.Template_ID) AS count, T1.Template_ID AS Template_ID, T2.Template_Type_Code AS Template_Type_Code\nRETURN Template_ID,Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Documents`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)\nWITH count(T1.Template_ID) AS count, T2.Template_Type_Code AS Template_Type_Code, T1.Template_ID AS Template_ID\nRETURN Template_ID,Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -11383,7 +11383,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (templates:`cre_Doc_Template_Mgt.Templates`)\nWITH count(templates.Template_Type_Code) AS count, templates.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code,count",
+        "cypher_query": "MATCH (templates:`cre_Doc_Template_Mgt.Templates`)\nWITH templates.Template_Type_Code AS Template_Type_Code, count(templates.Template_Type_Code) AS count\nRETURN Template_Type_Code,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -11407,8 +11407,8 @@
                 "count"
             ],
             "Token_Name_Label": "`cre_Doc_Template_Mgt.Templates`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "Show all template type codes and number of templates for each.",
         "answers": [
@@ -11436,7 +11436,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (templates:`cre_Doc_Template_Mgt.Templates`)\nWITH count(templates.Template_Type_Code) AS count, templates.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code,count",
+        "cypher_query": "MATCH (templates:`cre_Doc_Template_Mgt.Templates`)\nWITH templates.Template_Type_Code AS Template_Type_Code, count(templates.Template_Type_Code) AS count\nRETURN Template_Type_Code,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -11460,8 +11460,8 @@
                 "count"
             ],
             "Token_Name_Label": "`cre_Doc_Template_Mgt.Templates`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "What are the different template type codes, and how many templates correspond to each?",
         "answers": [
@@ -11489,7 +11489,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (templates:`cre_Doc_Template_Mgt.Templates`)\nWITH count(templates.Template_Type_Code) AS count, templates.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (templates:`cre_Doc_Template_Mgt.Templates`)\nWITH templates.Template_Type_Code AS Template_Type_Code, count(templates.Template_Type_Code) AS count\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -11516,8 +11516,8 @@
                 "count"
             ],
             "Token_Name_Label": "`cre_Doc_Template_Mgt.Templates`",
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which template type code has most number of templates?",
@@ -11529,7 +11529,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (templates:`cre_Doc_Template_Mgt.Templates`)\nWITH count(templates.Template_Type_Code) AS count, templates.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (templates:`cre_Doc_Template_Mgt.Templates`)\nWITH templates.Template_Type_Code AS Template_Type_Code, count(templates.Template_Type_Code) AS count\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -11556,8 +11556,8 @@
                 "count"
             ],
             "Token_Name_Label": "`cre_Doc_Template_Mgt.Templates`",
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Return the type code of the template type that the most templates belong to.",
@@ -11851,7 +11851,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Template_Type_Code AS Template_Type_Code, count(T1.Template_Type_Code) AS count\nRETURN Template_Type_Code,count",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Template_Type_Code) AS count, T1.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -11881,8 +11881,8 @@
                 "`cre_Doc_Template_Mgt.Templates`",
                 "`cre_Doc_Template_Mgt.Documents`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "Show all template type codes and the number of documents using each type.",
         "answers": [
@@ -11906,7 +11906,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Template_Type_Code AS Template_Type_Code, count(T1.Template_Type_Code) AS count\nRETURN Template_Type_Code,count",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Template_Type_Code) AS count, T1.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -11936,8 +11936,8 @@
                 "`cre_Doc_Template_Mgt.Templates`",
                 "`cre_Doc_Template_Mgt.Documents`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "What are the different template type codes, and how many documents use each type?",
         "answers": [
@@ -11961,7 +11961,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Template_Type_Code AS Template_Type_Code, count(T1.Template_Type_Code) AS count\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Template_Type_Code) AS count, T1.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -11994,8 +11994,8 @@
                 "`cre_Doc_Template_Mgt.Templates`",
                 "`cre_Doc_Template_Mgt.Documents`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which template type code is used by most number of documents?",
@@ -12007,7 +12007,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Template_Type_Code AS Template_Type_Code, count(T1.Template_Type_Code) AS count\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Template_Type_Code) AS count, T1.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -12040,8 +12040,8 @@
                 "`cre_Doc_Template_Mgt.Templates`",
                 "`cre_Doc_Template_Mgt.Documents`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Return the code of the template type that is most commonly used in documents.",
@@ -12813,7 +12813,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Document_ID AS Document_ID, count(T1.Document_ID) AS count, T2.Document_Name AS Document_Name\nRETURN Document_ID,Document_Name,count",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Document_ID) AS count, T1.Document_ID AS Document_ID, T2.Document_Name AS Document_Name\nRETURN Document_ID,Document_Name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -12844,8 +12844,8 @@
                 "`cre_Doc_Template_Mgt.Paragraphs`",
                 "`cre_Doc_Template_Mgt.Documents`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "Show all document ids, names and the number of paragraphs in each document.",
         "answers": [
@@ -12903,7 +12903,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Document_ID AS Document_ID, count(T1.Document_ID) AS count, T2.Document_Name AS Document_Name\nRETURN Document_ID,Document_Name,count",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Document_ID) AS count, T1.Document_ID AS Document_ID, T2.Document_Name AS Document_Name\nRETURN Document_ID,Document_Name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -12934,8 +12934,8 @@
                 "`cre_Doc_Template_Mgt.Paragraphs`",
                 "`cre_Doc_Template_Mgt.Documents`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "What are the ids and names of each document, as well as the number of paragraphs in each?",
         "answers": [
@@ -13097,7 +13097,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Document_ID AS Document_ID, count(T1.Document_ID) AS count, T2.Document_Name AS Document_Name\nRETURN Document_ID,Document_Name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Document_ID) AS count, T1.Document_ID AS Document_ID, T2.Document_Name AS Document_Name\nRETURN Document_ID,Document_Name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -13131,8 +13131,8 @@
                 "`cre_Doc_Template_Mgt.Paragraphs`",
                 "`cre_Doc_Template_Mgt.Documents`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the document id and name with greatest number of paragraphs?",
@@ -13145,7 +13145,7 @@
     },
     {
         "db_id": "cre_Doc_Template_Mgt",
-        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Document_ID AS Document_ID, count(T1.Document_ID) AS count, T2.Document_Name AS Document_Name\nRETURN Document_ID,Document_Name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Document_ID) AS count, T1.Document_ID AS Document_ID, T2.Document_Name AS Document_Name\nRETURN Document_ID,Document_Name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -13179,8 +13179,8 @@
                 "`cre_Doc_Template_Mgt.Paragraphs`",
                 "`cre_Doc_Template_Mgt.Documents`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Return the id and name of the document with the most paragraphs.",
@@ -13807,7 +13807,7 @@
     },
     {
         "db_id": "course_teach",
-        "cypher_query": "MATCH (teacher:`course_teach.teacher`)\nWITH count(teacher.Hometown) AS count, teacher.Hometown AS Hometown\nRETURN Hometown,count",
+        "cypher_query": "MATCH (teacher:`course_teach.teacher`)\nWITH teacher.Hometown AS Hometown, count(teacher.Hometown) AS count\nRETURN Hometown,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -13831,8 +13831,8 @@
                 "count"
             ],
             "Token_Name_Label": "`course_teach.teacher`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "Show different hometown of teachers and the number of teachers from each hometown.",
         "answers": [
@@ -13868,7 +13868,7 @@
     },
     {
         "db_id": "course_teach",
-        "cypher_query": "MATCH (teacher:`course_teach.teacher`)\nWITH count(teacher.Hometown) AS count, teacher.Hometown AS Hometown\nRETURN Hometown,count",
+        "cypher_query": "MATCH (teacher:`course_teach.teacher`)\nWITH teacher.Hometown AS Hometown, count(teacher.Hometown) AS count\nRETURN Hometown,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -13892,8 +13892,8 @@
                 "count"
             ],
             "Token_Name_Label": "`course_teach.teacher`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "For each hometown, how many teachers are there?",
         "answers": [
@@ -14289,7 +14289,7 @@
     },
     {
         "db_id": "course_teach",
-        "cypher_query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH T2.Name AS Name, count(T2.Name) AS count\nRETURN Name,count",
+        "cypher_query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH count(T2.Name) AS count, T2.Name AS Name\nRETURN Name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -14319,8 +14319,8 @@
                 "`course_teach.course_arrange`",
                 "`course_teach.teacher`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "Show names of teachers and the number of courses they teach.",
         "answers": [
@@ -14348,7 +14348,7 @@
     },
     {
         "db_id": "course_teach",
-        "cypher_query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH T2.Name AS Name, count(T2.Name) AS count\nRETURN Name,count",
+        "cypher_query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH count(T2.Name) AS count, T2.Name AS Name\nRETURN Name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -14378,8 +14378,8 @@
                 "`course_teach.course_arrange`",
                 "`course_teach.teacher`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "What are the names of the teachers and how many courses do they teach?",
         "answers": [
@@ -15267,7 +15267,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.year) AS count, matches.year AS year\nRETURN year\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN year\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15294,8 +15294,8 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.matches`",
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Find the year that has the most number of matches.",
@@ -15303,7 +15303,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.year) AS count, matches.year AS year\nRETURN year\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN year\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15330,8 +15330,8 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.matches`",
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which year had the most matches?",
@@ -15339,7 +15339,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH matches.winner_name AS winner_name, count(matches.winner_name) AS count, matches.winner_rank_points AS winner_rank_points\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH matches.winner_rank_points AS winner_rank_points, count(matches.winner_name) AS count, matches.winner_name AS winner_name\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15362,9 +15362,9 @@
             ],
             "Token_Name_Variable": [
                 "matches",
+                "winner_rank_points",
                 "winner_name",
-                "count",
-                "winner_rank_points"
+                "count"
             ],
             "Token_Name_Label": "`wta_1.matches`",
             "Token_Operator": ".",
@@ -15376,7 +15376,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH matches.winner_name AS winner_name, count(matches.winner_name) AS count, matches.winner_rank_points AS winner_rank_points\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH matches.winner_rank_points AS winner_rank_points, count(matches.winner_name) AS count, matches.winner_name AS winner_name\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15399,9 +15399,9 @@
             ],
             "Token_Name_Variable": [
                 "matches",
+                "winner_rank_points",
                 "winner_name",
-                "count",
-                "winner_rank_points"
+                "count"
             ],
             "Token_Name_Label": "`wta_1.matches`",
             "Token_Operator": ".",
@@ -15633,7 +15633,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(players.country_code) AS count\nRETURN count,country_code",
+        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN count,country_code",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15657,15 +15657,15 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.players`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "find the number of players for each country.",
         "answers": []
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(players.country_code) AS count\nRETURN count,country_code",
+        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN count,country_code",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15689,15 +15689,15 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.players`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "How many players are from each country?",
         "answers": []
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(players.country_code) AS count\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15724,8 +15724,8 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.players`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "find the code of the country where has the greatest number of players.",
@@ -15733,7 +15733,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(players.country_code) AS count\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15760,8 +15760,8 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.players`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the code of the country with the most players?",
@@ -15769,7 +15769,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(*) AS count\nWHERE count  > 50\nRETURN country_code",
+        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH count(*) AS count, players.country_code AS country_code\nWHERE count  > 50\nRETURN country_code",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15791,16 +15791,16 @@
             ],
             "Token_Name_Variable": [
                 "players",
-                "country_code",
-                "count"
+                "count",
+                "country_code"
             ],
             "Token_Name_Label": "`wta_1.players`",
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "50"
         },
         "question": "Find the codes of countries that have more than 50 players.",
@@ -15808,7 +15808,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(*) AS count\nWHERE count  > 50\nRETURN country_code",
+        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH count(*) AS count, players.country_code AS country_code\nWHERE count  > 50\nRETURN country_code",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15830,16 +15830,16 @@
             ],
             "Token_Name_Variable": [
                 "players",
-                "country_code",
-                "count"
+                "count",
+                "country_code"
             ],
             "Token_Name_Label": "`wta_1.players`",
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "50"
         },
         "question": "What are the codes of countries with more than 50 players?",
@@ -15847,7 +15847,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.year) AS count, matches.year AS year\nRETURN count,year",
+        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN count,year",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15871,15 +15871,15 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.matches`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "Find the number of matches happened in each year.",
         "answers": []
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.year) AS count, matches.year AS year\nRETURN count,year",
+        "cypher_query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN count,year",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -15903,8 +15903,8 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.matches`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "How many matches were played in each year?",
         "answers": []
@@ -15993,7 +15993,7 @@
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH count(players.hand) AS count, players.hand AS hand\nRETURN count,hand",
+        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH players.hand AS hand, count(players.hand) AS count\nRETURN count,hand",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -16017,15 +16017,15 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.players`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "Find the number of players for each hand type.",
         "answers": []
     },
     {
         "db_id": "wta_1",
-        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH count(players.hand) AS count, players.hand AS hand\nRETURN count,hand",
+        "cypher_query": "MATCH (players:`wta_1.players`)\nWITH players.hand AS hand, count(players.hand) AS count\nRETURN count,hand",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -16049,8 +16049,8 @@
                 "count"
             ],
             "Token_Name_Label": "`wta_1.players`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "How many players are there for each hand type?",
         "answers": []
@@ -16840,7 +16840,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Departments`)\nWITH count(T1.department_id) AS count, T1.department_id AS department_id, T2.department_name AS department_name\nRETURN department_name,department_id\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Departments`)\nWITH T1.department_id AS department_id, T2.department_name AS department_name, count(T1.department_id) AS count\nRETURN department_name,department_id\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -16867,15 +16867,15 @@
                 "T1",
                 "T2",
                 "department_id",
-                "count",
-                "department_name"
+                "department_name",
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Degree_Programs`",
                 "`student_transcripts_tracking.Departments`"
             ],
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which department offers the most number of degrees? List department name and id.",
@@ -17488,7 +17488,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.semester_id AS semester_id, count(T1.semester_id) AS count, T1.semester_name AS semester_name\nRETURN semester_name,semester_id\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.semester_id) AS count, T1.semester_id AS semester_id, T1.semester_name AS semester_name\nRETURN semester_name,semester_id\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -17522,8 +17522,8 @@
                 "`student_transcripts_tracking.Semesters`",
                 "`student_transcripts_tracking.Student_Enrolment`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the semester which most student registered in? Show both the name and the id.",
@@ -17536,7 +17536,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.semester_id AS semester_id, count(T1.semester_id) AS count, T1.semester_name AS semester_name\nRETURN semester_name,semester_id\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.semester_id) AS count, T1.semester_id AS semester_id, T1.semester_name AS semester_name\nRETURN semester_name,semester_id\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -17570,8 +17570,8 @@
                 "`student_transcripts_tracking.Semesters`",
                 "`student_transcripts_tracking.Student_Enrolment`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "For each semester, what is the name and id of the one with the most students registered?",
@@ -17658,7 +17658,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(*) AS count, T1.student_id AS student_id, T1.middle_name AS middle_name, T1.first_name AS first_name, T1.last_name AS last_name\nWHERE count  = 2\nRETURN first_name,middle_name,last_name,student_id",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.first_name AS first_name, T1.student_id AS student_id, T1.middle_name AS middle_name, T1.last_name AS last_name, count(*) AS count\nWHERE count  = 2\nRETURN first_name,middle_name,last_name,student_id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -17683,22 +17683,22 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
-                "count",
+                "first_name",
                 "student_id",
                 "middle_name",
-                "first_name",
-                "last_name"
+                "last_name",
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Students`",
                 "`student_transcripts_tracking.Student_Enrolment`"
             ],
-            "Token_Name_Function": "count",
             "Token_Operator": [
-                "*",
                 ".",
+                "*",
                 "="
             ],
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "Who are enrolled in 2 degree programs in one semester? List the first name, middle name and last name and the id.",
@@ -17725,7 +17725,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(*) AS count, T1.student_id AS student_id, T1.middle_name AS middle_name, T1.first_name AS first_name, T1.last_name AS last_name\nWHERE count  = 2\nRETURN first_name,middle_name,last_name,student_id",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.first_name AS first_name, T1.student_id AS student_id, T1.middle_name AS middle_name, T1.last_name AS last_name, count(*) AS count\nWHERE count  = 2\nRETURN first_name,middle_name,last_name,student_id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -17750,22 +17750,22 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
-                "count",
+                "first_name",
                 "student_id",
                 "middle_name",
-                "first_name",
-                "last_name"
+                "last_name",
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Students`",
                 "`student_transcripts_tracking.Student_Enrolment`"
             ],
-            "Token_Name_Function": "count",
             "Token_Operator": [
-                "*",
                 ".",
+                "*",
                 "="
             ],
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "What are the first, middle, and last names, along with the ids, of all students who enrolled in 2 degree programs in one semester?",
@@ -17972,7 +17972,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.degree_program_id) AS count, T1.degree_program_id AS degree_program_id, T1.degree_summary_name AS degree_summary_name\nRETURN degree_program_id,degree_summary_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.degree_summary_name AS degree_summary_name, T1.degree_program_id AS degree_program_id, count(T1.degree_program_id) AS count\nRETURN degree_program_id,degree_summary_name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -17998,16 +17998,16 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "degree_summary_name",
                 "degree_program_id",
-                "count",
-                "degree_summary_name"
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Degree_Programs`",
                 "`student_transcripts_tracking.Student_Enrolment`"
             ],
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Find the program which most number of students are enrolled in. List both the id and the summary.",
@@ -18020,7 +18020,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.degree_program_id) AS count, T1.degree_program_id AS degree_program_id, T1.degree_summary_name AS degree_summary_name\nRETURN degree_program_id,degree_summary_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.degree_summary_name AS degree_summary_name, T1.degree_program_id AS degree_program_id, count(T1.degree_program_id) AS count\nRETURN degree_program_id,degree_summary_name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -18046,16 +18046,16 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "degree_summary_name",
                 "degree_program_id",
-                "count",
-                "degree_summary_name"
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Degree_Programs`",
                 "`student_transcripts_tracking.Student_Enrolment`"
             ],
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the program id and the summary of the degree that has the most students enrolled?",
@@ -18328,7 +18328,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T1.transcript_id AS transcript_id, count(*) AS count, T2.transcript_date AS transcript_date\nWHERE count  >= 2\nRETURN transcript_date,transcript_id",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id, count(*) AS count\nWHERE count  >= 2\nRETURN transcript_date,transcript_id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -18353,9 +18353,9 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "transcript_date",
                 "transcript_id",
-                "count",
-                "transcript_date"
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Transcript_Contents`",
@@ -18374,7 +18374,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T1.transcript_id AS transcript_id, count(*) AS count, T2.transcript_date AS transcript_date\nWHERE count  >= 2\nRETURN transcript_date,transcript_id",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id, count(*) AS count\nWHERE count  >= 2\nRETURN transcript_date,transcript_id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -18399,9 +18399,9 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "transcript_date",
                 "transcript_id",
-                "count",
-                "transcript_date"
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Transcript_Contents`",
@@ -18816,7 +18816,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Addresses`)-[]-(T2:`student_transcripts_tracking.Students`)\nWITH T1.line_2 AS line_2, T1.address_id AS address_id, count(T1.address_id) AS count, T1.line_1 AS line_1\nRETURN address_id,line_1,line_2\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Addresses`)-[]-(T2:`student_transcripts_tracking.Students`)\nWITH count(T1.address_id) AS count, T1.line_2 AS line_2, T1.address_id AS address_id, T1.line_1 AS line_1\nRETURN address_id,line_1,line_2\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -18842,17 +18842,17 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
-                "line_2",
                 "address_id",
                 "count",
+                "line_2",
                 "line_1"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Addresses`",
                 "`student_transcripts_tracking.Students`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which address holds the most number of students currently? List the address id and all lines.",
@@ -18866,7 +18866,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Addresses`)-[]-(T2:`student_transcripts_tracking.Students`)\nWITH T1.line_2 AS line_2, T1.address_id AS address_id, count(T1.address_id) AS count, T1.line_1 AS line_1\nRETURN address_id,line_1,line_2\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Addresses`)-[]-(T2:`student_transcripts_tracking.Students`)\nWITH count(T1.address_id) AS count, T1.line_2 AS line_2, T1.address_id AS address_id, T1.line_1 AS line_1\nRETURN address_id,line_1,line_2\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -18892,17 +18892,17 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
-                "line_2",
                 "address_id",
                 "count",
+                "line_2",
                 "line_1"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Addresses`",
                 "`student_transcripts_tracking.Students`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the id, line 1, and line 2 of the address with the most students?",
@@ -19120,7 +19120,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH count(transcript_contents.student_course_id) AS count, transcript_contents.student_course_id AS student_course_id\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH transcript_contents.student_course_id AS student_course_id, count(transcript_contents.student_course_id) AS count\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -19147,8 +19147,8 @@
                 "count"
             ],
             "Token_Name_Label": "`student_transcripts_tracking.Transcript_Contents`",
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "How many times at most can a course enrollment result show in different transcripts? Also show the course enrollment id.",
@@ -19156,7 +19156,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH count(transcript_contents.student_course_id) AS count, transcript_contents.student_course_id AS student_course_id\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH transcript_contents.student_course_id AS student_course_id, count(transcript_contents.student_course_id) AS count\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -19183,8 +19183,8 @@
                 "count"
             ],
             "Token_Name_Label": "`student_transcripts_tracking.Transcript_Contents`",
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the maximum number of times that a course shows up in different transcripts and what is that course's enrollment id?",
@@ -19192,7 +19192,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH count(T1.transcript_id) AS count, T1.transcript_id AS transcript_id, T2.transcript_date AS transcript_date\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id, count(T1.transcript_id) AS count\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -19218,16 +19218,16 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "transcript_date",
                 "transcript_id",
-                "count",
-                "transcript_date"
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Transcript_Contents`",
                 "`student_transcripts_tracking.Transcripts`"
             ],
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Show the date of the transcript which shows the least number of results, also list the id.",
@@ -19235,7 +19235,7 @@
     },
     {
         "db_id": "student_transcripts_tracking",
-        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH count(T1.transcript_id) AS count, T1.transcript_id AS transcript_id, T2.transcript_date AS transcript_date\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id, count(T1.transcript_id) AS count\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -19261,16 +19261,16 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
+                "transcript_date",
                 "transcript_id",
-                "count",
-                "transcript_date"
+                "count"
             ],
             "Token_Name_Label": [
                 "`student_transcripts_tracking.Transcript_Contents`",
                 "`student_transcripts_tracking.Transcripts`"
             ],
-            "Token_Name_Function": "count",
             "Token_Operator": ".",
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the date and id of the transcript with the least number of results?",
@@ -20390,7 +20390,7 @@
     },
     {
         "db_id": "tvshow",
-        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Language AS Language, count(tv_channel.Language) AS count\nRETURN Language,count\nORDER BY count ASC\nLIMIT 1",
+        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Language) AS count, tv_channel.Language AS Language\nRETURN Language,count\nORDER BY count ASC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -20417,8 +20417,8 @@
                 "count"
             ],
             "Token_Name_Label": "`tvshow.TV_Channel`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "List the language used least number of TV Channel. List language and number of TV Channel.",
@@ -20431,7 +20431,7 @@
     },
     {
         "db_id": "tvshow",
-        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Language AS Language, count(tv_channel.Language) AS count\nRETURN Language,count\nORDER BY count ASC\nLIMIT 1",
+        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Language) AS count, tv_channel.Language AS Language\nRETURN Language,count\nORDER BY count ASC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -20458,8 +20458,8 @@
                 "count"
             ],
             "Token_Name_Label": "`tvshow.TV_Channel`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What are the languages used by the least number of TV Channels and how many channels use it?",
@@ -20472,7 +20472,7 @@
     },
     {
         "db_id": "tvshow",
-        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Language AS Language, count(tv_channel.Language) AS count\nRETURN Language,count",
+        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Language) AS count, tv_channel.Language AS Language\nRETURN Language,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -20496,8 +20496,8 @@
                 "count"
             ],
             "Token_Name_Label": "`tvshow.TV_Channel`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "List each language and the number of TV Channels using it.",
         "answers": [
@@ -20513,7 +20513,7 @@
     },
     {
         "db_id": "tvshow",
-        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Language AS Language, count(tv_channel.Language) AS count\nRETURN Language,count",
+        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Language) AS count, tv_channel.Language AS Language\nRETURN Language,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -20537,8 +20537,8 @@
                 "count"
             ],
             "Token_Name_Label": "`tvshow.TV_Channel`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "For each language, list the number of TV Channels that use it.",
         "answers": [
@@ -21864,7 +21864,7 @@
     },
     {
         "db_id": "tvshow",
-        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.id AS id, count(*) AS count\nWHERE count  > 2\nRETURN id",
+        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(*) AS count, tv_channel.id AS id\nWHERE count  > 2\nRETURN id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -21886,16 +21886,16 @@
             ],
             "Token_Name_Variable": [
                 "tv_channel",
-                "id",
-                "count"
+                "count",
+                "id"
             ],
             "Token_Name_Label": "`tvshow.TV_Channel`",
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "find id of the tv channels that from the countries where have more than two tv channels.",
@@ -21903,7 +21903,7 @@
     },
     {
         "db_id": "tvshow",
-        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.id AS id, count(*) AS count\nWHERE count  > 2\nRETURN id",
+        "cypher_query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(*) AS count, tv_channel.id AS id\nWHERE count  > 2\nRETURN id",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -21925,16 +21925,16 @@
             ],
             "Token_Name_Variable": [
                 "tv_channel",
-                "id",
-                "count"
+                "count",
+                "id"
             ],
             "Token_Name_Label": "`tvshow.TV_Channel`",
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "What are the ids of all tv channels that have more than 2 TV channels?",
@@ -23216,7 +23216,7 @@
     },
     {
         "db_id": "poker_player",
-        "cypher_query": "MATCH (people:`poker_player.people`)\nWITH count(*) AS count, people.Nationality AS Nationality\nWHERE count  >= 2\nRETURN Nationality",
+        "cypher_query": "MATCH (people:`poker_player.people`)\nWITH people.Nationality AS Nationality, count(*) AS count\nWHERE count  >= 2\nRETURN Nationality",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -23238,16 +23238,16 @@
             ],
             "Token_Name_Variable": [
                 "people",
-                "count",
-                "Nationality"
+                "Nationality",
+                "count"
             ],
             "Token_Name_Label": "`poker_player.people`",
-            "Token_Name_Function": "count",
             "Token_Operator": [
-                "*",
                 ".",
+                "*",
                 ">="
             ],
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "What are the nationalities that are shared by at least two people?",
@@ -23259,7 +23259,7 @@
     },
     {
         "db_id": "poker_player",
-        "cypher_query": "MATCH (people:`poker_player.people`)\nWITH count(*) AS count, people.Nationality AS Nationality\nWHERE count  >= 2\nRETURN Nationality",
+        "cypher_query": "MATCH (people:`poker_player.people`)\nWITH people.Nationality AS Nationality, count(*) AS count\nWHERE count  >= 2\nRETURN Nationality",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -23281,16 +23281,16 @@
             ],
             "Token_Name_Variable": [
                 "people",
-                "count",
-                "Nationality"
+                "Nationality",
+                "count"
             ],
             "Token_Name_Label": "`poker_player.people`",
-            "Token_Name_Function": "count",
             "Token_Operator": [
-                "*",
                 ".",
+                "*",
                 ">="
             ],
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "Return the nationalities for which there are two or more people.",
@@ -23915,7 +23915,7 @@
     },
     {
         "db_id": "voter_1",
-        "cypher_query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH T1.contestant_name AS contestant_name, count(*) AS count, T1.contestant_number AS contestant_number\nWHERE count  >= 2\nRETURN contestant_number,contestant_name",
+        "cypher_query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH T1.contestant_name AS contestant_name, T1.contestant_number AS contestant_number, count(*) AS count\nWHERE count  >= 2\nRETURN contestant_number,contestant_name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -23941,8 +23941,8 @@
                 "T1",
                 "T2",
                 "contestant_name",
-                "count",
-                "contestant_number"
+                "contestant_number",
+                "count"
             ],
             "Token_Name_Label": [
                 "`voter_1.CONTESTANTS`",
@@ -23961,7 +23961,7 @@
     },
     {
         "db_id": "voter_1",
-        "cypher_query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH T1.contestant_name AS contestant_name, count(T1.contestant_number) AS count, T1.contestant_number AS contestant_number\nRETURN contestant_number,contestant_name\nORDER BY count ASC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH T1.contestant_number AS contestant_number, T1.contestant_name AS contestant_name, count(T1.contestant_number) AS count\nRETURN contestant_number,contestant_name\nORDER BY count ASC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -23987,8 +23987,8 @@
             "Token_Name_Variable": [
                 "T1",
                 "T2",
-                "contestant_name",
                 "contestant_number",
+                "contestant_name",
                 "count"
             ],
             "Token_Name_Label": [
@@ -24046,7 +24046,7 @@
     },
     {
         "db_id": "voter_1",
-        "cypher_query": "MATCH (T1:`voter_1.AREA_CODE_STATE`)-[]-(T2:`voter_1.VOTES`)\nWITH T1.area_code AS area_code, count(T1.area_code) AS count\nRETURN area_code\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`voter_1.AREA_CODE_STATE`)-[]-(T2:`voter_1.VOTES`)\nWITH count(T1.area_code) AS count, T1.area_code AS area_code\nRETURN area_code\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -24079,8 +24079,8 @@
                 "`voter_1.AREA_CODE_STATE`",
                 "`voter_1.VOTES`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the area code in which the most voters voted?",
@@ -25630,13 +25630,13 @@
     },
     {
         "db_id": "world_1",
-        "cypher_query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 2\nRETURN count,Name",
+        "cypher_query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH count(*) AS count, T1.Name AS Name\nWHERE count  > 2\nRETURN count,Name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "Name",
                 "AS",
+                "Name",
                 "WHERE",
                 "RETURN"
             ],
@@ -25662,12 +25662,12 @@
                 "`world_1.country`",
                 "`world_1.countrylanguage`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "Return the country name and the numbers of languages spoken for each country that speaks at least 3 languages.",
@@ -25675,13 +25675,13 @@
     },
     {
         "db_id": "world_1",
-        "cypher_query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 2\nRETURN count,Name",
+        "cypher_query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH count(*) AS count, T1.Name AS Name\nWHERE count  > 2\nRETURN count,Name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "Name",
                 "AS",
+                "Name",
                 "WHERE",
                 "RETURN"
             ],
@@ -25707,12 +25707,12 @@
                 "`world_1.country`",
                 "`world_1.countrylanguage`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "What are the names of countries that speak more than 2 languages, as well as how many languages they speak?",
@@ -27226,13 +27226,13 @@
     },
     {
         "db_id": "orchestra",
-        "cypher_query": "MATCH (T1:`orchestra.conductor`)-[]-(T2:`orchestra.orchestra`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 1\nRETURN Name",
+        "cypher_query": "MATCH (T1:`orchestra.conductor`)-[]-(T2:`orchestra.orchestra`)\nWITH count(*) AS count, T1.Name AS Name\nWHERE count  > 1\nRETURN Name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "Name",
                 "AS",
+                "Name",
                 "WHERE",
                 "RETURN"
             ],
@@ -27258,12 +27258,12 @@
                 "`orchestra.conductor`",
                 "`orchestra.orchestra`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Show the names of conductors that have conducted more than one orchestras.",
@@ -27271,13 +27271,13 @@
     },
     {
         "db_id": "orchestra",
-        "cypher_query": "MATCH (T1:`orchestra.conductor`)-[]-(T2:`orchestra.orchestra`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 1\nRETURN Name",
+        "cypher_query": "MATCH (T1:`orchestra.conductor`)-[]-(T2:`orchestra.orchestra`)\nWITH count(*) AS count, T1.Name AS Name\nWHERE count  > 1\nRETURN Name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "Name",
                 "AS",
+                "Name",
                 "WHERE",
                 "RETURN"
             ],
@@ -27303,12 +27303,12 @@
                 "`orchestra.conductor`",
                 "`orchestra.orchestra`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What are the names of conductors who have conducted at more than one orchestra?",
@@ -27556,7 +27556,7 @@
     },
     {
         "db_id": "orchestra",
-        "cypher_query": "MATCH (orchestra:`orchestra.orchestra`)\nWITH orchestra.Major_Record_Format AS Major_Record_Format, count(orchestra.Major_Record_Format) AS count\nRETURN Major_Record_Format\nORDER BY count ASC",
+        "cypher_query": "MATCH (orchestra:`orchestra.orchestra`)\nWITH count(orchestra.Major_Record_Format) AS count, orchestra.Major_Record_Format AS Major_Record_Format\nRETURN Major_Record_Format\nORDER BY count ASC",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -27582,8 +27582,8 @@
                 "count"
             ],
             "Token_Name_Label": "`orchestra.orchestra`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "Please show the record formats of orchestras in ascending order of count.",
         "answers": [
@@ -27600,7 +27600,7 @@
     },
     {
         "db_id": "orchestra",
-        "cypher_query": "MATCH (orchestra:`orchestra.orchestra`)\nWITH orchestra.Major_Record_Format AS Major_Record_Format, count(orchestra.Major_Record_Format) AS count\nRETURN Major_Record_Format\nORDER BY count ASC",
+        "cypher_query": "MATCH (orchestra:`orchestra.orchestra`)\nWITH count(orchestra.Major_Record_Format) AS count, orchestra.Major_Record_Format AS Major_Record_Format\nRETURN Major_Record_Format\nORDER BY count ASC",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -27626,8 +27626,8 @@
                 "count"
             ],
             "Token_Name_Label": "`orchestra.orchestra`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "What are the major record formats of orchestras, sorted by their frequency?",
         "answers": [
@@ -28610,7 +28610,7 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(highschooler.grade) AS count, highschooler.grade AS grade\nRETURN grade,count",
+        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(highschooler.grade) AS count\nRETURN grade,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -28634,8 +28634,8 @@
                 "count"
             ],
             "Token_Name_Label": "`network_1.Highschooler`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "Show the number of high schoolers for each grade.",
         "answers": [
@@ -28659,7 +28659,7 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(highschooler.grade) AS count, highschooler.grade AS grade\nRETURN grade,count",
+        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(highschooler.grade) AS count\nRETURN grade,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -28683,8 +28683,8 @@
                 "count"
             ],
             "Token_Name_Label": "`network_1.Highschooler`",
-            "Token_Name_Function": "count",
-            "Token_Operator": "."
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
         },
         "question": "How many high schoolers are in each grade?",
         "answers": [
@@ -28708,7 +28708,7 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(*) AS count, highschooler.grade AS grade\nWHERE count  >= 4\nRETURN grade",
+        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(*) AS count\nWHERE count  >= 4\nRETURN grade",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -28730,16 +28730,16 @@
             ],
             "Token_Name_Variable": [
                 "highschooler",
-                "count",
-                "grade"
+                "grade",
+                "count"
             ],
             "Token_Name_Label": "`network_1.Highschooler`",
-            "Token_Name_Function": "count",
             "Token_Operator": [
-                "*",
                 ".",
+                "*",
                 ">="
             ],
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "4"
         },
         "question": "Show me all grades that have at least 4 students.",
@@ -28760,7 +28760,7 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(*) AS count, highschooler.grade AS grade\nWHERE count  >= 4\nRETURN grade",
+        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(*) AS count\nWHERE count  >= 4\nRETURN grade",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -28782,16 +28782,16 @@
             ],
             "Token_Name_Variable": [
                 "highschooler",
-                "count",
-                "grade"
+                "grade",
+                "count"
             ],
             "Token_Name_Label": "`network_1.Highschooler`",
-            "Token_Name_Function": "count",
             "Token_Operator": [
-                "*",
                 ".",
+                "*",
                 ">="
             ],
+            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "4"
         },
         "question": "Which grades have 4 or more high schoolers?",
@@ -28812,7 +28812,7 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH friend.student_id AS student_id, count(friend.student_id) AS count\nRETURN student_id,count",
+        "cypher_query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH count(friend.student_id) AS count, friend.student_id AS student_id\nRETURN student_id,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -28838,15 +28838,15 @@
                 "count"
             ],
             "Token_Name_Label": "`network_1.Friend`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "Show the student IDs and numbers of friends corresponding to each.",
         "answers": []
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH friend.student_id AS student_id, count(friend.student_id) AS count\nRETURN student_id,count",
+        "cypher_query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH count(friend.student_id) AS count, friend.student_id AS student_id\nRETURN student_id,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -28872,21 +28872,21 @@
                 "count"
             ],
             "Token_Name_Label": "`network_1.Friend`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "How many friends does each student have?",
         "answers": []
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
+        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -28911,21 +28911,21 @@
                 "`network_1.Friend`",
                 "`network_1.Highschooler`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "Show the names of high school students and their corresponding number of friends.",
         "answers": []
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
+        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -28950,21 +28950,21 @@
                 "`network_1.Friend`",
                 "`network_1.Highschooler`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "What are the names of the high schoolers and how many friends does each have?",
         "answers": []
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN",
                 "ORDER BY",
                 "DESC",
@@ -28992,8 +28992,8 @@
                 "`network_1.Friend`",
                 "`network_1.Highschooler`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the name of the high schooler who has the greatest number of friends?",
@@ -29001,13 +29001,13 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN",
                 "ORDER BY",
                 "DESC",
@@ -29035,8 +29035,8 @@
                 "`network_1.Friend`",
                 "`network_1.Highschooler`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Return the name of the high school student with the most friends.",
@@ -29044,13 +29044,13 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 3\nRETURN name",
+        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 3\nRETURN name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "WHERE",
                 "RETURN"
             ],
@@ -29076,12 +29076,12 @@
                 "`network_1.Friend`",
                 "`network_1.Highschooler`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">="
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "3"
         },
         "question": "Show the names of high schoolers who have at least 3 friends.",
@@ -29089,13 +29089,13 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 3\nRETURN name",
+        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 3\nRETURN name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "WHERE",
                 "RETURN"
             ],
@@ -29121,12 +29121,12 @@
                 "`network_1.Friend`",
                 "`network_1.Highschooler`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">="
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "3"
         },
         "question": "What are the names of high schoolers who have 3 or more friends?",
@@ -29280,13 +29280,13 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
+        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -29311,21 +29311,21 @@
                 "`network_1.Likes`",
                 "`network_1.Highschooler`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "Show the names of high schoolers who have likes, and numbers of likes for each.",
         "answers": []
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
+        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -29350,21 +29350,21 @@
                 "`network_1.Likes`",
                 "`network_1.Highschooler`"
             ],
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "What are the names of high schoolers who have likes, and how many likes does each have?",
         "answers": []
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN",
                 "ORDER BY",
                 "DESC",
@@ -29392,8 +29392,8 @@
                 "`network_1.Likes`",
                 "`network_1.Highschooler`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the name of the high schooler who has the greatest number of likes?",
@@ -29401,13 +29401,13 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN",
                 "ORDER BY",
                 "DESC",
@@ -29435,8 +29435,8 @@
                 "`network_1.Likes`",
                 "`network_1.Highschooler`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Give the name of the student with the most likes.",
@@ -29444,13 +29444,13 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 2\nRETURN name",
+        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "WHERE",
                 "RETURN"
             ],
@@ -29476,12 +29476,12 @@
                 "`network_1.Likes`",
                 "`network_1.Highschooler`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">="
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "Show the names of students who have at least 2 likes.",
@@ -29489,13 +29489,13 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 2\nRETURN name",
+        "cypher_query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "WHERE",
                 "RETURN"
             ],
@@ -29521,12 +29521,12 @@
                 "`network_1.Likes`",
                 "`network_1.Highschooler`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">="
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "2"
         },
         "question": "What are the names of students who have 2 or more likes?",
@@ -29534,14 +29534,14 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 2\nRETURN name",
+        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WHERE",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -29584,14 +29584,14 @@
     },
     {
         "db_id": "network_1",
-        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 2\nRETURN name",
+        "cypher_query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WHERE",
                 "WITH",
-                "name",
                 "AS",
+                "name",
                 "RETURN"
             ],
             "Token_Text_Whitespace": [
@@ -29634,7 +29634,7 @@
     },
     {
         "db_id": "dog_kennels",
-        "cypher_query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH T1.owner_id AS owner_id, count(T1.owner_id) AS count, T2.first_name AS first_name, T2.last_name AS last_name\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH count(T1.owner_id) AS count, T2.first_name AS first_name, T2.last_name AS last_name, T1.owner_id AS owner_id\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -29669,8 +29669,8 @@
                 "`dog_kennels.Dogs`",
                 "`dog_kennels.Owners`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which owner owns the most dogs? List the owner id, first name and last name.",
@@ -29684,7 +29684,7 @@
     },
     {
         "db_id": "dog_kennels",
-        "cypher_query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH T1.owner_id AS owner_id, count(T1.owner_id) AS count, T2.first_name AS first_name, T2.last_name AS last_name\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH count(T1.owner_id) AS count, T2.first_name AS first_name, T2.last_name AS last_name, T1.owner_id AS owner_id\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -29719,8 +29719,8 @@
                 "`dog_kennels.Dogs`",
                 "`dog_kennels.Owners`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Return the owner id, first name and last name of the owner who has the most dogs.",
@@ -29982,7 +29982,7 @@
     },
     {
         "db_id": "dog_kennels",
-        "cypher_query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH T1.owner_id AS owner_id, count(T1.owner_id) AS count, T1.last_name AS last_name\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH count(T1.owner_id) AS count, T1.last_name AS last_name, T1.owner_id AS owner_id\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -30018,8 +30018,8 @@
                 "`dog_kennels.Dogs`",
                 "`dog_kennels.Owners`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Which owner has paid for the most treatments on his or her dogs? List the owner id and last name.",
@@ -30027,7 +30027,7 @@
     },
     {
         "db_id": "dog_kennels",
-        "cypher_query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH T1.owner_id AS owner_id, count(T1.owner_id) AS count, T1.last_name AS last_name\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH count(T1.owner_id) AS count, T1.last_name AS last_name, T1.owner_id AS owner_id\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -30063,8 +30063,8 @@
                 "`dog_kennels.Dogs`",
                 "`dog_kennels.Owners`"
             ],
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Tell me the owner id and last name of the owner who spent the most on treatments of his or her dogs.",
@@ -33246,7 +33246,7 @@
     },
     {
         "db_id": "singer",
-        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship,count",
+        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -33270,8 +33270,8 @@
                 "count"
             ],
             "Token_Name_Label": "`singer.singer`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "Show different citizenship of singers and the number of singers of each citizenship.",
         "answers": [
@@ -33299,7 +33299,7 @@
     },
     {
         "db_id": "singer",
-        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship,count",
+        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship,count",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -33323,8 +33323,8 @@
                 "count"
             ],
             "Token_Name_Label": "`singer.singer`",
-            "Token_Operator": ".",
-            "Token_Name_Function": "count"
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
         },
         "question": "For each citizenship, how many singers are from that country?",
         "answers": [
@@ -33352,7 +33352,7 @@
     },
     {
         "db_id": "singer",
-        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -33379,8 +33379,8 @@
                 "count"
             ],
             "Token_Name_Label": "`singer.singer`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Please show the most common citizenship of singers.",
@@ -33392,7 +33392,7 @@
     },
     {
         "db_id": "singer",
-        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
@@ -33419,8 +33419,8 @@
                 "count"
             ],
             "Token_Name_Label": "`singer.singer`",
-            "Token_Operator": ".",
             "Token_Name_Function": "count",
+            "Token_Operator": ".",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What is the most common singer citizenship ?",
@@ -33666,13 +33666,13 @@
     },
     {
         "db_id": "singer",
-        "cypher_query": "MATCH (T1:`singer.singer`)-[]-(T2:`singer.song`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 1\nRETURN Name",
+        "cypher_query": "MATCH (T1:`singer.singer`)-[]-(T2:`singer.song`)\nWITH count(*) AS count, T1.Name AS Name\nWHERE count  > 1\nRETURN Name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "Name",
                 "AS",
+                "Name",
                 "WHERE",
                 "RETURN"
             ],
@@ -33698,12 +33698,12 @@
                 "`singer.singer`",
                 "`singer.song`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "Show the names of singers that have more than one song.",
@@ -33718,13 +33718,13 @@
     },
     {
         "db_id": "singer",
-        "cypher_query": "MATCH (T1:`singer.singer`)-[]-(T2:`singer.song`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 1\nRETURN Name",
+        "cypher_query": "MATCH (T1:`singer.singer`)-[]-(T2:`singer.song`)\nWITH count(*) AS count, T1.Name AS Name\nWHERE count  > 1\nRETURN Name",
         "parsed_cypher": {
             "Token_Keyword": [
                 "MATCH",
                 "WITH",
-                "Name",
                 "AS",
+                "Name",
                 "WHERE",
                 "RETURN"
             ],
@@ -33750,12 +33750,12 @@
                 "`singer.singer`",
                 "`singer.song`"
             ],
+            "Token_Name_Function": "count",
             "Token_Operator": [
-                ".",
                 "*",
+                ".",
                 ">"
             ],
-            "Token_Name_Function": "count",
             "Token_Literal_Number_Integer": "1"
         },
         "question": "What are the names of the singers that have more than one songs?",

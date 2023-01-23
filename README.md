@@ -25,7 +25,7 @@ We recommend using virtual environments to run this code:
 
 ```shell
 python -m virtualenv venv
-source venv\Scripts\activate
+source venv\bin\activate
 ```
 
 Python packages can be installed via:

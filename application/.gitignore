@@ -149,3 +149,15 @@ cache
 # End of https://www.toptal.com/developers/gitignore/api/python
 
 # Generated using ignr.py - github.com/Antrikshy/ignr.py
+
+
+
+.history/
+cypher_data_model_cypher.py
+note.py
+canonicaliser.py
+mySPVenv/
+notebook
+4paper.md
+application.rel_db2kg.schema2csv2graph
+semantic_parser.data.spider.database/

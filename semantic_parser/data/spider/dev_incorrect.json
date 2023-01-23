@@ -167,7 +167,7 @@
                 "2015"
             ]
         ],
-        "cypher_query": "MATCH (concert:`concert_singer.concert`)\nWITH concert.Year AS Year, count(concert.Year) AS count\nRETURN Year\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (concert:`concert_singer.concert`)\nWITH count(concert.Year) AS count, concert.Year AS Year\nRETURN Year\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "2014"
@@ -199,7 +199,7 @@
                 "2015"
             ]
         ],
-        "cypher_query": "MATCH (concert:`concert_singer.concert`)\nWITH concert.Year AS Year, count(concert.Year) AS count\nRETURN Year\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (concert:`concert_singer.concert`)\nWITH count(concert.Year) AS count, concert.Year AS Year\nRETURN Year\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "2014"
@@ -1320,7 +1320,7 @@
                 8
             ]
         ],
-        "cypher_query": "MATCH (cars_data:`car_1.cars_data`)\nWITH cars_data.Cylinders AS Cylinders, count(cars_data.Cylinders) AS count\nRETURN count,Cylinders",
+        "cypher_query": "MATCH (cars_data:`car_1.cars_data`)\nWITH count(cars_data.Cylinders) AS count, cars_data.Cylinders AS Cylinders\nRETURN count,Cylinders",
         "cypher_ans": [
             [
                 108,
@@ -1386,7 +1386,7 @@
                 8
             ]
         ],
-        "cypher_query": "MATCH (cars_data:`car_1.cars_data`)\nWITH cars_data.Cylinders AS Cylinders, count(cars_data.Cylinders) AS count\nRETURN count,Cylinders",
+        "cypher_query": "MATCH (cars_data:`car_1.cars_data`)\nWITH count(cars_data.Cylinders) AS count, cars_data.Cylinders AS Cylinders\nRETURN count,Cylinders",
         "cypher_ans": [
             [
                 108,
@@ -1945,7 +1945,7 @@
                 "Turton Urban District"
             ]
         ],
-        "cypher_query": "MATCH (teacher:`course_teach.teacher`)\nWITH count(teacher.Hometown) AS count, teacher.Hometown AS Hometown\nRETURN Hometown\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (teacher:`course_teach.teacher`)\nWITH teacher.Hometown AS Hometown, count(teacher.Hometown) AS count\nRETURN Hometown\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Blackrod Urban District"
@@ -1977,7 +1977,7 @@
                 "Turton Urban District"
             ]
         ],
-        "cypher_query": "MATCH (teacher:`course_teach.teacher`)\nWITH count(teacher.Hometown) AS count, teacher.Hometown AS Hometown\nRETURN Hometown\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (teacher:`course_teach.teacher`)\nWITH teacher.Hometown AS Hometown, count(teacher.Hometown) AS count\nRETURN Hometown\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 "Blackrod Urban District"
@@ -3435,7 +3435,7 @@
             }
         },
         "sql_ans": [],
-        "cypher_query": "MATCH (T1:`orchestra.orchestra`)-[]-(T2:`orchestra.performance`)\nWITH count(*) AS count, T1.Year_of_Founded AS Year_of_Founded\nWHERE count  > 1\nRETURN Year_of_Founded",
+        "cypher_query": "MATCH (T1:`orchestra.orchestra`)-[]-(T2:`orchestra.performance`)\nWITH T1.Year_of_Founded AS Year_of_Founded, count(*) AS count\nWHERE count  > 1\nRETURN Year_of_Founded",
         "cypher_ans": [
             [
                 2003.0
@@ -3489,7 +3489,7 @@
             }
         },
         "sql_ans": [],
-        "cypher_query": "MATCH (T1:`orchestra.orchestra`)-[]-(T2:`orchestra.performance`)\nWITH count(*) AS count, T1.Year_of_Founded AS Year_of_Founded\nWHERE count  > 1\nRETURN Year_of_Founded",
+        "cypher_query": "MATCH (T1:`orchestra.orchestra`)-[]-(T2:`orchestra.performance`)\nWITH T1.Year_of_Founded AS Year_of_Founded, count(*) AS count\nWHERE count  > 1\nRETURN Year_of_Founded",
         "cypher_ans": [
             [
                 2003.0
@@ -3527,7 +3527,7 @@
                 12
             ]
         ],
-        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(highschooler.grade) AS count, highschooler.grade AS grade\nRETURN grade\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(highschooler.grade) AS count\nRETURN grade\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 9
@@ -3559,7 +3559,7 @@
                 12
             ]
         ],
-        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(highschooler.grade) AS count, highschooler.grade AS grade\nRETURN grade\nORDER BY count DESC\nLIMIT 1",
+        "cypher_query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(highschooler.grade) AS count\nRETURN grade\nORDER BY count DESC\nLIMIT 1",
         "cypher_ans": [
             [
                 9
@@ -3804,7 +3804,7 @@
                 28.8
             ]
         ],
-        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship,count",
+        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship,count",
         "cypher_ans": [
             [
                 "France",
@@ -3870,7 +3870,7 @@
                 28.8
             ]
         ],
-        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship,count",
+        "cypher_query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship,count",
         "cypher_ans": [
             [
                 "France",

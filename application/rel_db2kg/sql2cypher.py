@@ -1410,8 +1410,16 @@ def main():
 	graph_db_list = set(all_db_list) - set(filtered_list)
 	print(len(all_db_list), len(filtered_list), len(graph_db_list))
 
+
+	# read tables json file
+	with open(os.path.join(raw_spider_folder, 'tables.json'), encoding='utf-8') as tables_file:
+   		tables = json.loads(tables_file.read())
+
+
 	# Output folder path
 	sp_out_folder = os.path.join(sp_data_folder, 'spider')  
+	
+
 
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
@@ -1426,8 +1434,12 @@ def main():
 		# # test output file
 		# cypher_file_musical  = os.path.join(raw_spider_folder, '{}_{}_cypher.json'.format('musical', split))
 
-		correct_qa_pairs = []      
+		     
 		spider_sub_pairs = []
+		spider_sub_gold_sql = []
+		spider_sub_tables = []
+
+		correct_qa_pairs = [] 
 		seleted_rel_dbs = []
 		incorrect_qa_pairs = []
 
@@ -1439,7 +1451,6 @@ def main():
 		
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			
 
 			# if db_name in graph_db_list:
 			if db_name:
@@ -1522,8 +1533,12 @@ def main():
 								'parsed_cypher':tokenized_statment, 'question':question,
 								'answers':cypher_ans})
 								spider_sub_pairs.append(data[i])
+								spider_sub_gold_sql.append(data[i]['query'])
 								if data[i]['db_id'] not in seleted_rel_dbs:
 									seleted_rel_dbs.append(data[i]['db_id'])
+									for db_tables in tables:
+										if db_name==db_tables['db_id']:
+											spider_sub_tables.append(db_tables)	
 							else:
 								print(f'incorrect_ans: {cypher_ans}')
 								incorrect[db_name].append(i)
@@ -1543,25 +1558,34 @@ def main():
 			intersect_sql, except_sql)
 		print(f'metrics: {metrics}')
 	
-		# correct_output_file = os.path.join(sp_out_folder, '{}_correct.json'.format(split))   
-		# with open(correct_output_file, 'a')  as f1:
-		# 	json.dump(correct_qa_pairs, f1, indent = 4)
+		correct_output_file = os.path.join(sp_out_folder, '{}_correct.json'.format(split))   
+		with open(correct_output_file, 'a')  as f1:
+			json.dump(correct_qa_pairs, f1, indent = 4)
 
-		# incorrect_output_file = os.path.join(sp_out_folder, '{}_incorrect.json'.format(split))     
-		# with open(incorrect_output_file, 'a')  as f2:
-		# 	json.dump(incorrect_qa_pairs, f2, indent = 4)
+		incorrect_output_file = os.path.join(sp_out_folder, '{}_incorrect.json'.format(split))     
+		with open(incorrect_output_file, 'a')  as f2:
+			json.dump(incorrect_qa_pairs, f2, indent = 4)
 
-		# sub_spider = os.path.join(sp_out_folder, '{}_spider_sub.json'.format(split))
-		# with open(sub_spider, 'a')  as f3:
-		# 	json.dump(spider_sub_pairs, f3, indent = 4)
+		sub_spider = os.path.join(sp_out_folder, '{}_spider_sub.json'.format(split))
+		with open(sub_spider, 'a')  as f3:
+			json.dump(spider_sub_pairs, f3, indent = 4)
+		
+		sub_gold = os.path.join(sp_out_folder, '{}_gold.sql'.format(split))
+		with open(sub_gold, 'a')  as f4:
+			for item in spider_sub_gold_sql:
+				# write each item on a new line
+				f4.write("%s\n" % item)
+				print('Done')
 
+		sub_tables = os.path.join(sp_out_folder, 'tables.json')     
+		with open(sub_tables, 'a')  as f5:
+			json.dump(spider_sub_tables, f5, indent = 4)
+		
 		# Output selected relational dbs folder path
 		sub_rel_dbs_folder = os.path.join(sp_data_folder, 'spider', 'database')  
-
 		if not os.path.exists(sub_rel_dbs_folder):
 			os.makedirs(sub_rel_dbs_folder) 
-
-		
+	
 		for db_name in seleted_rel_dbs:
 			source_dir = os.path.join(db_folder, db_name)
 			destination_dir = os.path.join(sub_rel_dbs_folder, db_name)
