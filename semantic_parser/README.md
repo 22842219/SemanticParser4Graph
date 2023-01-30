@@ -60,8 +60,9 @@ Please refer to [this page](https://github.com/22842219/SemanticParser4Graph/blo
 
 #### Graph Database Schema
 
-We showcase the `department_management` domain in `schema.json` which contains the following information for each node labels/edge types:
+We showcase the schema of `department_management` domain in `schema.json` which contains the following information for each node labels/edge types:
 
+For the whole property graph database schema, please refer to [this page](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/data/text2cypher/schema.json).
 ``` 
 ":`department_management.department`": {
         "property_names": [
