@@ -117,10 +117,11 @@ Please refer to [Spider paper]() and [this page](https://github.com/taoyds/spide
 
 ```
 arguments:
-  [Tensor shape of input]        Minibach size: 64, sequence length: 512, embedding dimention size: 
-  [Tensor shape of output]       Minibach size: 64, sequence length: 512, embedding dimention size: 
+
+  [Tensor shape of input]        Minibach size: 64, sequence length: 512, embedding dimention size: 32102
+  [Tensor shape of output]       Minibach size: 64, sequence length: 512, embedding dimention size: 32102
   
-  [beam size]                    2/4
+  [beam size]                    2
   
 ```
 
