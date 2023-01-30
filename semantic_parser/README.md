@@ -21,7 +21,7 @@
 
 ### Data Content and Format
 
-#### Question, Cypher, and Parsed Cypher
+#### Question, Cypher, and Parsed Cypher(TODO)
 
 Each file in`train.json` and `dev.json` contains the following fields:
 - `question`: the natural language question
@@ -37,7 +37,6 @@ Each file in`train.json` and `dev.json` contains the following fields:
         "question": "How many heads of the departments are older than 56 ?",
         "query": "MATCH (head:`department_management.head`)\nWHERE head.age > 56\nRETURN count(*)",
         "db_id": "department_management",
-        <!-- "Cypher": {} -->
     },
 
 ```
@@ -45,7 +44,9 @@ Each file in`train.json` and `dev.json` contains the following fields:
 #### Graph Database Schema
 
 `schema.json` contains the following information for each node labels/edge types:
-``` ":`department_management.department`": {
+
+``` 
+":`department_management.department`": {
         "property_names": [
             "Name",
             "Creation",
@@ -97,7 +98,6 @@ For Execution Accuracy, our current models do not predict any value in Cypher co
 Please refer to [our paper]() and [this page](https://github.com/taoyds/spider/tree/master/evaluation) for more details and examples.
 
 ```
-
 arguments:
   [Tensor shape of input]        Minibach size: 64, sequence length: 512, embedding dimention size: 
   [Tensor shape of output]       Minibach size: 64, sequence length: 512, embedding dimention size: 
