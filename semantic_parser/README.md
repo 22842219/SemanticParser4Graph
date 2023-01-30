@@ -60,7 +60,7 @@ Please refer to [this page](https://github.com/22842219/SemanticParser4Graph/blo
 
 #### Graph Database Schema
 
-`schema.json` contains the following information for each node labels/edge types:
+We showcase the `department_management` domain in `schema.json` which contains the following information for each node labels/edge types:
 
 ``` 
 ":`department_management.department`": {
