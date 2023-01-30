@@ -12,7 +12,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Spider: A Large-Scale Human-Labeled Dataset for Text-to-SQL Tasks"""
+
+
 
 
 import json
@@ -23,34 +24,46 @@ import datasets
 logger = datasets.logging.get_logger(__name__)
 
 
-_CITATION = """\
+_REFERENCES = """\
 @article{yu2018spider,
   title={Spider: A large-scale human-labeled dataset for complex and cross-domain semantic parsing and text-to-sql task},
   author={Yu, Tao and Zhang, Rui and Yang, Kai and Yasunaga, Michihiro and Wang, Dongxu and Li, Zifan and Ma, James and Li, Irene and Yao, Qingning and Roman, Shanelle and others},
   journal={arXiv preprint arXiv:1809.08887},
   year={2018}
 }
+
+@article{raffel2020exploring,
+  title={Exploring the limits of transfer learning with a unified text-to-text transformer},
+  author={Raffel, Colin and Shazeer, Noam and Roberts, Adam and Lee, Katherine and Narang, Sharan and Matena, Michael and Zhou, Yanqi and Li, Wei and Liu, Peter J},
+  journal={The Journal of Machine Learning Research},
+  volume={21},
+  number={1},
+  pages={5485--5551},
+  year={2020},
+  publisher={JMLRORG}
+}
 """
 
 _DESCRIPTION = """\
-Spider is a large-scale complex and cross-domain semantic parsing and text-toSQL dataset annotated by 11 college students
+Spider is a large-scale complex and cross-domain semantic parsing and text-toSQL dataset annotated by 11 college students.
+We use a dataset transformed from a subset of Spider to train our Text-to-Cypher semantic parsing.
 """
 
-_HOMEPAGE = "https://yale-lily.github.io/spider"
+_HOMEPAGE = ""
 
 _LICENSE = "CC BY-SA 4.0"
 
-_URL = "/home/22842219/Desktop/openSource/UnifiedSKGG-Cypher/data/text2cypher"
+_URL = "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/data/text2cypher"
 
 
-class Spider(datasets.GeneratorBasedBuilder):
+class Text2Cypher(datasets.GeneratorBasedBuilder):
     VERSION = datasets.Version("1.0.0")
 
     BUILDER_CONFIGS = [
         datasets.BuilderConfig(
-            name="spider",
+            name="text2cypher",
             version=VERSION,
-            description="Spider: A Large-Scale Human-Labeled Dataset for Text-to-SQL Tasks",
+            description="Weakly Supervised Text-to-Cypher Semantic Parsing Oriented for Property Graph atabase",
         ),
     ]
 
@@ -89,7 +102,7 @@ class Spider(datasets.GeneratorBasedBuilder):
             supervised_keys=None,
             homepage=_HOMEPAGE,
             license=_LICENSE,
-            citation=_CITATION,
+            citation=_REFERENCES,
         )
 
     def _split_generators(self, dl_manager):

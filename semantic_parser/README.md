@@ -40,6 +40,9 @@ Each file in`train.json` and `dev.json` contains the following fields:
     },
 
 ```
+#### Vocabulary
+
+Please refer to [this page](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/data/text2cypher/vocabulary.txt) for more details.
 
 #### Graph Database Schema
 
