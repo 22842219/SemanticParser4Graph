@@ -30,7 +30,8 @@ pip install datasets==1.14.0
 pip install torch==1.13.1 torchaudio==0.13.1 torchvision==0.14.1
 pip install -r semantic_parsing/requirement.sp.txt
 ```
-Note: One can install the required dependency via the instruction of [UnifiedSKG](https://github.com/HKUNLP/UnifiedSKG), but I've found the torch version above works best alongside CUDA11.4 and ubuntu 20.04.5 LTS 64-bit after several trial and errors. 
+<!-- Note: One can install the required dependency via the instruction of [UnifiedSKG](https://github.com/HKUNLP/UnifiedSKG) -->
+Note: I've found the torch version above works best alongside CUDA11.4 and ubuntu 20.04.5 LTS 64-bit after several trial and errors. 
 
 ### Data Content and Format
 
