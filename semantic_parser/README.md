@@ -116,13 +116,13 @@ For Execution Accuracy, our current models do not predict any value in Cypher co
 Please refer to [Spider paper]() and [this page](https://github.com/taoyds/spider/tree/master/evaluation) for more details and examples.
 
 ```
-arguments:
+{
 
-  [Tensor shape of input]        Minibach size: 64, sequence length: 512, embedding dimention size: 32102
-  [Tensor shape of output]       Minibach size: 64, sequence length: 512, embedding dimention size: 32102
+  "Tensor shape of input": [64, 512, 32102] # [Minibach size, sequence length, embedding dimention size]
+  "Tensor shape of output": [64, 512, 32102] # [Minibach size, sequence length, embedding dimention size]
   
-  [beam size]                    2
-  
+  "beam size": 2
+} 
 ```
 Note: [PICARD](https://arxiv.org/abs/2109.05093) paper has pointed out that beam size with 4 is the best, however due to the computation capacity, we have to set it as 2 at the moment. (could change to 4 once the mode is ready to upload to kaya.)
 ### FAQ
