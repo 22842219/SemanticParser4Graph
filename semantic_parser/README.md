@@ -124,7 +124,7 @@ arguments:
   [beam size]                    2
   
 ```
-Note: [PICARD]() paper has pointed out that beam size with 4 is the best, however due to the computation capacity, we have to set it as 2 at the moment. (could change to 4 once the mode is ready to upload to kaya.)
+Note: [PICARD](https://arxiv.org/abs/2109.05093) paper has pointed out that beam size with 4 is the best, however due to the computation capacity, we have to set it as 2 at the moment. (could change to 4 once the mode is ready to upload to kaya.)
 ### FAQ
 
 
