@@ -156,8 +156,7 @@ cache
 cypher_data_model_cypher.py
 note.py
 canonicaliser.py
-mySPVenv/
+venv/
 notebook
 4paper.md
 application.rel_db2kg.schema2csv2graph
-semantic_parser.data.spider.database/
