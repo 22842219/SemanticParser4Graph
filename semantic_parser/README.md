@@ -10,6 +10,12 @@
     - Create a small dataset in `department_management` domain.
     - 
 ### TODO LIST
+
+- ddl: `30/01/2023` 
+    - Encoder-Decoder architecture using a running example
+    - Test training/Evaluation [data generator](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/tasks/text2cypher.py)
+
+
 - cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match.
 
 
