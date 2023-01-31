@@ -189,8 +189,32 @@ e.g.,
 }
 ```
 
-### :point_right: [Property values (contents) picklist](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/bridge_content_encoder.py)
+### :point_right: [DB Content Encoding](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/bridge_content_encoder.py)
 
-Note: [This](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/general_testing.ipynb) shows an example of picklist regarding column **name** in table **department_management** in the **department_management.db**. 
+This point aims to understand how field values in the context of Text-to-SQL are cancatenated alongside column names and table names, especially for the case that one column contains thousands of field values. Bacially the idea is straightforward and using the quetion tokens to filterout (or match) the most possible filed value(s) for the targeted field. It simply and trivally use **difflib.SequenceMatch** to get the maxmimum string matching. The idea is called **picklists** and described in **[TabularSemanticParsing](https://arxiv.org/abs/2012.12627)** paper. 
+
+
+- [This](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/general_testing.ipynb) shows an example of picklist regarding column **name** in table **department_management** in the **department_management.db**. 
+
+```
+
+A ruuning example: 
+db_path = '/home/22842219/Desktop/projects_data/spider/database/department_management/department_management.sqlite'
+table_name = 'head'
+column_name = 'born_state'
+question = 'What are the names of the heads who are born outside the California state?'
+
+1. Get the whole field values of one column
+    picklist = get_column_picklist(table_name, column_name, db_path) # R: List[str]
+
+2. Split the question into a list of tokens, and filter out all stop words, the common db terms (i.e. **id**)
+    get_matched_entries = get_matched_entries(question, picklist, match_threshold, s_theta) # R: Optional[List[Tuple[str, Tuple[str, str, float, float, int]]]]
+
+3. 
+    matches = get_database_matches(question, table_name, column_name, db_path)
+
+```
+
 
 Note: **[peteshaw](https://arxiv.org/abs/2010.12725)**
+

@@ -65,7 +65,8 @@ def is_span_separator(c: str) -> bool:
 
 
 def split(s: str) -> List[str]:
-    return [c.lower() for c in s.strip()]
+    # ZZY: fix s.strip() - > s.split()
+    return [c.lower() for c in s.split()]
 
 
 def prefix_match(s1: str, s2: str) -> bool:
@@ -83,10 +84,9 @@ def prefix_match(s1: str, s2: str) -> bool:
     else:
         return False
 
-
-def get_effective_match_source(s: str, start: int, end: int) -> Match:
+# ZZY: the type of s should be list not string. Fixed it!
+def get_effective_match_source(s: List, start: int, end: int) -> Match:
     _start = -1
-
     for i in range(start, start - 2, -1):
         if i < 0:
             _start = i + 1
@@ -130,10 +130,12 @@ def get_matched_entries(
         n_grams = s
 
     matched = dict()
+    print(f'n_grams: {n_grams}')
     for field_value in field_values:
         if not isinstance(field_value, str):
             continue
         fv_tokens = split(field_value)
+        print(f'fv_tokens:')
         sm = difflib.SequenceMatcher(None, n_grams, fv_tokens)
         match = sm.find_longest_match(0, len(n_grams), 0, len(fv_tokens))
         if match.size > 0:
@@ -220,7 +222,6 @@ def get_column_picklist(table_name: str, column_name: str, db_path: str) -> list
         conn.close()
     return picklist
 
-
 def get_database_matches(
     question: str,
     table_name: str,
@@ -232,6 +233,7 @@ def get_database_matches(
     picklist = get_column_picklist(
         table_name=table_name, column_name=column_name, db_path=db_path
     )
+    print(f'picklist: {picklist}, question: {type(question)}, {question}')
     matches = []
     if picklist and isinstance(picklist[0], str):
         matched_entries = get_matched_entries(
@@ -240,6 +242,7 @@ def get_database_matches(
             m_theta=match_threshold,
             s_theta=match_threshold,
         )
+        print(f'matched_entries: {matched_entries}')
         if matched_entries:
             num_values_inserted = 0
             for _match_str, (
