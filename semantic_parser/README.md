@@ -33,7 +33,7 @@ pip install -r semantic_parsing/requirement.sp.txt
 <!-- Note: One can install the required dependency via the instruction of [UnifiedSKG](https://github.com/HKUNLP/UnifiedSKG) -->
 Note: I've found the torch version above works best alongside CUDA11.4 and ubuntu 20.04.5 LTS 64-bit after several trial and errors. 
 
-### :point_right: Data Content and Format
+### :point_right: Data Structure
 
 #### Question, Cypher, and Parsed Cypher(TODO)
 
@@ -64,45 +64,43 @@ We showcase the schema of `department_management` domain in `schema.json` which 
 
 For the whole property graph database schema, please refer to [this page](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/data/text2cypher/schema.json).
 ``` 
-":`department_management.department`": {
-        "property_names": [
-            "Name",
-            "Creation",
-            "Department_ID",
-            "Ranking",
-            "Budget_in_Billions",
-            "Num_Employees"
-        ],
+  "department_management": {
         "property_types": [
             "String",
             "String",
             "Long",
             "Long",
             "Double",
-            "Double"
-        ]
-    },
-    ":`department_management.head`": {
-        "property_names": [
-            "name",
-            "born_state",
-            "age",
-            "head_ID"
-        ],
-        "property_types": [
+            "Double",
             "String",
             "String",
             "Double",
-            "Long"
-        ]
-    },
-    ":`department_management.management`": {
-        "property_names": [
-            "temporary_acting"
-        ],
-        "property_types": [
+            "Long",
             "String"
-        ]
+        ],
+        ":`department_management.department`": {
+            "property_names": [
+                "Name",
+                "Creation",
+                "Department_ID",
+                "Ranking",
+                "Budget_in_Billions",
+                "Num_Employees"
+            ]
+        },
+        ":`department_management.head`": {
+            "property_names": [
+                "name",
+                "born_state",
+                "age",
+                "head_ID"
+            ]
+        },
+        ":`department_management.management`": {
+            "property_names": [
+                "temporary_acting"
+            ]
+        }
     },
 
 ```

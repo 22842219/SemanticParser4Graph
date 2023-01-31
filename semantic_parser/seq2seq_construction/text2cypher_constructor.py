@@ -179,7 +179,6 @@ def serialize_schema_natural_language(
 
         tag_description_propertys_str = db_property_names(tag_name_str, propertys)
         descriptions.append(tag_description_propertys_str)
-        descriptions.append(tag_description_primary_key_str)
         if len(property_value_pairs) > 0:
             value_description_str = value_description(property_value_pairs)
             descriptions.append(value_description_str)
