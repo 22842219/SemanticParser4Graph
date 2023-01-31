@@ -111,7 +111,7 @@ def tokenize(string):
         # print(f'id: {id}, tok: {tok}, chunk_start_id: {chunk_start_id}, {chunk_start_id+3}')
         if tok==':':
             chunk_start_id = id
-            toks.append(''.join(word_tokenize(string)[id:id+4]).lower())
+            toks.append(''.join(word_tokenize(string)[id+1:id+4]).lower())
         elif  chunk_start_id==0:
             toks.append(tok.lower())
         elif  id > chunk_start_id+3:

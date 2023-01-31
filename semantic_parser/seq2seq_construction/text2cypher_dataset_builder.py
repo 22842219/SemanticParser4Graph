@@ -18,6 +18,7 @@
 
 import json
 import datasets
+from preprocess.process_cypher import get_schema_from_json
 
 logger = datasets.logging.get_logger(__name__)
 
@@ -75,23 +76,17 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 "query": datasets.Value("string"), 
                 "question": datasets.Value("string"),
                 "db_id": datasets.Value("string"),
-
-                "db_path": datasets.Value("string"),
-                "db_table_names": datasets.features.Sequence(datasets.Value("string")),
-                "db_column_names": datasets.features.Sequence(
+                "db_node_type": datasets.features.Sequence(datasets.Value("string")),
+                "db_rel_type": datasets.features.Sequence(datasets.Value("string")),
+                "db_property_names": datasets.features.Sequence(
                     {
-                        "table_id": datasets.Value("int32"),
-                        "column_name": datasets.Value("string"),
+                        "node_id": datasets.Value("int32"),
+                        "rel_id": datasets.Value("int32"),
+                        "property_name": datasets.Value("string"),
                     }
                 ),
-                "db_column_types": datasets.features.Sequence(datasets.Value("string")),
-                # "db_primary_keys": datasets.features.Sequence({"column_id": datasets.Value("int32")}),
-                # "db_foreign_keys": datasets.features.Sequence(
-                #     {
-                #         "column_id": datasets.Value("int32"),
-                #         "other_column_id": datasets.Value("int32"),
-                #     }
-                # ),
+                "db_property_types": datasets.features.Sequence(datasets.Value("string")),
+ 
             }
         )
         return datasets.DatasetInfo(
@@ -112,19 +107,18 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
                     "data_filepath": downloaded_filepath + "/train.json",
-                    "db_path": downloaded_filepath + "/database",
                 },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
                 gen_kwargs={
                     "data_filepath": downloaded_filepath + "/dev.json",
-                    "db_path": downloaded_filepath + "/database",
+
                 },
             ),
         ]
 
-    def _generate_examples(self, data_filepath, db_path):
+    def _generate_examples(self, data_filepath, schema_path):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", data_filepath)
         with open(data_filepath, encoding="utf-8") as f:
@@ -133,24 +127,16 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
             for idx, sample in enumerate(spider):
                 db_id = sample["db_id"]
                 if db_id not in self.schema_cache:
-                    self.schema_cache[db_id] = dump_db_json_schema(
-                        db_path + "/" + db_id + "/" + db_id + ".sqlite", db_id
-                    )
+                    self.schema_cache[db_id] = 
                 schema = self.schema_cache[db_id]
                 yield idx, {
-                    "query": sample["cypher_query"],
+                    "query": sample["query"],
                     "question": sample["question"],
                     "db_id": db_id,
-                    "db_path": db_path,
                     "db_table_names": schema["table_names_original"],
                     "db_column_names": [
                         {"table_id": table_id, "column_name": column_name}
                         for table_id, column_name in schema["column_names_original"]
                     ],
-                    "db_column_types": schema["column_types"],
-                    # "db_primary_keys": [{"column_id": column_id} for column_id in schema["primary_keys"]],
-                    # "db_foreign_keys": [
-                    #     {"column_id": column_id, "other_column_id": other_column_id}
-                    #     for column_id, other_column_id in schema["foreign_keys"]
-                    # ],
+                    "db_column_types": schema["column_types"]
                 }
