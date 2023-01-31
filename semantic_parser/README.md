@@ -8,10 +8,15 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 - `30/01/2023` 
     - Reformat input dataset which includes three json files, namely train.json, dev.json and schema.json. 
     - Create a small dataset in `department_management` domain.
-    - 
-### :point_right: TODO LIST
+-  `31/01/2023`
+    - Define text2cypher [data features](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_dataset_builder.py)
 
-- ddl: `30/01/2023` 
+### :point_right: TODO LIST
+- ddl: `31/01/2023`
+    - Debugging [DB content encoding](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/general_testing.ipynb)
+    - Debugging [Seq2seq constructor](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_constructor.py)
+
+- ddl: `3/02/2023` 
     - Encoder-Decoder architecture using a running example
     - Test training/Evaluation [data generator](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/tasks/text2cypher.py)
 
