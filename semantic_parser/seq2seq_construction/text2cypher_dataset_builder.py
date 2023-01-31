@@ -75,16 +75,14 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
             {
                 "query": datasets.Value("string"), 
                 "question": datasets.Value("string"),
+                "answers": datasets.features.Sequence(datasets.Value("string")),
                 "db_id": datasets.Value("string"),
-                "db_node_type": datasets.features.Sequence(datasets.Value("string")),
-                "db_rel_type": datasets.features.Sequence(datasets.Value("string")),
+                "db_tags": datasets.features.Sequence(datasets.Value("string")),
                 "db_property_names": datasets.features.Sequence(
                     {
-                        "node_id": datasets.Value("int32"),
-                        "rel_id": datasets.Value("int32"),
-                        "property_name": datasets.Value("string"),
-                    }
-                ),
+                        "tag_id": datasets.Value("int32"),
+                        "property_name": datasets.Value("string")
+                    }),
                 "db_property_types": datasets.features.Sequence(datasets.Value("string")),
  
             }
@@ -121,22 +119,28 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
     def _generate_examples(self, data_filepath, schema_path):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", data_filepath)
-        with open(data_filepath, encoding="utf-8") as f:
-            print(f'_generate_example/data_filepath: {data_filepath}')
-            spider = json.load(f)
-            for idx, sample in enumerate(spider):
+
+        schema_data = get_schema_from_json(schema_path)
+        with open(data_filepath, 'r', encoding="utf-8") as f:
+            data = json.load(f)
+            print(len(data))
+            for idx, sample in enumerate(data):
                 db_id = sample["db_id"]
                 if db_id not in self.schema_cache:
-                    self.schema_cache[db_id] = 
-                schema = self.schema_cache[db_id]
+                    self.schema_cache[db_id] = schema_data[db_id]
+                every_schema = self.schema_cache[db_id]
+                print(db_id)
+                print(every_schema)
+                print(sample)
                 yield idx, {
+                    "db_id": db_id,
                     "query": sample["query"],
                     "question": sample["question"],
-                    "db_id": db_id,
-                    "db_table_names": schema["table_names_original"],
-                    "db_column_names": [
-                        {"table_id": table_id, "column_name": column_name}
-                        for table_id, column_name in schema["column_names_original"]
-                    ],
-                    "db_column_types": schema["column_types"]
-                }
+                    "answers": sample["answers"],
+                    "db_tags": list(every_schema.keys()),
+                    "db_property_names": [
+                        {"tag_id": tag_id, "property_name": property_name}
+                        for tag_id, property_name in every_schema.items()],
+                    "db_property_types": every_schema['property_types']
+                    }
+
