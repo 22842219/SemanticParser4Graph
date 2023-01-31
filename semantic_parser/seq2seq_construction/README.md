@@ -1,18 +1,16 @@
 ## Data Structure Understanding Processes
 
-### Input data structure
+### :point_right: Input data structure
 - Below is an example of schema items referring **department_management**  in Spider.  
 ```
-{"column_names": [ [-1, *], [table_id, normalised_column_name]],
+{"column_names":  [-1, *], [table_id, normalised_column_name]],
 "column_names_original":  [ [-1, *], [table_id, original_column_name]], 
-"column_types": list,
+"column_types": List(str),
 "db_id": str,   
-"table_names": list,
-"table_names_original": list,
+"table_names": List(str),
+"table_names_original": List(str),
 "foreign_keys": [[from_column_id, to_column_id]],  
 "primary_keys": [column_id] }.
-
-
 
 e.g.,
   {
@@ -179,3 +177,20 @@ e.g.,
 
 ### :point_right: Input normalization and serialization strategy
 
+```
+{
+    "source_prefix": "",
+    "schema_serialization_type": "peteshaw",
+    "schema_serialization_randomized": false,
+    "schema_serialization_with_db_id": true,
+    "schema_serialization_with_db_content": true,
+    "normalize_query": true,
+    "target_with_db_id": true,
+}
+```
+
+### :point_right: [Property values (contents) picklist](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/bridge_content_encoder.py)
+
+Note: [This](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/general_testing.ipynb) shows an example of picklist regarding column **name** in table **department_management** in the **department_management.db**. 
+
+Note: **[peteshaw](https://arxiv.org/abs/2010.12725)**

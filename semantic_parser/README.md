@@ -3,13 +3,13 @@
 
 Note: This README file is inspired by [Spider](https://github.com/taoyds/spider).
 
-### Changelog
+### :point_right: Changelog
 
 - `30/01/2023` 
     - Reformat input dataset which includes three json files, namely train.json, dev.json and schema.json. 
     - Create a small dataset in `department_management` domain.
     - 
-### TODO LIST
+### :point_right: TODO LIST
 
 - ddl: `30/01/2023` 
     - Encoder-Decoder architecture using a running example
@@ -19,11 +19,11 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 - cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match.
 
 
-### Environment
+### :point_right: Environment
 - CUDA 11.4
 - Python 3.8
 
-### Dependency Installation
+### :point_right: Dependency Installation
 ```
 pip install datasets==1.14.0
 # The following line to be replaced depending on your cuda version.
@@ -33,7 +33,7 @@ pip install -r semantic_parsing/requirement.sp.txt
 <!-- Note: One can install the required dependency via the instruction of [UnifiedSKG](https://github.com/HKUNLP/UnifiedSKG) -->
 Note: I've found the torch version above works best alongside CUDA11.4 and ubuntu 20.04.5 LTS 64-bit after several trial and errors. 
 
-### Data Content and Format
+### :point_right: Data Content and Format
 
 #### Question, Cypher, and Parsed Cypher(TODO)
 

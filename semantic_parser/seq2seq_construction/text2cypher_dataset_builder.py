@@ -77,7 +77,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 "question": datasets.Value("string"),
                 "answers": datasets.features.Sequence(datasets.Value("string")),
                 "db_id": datasets.Value("string"),
-                "db_tags": datasets.features.Sequence(datasets.Value("string")),
+                "db_tag_names": datasets.features.Sequence(datasets.Value("string")),
                 "db_property_names": datasets.features.Sequence(
                     {
                         "tag_id": datasets.Value("int32"),
@@ -137,7 +137,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                     "query": sample["query"],
                     "question": sample["question"],
                     "answers": sample["answers"],
-                    "db_tags": list(every_schema.keys()),
+                    "db_tag_names": list(every_schema.keys()),
                     "db_property_names": [
                         {"tag_id": tag_id, "property_name": property_name}
                         for tag_id, property_name in every_schema.items()],
