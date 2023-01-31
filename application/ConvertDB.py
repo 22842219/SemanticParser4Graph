@@ -22,7 +22,7 @@ config = configparser.ConfigParser()
 import sqlite3
 
 class ConvertDB:
-    _neo4j_export_path = '/Users/ziyuzhao/Desktop/phd/neo4j-community-4.4.11/import'
+    _neo4j_export_path = '/home/22842219/Desktop/phd/neo4j-community-4.4.13/import'
     _cache_path = os.getcwd() + '/cache/'
     _output_path = os.getcwd() + '/data'
 

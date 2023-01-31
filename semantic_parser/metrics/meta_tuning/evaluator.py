@@ -30,7 +30,7 @@ class EvaluateTool(object):
         for arg_path, preds_golds in wait_for_eval.items():
             args = Configure.refresh_args_by_file_cfg(os.path.join(meta_args.dir.configure, arg_path), meta_args)
             evaluator = utils.tool.get_evaluator(args.evaluate.tool)(args)
-            print('args in metrics/meta_tuning/evaluator.py: ', args)
+            print('meta_args.dir.configure:', meta_args.dir.configure)
             print("metrics/meta_tuning/evaluator.py, preds_golds['preds']", preds_golds['preds'])
             print("metrics/meta_tuning/evaluator.py, preds_golds['golds']", preds_golds['golds'])
             print("metrics/meta_tuning/evaluator.py, section:", section)

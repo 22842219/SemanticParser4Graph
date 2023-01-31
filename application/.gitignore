@@ -156,7 +156,8 @@ cache
 cypher_data_model_cypher.py
 note.py
 canonicaliser.py
-venv/
 notebook
 4paper.md
 application.rel_db2kg.schema2csv2graph
+.out/database/
+out/database/

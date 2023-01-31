@@ -1290,7 +1290,7 @@ class Formatter(SchemaGroundedTraverser):
 
 
 
-def build_lookup_dict(db_paths, sp_data_folder):
+def build_lookup_dict(db_paths, folder):
 	'''
 	Return: {'db_name':{'table_name': [table_headers]}}
 	'''
@@ -1327,7 +1327,7 @@ def build_lookup_dict(db_paths, sp_data_folder):
 				for pk in primary_keys:
 					pks_lookup_dict[db_name][table_name] = pk[0]
 
-	fields_path = os.path.join(sp_data_folder, 'spider', 'lookup_dict.json')
+	fields_path = os.path.join(folder, 'lookup_dict.json')
 	with open(fields_path, "w") as f:
 		json.dump(lookup_dict, f, indent = 4) 
 	return lookup_dict, pks_lookup_dict
@@ -1388,8 +1388,6 @@ def main():
 
 	raw_data_folder = filenames['raw_folder']
 	root = filenames['root']
-	sp_data_folder = os.path.join(root, 'semantic_parser', 'data')
-
 	raw_spider_folder = os.path.join(raw_data_folder, 'spider')
 
 	# spider_lookup_up= os.path.join(sp_folder, 'spider', 'lookup_dict.json')
@@ -1403,7 +1401,15 @@ def main():
 
 	db_folder = os.path.join(raw_spider_folder,  'database')
 	db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
-	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_data_folder)
+
+
+	# Output folder path
+	sp_out_folder = os.path.join(root, 'out')  
+
+	if not os.path.exists(sp_out_folder):
+		os.makedirs(sp_out_folder) 
+
+	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_out_folder)
 
 	all_db_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))]))
 	filtered_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))  if every['num_of_rows']>4000]))
@@ -1413,16 +1419,7 @@ def main():
 
 	# read tables json file
 	with open(os.path.join(raw_spider_folder, 'tables.json'), encoding='utf-8') as tables_file:
-   		tables = json.loads(tables_file.read())
-
-
-	# Output folder path
-	sp_out_folder = os.path.join(sp_data_folder, 'spider')  
-	
-
-
-	if not os.path.exists(sp_out_folder):
-		os.makedirs(sp_out_folder) 
+		tables = json.loads(tables_file.read())
 
 	for split in ['train', 'dev']:
    
@@ -1529,7 +1526,7 @@ def main():
 
 							if not set(cypher_sorted)-set(sql_sorted):
 								print(f'correct_ans: {cypher_ans}') 
-								correct_qa_pairs.append({'db_id':db_name, 'cypher_query':sql2cypher,\
+								correct_qa_pairs.append({'db_id':db_name, 'sql': sql_query, 'cypher_query':sql2cypher,\
 								'parsed_cypher':tokenized_statment, 'question':question,
 								'answers':cypher_ans})
 								spider_sub_pairs.append(data[i])
@@ -1582,7 +1579,7 @@ def main():
 			json.dump(spider_sub_tables, f5, indent = 4)
 		
 		# Output selected relational dbs folder path
-		sub_rel_dbs_folder = os.path.join(sp_data_folder, 'spider', 'database')  
+		sub_rel_dbs_folder = os.path.join(sp_out_folder, 'database')  
 		if not os.path.exists(sub_rel_dbs_folder):
 			os.makedirs(sub_rel_dbs_folder) 
 	
