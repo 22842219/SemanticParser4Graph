@@ -177,5 +177,5 @@ e.g.,
     },
 ```
 
+### :point_right: Input normalization and serialization strategy
 
-### Input normalization and serialization strategy
