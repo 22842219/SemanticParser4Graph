@@ -1404,7 +1404,7 @@ def main():
 
 
 	# Output folder path
-	sp_out_folder = os.path.join(root, 'out')  
+	sp_out_folder = os.path.join(root, 'sp_data_folder')  
 
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
@@ -1555,7 +1555,7 @@ def main():
 			intersect_sql, except_sql)
 		print(f'metrics: {metrics}')
 	
-		correct_output_file = os.path.join(sp_out_folder, '{}_correct.json'.format(split))   
+		correct_output_file = os.path.join(sp_out_folder, '{}.json'.format(split))   
 		with open(correct_output_file, 'a')  as f1:
 			json.dump(correct_qa_pairs, f1, indent = 4)
 

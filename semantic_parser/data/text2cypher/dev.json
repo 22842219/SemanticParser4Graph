@@ -210,18 +210,6 @@
         ]
     },
     {
-        "question": "Show location and name for all stadiums with a capacity between 5000 and 10000.",
-        "query": "MATCH (stadium:`concert_singer.stadium`)\nWHERE 5000<=stadium.Capacity<=10000\nRETURN stadium.Location,stadium.Name",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
-        "question": "What are the locations and names of all stations with capacity between 5000 and 10000?",
-        "query": "MATCH (stadium:`concert_singer.stadium`)\nWHERE 5000<=stadium.Capacity<=10000\nRETURN stadium.Location,stadium.Name",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
         "question": "What is the average and maximum capacities for all stadiums ?",
         "query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN avg(stadium.Capacity),max(stadium.Capacity)",
         "db_id": "concert_singer",
@@ -253,54 +241,6 @@
                 10104
             ]
         ]
-    },
-    {
-        "question": "Show the stadium name and the number of concerts in each stadium.",
-        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH count(T1.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,count",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
-        "question": "For each stadium, how many concerts play there?",
-        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH count(T1.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,count",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
-        "question": "Show the stadium name and capacity with most number of concerts in year 2014 or after.",
-        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWHERE T1.Year >= 2014\nWITH T2.Capacity AS Capacity, count(T2.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,Capacity\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
-        "question": "Show the name and theme for all concerts and the number of singers in each concert.",
-        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.concert`)\nWITH count(T2.concert_ID) AS count, T2.concert_Name AS concert_Name, T2.Theme AS Theme\nRETURN concert_Name,Theme,count",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
-        "question": "List singer names and number of concerts for each singer.",
-        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH count(T2.Singer_ID) AS count, T2.Name AS Name\nRETURN Name,count",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
-        "question": "What are the names of the singers and number of concerts for each person?",
-        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH count(T2.Singer_ID) AS count, T2.Name AS Name\nRETURN Name,count",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
-        "question": "List all singer names in concerts in year 2014.",
-        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)-[]-(T3:`concert_singer.concert`)\nWHERE T3.Year = 2014\nRETURN T2.Name",
-        "db_id": "concert_singer",
-        "answers": []
-    },
-    {
-        "question": "What are the names of the singers who performed in a concert in 2014?",
-        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)-[]-(T3:`concert_singer.concert`)\nWHERE T3.Year = 2014\nRETURN T2.Name",
-        "db_id": "concert_singer",
-        "answers": []
     },
     {
         "question": "what is the name and nation of the singer who have a song having 'Hey' in its name?",
@@ -403,18 +343,6 @@
                 2
             ]
         ]
-    },
-    {
-        "question": "Find the first name of students who have cat or dog pet.",
-        "query": "MATCH (T2:`pets_1.Has_Pet`)-[]-(T3:`pets_1.Pets`)-[]-(T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWHERE T3.PetType = 'cat' OR T3.PetType = 'dog'\nRETURN DISTINCT T1.Fname",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "What are the first names of every student who has a cat or dog as a pet?",
-        "query": "MATCH (T2:`pets_1.Has_Pet`)-[]-(T3:`pets_1.Pets`)-[]-(T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWHERE T3.PetType = 'cat' OR T3.PetType = 'dog'\nRETURN DISTINCT T1.Fname",
-        "db_id": "pets_1",
-        "answers": []
     },
     {
         "question": "Find the major and age of students who do not have a cat pet.",
@@ -753,60 +681,6 @@
                 13.4
             ]
         ]
-    },
-    {
-        "question": "Find the first name and age of students who have a pet.",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nRETURN DISTINCT T1.Fname,T1.Age",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "What are the different first names and ages of the students who do have pets?",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nRETURN DISTINCT T1.Fname,T1.Age",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "Find the id of the pet owned by student whose last name is \u2018Smith\u2019.",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWHERE T1.LName = 'Smith'\nRETURN T2.PetID",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "What is the id of the pet owned by the student whose last name is 'Smith'?",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWHERE T1.LName = 'Smith'\nRETURN T2.PetID",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "Find the number of pets for each student who has any pet and student id.",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH count(T1.StuID) AS count, T1.StuID AS StuID\nRETURN count,StuID",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "Find the first name and gender of student who have more than one pet.",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex\nWHERE count  > 1\nRETURN Fname,Sex",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "What is the first name and gender of the all the students who have more than one pet?",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex\nWHERE count  > 1\nRETURN Fname,Sex",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "Find the last name of the student who has a cat that is age 3.",
-        "query": "MATCH (T2:`pets_1.Has_Pet`)-[]-(T3:`pets_1.Pets`)-[]-(T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWHERE T3.pet_age = 3 AND T3.PetType = 'cat'\nRETURN T1.LName",
-        "db_id": "pets_1",
-        "answers": []
-    },
-    {
-        "question": "What is the last name of the student who has a cat that is 3 years old?",
-        "query": "MATCH (T2:`pets_1.Has_Pet`)-[]-(T3:`pets_1.Pets`)-[]-(T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWHERE T3.pet_age = 3 AND T3.PetType = 'cat'\nRETURN T1.LName",
-        "db_id": "pets_1",
-        "answers": []
     },
     {
         "question": "How many continents are there?",
@@ -1165,54 +1039,6 @@
                 "amc"
             ]
         ]
-    },
-    {
-        "question": "Find the name of the makers that produced some cars in the year of 1970?",
-        "query": "MATCH (T4:`car_1.cars_data`)-[]-(T3:`car_1.car_names`)-[]-(T3:`car_1.car_names`)-[]-(T2:`car_1.model_list`)-[]-(T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWHERE T4.Year = '1970'\nRETURN DISTINCT T1.Maker",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "What is the name of the different car makers who produced a car in 1970?",
-        "query": "MATCH (T4:`car_1.cars_data`)-[]-(T3:`car_1.car_names`)-[]-(T3:`car_1.car_names`)-[]-(T2:`car_1.model_list`)-[]-(T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWHERE T4.Year = '1970'\nRETURN DISTINCT T1.Maker",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "Which distinct car models are the produced after 1980?",
-        "query": "MATCH (T3:`car_1.cars_data`)-[]-(T2:`car_1.car_names`)-[]-(T1:`car_1.model_list`)-[]-(T2:`car_1.car_names`)\nWHERE T3.Year > 1980\nRETURN DISTINCT T1.Model",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "What are the different models for the cards produced after 1980?",
-        "query": "MATCH (T3:`car_1.cars_data`)-[]-(T2:`car_1.car_names`)-[]-(T1:`car_1.model_list`)-[]-(T2:`car_1.car_names`)\nWHERE T3.Year > 1980\nRETURN DISTINCT T1.Model",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "How many car makers are there in each continents? List the continent name and the count.",
-        "query": "MATCH (T3:`car_1.car_makers`)-[]-(T2:`car_1.countries`)-[]-(T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH T1.Continent AS Continent, count(T1.Continent) AS count\nRETURN Continent,count",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "What is the name of each continent and how many car makers are there in each one?",
-        "query": "MATCH (T3:`car_1.car_makers`)-[]-(T2:`car_1.countries`)-[]-(T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH T1.Continent AS Continent, count(T1.Continent) AS count\nRETURN Continent,count",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "Which of the countries has the most car makers? List the country name.",
-        "query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.countries`)\nWITH T2.CountryName AS CountryName, count(T1.Country) AS count\nRETURN CountryName\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "What is the name of the country with the most car makers?",
-        "query": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.countries`)\nWITH T2.CountryName AS CountryName, count(T1.Country) AS count\nRETURN CountryName\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "car_1",
-        "answers": []
     },
     {
         "question": "What is the number of car models that are produced by each maker and what is the id and full name of each maker?",
@@ -1674,30 +1500,6 @@
         ]
     },
     {
-        "question": "What are the countries having at least one car maker? List name and id.",
-        "query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH count(*) AS count, T1.CountryId AS CountryId, T1.CountryName AS CountryName\nWHERE count  >= 1\nRETURN CountryName,CountryId",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names and ids of all countries with at least one car maker?",
-        "query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH count(*) AS count, T1.CountryId AS CountryId, T1.CountryName AS CountryName\nWHERE count  >= 1\nRETURN CountryName,CountryId",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "Which countries in europe have at least 3 car manufacturers?",
-        "query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH count(*) AS count, T1.CountryName AS CountryName\nWHERE count  >= 3\nRETURN CountryName",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of all European countries with at least 3 manufacturers?",
-        "query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH count(*) AS count, T1.CountryName AS CountryName\nWHERE count  >= 3\nRETURN CountryName",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
         "question": "What is the maximum horsepower and the make of the car models with 3 cylinders?",
         "query": "MATCH (T1:`car_1.car_names`)-[]-(T2:`car_1.cars_data`)\nWHERE T2.Cylinders = 3\nRETURN T2.Horsepower,T1.Make\nORDER BY T2.Horsepower DESC\nLIMIT 1",
         "db_id": "car_1",
@@ -1858,18 +1660,6 @@
                 6
             ]
         ]
-    },
-    {
-        "question": "Which distinctive models are produced by maker with the full name General Motors or weighing more than 3500?",
-        "query": "MATCH (T4:`car_1.cars_data`)-[]-(T1:`car_1.car_names`)-[]-(T3:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)-[]-(T1:`car_1.car_names`)-[]-(T2:`car_1.model_list`)\nWHERE T3.FullName = 'General Motors' OR T4.Weight > 3500\nRETURN DISTINCT T2.Model",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "What are the different models created by either the car maker General Motors or weighed more than 3500?",
-        "query": "MATCH (T4:`car_1.cars_data`)-[]-(T1:`car_1.car_names`)-[]-(T3:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)-[]-(T1:`car_1.car_names`)-[]-(T2:`car_1.model_list`)\nWHERE T3.FullName = 'General Motors' OR T4.Weight > 3500\nRETURN DISTINCT T2.Model",
-        "db_id": "car_1",
-        "answers": []
     },
     {
         "question": "In which years cars were produced weighing no less than 3000 and no more than 4000 ?",
@@ -2044,18 +1834,6 @@
         ]
     },
     {
-        "question": "Which models are lighter than 3500 but not built by the 'Ford Motor Company'?",
-        "query": "MATCH (T4:`car_1.car_makers`)-[]-(T1:`car_1.model_list`)-[]-(T3:`car_1.cars_data`)-[]-(T2:`car_1.car_names`)-[]-(T1:`car_1.model_list`)-[]-(T2:`car_1.car_names`)\nWHERE T3.Weight < 3500 AND T4.FullName <> 'Ford Motor Company'\nRETURN DISTINCT T1.Model",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
-        "question": "What are the different models wthat are lighter than 3500 but were not built by the Ford Motor Company?",
-        "query": "MATCH (T4:`car_1.car_makers`)-[]-(T1:`car_1.model_list`)-[]-(T3:`car_1.cars_data`)-[]-(T2:`car_1.car_names`)-[]-(T1:`car_1.model_list`)-[]-(T2:`car_1.car_names`)\nWHERE T3.Weight < 3500 AND T4.FullName <> 'Ford Motor Company'\nRETURN DISTINCT T1.Model",
-        "db_id": "car_1",
-        "answers": []
-    },
-    {
         "question": "Which country does Airline \"JetBlue Airways\" belong to?",
         "query": "MATCH (airlines:`flight_2.airlines`)\nWHERE airlines.Airline = 'JetBlue Airways'\nRETURN airlines.Country",
         "db_id": "flight_2",
@@ -2206,18 +1984,6 @@
         ]
     },
     {
-        "question": "List the airport code and name in the city of Anthony.",
-        "query": "MATCH (airports:`flight_2.airports`)\nWHERE airports.City = 'Anthony'\nRETURN airports.AirportCode,airports.AirportName",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Give the airport code and airport name corresonding to the city Anthony.",
-        "query": "MATCH (airports:`flight_2.airports`)\nWHERE airports.City = 'Anthony'\nRETURN airports.AirportCode,airports.AirportName",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
         "question": "How many airlines do we have?",
         "query": "MATCH (airlines:`flight_2.airlines`)\nRETURN count(*)",
         "db_id": "flight_2",
@@ -2298,18 +2064,6 @@
         ]
     },
     {
-        "question": "Which city and country is the Alton airport at?",
-        "query": "MATCH (airports:`flight_2.airports`)\nWHERE airports.AirportName = 'Alton'\nRETURN airports.City,airports.Country",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Give the city and country for the Alton airport.",
-        "query": "MATCH (airports:`flight_2.airports`)\nWHERE airports.AirportName = 'Alton'\nRETURN airports.City,airports.Country",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
         "question": "What is the airport name for airport 'AKO'?",
         "query": "MATCH (airports:`flight_2.airports`)\nWHERE airports.AirportCode = 'AKO'\nRETURN airports.AirportName",
         "db_id": "flight_2",
@@ -2328,18 +2082,6 @@
                 "Colorado Plains Regional Airport "
             ]
         ]
-    },
-    {
-        "question": "What are airport names at City 'Aberdeen'?",
-        "query": "MATCH (airports:`flight_2.airports`)\nWHERE airports.City = 'Aberdeen'\nRETURN airports.AirportName",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What are the names of airports in Aberdeen?",
-        "query": "MATCH (airports:`flight_2.airports`)\nWHERE airports.City = 'Aberdeen'\nRETURN airports.AirportName",
-        "db_id": "flight_2",
-        "answers": []
     },
     {
         "question": "How many flights depart from 'APG'?",
@@ -2500,162 +2242,6 @@
                 0
             ]
         ]
-    },
-    {
-        "question": "Which city has most number of arriving flights?",
-        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which city has the most frequent destination airport?",
-        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which city has most number of departing flights?",
-        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which city is the most frequent source airport?",
-        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which airline has most number of flights?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(T1.Airline) AS count, T1.Airline AS Airline\nRETURN Airline\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What airline serves the most flights?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(T1.Airline) AS count, T1.Airline AS Airline\nRETURN Airline\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Find the abbreviation and country of the airline that has fewest number of flights?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Country AS Country, count(T1.Airline) AS count, T1.Abbreviation AS Abbreviation\nRETURN Abbreviation,Country\nORDER BY count\nLIMIT 1",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What is the abbreviation of the airilne has the fewest flights and what country is it in?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Country AS Country, count(T1.Airline) AS count, T1.Abbreviation AS Abbreviation\nRETURN Abbreviation,Country\nORDER BY count\nLIMIT 1",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What are airlines that have some flight departing from airport 'AHD'?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWHERE T2.SourceAirport = 'AHD'\nRETURN T1.Airline",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which airlines have a flight with source airport AHD?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWHERE T2.SourceAirport = 'AHD'\nRETURN T1.Airline",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What are airlines that have flights arriving at airport 'AHD'?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWHERE T2.DestAirport = 'AHD'\nRETURN T1.Airline",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which airlines have a flight with destination airport AHD?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWHERE T2.DestAirport = 'AHD'\nRETURN T1.Airline",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Find all airlines that have at least 10 flights.",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(*) AS count, T1.Airline AS Airline\nWHERE count  > 10\nRETURN Airline",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which airlines have at least 10 flights?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(*) AS count, T1.Airline AS Airline\nWHERE count  > 10\nRETURN Airline",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Find all airlines that have fewer than 200 flights.",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(*) AS count, T1.Airline AS Airline\nWHERE count  < 200\nRETURN Airline",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which airlines have less than 200 flights?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(*) AS count, T1.Airline AS Airline\nWHERE count  < 200\nRETURN Airline",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What are flight numbers of Airline \"United Airlines\"?",
-        "query": "MATCH ()-[T1:`flight_2.flights`]-(T2:`flight_2.airlines`)\nWHERE T2.Airline = 'United Airlines'\nRETURN T1.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Which flight numbers correspond to United Airlines flights?",
-        "query": "MATCH ()-[T1:`flight_2.flights`]-(T2:`flight_2.airlines`)\nWHERE T2.Airline = 'United Airlines'\nRETURN T1.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What are flight numbers of flights departing from Airport \"APG\"?",
-        "query": "MATCH ()-[flights:`flight_2.flights`]-()\nWHERE flights.SourceAirport = 'APG'\nRETURN flights.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Give the flight numbers of flights leaving from APG.",
-        "query": "MATCH ()-[flights:`flight_2.flights`]-()\nWHERE flights.SourceAirport = 'APG'\nRETURN flights.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What are flight numbers of flights arriving at Airport \"APG\"?",
-        "query": "MATCH ()-[flights:`flight_2.flights`]-()\nWHERE flights.DestAirport = 'APG'\nRETURN flights.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Give the flight numbers of flights landing at APG.",
-        "query": "MATCH ()-[flights:`flight_2.flights`]-()\nWHERE flights.DestAirport = 'APG'\nRETURN flights.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What are flight numbers of flights departing from City \"Aberdeen \"?",
-        "query": "MATCH ()-[T1:`flight_2.flights`]-(T2:`flight_2.airports`)\nWHERE T2.City = 'Aberdeen'\nRETURN T1.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Give the flight numbers of flights leaving from Aberdeen.",
-        "query": "MATCH ()-[T1:`flight_2.flights`]-(T2:`flight_2.airports`)\nWHERE T2.City = 'Aberdeen'\nRETURN T1.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "What are flight numbers of flights arriving at City \"Aberdeen\"?",
-        "query": "MATCH ()-[T1:`flight_2.flights`]-(T2:`flight_2.airports`)\nWHERE T2.City = 'Aberdeen'\nRETURN T1.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
-    },
-    {
-        "question": "Give the flight numbers of flights arriving in Aberdeen.",
-        "query": "MATCH ()-[T1:`flight_2.flights`]-(T2:`flight_2.airports`)\nWHERE T2.City = 'Aberdeen'\nRETURN T1.FlightNo",
-        "db_id": "flight_2",
-        "answers": []
     },
     {
         "question": "Find the number of flights landing in the city of Aberdeen or Abilene.",
@@ -3898,18 +3484,6 @@
         ]
     },
     {
-        "question": "What is the document name and template id for document with description with the letter 'w' in it?",
-        "query": "MATCH (documents:`cre_Doc_Template_Mgt.Documents`)\nWHERE documents.Document_Description =~'.*[\"|\"]%w%\".*'\nRETURN documents.Document_Name,documents.Template_ID",
-        "db_id": "cre_Doc_Template_Mgt",
-        "answers": []
-    },
-    {
-        "question": "Return the names and template ids for documents that contain the letter w in their description.",
-        "query": "MATCH (documents:`cre_Doc_Template_Mgt.Documents`)\nWHERE documents.Document_Description =~'.*[\"|\"]%w%\".*'\nRETURN documents.Document_Name,documents.Template_ID",
-        "db_id": "cre_Doc_Template_Mgt",
-        "answers": []
-    },
-    {
         "question": "What is the document id, template id and description for document named \"Robbin CV\"?",
         "query": "MATCH (documents:`cre_Doc_Template_Mgt.Documents`)\nWHERE documents.Document_Name = 'Robbin CV'\nRETURN documents.Document_ID,documents.Template_ID,documents.Document_Description",
         "db_id": "cre_Doc_Template_Mgt",
@@ -4908,18 +4482,6 @@
         ]
     },
     {
-        "question": "What are the distinct template type descriptions for the templates ever used by any document?",
-        "query": "MATCH (T3:`cre_Doc_Template_Mgt.Documents`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)-[]-(T1:`cre_Doc_Template_Mgt.Ref_Template_Types`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)\nRETURN DISTINCT T1.Template_Type_Description",
-        "db_id": "cre_Doc_Template_Mgt",
-        "answers": []
-    },
-    {
-        "question": "Return the different descriptions for templates that have been used in a document.",
-        "query": "MATCH (T3:`cre_Doc_Template_Mgt.Documents`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)-[]-(T1:`cre_Doc_Template_Mgt.Ref_Template_Types`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)\nRETURN DISTINCT T1.Template_Type_Description",
-        "db_id": "cre_Doc_Template_Mgt",
-        "answers": []
-    },
-    {
         "question": "What are the template ids with template type description \"Presentation\".",
         "query": "MATCH (T1:`cre_Doc_Template_Mgt.Ref_Template_Types`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`)\nWHERE T1.Template_Type_Description = 'Presentation'\nRETURN T2.Template_ID",
         "db_id": "cre_Doc_Template_Mgt",
@@ -5450,18 +5012,6 @@
         ]
     },
     {
-        "question": "Show the name of teachers aged either 32 or 33?",
-        "query": "MATCH (teacher:`course_teach.teacher`)\nWHERE teacher.Age = 32 OR teacher.Age = 33\nRETURN teacher.Name",
-        "db_id": "course_teach",
-        "answers": []
-    },
-    {
-        "question": "What are the names of the teachers who are aged either 32 or 33?",
-        "query": "MATCH (teacher:`course_teach.teacher`)\nWHERE teacher.Age = 32 OR teacher.Age = 33\nRETURN teacher.Name",
-        "db_id": "course_teach",
-        "answers": []
-    },
-    {
         "question": "What is the hometown of the youngest teacher?",
         "query": "MATCH (teacher:`course_teach.teacher`)\nRETURN teacher.Hometown\nORDER BY teacher.Age ASC\nLIMIT 1",
         "db_id": "course_teach",
@@ -5550,18 +5100,6 @@
                 1
             ]
         ]
-    },
-    {
-        "question": "Show the hometowns shared by at least two teachers.",
-        "query": "MATCH (teacher:`course_teach.teacher`)\nWITH count(*) AS count, teacher.Hometown AS Hometown\nWHERE count  >= 2\nRETURN Hometown",
-        "db_id": "course_teach",
-        "answers": []
-    },
-    {
-        "question": "What are the towns from which at least two teachers come from?",
-        "query": "MATCH (teacher:`course_teach.teacher`)\nWITH count(*) AS count, teacher.Hometown AS Hometown\nWHERE count  >= 2\nRETURN Hometown",
-        "db_id": "course_teach",
-        "answers": []
     },
     {
         "question": "Show names of teachers and the courses they are arranged to teach.",
@@ -5825,210 +5363,6 @@
                 "2000"
             ]
         ]
-    },
-    {
-        "question": "List the first name and birth date of all players from the country with code USA.",
-        "query": "MATCH (players:`wta_1.players`)\nWHERE players.country_code = 'USA'\nRETURN players.first_name,players.birth_date",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What are the first names and birth dates of players from the USA?",
-        "query": "MATCH (players:`wta_1.players`)\nWHERE players.country_code = 'USA'\nRETURN players.first_name,players.birth_date",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the name of tourney that has more than 10 matches.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(*) AS count, matches.tourney_name AS tourney_name\nWHERE count  > 10\nRETURN tourney_name",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of tournaments that have more than 10 matches?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(*) AS count, matches.tourney_name AS tourney_name\nWHERE count  > 10\nRETURN tourney_name",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the first name and country code of the oldest player.",
-        "query": "MATCH (players:`wta_1.players`)\nRETURN players.first_name,players.country_code\nORDER BY players.birth_date\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What is the first name and country code of the oldest player?",
-        "query": "MATCH (players:`wta_1.players`)\nRETURN players.first_name,players.country_code\nORDER BY players.birth_date\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "List the first and last name of all players in the order of birth date.",
-        "query": "MATCH (players:`wta_1.players`)\nRETURN players.first_name,players.last_name\nORDER BY players.birth_date",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What are the full names of all players, sorted by birth date?",
-        "query": "MATCH (players:`wta_1.players`)\nRETURN players.first_name,players.last_name\nORDER BY players.birth_date",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "List the first and last name of all players who are left / L hand in the order of birth date.",
-        "query": "MATCH (players:`wta_1.players`)\nWHERE players.hand = 'L'\nRETURN players.first_name,players.last_name\nORDER BY players.birth_date",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What are the full names of all left handed players, in order of birth date?",
-        "query": "MATCH (players:`wta_1.players`)\nWHERE players.hand = 'L'\nRETURN players.first_name,players.last_name\nORDER BY players.birth_date",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the first name and country code of the player who did the most number of tours.",
-        "query": "MATCH (T1:`wta_1.players`)-[]-(T2:`wta_1.rankings`)\nRETURN T1.country_code,T1.first_name\nORDER BY T2.tours DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What is the first name and country code of the player with the most tours?",
-        "query": "MATCH (T1:`wta_1.players`)-[]-(T2:`wta_1.rankings`)\nRETURN T1.country_code,T1.first_name\nORDER BY T2.tours DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the year that has the most number of matches.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN year\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Which year had the most matches?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN year\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the name and rank points of the winner who won the most times.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.winner_name) AS count, matches.winner_rank_points AS winner_rank_points, matches.winner_name AS winner_name\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What is the name of the winner who has won the most matches, and how many rank points does this player have?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.winner_name) AS count, matches.winner_rank_points AS winner_rank_points, matches.winner_name AS winner_name\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the name of the winner who has the highest rank points and participated in the Australian Open tourney.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWHERE matches.tourney_name = 'Australian Open'\nRETURN matches.winner_name\nORDER BY matches.winner_rank_points DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What is the name of the winner with the most rank points who participated in the Australian Open tournament?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWHERE matches.tourney_name = 'Australian Open'\nRETURN matches.winner_name\nORDER BY matches.winner_rank_points DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "find the names of loser and winner who played in the match with greatest number of minutes.",
-        "query": "MATCH (matches:`wta_1.matches`)\nRETURN matches.winner_name,matches.loser_name\nORDER BY matches.minutes DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of the winner and loser who played in the longest match?",
-        "query": "MATCH (matches:`wta_1.matches`)\nRETURN matches.winner_name,matches.loser_name\nORDER BY matches.minutes DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the average ranking for each player and their first name.",
-        "query": "MATCH (T1:`wta_1.players`)-[]-(T2:`wta_1.rankings`)\nWITH count(T1.first_name) AS count, T1.first_name AS first_name\nRETURN count,first_name",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What are the first names of all players, and their average rankings?",
-        "query": "MATCH (T1:`wta_1.players`)-[]-(T2:`wta_1.rankings`)\nWITH count(T1.first_name) AS count, T1.first_name AS first_name\nRETURN count,first_name",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "find the number of players for each country.",
-        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN count,country_code",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "How many players are from each country?",
-        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN count,country_code",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "find the code of the country where has the greatest number of players.",
-        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What is the code of the country with the most players?",
-        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the codes of countries that have more than 50 players.",
-        "query": "MATCH (players:`wta_1.players`)\nWITH count(*) AS count, players.country_code AS country_code\nWHERE count  > 50\nRETURN country_code",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What are the codes of countries with more than 50 players?",
-        "query": "MATCH (players:`wta_1.players`)\nWITH count(*) AS count, players.country_code AS country_code\nWHERE count  > 50\nRETURN country_code",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the number of matches happened in each year.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN count,year",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "How many matches were played in each year?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN count,year",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the first name, country code and birth date of the winner who has the highest rank points in all matches.",
-        "query": "MATCH (T1:`wta_1.players`)-[]-(T2:`wta_1.matches`)\nRETURN T1.first_name,T1.country_code,T1.birth_date\nORDER BY T2.winner_rank_points DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "What is the first name, country code, and birth date of the player with the most winner rank points across all matches?",
-        "query": "MATCH (T1:`wta_1.players`)-[]-(T2:`wta_1.matches`)\nRETURN T1.first_name,T1.country_code,T1.birth_date\nORDER BY T2.winner_rank_points DESC\nLIMIT 1",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "Find the number of players for each hand type.",
-        "query": "MATCH (players:`wta_1.players`)\nWITH players.hand AS hand, count(players.hand) AS count\nRETURN count,hand",
-        "db_id": "wta_1",
-        "answers": []
-    },
-    {
-        "question": "How many players are there for each hand type?",
-        "query": "MATCH (players:`wta_1.players`)\nWITH players.hand AS hand, count(players.hand) AS count\nRETURN count,hand",
-        "db_id": "wta_1",
-        "answers": []
     },
     {
         "question": "How many ships ended up being 'Captured'?",
@@ -6872,18 +6206,6 @@
         ]
     },
     {
-        "question": "Who is enrolled in a Bachelor degree program? List the first name, middle name, last name.",
-        "query": "MATCH (T3:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)-[]-(T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWHERE T3.degree_summary_name = 'Bachelor'\nRETURN DISTINCT T1.first_name,T1.middle_name,T1.last_name",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "What are the first, middle, and last names for everybody enrolled in a Bachelors program?",
-        "query": "MATCH (T3:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)-[]-(T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWHERE T3.degree_summary_name = 'Bachelor'\nRETURN DISTINCT T1.first_name,T1.middle_name,T1.last_name",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
         "question": "Find the kind of program which most number of students are enrolled in?",
         "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.degree_summary_name) AS count, T1.degree_summary_name AS degree_summary_name\nRETURN degree_summary_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
@@ -6976,42 +6298,6 @@
         ]
     },
     {
-        "question": "What are all the course names of the courses which ever have students enrolled in?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nRETURN DISTINCT T1.course_name",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "What are the names of all courses that have some students enrolled?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nRETURN DISTINCT T1.course_name",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "What's the name of the course with most number of enrollments?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nWITH count(T1.course_name) AS count, T1.course_name AS course_name\nRETURN course_name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "What is the name of the course with the most students enrolled?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nWITH count(T1.course_name) AS count, T1.course_name AS course_name\nRETURN course_name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "Show the date and id of the transcript with at least 2 course results.",
-        "query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH count(*) AS count, T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id\nWHERE count  >= 2\nRETURN transcript_date,transcript_id",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "What is the date and id of the transcript with at least 2 courses listed?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH count(*) AS count, T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id\nWHERE count  >= 2\nRETURN transcript_date,transcript_id",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
         "question": "What is the phone number of the man with the first name Timmothy and the last name Ward?",
         "query": "MATCH (students:`student_transcripts_tracking.Students`)\nWHERE students.first_name = 'Timmothy' AND students.last_name = 'Ward'\nRETURN students.cell_mobile_number",
         "db_id": "student_transcripts_tracking",
@@ -7020,12 +6306,6 @@
                 "(096)889-8954x524"
             ]
         ]
-    },
-    {
-        "question": "What is the mobile phone number of the student named Timmothy Ward ?",
-        "query": "MATCH (students:`student_transcripts_tracking.Students`)\nWHERE students.first_name = 'timmothy' AND students.last_name = 'ward'\nRETURN students.cell_mobile_number",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
     },
     {
         "question": "Who is the first student to register? List the first name, middle name and last name.",
@@ -7258,30 +6538,6 @@
                 "2013-06-30 13:01:40"
             ]
         ]
-    },
-    {
-        "question": "How many times at most can a course enrollment result show in different transcripts? Also show the course enrollment id.",
-        "query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH transcript_contents.student_course_id AS student_course_id, count(transcript_contents.student_course_id) AS count\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "What is the maximum number of times that a course shows up in different transcripts and what is that course's enrollment id?",
-        "query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH transcript_contents.student_course_id AS student_course_id, count(transcript_contents.student_course_id) AS count\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "Show the date of the transcript which shows the least number of results, also list the id.",
-        "query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id, count(T1.transcript_id) AS count\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
-    },
-    {
-        "question": "What is the date and id of the transcript with the least number of results?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id, count(T1.transcript_id) AS count\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
-        "db_id": "student_transcripts_tracking",
-        "answers": []
     },
     {
         "question": "How many different addresses do the students currently live?",
@@ -8396,18 +7652,6 @@
         ]
     },
     {
-        "question": "find id of the tv channels that from the countries where have more than two tv channels.",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(*) AS count, tv_channel.id AS id\nWHERE count  > 2\nRETURN id",
-        "db_id": "tvshow",
-        "answers": []
-    },
-    {
-        "question": "What are the ids of all tv channels that have more than 2 TV channels?",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(*) AS count, tv_channel.id AS id\nWHERE count  > 2\nRETURN id",
-        "db_id": "tvshow",
-        "answers": []
-    },
-    {
         "question": "How many poker players are there?",
         "query": "MATCH (poker_player:`poker_player.poker_player`)\nRETURN count(*)",
         "db_id": "poker_player",
@@ -9179,18 +8423,6 @@
         ]
     },
     {
-        "question": "What are the contestant numbers and names of the contestants who had at least two votes?",
-        "query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH count(*) AS count, T1.contestant_number AS contestant_number, T1.contestant_name AS contestant_name\nWHERE count  >= 2\nRETURN contestant_number,contestant_name",
-        "db_id": "voter_1",
-        "answers": []
-    },
-    {
-        "question": "Of all the contestants who got voted, what is the contestant number and name of the contestant who got least votes?",
-        "query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH T1.contestant_number AS contestant_number, T1.contestant_name AS contestant_name, count(T1.contestant_number) AS count\nRETURN contestant_number,contestant_name\nORDER BY count ASC\nLIMIT 1",
-        "db_id": "voter_1",
-        "answers": []
-    },
-    {
         "question": "What are the number of votes from state 'NY' or 'CA'?",
         "query": "MATCH (votes:`voter_1.VOTES`)\nWHERE votes.state = 'NY' OR votes.state = 'CA'\nRETURN count(*)",
         "db_id": "voter_1",
@@ -9199,354 +8431,6 @@
                 3
             ]
         ]
-    },
-    {
-        "question": "What is the area code in which the most voters voted?",
-        "query": "MATCH (T1:`voter_1.AREA_CODE_STATE`)-[]-(T2:`voter_1.VOTES`)\nWITH count(T1.area_code) AS count, T1.area_code AS area_code\nRETURN area_code\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "voter_1",
-        "answers": []
-    },
-    {
-        "question": "What are the create dates, states, and phone numbers of the votes that were for the contestant named 'Tabatha Gehling'?",
-        "query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWHERE T1.contestant_name = 'Tabatha Gehling'\nRETURN T2.created,T2.state,T2.phone_number",
-        "db_id": "voter_1",
-        "answers": []
-    },
-    {
-        "question": "Return the names of the contestants whose names contain the substring 'Al' .",
-        "query": "MATCH (contestants:`voter_1.CONTESTANTS`)\nWHERE contestants.contestant_name =~'.*[\"|\"]%al%\".*'\nRETURN contestants.contestant_name",
-        "db_id": "voter_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of all the countries that became independent after 1950?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.IndepYear > 1950\nRETURN country.Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give the names of the nations that were founded after 1950.",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.IndepYear > 1950\nRETURN country.Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which continent is Anguilla in?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Name = 'Anguilla'\nRETURN country.Continent",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What is the continent name which Anguilla belongs to?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Name = 'Anguilla'\nRETURN country.Continent",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which region is the city Kabul located in?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.city`)\nWHERE T2.Name = 'Kabul'\nRETURN T1.Region",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What region is Kabul in?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.city`)\nWHERE T2.Name = 'Kabul'\nRETURN T1.Region",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which language is the most popular in Aruba?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.Name = 'Aruba'\nRETURN T2.Language\nORDER BY T2.Percentage DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What language is predominantly spoken in Aruba?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.Name = 'Aruba'\nRETURN T2.Language\nORDER BY T2.Percentage DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the population and life expectancies in Brazil?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Name = 'Brazil'\nRETURN country.Population,country.LifeExpectancy",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give me Brazil\u2019s population and life expectancies.",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Name = 'Brazil'\nRETURN country.Population,country.LifeExpectancy",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the region and population of Angola?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Name = 'Angola'\nRETURN country.Population,country.Region",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What region does Angola belong to and what is its population?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Name = 'Angola'\nRETURN country.Population,country.Region",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What is the name of country that has the shortest life expectancy in Asia?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Continent = 'Asia'\nRETURN country.Name\nORDER BY country.LifeExpectancy\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give the name of the country in Asia with the lowest life expectancy.",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Continent = 'Asia'\nRETURN country.Name\nORDER BY country.LifeExpectancy\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What is name of the country that speaks the largest number of languages?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Name AS Name, count(T1.Name) AS count\nRETURN Name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give the name of the nation that uses the greatest amount of languages.",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Name AS Name, count(T1.Name) AS count\nRETURN Name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which continent has the most diverse languages?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Continent AS Continent, count(T1.Continent) AS count\nRETURN Continent\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which continent speaks the most languages?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Continent AS Continent, count(T1.Continent) AS count\nRETURN Continent\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the regions that use English or Dutch?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T2.Language = 'English' OR T2.Language = 'Dutch'\nRETURN DISTINCT T1.Region",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which regions speak Dutch or English?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T2.Language = 'English' OR T2.Language = 'Dutch'\nRETURN DISTINCT T1.Region",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which language is the most popular on the Asian continent?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.Continent = 'Asia'\nWITH T2.Language AS Language, count(T2.Language) AS count\nRETURN Language\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What is the language that is used by the largest number of Asian nations?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.Continent = 'Asia'\nWITH T2.Language AS Language, count(T2.Language) AS count\nRETURN Language\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which languages are spoken by only one country in republic governments?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.GovernmentForm = 'Republic'\nWITH T2.Language AS Language, count(*) AS count\nWHERE count  = 1\nRETURN Language",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What languages are only used by a single country with a republic government?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.GovernmentForm = 'Republic'\nWITH T2.Language AS Language, count(*) AS count\nWHERE count  = 1\nRETURN Language",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Find the city with the largest population that uses English.",
-        "query": "MATCH (T1:`world_1.city`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T2.Language = 'English'\nRETURN T1.Name,T1.Population\nORDER BY T1.Population DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What is the most populace city that speaks English?",
-        "query": "MATCH (T1:`world_1.city`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T2.Language = 'English'\nRETURN T1.Name,T1.Population\nORDER BY T1.Population DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Find the name, population and expected life length of asian country with the largest area?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Continent = 'Asia'\nRETURN country.Name,country.Population,country.LifeExpectancy\nORDER BY country.SurfaceArea DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the name, population, and life expectancy of the largest Asian country by land?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Continent = 'Asia'\nRETURN country.Name,country.Population,country.LifeExpectancy\nORDER BY country.SurfaceArea DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What is the official language spoken in the country whose head of state is Beatrix?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.HeadOfState = 'Beatrix' AND T2.IsOfficial = 'T'\nRETURN T2.Language",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What is the official language used in the country the name of whose head of state is Beatrix.",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.HeadOfState = 'Beatrix' AND T2.IsOfficial = 'T'\nRETURN T2.Language",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the country codes of countries where people use languages other than English?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWHERE countrylanguage.Language <> 'English'\nRETURN DISTINCT countrylanguage.CountryCode",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give the country codes for countries in which people speak langauges that are not English.",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWHERE countrylanguage.Language <> 'English'\nRETURN DISTINCT countrylanguage.CountryCode",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Return the different names of cities that are in Asia and for which Chinese is the official language.",
-        "query": "MATCH (T3:`world_1.city`)-[]-(T1:`world_1.country`)-[]-(T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T2.IsOfficial = 'T' AND T2.Language = 'Chinese' AND T1.Continent = 'Asia'\nRETURN DISTINCT T3.Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the name, independence year, and surface area of the country with the smallest population?",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name,country.SurfaceArea,country.IndepYear\nORDER BY country.Population\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give the name, year of independence, and surface area of the country that has the lowest population.",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name,country.SurfaceArea,country.IndepYear\nORDER BY country.Population\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the population, name and leader of the country with the largest area?",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name,country.Population,country.HeadOfState\nORDER BY country.SurfaceArea DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give the name, population, and head of state for the country that has the largest area.",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name,country.Population,country.HeadOfState\nORDER BY country.SurfaceArea DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Return the country name and the numbers of languages spoken for each country that speaks at least 3 languages.",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 2\nRETURN count,Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of countries that speak more than 2 languages, as well as how many languages they speak?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 2\nRETURN count,Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names and areas of countries with the top 5 largest area?",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name,country.SurfaceArea\nORDER BY country.SurfaceArea DESC\nLIMIT 5",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Return the names and surface areas of the 5 largest countries.",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name,country.SurfaceArea\nORDER BY country.SurfaceArea DESC\nLIMIT 5",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are names of countries with the top 3 largest population?",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name\nORDER BY country.Population DESC\nLIMIT 3",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Return the names of the 3 most populated countries.",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name\nORDER BY country.Population DESC\nLIMIT 3",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of the nations with the 3 lowest populations?",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name\nORDER BY country.Population ASC\nLIMIT 3",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Return the names of the 3 countries with the fewest people.",
-        "query": "MATCH (country:`world_1.country`)\nRETURN country.Name\nORDER BY country.Population ASC\nLIMIT 3",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of the countries that are in the continent of Europe and have a population of 80000?",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Continent = 'Europe' AND country.Population = '80000'\nRETURN country.Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give the names of countries that are in Europe and have a population equal to 80000.",
-        "query": "MATCH (country:`world_1.country`)\nWHERE country.Continent = 'Europe' AND country.Population = '80000'\nRETURN country.Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the cities whose population is between 160000 and 900000?",
-        "query": "MATCH (city:`world_1.city`)\nWHERE 160000<=city.Population<=900000\nRETURN city.Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Return the names of cities that have a population between 160000 and 900000 .",
-        "query": "MATCH (city:`world_1.city`)\nWHERE 160000<=city.Population<=900000\nRETURN city.Name",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Which language is spoken by the largest number of countries?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH countrylanguage.Language AS Language, count(countrylanguage.Language) AS count\nRETURN Language\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Give the language that is spoken in the most countries.",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH countrylanguage.Language AS Language, count(countrylanguage.Language) AS count\nRETURN Language\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What is the language spoken by the largest percentage of people in each country?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH count(countrylanguage.CountryCode) AS count, countrylanguage.Language AS Language, countrylanguage.CountryCode AS CountryCode\nRETURN Language,CountryCode,count",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the country codes of the different countries, and what are the languages spoken by the greatest percentage of people for each?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH count(countrylanguage.CountryCode) AS count, countrylanguage.Language AS Language, countrylanguage.CountryCode AS CountryCode\nRETURN Language,CountryCode,count",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "What are the codes of countries where Spanish is spoken by the largest percentage of people?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWHERE countrylanguage.Language = 'Spanish'\nWITH count(countrylanguage.CountryCode) AS count, countrylanguage.CountryCode AS CountryCode\nRETURN CountryCode,count",
-        "db_id": "world_1",
-        "answers": []
-    },
-    {
-        "question": "Return the codes of countries for which Spanish is the predominantly spoken language.",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWHERE countrylanguage.Language = 'Spanish'\nWITH count(countrylanguage.CountryCode) AS count, countrylanguage.CountryCode AS CountryCode\nRETURN CountryCode,count",
-        "db_id": "world_1",
-        "answers": []
     },
     {
         "question": "How many conductors are there?",
@@ -10067,18 +8951,6 @@
                 "San Francisco Symphony Orchestra"
             ]
         ]
-    },
-    {
-        "question": "Show the names of conductors that have conducted more than one orchestras.",
-        "query": "MATCH (T1:`orchestra.conductor`)-[]-(T2:`orchestra.orchestra`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 1\nRETURN Name",
-        "db_id": "orchestra",
-        "answers": []
-    },
-    {
-        "question": "What are the names of conductors who have conducted at more than one orchestra?",
-        "query": "MATCH (T1:`orchestra.conductor`)-[]-(T2:`orchestra.orchestra`)\nWITH T1.Name AS Name, count(*) AS count\nWHERE count  > 1\nRETURN Name",
-        "db_id": "orchestra",
-        "answers": []
     },
     {
         "question": "Please show the name of the conductor that has conducted orchestras founded after 2008.",
@@ -10749,126 +9621,6 @@
         ]
     },
     {
-        "question": "Show the student IDs and numbers of friends corresponding to each.",
-        "query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH friend.student_id AS student_id, count(friend.student_id) AS count\nRETURN student_id,count",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "How many friends does each student have?",
-        "query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH friend.student_id AS student_id, count(friend.student_id) AS count\nRETURN student_id,count",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Show the names of high school students and their corresponding number of friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of the high schoolers and how many friends does each have?",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "What is the name of the high schooler who has the greatest number of friends?",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Return the name of the high school student with the most friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Show the names of high schoolers who have at least 3 friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 3\nRETURN name",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of high schoolers who have 3 or more friends?",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 3\nRETURN name",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Show the names of all of the high schooler Kyle's friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)-[]-(T3:`network_1.Highschooler`)\nWHERE T2.name = 'Kyle'\nRETURN T3.name",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Return the names of friends of the high school student Kyle.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)-[]-(T3:`network_1.Highschooler`)\nWHERE T2.name = 'Kyle'\nRETURN T3.name",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Count the number of likes for each student id.",
-        "query": "MATCH ()-[likes:`network_1.Likes`]-()\nWITH likes.student_id AS student_id, count(likes.student_id) AS count\nRETURN student_id,count",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "How many likes correspond to each student id?",
-        "query": "MATCH ()-[likes:`network_1.Likes`]-()\nWITH likes.student_id AS student_id, count(likes.student_id) AS count\nRETURN student_id,count",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Show the names of high schoolers who have likes, and numbers of likes for each.",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of high schoolers who have likes, and how many likes does each have?",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "What is the name of the high schooler who has the greatest number of likes?",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Give the name of the student with the most likes.",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Show the names of students who have at least 2 likes.",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of students who have 2 or more likes?",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "Show the names of students who have a grade higher than 5 and have at least 2 friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
-        "question": "What are the names of high schoolers who have a grade of over 5 and have 2 or more friends?",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
-        "db_id": "network_1",
-        "answers": []
-    },
-    {
         "question": "Which owner owns the most dogs? List the owner id, first name and last name.",
         "query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH T2.first_name AS first_name, T2.last_name AS last_name, count(T1.owner_id) AS count, T1.owner_id AS owner_id\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "dog_kennels",
@@ -10985,18 +9737,6 @@
                 "Bulldog"
             ]
         ]
-    },
-    {
-        "question": "Which owner has paid for the most treatments on his or her dogs? List the owner id and last name.",
-        "query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH count(T1.owner_id) AS count, T1.last_name AS last_name, T1.owner_id AS owner_id\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "dog_kennels",
-        "answers": []
-    },
-    {
-        "question": "Tell me the owner id and last name of the owner who spent the most on treatments of his or her dogs.",
-        "query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH count(T1.owner_id) AS count, T1.last_name AS last_name, T1.owner_id AS owner_id\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
-        "db_id": "dog_kennels",
-        "answers": []
     },
     {
         "question": "Which professionals have done at least two types of treatments? List the professional id and cell phone.",
@@ -12075,18 +10815,6 @@
         ]
     },
     {
-        "question": "List the dog name, age and weight of the dogs who have been abandoned? 1 stands for yes, and 0 stands for no.",
-        "query": "MATCH (dogs:`dog_kennels.Dogs`)\nWHERE dogs.abandoned_yn = 1\nRETURN dogs.name,dogs.age,dogs.weight",
-        "db_id": "dog_kennels",
-        "answers": []
-    },
-    {
-        "question": "What are the dog name, age and weight of the dogs that were abandoned? Note that 1 stands for yes, and 0 stands for no in the tables.",
-        "query": "MATCH (dogs:`dog_kennels.Dogs`)\nWHERE dogs.abandoned_yn = 1\nRETURN dogs.name,dogs.age,dogs.weight",
-        "db_id": "dog_kennels",
-        "answers": []
-    },
-    {
         "question": "What is the age of the oldest dog?",
         "query": "MATCH (dogs:`dog_kennels.Dogs`)\nRETURN max(dogs.age)",
         "db_id": "dog_kennels",
@@ -12397,18 +11125,6 @@
                 "MED"
             ]
         ]
-    },
-    {
-        "question": "List the first name of all the professionals along with the description of the treatment they have done.",
-        "query": "MATCH (T3:`dog_kennels.Treatment_Types`)-[]-(T2:`dog_kennels.Treatments`)-[]-(T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nRETURN DISTINCT T1.first_name,T3.treatment_type_description",
-        "db_id": "dog_kennels",
-        "answers": []
-    },
-    {
-        "question": "What are each professional's first name and description of the treatment they have performed?",
-        "query": "MATCH (T3:`dog_kennels.Treatment_Types`)-[]-(T2:`dog_kennels.Treatments`)-[]-(T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nRETURN DISTINCT T1.first_name,T3.treatment_type_description",
-        "db_id": "dog_kennels",
-        "answers": []
     },
     {
         "question": "How many singers are there?",
