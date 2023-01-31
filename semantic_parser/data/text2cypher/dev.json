@@ -173,7 +173,7 @@
     },
     {
         "question": "Show all countries and the number of singers in each country.",
-        "query": "MATCH (singer:`concert_singer.singer`)\nWITH count(singer.Country) AS count, singer.Country AS Country\nRETURN Country,count",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWITH singer.Country AS Country, count(singer.Country) AS count\nRETURN Country,count",
         "db_id": "concert_singer",
         "answers": [
             [
@@ -192,7 +192,7 @@
     },
     {
         "question": "How many singers are from each country?",
-        "query": "MATCH (singer:`concert_singer.singer`)\nWITH count(singer.Country) AS count, singer.Country AS Country\nRETURN Country,count",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWITH singer.Country AS Country, count(singer.Country) AS count\nRETURN Country,count",
         "db_id": "concert_singer",
         "answers": [
             [
@@ -256,37 +256,37 @@
     },
     {
         "question": "Show the stadium name and the number of concerts in each stadium.",
-        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count",
+        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH count(T1.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,count",
         "db_id": "concert_singer",
         "answers": []
     },
     {
         "question": "For each stadium, how many concerts play there?",
-        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count",
+        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH count(T1.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,count",
         "db_id": "concert_singer",
         "answers": []
     },
     {
         "question": "Show the stadium name and capacity with most number of concerts in year 2014 or after.",
-        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWHERE T1.Year >= 2014\nWITH T2.Name AS Name, count(T2.Stadium_ID) AS count, T2.Capacity AS Capacity\nRETURN Name,Capacity\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWHERE T1.Year >= 2014\nWITH T2.Capacity AS Capacity, count(T2.Stadium_ID) AS count, T2.Name AS Name\nRETURN Name,Capacity\nORDER BY count DESC\nLIMIT 1",
         "db_id": "concert_singer",
         "answers": []
     },
     {
         "question": "Show the name and theme for all concerts and the number of singers in each concert.",
-        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.concert`)\nWITH T2.concert_Name AS concert_Name, count(T2.concert_ID) AS count, T2.Theme AS Theme\nRETURN concert_Name,Theme,count",
+        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.concert`)\nWITH count(T2.concert_ID) AS count, T2.concert_Name AS concert_Name, T2.Theme AS Theme\nRETURN concert_Name,Theme,count",
         "db_id": "concert_singer",
         "answers": []
     },
     {
         "question": "List singer names and number of concerts for each singer.",
-        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH T2.Name AS Name, count(T2.Singer_ID) AS count\nRETURN Name,count",
+        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH count(T2.Singer_ID) AS count, T2.Name AS Name\nRETURN Name,count",
         "db_id": "concert_singer",
         "answers": []
     },
     {
         "question": "What are the names of the singers and number of concerts for each person?",
-        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH T2.Name AS Name, count(T2.Singer_ID) AS count\nRETURN Name,count",
+        "query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH count(T2.Singer_ID) AS count, T2.Name AS Name\nRETURN Name,count",
         "db_id": "concert_singer",
         "answers": []
     },
@@ -786,13 +786,13 @@
     },
     {
         "question": "Find the first name and gender of student who have more than one pet.",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH T1.Sex AS Sex, T1.Fname AS Fname, count(*) AS count\nWHERE count  > 1\nRETURN Fname,Sex",
+        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex\nWHERE count  > 1\nRETURN Fname,Sex",
         "db_id": "pets_1",
         "answers": []
     },
     {
         "question": "What is the first name and gender of the all the students who have more than one pet?",
-        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH T1.Sex AS Sex, T1.Fname AS Fname, count(*) AS count\nWHERE count  > 1\nRETURN Fname,Sex",
+        "query": "MATCH (T1:`pets_1.Student`)-[]-(T2:`pets_1.Has_Pet`)\nWITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex\nWHERE count  > 1\nRETURN Fname,Sex",
         "db_id": "pets_1",
         "answers": []
     },
@@ -830,7 +830,7 @@
     },
     {
         "question": "How many countries does each continent have? List the continent id, continent name and the number of countries.",
-        "query": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH T1.Continent AS Continent, T1.ContId AS ContId, count(T1.ContId) AS count\nRETURN ContId,Continent,count",
+        "query": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH count(T1.ContId) AS count, T1.Continent AS Continent, T1.ContId AS ContId\nRETURN ContId,Continent,count",
         "db_id": "car_1",
         "answers": [
             [
@@ -862,7 +862,7 @@
     },
     {
         "question": "For each continent, list its id, name, and how many countries it has?",
-        "query": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH T1.Continent AS Continent, T1.ContId AS ContId, count(T1.ContId) AS count\nRETURN ContId,Continent,count",
+        "query": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nWITH count(T1.ContId) AS count, T1.Continent AS Continent, T1.ContId AS ContId\nRETURN ContId,Continent,count",
         "db_id": "car_1",
         "answers": [
             [
@@ -1216,7 +1216,7 @@
     },
     {
         "question": "What is the number of car models that are produced by each maker and what is the id and full name of each maker?",
-        "query": "MATCH (T1:`car_1.model_list`)-[]-(T2:`car_1.car_makers`)\nWITH T2.Id AS Id, count(T2.Id) AS count, T2.FullName AS FullName\nRETURN count,FullName,Id",
+        "query": "MATCH (T1:`car_1.model_list`)-[]-(T2:`car_1.car_makers`)\nWITH count(T2.Id) AS count, T2.Id AS Id, T2.FullName AS FullName\nRETURN count,FullName,Id",
         "db_id": "car_1",
         "answers": [
             [
@@ -1675,25 +1675,25 @@
     },
     {
         "question": "What are the countries having at least one car maker? List name and id.",
-        "query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH T1.CountryName AS CountryName, T1.CountryId AS CountryId, count(*) AS count\nWHERE count  >= 1\nRETURN CountryName,CountryId",
+        "query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH count(*) AS count, T1.CountryId AS CountryId, T1.CountryName AS CountryName\nWHERE count  >= 1\nRETURN CountryName,CountryId",
         "db_id": "car_1",
         "answers": []
     },
     {
         "question": "What are the names and ids of all countries with at least one car maker?",
-        "query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH T1.CountryName AS CountryName, T1.CountryId AS CountryId, count(*) AS count\nWHERE count  >= 1\nRETURN CountryName,CountryId",
+        "query": "MATCH (T1:`car_1.countries`)-[]-(T2:`car_1.car_makers`)\nWITH count(*) AS count, T1.CountryId AS CountryId, T1.CountryName AS CountryName\nWHERE count  >= 1\nRETURN CountryName,CountryId",
         "db_id": "car_1",
         "answers": []
     },
     {
         "question": "Which countries in europe have at least 3 car manufacturers?",
-        "query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH T1.CountryName AS CountryName, count(*) AS count\nWHERE count  >= 3\nRETURN CountryName",
+        "query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH count(*) AS count, T1.CountryName AS CountryName\nWHERE count  >= 3\nRETURN CountryName",
         "db_id": "car_1",
         "answers": []
     },
     {
         "question": "What are the names of all European countries with at least 3 manufacturers?",
-        "query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH T1.CountryName AS CountryName, count(*) AS count\nWHERE count  >= 3\nRETURN CountryName",
+        "query": "MATCH (T3:`car_1.car_makers`)-[]-(T1:`car_1.countries`)-[]-(T1:`car_1.countries`)-[]-(T2:`car_1.continents`)\nWHERE T2.Continent = 'europe'\nWITH count(*) AS count, T1.CountryName AS CountryName\nWHERE count  >= 3\nRETURN CountryName",
         "db_id": "car_1",
         "answers": []
     },
@@ -1751,7 +1751,7 @@
     },
     {
         "question": "Which model has the most version(make) of cars?",
-        "query": "MATCH (car_names:`car_1.car_names`)\nWITH count(car_names.Model) AS count, car_names.Model AS Model\nRETURN Model\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (car_names:`car_1.car_names`)\nWITH car_names.Model AS Model, count(car_names.Model) AS count\nRETURN Model\nORDER BY count DESC\nLIMIT 1",
         "db_id": "car_1",
         "answers": [
             [
@@ -1761,7 +1761,7 @@
     },
     {
         "question": "What model has the most different versions?",
-        "query": "MATCH (car_names:`car_1.car_names`)\nWITH count(car_names.Model) AS count, car_names.Model AS Model\nRETURN Model\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (car_names:`car_1.car_names`)\nWITH car_names.Model AS Model, count(car_names.Model) AS count\nRETURN Model\nORDER BY count DESC\nLIMIT 1",
         "db_id": "car_1",
         "answers": [
             [
@@ -2503,25 +2503,25 @@
     },
     {
         "question": "Which city has most number of arriving flights?",
-        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH T1.City AS City, count(T1.City) AS count\nRETURN City\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
         "db_id": "flight_2",
         "answers": []
     },
     {
         "question": "Which city has the most frequent destination airport?",
-        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH T1.City AS City, count(T1.City) AS count\nRETURN City\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
         "db_id": "flight_2",
         "answers": []
     },
     {
         "question": "Which city has most number of departing flights?",
-        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH T1.City AS City, count(T1.City) AS count\nRETURN City\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
         "db_id": "flight_2",
         "answers": []
     },
     {
         "question": "Which city is the most frequent source airport?",
-        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH T1.City AS City, count(T1.City) AS count\nRETURN City\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`flight_2.airports`)-[T2:`flight_2.flights`]-()\nWITH count(T1.City) AS count, T1.City AS City\nRETURN City\nORDER BY count DESC\nLIMIT 1",
         "db_id": "flight_2",
         "answers": []
     },
@@ -2539,13 +2539,13 @@
     },
     {
         "question": "Find the abbreviation and country of the airline that has fewest number of flights?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Abbreviation AS Abbreviation, count(T1.Airline) AS count, T1.Country AS Country\nRETURN Abbreviation,Country\nORDER BY count\nLIMIT 1",
+        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Country AS Country, count(T1.Airline) AS count, T1.Abbreviation AS Abbreviation\nRETURN Abbreviation,Country\nORDER BY count\nLIMIT 1",
         "db_id": "flight_2",
         "answers": []
     },
     {
         "question": "What is the abbreviation of the airilne has the fewest flights and what country is it in?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Abbreviation AS Abbreviation, count(T1.Airline) AS count, T1.Country AS Country\nRETURN Abbreviation,Country\nORDER BY count\nLIMIT 1",
+        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Country AS Country, count(T1.Airline) AS count, T1.Abbreviation AS Abbreviation\nRETURN Abbreviation,Country\nORDER BY count\nLIMIT 1",
         "db_id": "flight_2",
         "answers": []
     },
@@ -2575,25 +2575,25 @@
     },
     {
         "question": "Find all airlines that have at least 10 flights.",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Airline AS Airline, count(*) AS count\nWHERE count  > 10\nRETURN Airline",
+        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(*) AS count, T1.Airline AS Airline\nWHERE count  > 10\nRETURN Airline",
         "db_id": "flight_2",
         "answers": []
     },
     {
         "question": "Which airlines have at least 10 flights?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Airline AS Airline, count(*) AS count\nWHERE count  > 10\nRETURN Airline",
+        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(*) AS count, T1.Airline AS Airline\nWHERE count  > 10\nRETURN Airline",
         "db_id": "flight_2",
         "answers": []
     },
     {
         "question": "Find all airlines that have fewer than 200 flights.",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Airline AS Airline, count(*) AS count\nWHERE count  < 200\nRETURN Airline",
+        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(*) AS count, T1.Airline AS Airline\nWHERE count  < 200\nRETURN Airline",
         "db_id": "flight_2",
         "answers": []
     },
     {
         "question": "Which airlines have less than 200 flights?",
-        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH T1.Airline AS Airline, count(*) AS count\nWHERE count  < 200\nRETURN Airline",
+        "query": "MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-()\nWITH count(*) AS count, T1.Airline AS Airline\nWHERE count  < 200\nRETURN Airline",
         "db_id": "flight_2",
         "answers": []
     },
@@ -4749,7 +4749,7 @@
     },
     {
         "question": "Show all template type codes and the number of documents using each type.",
-        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Template_Type_Code) AS count, T1.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code,count",
+        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Template_Type_Code AS Template_Type_Code, count(T1.Template_Type_Code) AS count\nRETURN Template_Type_Code,count",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -4772,7 +4772,7 @@
     },
     {
         "question": "What are the different template type codes, and how many documents use each type?",
-        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Template_Type_Code) AS count, T1.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code,count",
+        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Template_Type_Code AS Template_Type_Code, count(T1.Template_Type_Code) AS count\nRETURN Template_Type_Code,count",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -4795,7 +4795,7 @@
     },
     {
         "question": "Which template type code is used by most number of documents?",
-        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Template_Type_Code) AS count, T1.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Template_Type_Code AS Template_Type_Code, count(T1.Template_Type_Code) AS count\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -4805,7 +4805,7 @@
     },
     {
         "question": "Return the code of the template type that is most commonly used in documents.",
-        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH count(T1.Template_Type_Code) AS count, T1.Template_Type_Code AS Template_Type_Code\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T1.Template_Type_Code AS Template_Type_Code, count(T1.Template_Type_Code) AS count\nRETURN Template_Type_Code\nORDER BY count DESC\nLIMIT 1",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -5055,7 +5055,7 @@
     },
     {
         "question": "Show all document ids, names and the number of paragraphs in each document.",
-        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T2.Document_Name AS Document_Name, count(T1.Document_ID) AS count, T1.Document_ID AS Document_ID\nRETURN Document_ID,Document_Name,count",
+        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T2.Document_Name AS Document_Name, T1.Document_ID AS Document_ID, count(T1.Document_ID) AS count\nRETURN Document_ID,Document_Name,count",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -5112,7 +5112,7 @@
     },
     {
         "question": "What are the ids and names of each document, as well as the number of paragraphs in each?",
-        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T2.Document_Name AS Document_Name, count(T1.Document_ID) AS count, T1.Document_ID AS Document_ID\nRETURN Document_ID,Document_Name,count",
+        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T2.Document_Name AS Document_Name, T1.Document_ID AS Document_ID, count(T1.Document_ID) AS count\nRETURN Document_ID,Document_Name,count",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -5207,7 +5207,7 @@
     },
     {
         "question": "What is the document id and name with greatest number of paragraphs?",
-        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T2.Document_Name AS Document_Name, count(T1.Document_ID) AS count, T1.Document_ID AS Document_ID\nRETURN Document_ID,Document_Name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T2.Document_Name AS Document_Name, T1.Document_ID AS Document_ID, count(T1.Document_ID) AS count\nRETURN Document_ID,Document_Name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -5218,7 +5218,7 @@
     },
     {
         "question": "Return the id and name of the document with the most paragraphs.",
-        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T2.Document_Name AS Document_Name, count(T1.Document_ID) AS count, T1.Document_ID AS Document_ID\nRETURN Document_ID,Document_Name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWITH T2.Document_Name AS Document_Name, T1.Document_ID AS Document_ID, count(T1.Document_ID) AS count\nRETURN Document_ID,Document_Name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -5229,7 +5229,7 @@
     },
     {
         "question": "What is the document id with least number of paragraphs?",
-        "query": "MATCH (paragraphs:`cre_Doc_Template_Mgt.Paragraphs`)\nWITH count(paragraphs.Document_ID) AS count, paragraphs.Document_ID AS Document_ID\nRETURN Document_ID\nORDER BY count ASC\nLIMIT 1",
+        "query": "MATCH (paragraphs:`cre_Doc_Template_Mgt.Paragraphs`)\nWITH paragraphs.Document_ID AS Document_ID, count(paragraphs.Document_ID) AS count\nRETURN Document_ID\nORDER BY count ASC\nLIMIT 1",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -5239,7 +5239,7 @@
     },
     {
         "question": "Return the id of the document with the fewest paragraphs.",
-        "query": "MATCH (paragraphs:`cre_Doc_Template_Mgt.Paragraphs`)\nWITH count(paragraphs.Document_ID) AS count, paragraphs.Document_ID AS Document_ID\nRETURN Document_ID\nORDER BY count ASC\nLIMIT 1",
+        "query": "MATCH (paragraphs:`cre_Doc_Template_Mgt.Paragraphs`)\nWITH paragraphs.Document_ID AS Document_ID, count(paragraphs.Document_ID) AS count\nRETURN Document_ID\nORDER BY count ASC\nLIMIT 1",
         "db_id": "cre_Doc_Template_Mgt",
         "answers": [
             [
@@ -5553,13 +5553,13 @@
     },
     {
         "question": "Show the hometowns shared by at least two teachers.",
-        "query": "MATCH (teacher:`course_teach.teacher`)\nWITH teacher.Hometown AS Hometown, count(*) AS count\nWHERE count  >= 2\nRETURN Hometown",
+        "query": "MATCH (teacher:`course_teach.teacher`)\nWITH count(*) AS count, teacher.Hometown AS Hometown\nWHERE count  >= 2\nRETURN Hometown",
         "db_id": "course_teach",
         "answers": []
     },
     {
         "question": "What are the towns from which at least two teachers come from?",
-        "query": "MATCH (teacher:`course_teach.teacher`)\nWITH teacher.Hometown AS Hometown, count(*) AS count\nWHERE count  >= 2\nRETURN Hometown",
+        "query": "MATCH (teacher:`course_teach.teacher`)\nWITH count(*) AS count, teacher.Hometown AS Hometown\nWHERE count  >= 2\nRETURN Hometown",
         "db_id": "course_teach",
         "answers": []
     },
@@ -5651,7 +5651,7 @@
     },
     {
         "question": "Show names of teachers and the number of courses they teach.",
-        "query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH T2.Name AS Name, count(T2.Name) AS count\nRETURN Name,count",
+        "query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH count(T2.Name) AS count, T2.Name AS Name\nRETURN Name,count",
         "db_id": "course_teach",
         "answers": [
             [
@@ -5678,7 +5678,7 @@
     },
     {
         "question": "What are the names of the teachers and how many courses do they teach?",
-        "query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH T2.Name AS Name, count(T2.Name) AS count\nRETURN Name,count",
+        "query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH count(T2.Name) AS count, T2.Name AS Name\nRETURN Name,count",
         "db_id": "course_teach",
         "answers": [
             [
@@ -5705,7 +5705,7 @@
     },
     {
         "question": "Show names of teachers that teach at least two courses.",
-        "query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH T2.Name AS Name, count(*) AS count\nWHERE count  >= 2\nRETURN Name",
+        "query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH count(*) AS count, T2.Name AS Name\nWHERE count  >= 2\nRETURN Name",
         "db_id": "course_teach",
         "answers": [
             [
@@ -5715,7 +5715,7 @@
     },
     {
         "question": "What are the names of the teachers who teach at least two courses?",
-        "query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH T2.Name AS Name, count(*) AS count\nWHERE count  >= 2\nRETURN Name",
+        "query": "MATCH ()-[T1:`course_teach.course_arrange`]-(T2:`course_teach.teacher`)\nWITH count(*) AS count, T2.Name AS Name\nWHERE count  >= 2\nRETURN Name",
         "db_id": "course_teach",
         "answers": [
             [
@@ -5840,13 +5840,13 @@
     },
     {
         "question": "Find the name of tourney that has more than 10 matches.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.tourney_name AS tourney_name, count(*) AS count\nWHERE count  > 10\nRETURN tourney_name",
+        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(*) AS count, matches.tourney_name AS tourney_name\nWHERE count  > 10\nRETURN tourney_name",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "What are the names of tournaments that have more than 10 matches?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.tourney_name AS tourney_name, count(*) AS count\nWHERE count  > 10\nRETURN tourney_name",
+        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(*) AS count, matches.tourney_name AS tourney_name\nWHERE count  > 10\nRETURN tourney_name",
         "db_id": "wta_1",
         "answers": []
     },
@@ -5900,25 +5900,25 @@
     },
     {
         "question": "Find the year that has the most number of matches.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.year) AS count, matches.year AS year\nRETURN year\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN year\nORDER BY count DESC\nLIMIT 1",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "Which year had the most matches?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.year) AS count, matches.year AS year\nRETURN year\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN year\nORDER BY count DESC\nLIMIT 1",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "Find the name and rank points of the winner who won the most times.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.winner_rank_points AS winner_rank_points, count(matches.winner_name) AS count, matches.winner_name AS winner_name\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.winner_name) AS count, matches.winner_rank_points AS winner_rank_points, matches.winner_name AS winner_name\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "What is the name of the winner who has won the most matches, and how many rank points does this player have?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.winner_rank_points AS winner_rank_points, count(matches.winner_name) AS count, matches.winner_name AS winner_name\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.winner_name) AS count, matches.winner_rank_points AS winner_rank_points, matches.winner_name AS winner_name\nRETURN winner_name,winner_rank_points\nORDER BY count DESC\nLIMIT 1",
         "db_id": "wta_1",
         "answers": []
     },
@@ -5960,49 +5960,49 @@
     },
     {
         "question": "find the number of players for each country.",
-        "query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(players.country_code) AS count\nRETURN count,country_code",
+        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN count,country_code",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "How many players are from each country?",
-        "query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(players.country_code) AS count\nRETURN count,country_code",
+        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN count,country_code",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "find the code of the country where has the greatest number of players.",
-        "query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(players.country_code) AS count\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "What is the code of the country with the most players?",
-        "query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(players.country_code) AS count\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.country_code) AS count, players.country_code AS country_code\nRETURN country_code\nORDER BY count DESC\nLIMIT 1",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "Find the codes of countries that have more than 50 players.",
-        "query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(*) AS count\nWHERE count  > 50\nRETURN country_code",
+        "query": "MATCH (players:`wta_1.players`)\nWITH count(*) AS count, players.country_code AS country_code\nWHERE count  > 50\nRETURN country_code",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "What are the codes of countries with more than 50 players?",
-        "query": "MATCH (players:`wta_1.players`)\nWITH players.country_code AS country_code, count(*) AS count\nWHERE count  > 50\nRETURN country_code",
+        "query": "MATCH (players:`wta_1.players`)\nWITH count(*) AS count, players.country_code AS country_code\nWHERE count  > 50\nRETURN country_code",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "Find the number of matches happened in each year.",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.year) AS count, matches.year AS year\nRETURN count,year",
+        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN count,year",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "How many matches were played in each year?",
-        "query": "MATCH (matches:`wta_1.matches`)\nWITH count(matches.year) AS count, matches.year AS year\nRETURN count,year",
+        "query": "MATCH (matches:`wta_1.matches`)\nWITH matches.year AS year, count(matches.year) AS count\nRETURN count,year",
         "db_id": "wta_1",
         "answers": []
     },
@@ -6020,13 +6020,13 @@
     },
     {
         "question": "Find the number of players for each hand type.",
-        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.hand) AS count, players.hand AS hand\nRETURN count,hand",
+        "query": "MATCH (players:`wta_1.players`)\nWITH players.hand AS hand, count(players.hand) AS count\nRETURN count,hand",
         "db_id": "wta_1",
         "answers": []
     },
     {
         "question": "How many players are there for each hand type?",
-        "query": "MATCH (players:`wta_1.players`)\nWITH count(players.hand) AS count, players.hand AS hand\nRETURN count,hand",
+        "query": "MATCH (players:`wta_1.players`)\nWITH players.hand AS hand, count(players.hand) AS count\nRETURN count,hand",
         "db_id": "wta_1",
         "answers": []
     },
@@ -6370,7 +6370,7 @@
     },
     {
         "question": "Which department offers the most number of degrees? List department name and id.",
-        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Departments`)\nWITH T1.department_id AS department_id, T2.department_name AS department_name, count(T1.department_id) AS count\nRETURN department_name,department_id\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Departments`)\nWITH T2.department_name AS department_name, count(T1.department_id) AS count, T1.department_id AS department_id\nRETURN department_name,department_id\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6575,7 +6575,7 @@
     },
     {
         "question": "What are the names and id of courses having at most 2 sections?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Sections`)\nWITH T1.course_id AS course_id, T1.course_name AS course_name, count(*) AS count\nWHERE count  <= 2\nRETURN course_name,course_id",
+        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Sections`)\nWITH count(*) AS count, T1.course_name AS course_name, T1.course_id AS course_id\nWHERE count  <= 2\nRETURN course_name,course_id",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6626,7 +6626,7 @@
     },
     {
         "question": "What are the names and ids of every course with less than 2 sections?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Sections`)\nWITH T1.course_id AS course_id, T1.course_name AS course_name, count(*) AS count\nWHERE count  <= 2\nRETURN course_name,course_id",
+        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Sections`)\nWITH count(*) AS count, T1.course_name AS course_name, T1.course_id AS course_id\nWHERE count  <= 2\nRETURN course_name,course_id",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6781,7 +6781,7 @@
     },
     {
         "question": "What is the semester which most student registered in? Show both the name and the id.",
-        "query": "MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.semester_id AS semester_id, count(T1.semester_id) AS count, T1.semester_name AS semester_name\nRETURN semester_name,semester_id\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.semester_id) AS count, T1.semester_id AS semester_id, T1.semester_name AS semester_name\nRETURN semester_name,semester_id\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6792,7 +6792,7 @@
     },
     {
         "question": "For each semester, what is the name and id of the one with the most students registered?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.semester_id AS semester_id, count(T1.semester_id) AS count, T1.semester_name AS semester_name\nRETURN semester_name,semester_id\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.semester_id) AS count, T1.semester_id AS semester_id, T1.semester_name AS semester_name\nRETURN semester_name,semester_id\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6823,7 +6823,7 @@
     },
     {
         "question": "Who are enrolled in 2 degree programs in one semester? List the first name, middle name and last name and the id.",
-        "query": "MATCH (T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.last_name AS last_name, T1.middle_name AS middle_name, T1.student_id AS student_id, count(*) AS count, T1.first_name AS first_name\nWHERE count  = 2\nRETURN first_name,middle_name,last_name,student_id",
+        "query": "MATCH (T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.last_name AS last_name, T1.student_id AS student_id, count(*) AS count, T1.middle_name AS middle_name, T1.first_name AS first_name\nWHERE count  = 2\nRETURN first_name,middle_name,last_name,student_id",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6848,7 +6848,7 @@
     },
     {
         "question": "What are the first, middle, and last names, along with the ids, of all students who enrolled in 2 degree programs in one semester?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.last_name AS last_name, T1.middle_name AS middle_name, T1.student_id AS student_id, count(*) AS count, T1.first_name AS first_name\nWHERE count  = 2\nRETURN first_name,middle_name,last_name,student_id",
+        "query": "MATCH (T1:`student_transcripts_tracking.Students`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.last_name AS last_name, T1.student_id AS student_id, count(*) AS count, T1.middle_name AS middle_name, T1.first_name AS first_name\nWHERE count  = 2\nRETURN first_name,middle_name,last_name,student_id",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6885,7 +6885,7 @@
     },
     {
         "question": "Find the kind of program which most number of students are enrolled in?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.degree_summary_name AS degree_summary_name, count(T1.degree_summary_name) AS count\nRETURN degree_summary_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.degree_summary_name) AS count, T1.degree_summary_name AS degree_summary_name\nRETURN degree_summary_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6895,7 +6895,7 @@
     },
     {
         "question": "What is the degree summary name that has the most number of students enrolled?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.degree_summary_name AS degree_summary_name, count(T1.degree_summary_name) AS count\nRETURN degree_summary_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH count(T1.degree_summary_name) AS count, T1.degree_summary_name AS degree_summary_name\nRETURN degree_summary_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6905,7 +6905,7 @@
     },
     {
         "question": "Find the program which most number of students are enrolled in. List both the id and the summary.",
-        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.degree_program_id AS degree_program_id, count(T1.degree_program_id) AS count, T1.degree_summary_name AS degree_summary_name\nRETURN degree_program_id,degree_summary_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.degree_summary_name AS degree_summary_name, T1.degree_program_id AS degree_program_id, count(T1.degree_program_id) AS count\nRETURN degree_program_id,degree_summary_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6916,7 +6916,7 @@
     },
     {
         "question": "What is the program id and the summary of the degree that has the most students enrolled?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.degree_program_id AS degree_program_id, count(T1.degree_program_id) AS count, T1.degree_summary_name AS degree_summary_name\nRETURN degree_program_id,degree_summary_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1.degree_summary_name AS degree_summary_name, T1.degree_program_id AS degree_program_id, count(T1.degree_program_id) AS count\nRETURN degree_program_id,degree_summary_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": [
             [
@@ -6989,13 +6989,13 @@
     },
     {
         "question": "What's the name of the course with most number of enrollments?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nWITH T1.course_name AS course_name, count(T1.course_name) AS count\nRETURN course_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nWITH count(T1.course_name) AS count, T1.course_name AS course_name\nRETURN course_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": []
     },
     {
         "question": "What is the name of the course with the most students enrolled?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nWITH T1.course_name AS course_name, count(T1.course_name) AS count\nRETURN course_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nWITH count(T1.course_name) AS count, T1.course_name AS course_name\nRETURN course_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": []
     },
@@ -7261,25 +7261,25 @@
     },
     {
         "question": "How many times at most can a course enrollment result show in different transcripts? Also show the course enrollment id.",
-        "query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH count(transcript_contents.student_course_id) AS count, transcript_contents.student_course_id AS student_course_id\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH transcript_contents.student_course_id AS student_course_id, count(transcript_contents.student_course_id) AS count\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": []
     },
     {
         "question": "What is the maximum number of times that a course shows up in different transcripts and what is that course's enrollment id?",
-        "query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH count(transcript_contents.student_course_id) AS count, transcript_contents.student_course_id AS student_course_id\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (transcript_contents:`student_transcripts_tracking.Transcript_Contents`)\nWITH transcript_contents.student_course_id AS student_course_id, count(transcript_contents.student_course_id) AS count\nRETURN count,student_course_id\nORDER BY count DESC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": []
     },
     {
         "question": "Show the date of the transcript which shows the least number of results, also list the id.",
-        "query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, count(T1.transcript_id) AS count, T1.transcript_id AS transcript_id\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id, count(T1.transcript_id) AS count\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": []
     },
     {
         "question": "What is the date and id of the transcript with the least number of results?",
-        "query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, count(T1.transcript_id) AS count, T1.transcript_id AS transcript_id\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
+        "query": "MATCH (T1:`student_transcripts_tracking.Transcript_Contents`)-[]-(T2:`student_transcripts_tracking.Transcripts`)\nWITH T2.transcript_date AS transcript_date, T1.transcript_id AS transcript_id, count(T1.transcript_id) AS count\nRETURN transcript_date,transcript_id\nORDER BY count ASC\nLIMIT 1",
         "db_id": "student_transcripts_tracking",
         "answers": []
     },
@@ -7745,7 +7745,7 @@
     },
     {
         "question": "Which country has the most of TV Channels? List the country and number of TV Channels it has.",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Country AS Country, count(tv_channel.Country) AS count\nRETURN Country,count\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Country) AS count, tv_channel.Country AS Country\nRETURN Country,count\nORDER BY count DESC\nLIMIT 1",
         "db_id": "tvshow",
         "answers": [
             [
@@ -7756,7 +7756,7 @@
     },
     {
         "question": "What is the country with the most number of TV Channels and how many does it have?",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Country AS Country, count(tv_channel.Country) AS count\nRETURN Country,count\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Country) AS count, tv_channel.Country AS Country\nRETURN Country,count\nORDER BY count DESC\nLIMIT 1",
         "db_id": "tvshow",
         "answers": [
             [
@@ -7849,7 +7849,7 @@
     },
     {
         "question": "List the language used least number of TV Channel. List language and number of TV Channel.",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Language) AS count, tv_channel.Language AS Language\nRETURN Language,count\nORDER BY count ASC\nLIMIT 1",
+        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Language AS Language, count(tv_channel.Language) AS count\nRETURN Language,count\nORDER BY count ASC\nLIMIT 1",
         "db_id": "tvshow",
         "answers": [
             [
@@ -7860,7 +7860,7 @@
     },
     {
         "question": "What are the languages used by the least number of TV Channels and how many channels use it?",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Language) AS count, tv_channel.Language AS Language\nRETURN Language,count\nORDER BY count ASC\nLIMIT 1",
+        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Language AS Language, count(tv_channel.Language) AS count\nRETURN Language,count\nORDER BY count ASC\nLIMIT 1",
         "db_id": "tvshow",
         "answers": [
             [
@@ -7871,7 +7871,7 @@
     },
     {
         "question": "List each language and the number of TV Channels using it.",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Language) AS count, tv_channel.Language AS Language\nRETURN Language,count",
+        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Language AS Language, count(tv_channel.Language) AS count\nRETURN Language,count",
         "db_id": "tvshow",
         "answers": [
             [
@@ -7886,7 +7886,7 @@
     },
     {
         "question": "For each language, list the number of TV Channels that use it.",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(tv_channel.Language) AS count, tv_channel.Language AS Language\nRETURN Language,count",
+        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.Language AS Language, count(tv_channel.Language) AS count\nRETURN Language,count",
         "db_id": "tvshow",
         "answers": [
             [
@@ -8397,13 +8397,13 @@
     },
     {
         "question": "find id of the tv channels that from the countries where have more than two tv channels.",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.id AS id, count(*) AS count\nWHERE count  > 2\nRETURN id",
+        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(*) AS count, tv_channel.id AS id\nWHERE count  > 2\nRETURN id",
         "db_id": "tvshow",
         "answers": []
     },
     {
         "question": "What are the ids of all tv channels that have more than 2 TV channels?",
-        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH tv_channel.id AS id, count(*) AS count\nWHERE count  > 2\nRETURN id",
+        "query": "MATCH (tv_channel:`tvshow.TV_Channel`)\nWITH count(*) AS count, tv_channel.id AS id\nWHERE count  > 2\nRETURN id",
         "db_id": "tvshow",
         "answers": []
     },
@@ -8805,7 +8805,7 @@
     },
     {
         "question": "What are different nationalities of people and the corresponding number of people from each nation?",
-        "query": "MATCH (people:`poker_player.people`)\nWITH count(people.Nationality) AS count, people.Nationality AS Nationality\nRETURN Nationality,count",
+        "query": "MATCH (people:`poker_player.people`)\nWITH people.Nationality AS Nationality, count(people.Nationality) AS count\nRETURN Nationality,count",
         "db_id": "poker_player",
         "answers": [
             [
@@ -8820,7 +8820,7 @@
     },
     {
         "question": "How many people are there of each nationality?",
-        "query": "MATCH (people:`poker_player.people`)\nWITH count(people.Nationality) AS count, people.Nationality AS Nationality\nRETURN Nationality,count",
+        "query": "MATCH (people:`poker_player.people`)\nWITH people.Nationality AS Nationality, count(people.Nationality) AS count\nRETURN Nationality,count",
         "db_id": "poker_player",
         "answers": [
             [
@@ -8835,7 +8835,7 @@
     },
     {
         "question": "What is the most common nationality of people?",
-        "query": "MATCH (people:`poker_player.people`)\nWITH count(people.Nationality) AS count, people.Nationality AS Nationality\nRETURN Nationality\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (people:`poker_player.people`)\nWITH people.Nationality AS Nationality, count(people.Nationality) AS count\nRETURN Nationality\nORDER BY count DESC\nLIMIT 1",
         "db_id": "poker_player",
         "answers": [
             [
@@ -8845,7 +8845,7 @@
     },
     {
         "question": "Give the nationality that is most common across all people.",
-        "query": "MATCH (people:`poker_player.people`)\nWITH count(people.Nationality) AS count, people.Nationality AS Nationality\nRETURN Nationality\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (people:`poker_player.people`)\nWITH people.Nationality AS Nationality, count(people.Nationality) AS count\nRETURN Nationality\nORDER BY count DESC\nLIMIT 1",
         "db_id": "poker_player",
         "answers": [
             [
@@ -9180,13 +9180,13 @@
     },
     {
         "question": "What are the contestant numbers and names of the contestants who had at least two votes?",
-        "query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH T1.contestant_number AS contestant_number, T1.contestant_name AS contestant_name, count(*) AS count\nWHERE count  >= 2\nRETURN contestant_number,contestant_name",
+        "query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH count(*) AS count, T1.contestant_number AS contestant_number, T1.contestant_name AS contestant_name\nWHERE count  >= 2\nRETURN contestant_number,contestant_name",
         "db_id": "voter_1",
         "answers": []
     },
     {
         "question": "Of all the contestants who got voted, what is the contestant number and name of the contestant who got least votes?",
-        "query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH count(T1.contestant_number) AS count, T1.contestant_number AS contestant_number, T1.contestant_name AS contestant_name\nRETURN contestant_number,contestant_name\nORDER BY count ASC\nLIMIT 1",
+        "query": "MATCH (T1:`voter_1.CONTESTANTS`)-[]-(T2:`voter_1.VOTES`)\nWITH T1.contestant_number AS contestant_number, T1.contestant_name AS contestant_name, count(T1.contestant_number) AS count\nRETURN contestant_number,contestant_name\nORDER BY count ASC\nLIMIT 1",
         "db_id": "voter_1",
         "answers": []
     },
@@ -9304,13 +9304,13 @@
     },
     {
         "question": "What is name of the country that speaks the largest number of languages?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH count(T1.Name) AS count, T1.Name AS Name\nRETURN Name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Name AS Name, count(T1.Name) AS count\nRETURN Name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "world_1",
         "answers": []
     },
     {
         "question": "Give the name of the nation that uses the greatest amount of languages.",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH count(T1.Name) AS count, T1.Name AS Name\nRETURN Name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWITH T1.Name AS Name, count(T1.Name) AS count\nRETURN Name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "world_1",
         "answers": []
     },
@@ -9352,13 +9352,13 @@
     },
     {
         "question": "Which languages are spoken by only one country in republic governments?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.GovernmentForm = 'Republic'\nWITH count(*) AS count, T2.Language AS Language\nWHERE count  = 1\nRETURN Language",
+        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.GovernmentForm = 'Republic'\nWITH T2.Language AS Language, count(*) AS count\nWHERE count  = 1\nRETURN Language",
         "db_id": "world_1",
         "answers": []
     },
     {
         "question": "What languages are only used by a single country with a republic government?",
-        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.GovernmentForm = 'Republic'\nWITH count(*) AS count, T2.Language AS Language\nWHERE count  = 1\nRETURN Language",
+        "query": "MATCH (T1:`world_1.country`)-[]-(T2:`world_1.countrylanguage`)\nWHERE T1.GovernmentForm = 'Republic'\nWITH T2.Language AS Language, count(*) AS count\nWHERE count  = 1\nRETURN Language",
         "db_id": "world_1",
         "answers": []
     },
@@ -9514,37 +9514,37 @@
     },
     {
         "question": "Which language is spoken by the largest number of countries?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH count(countrylanguage.Language) AS count, countrylanguage.Language AS Language\nRETURN Language\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH countrylanguage.Language AS Language, count(countrylanguage.Language) AS count\nRETURN Language\nORDER BY count DESC\nLIMIT 1",
         "db_id": "world_1",
         "answers": []
     },
     {
         "question": "Give the language that is spoken in the most countries.",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH count(countrylanguage.Language) AS count, countrylanguage.Language AS Language\nRETURN Language\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH countrylanguage.Language AS Language, count(countrylanguage.Language) AS count\nRETURN Language\nORDER BY count DESC\nLIMIT 1",
         "db_id": "world_1",
         "answers": []
     },
     {
         "question": "What is the language spoken by the largest percentage of people in each country?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH countrylanguage.CountryCode AS CountryCode, count(countrylanguage.CountryCode) AS count, countrylanguage.Language AS Language\nRETURN Language,CountryCode,count",
+        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH count(countrylanguage.CountryCode) AS count, countrylanguage.Language AS Language, countrylanguage.CountryCode AS CountryCode\nRETURN Language,CountryCode,count",
         "db_id": "world_1",
         "answers": []
     },
     {
         "question": "What are the country codes of the different countries, and what are the languages spoken by the greatest percentage of people for each?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH countrylanguage.CountryCode AS CountryCode, count(countrylanguage.CountryCode) AS count, countrylanguage.Language AS Language\nRETURN Language,CountryCode,count",
+        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWITH count(countrylanguage.CountryCode) AS count, countrylanguage.Language AS Language, countrylanguage.CountryCode AS CountryCode\nRETURN Language,CountryCode,count",
         "db_id": "world_1",
         "answers": []
     },
     {
         "question": "What are the codes of countries where Spanish is spoken by the largest percentage of people?",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWHERE countrylanguage.Language = 'Spanish'\nWITH countrylanguage.CountryCode AS CountryCode, count(countrylanguage.CountryCode) AS count\nRETURN CountryCode,count",
+        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWHERE countrylanguage.Language = 'Spanish'\nWITH count(countrylanguage.CountryCode) AS count, countrylanguage.CountryCode AS CountryCode\nRETURN CountryCode,count",
         "db_id": "world_1",
         "answers": []
     },
     {
         "question": "Return the codes of countries for which Spanish is the predominantly spoken language.",
-        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWHERE countrylanguage.Language = 'Spanish'\nWITH countrylanguage.CountryCode AS CountryCode, count(countrylanguage.CountryCode) AS count\nRETURN CountryCode,count",
+        "query": "MATCH (countrylanguage:`world_1.countrylanguage`)\nWHERE countrylanguage.Language = 'Spanish'\nWITH count(countrylanguage.CountryCode) AS count, countrylanguage.CountryCode AS CountryCode\nRETURN CountryCode,count",
         "db_id": "world_1",
         "answers": []
     },
@@ -10666,7 +10666,7 @@
     },
     {
         "question": "Show the number of high schoolers for each grade.",
-        "query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(highschooler.grade) AS count, highschooler.grade AS grade\nRETURN grade,count",
+        "query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(highschooler.grade) AS count\nRETURN grade,count",
         "db_id": "network_1",
         "answers": [
             [
@@ -10689,7 +10689,7 @@
     },
     {
         "question": "How many high schoolers are in each grade?",
-        "query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(highschooler.grade) AS count, highschooler.grade AS grade\nRETURN grade,count",
+        "query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(highschooler.grade) AS count\nRETURN grade,count",
         "db_id": "network_1",
         "answers": [
             [
@@ -10712,7 +10712,7 @@
     },
     {
         "question": "Show me all grades that have at least 4 students.",
-        "query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(*) AS count, highschooler.grade AS grade\nWHERE count  >= 4\nRETURN grade",
+        "query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(*) AS count\nWHERE count  >= 4\nRETURN grade",
         "db_id": "network_1",
         "answers": [
             [
@@ -10731,7 +10731,7 @@
     },
     {
         "question": "Which grades have 4 or more high schoolers?",
-        "query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH count(*) AS count, highschooler.grade AS grade\nWHERE count  >= 4\nRETURN grade",
+        "query": "MATCH (highschooler:`network_1.Highschooler`)\nWITH highschooler.grade AS grade, count(*) AS count\nWHERE count  >= 4\nRETURN grade",
         "db_id": "network_1",
         "answers": [
             [
@@ -10750,49 +10750,49 @@
     },
     {
         "question": "Show the student IDs and numbers of friends corresponding to each.",
-        "query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH count(friend.student_id) AS count, friend.student_id AS student_id\nRETURN student_id,count",
+        "query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH friend.student_id AS student_id, count(friend.student_id) AS count\nRETURN student_id,count",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "How many friends does each student have?",
-        "query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH count(friend.student_id) AS count, friend.student_id AS student_id\nRETURN student_id,count",
+        "query": "MATCH ()-[friend:`network_1.Friend`]-()\nWITH friend.student_id AS student_id, count(friend.student_id) AS count\nRETURN student_id,count",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "Show the names of high school students and their corresponding number of friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name,count",
+        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "What are the names of the high schoolers and how many friends does each have?",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name,count",
+        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "What is the name of the high schooler who has the greatest number of friends?",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "Return the name of the high school student with the most friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "Show the names of high schoolers who have at least 3 friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 3\nRETURN name",
+        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 3\nRETURN name",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "What are the names of high schoolers who have 3 or more friends?",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 3\nRETURN name",
+        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 3\nRETURN name",
         "db_id": "network_1",
         "answers": []
     },
@@ -10822,55 +10822,55 @@
     },
     {
         "question": "Show the names of high schoolers who have likes, and numbers of likes for each.",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name,count",
+        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "What are the names of high schoolers who have likes, and how many likes does each have?",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name,count",
+        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name,count",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "What is the name of the high schooler who has the greatest number of likes?",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "Give the name of the student with the most likes.",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(T1.student_id) AS count, T2.name AS name\nRETURN name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(T1.student_id) AS count\nRETURN name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "Show the names of students who have at least 2 likes.",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 2\nRETURN name",
+        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "What are the names of students who have 2 or more likes?",
-        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 2\nRETURN name",
+        "query": "MATCH ()-[T1:`network_1.Likes`]-(T2:`network_1.Highschooler`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "Show the names of students who have a grade higher than 5 and have at least 2 friends.",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 2\nRETURN name",
+        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "What are the names of high schoolers who have a grade of over 5 and have 2 or more friends?",
-        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH T2.name AS name, count(*) AS count\nWHERE count  >= 2\nRETURN name",
+        "query": "MATCH ()-[T1:`network_1.Friend`]-(T2:`network_1.Highschooler`)\nWHERE T2.grade > 5\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 2\nRETURN name",
         "db_id": "network_1",
         "answers": []
     },
     {
         "question": "Which owner owns the most dogs? List the owner id, first name and last name.",
-        "query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH T2.first_name AS first_name, count(T1.owner_id) AS count, T1.owner_id AS owner_id, T2.last_name AS last_name\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH T2.first_name AS first_name, T2.last_name AS last_name, count(T1.owner_id) AS count, T1.owner_id AS owner_id\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "dog_kennels",
         "answers": [
             [
@@ -10882,7 +10882,7 @@
     },
     {
         "question": "Return the owner id, first name and last name of the owner who has the most dogs.",
-        "query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH T2.first_name AS first_name, count(T1.owner_id) AS count, T1.owner_id AS owner_id, T2.last_name AS last_name\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Owners`)\nWITH T2.first_name AS first_name, T2.last_name AS last_name, count(T1.owner_id) AS count, T1.owner_id AS owner_id\nRETURN owner_id,first_name,last_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "dog_kennels",
         "answers": [
             [
@@ -10894,7 +10894,7 @@
     },
     {
         "question": "Which professionals have done at least two treatments? List the professional's id, role, and first name.",
-        "query": "MATCH (T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nWITH T1.first_name AS first_name, T1.role_code AS role_code, T1.professional_id AS professional_id, count(*) AS count\nWHERE count  >= 2\nRETURN professional_id,role_code,first_name",
+        "query": "MATCH (T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nWITH count(*) AS count, T1.first_name AS first_name, T1.professional_id AS professional_id, T1.role_code AS role_code\nWHERE count  >= 2\nRETURN professional_id,role_code,first_name",
         "db_id": "dog_kennels",
         "answers": [
             [
@@ -10931,7 +10931,7 @@
     },
     {
         "question": "What are the id, role, and first name of the professionals who have performed two or more treatments?",
-        "query": "MATCH (T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nWITH T1.first_name AS first_name, T1.role_code AS role_code, T1.professional_id AS professional_id, count(*) AS count\nWHERE count  >= 2\nRETURN professional_id,role_code,first_name",
+        "query": "MATCH (T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nWITH count(*) AS count, T1.first_name AS first_name, T1.professional_id AS professional_id, T1.role_code AS role_code\nWHERE count  >= 2\nRETURN professional_id,role_code,first_name",
         "db_id": "dog_kennels",
         "answers": [
             [
@@ -10988,19 +10988,19 @@
     },
     {
         "question": "Which owner has paid for the most treatments on his or her dogs? List the owner id and last name.",
-        "query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH T1.last_name AS last_name, count(T1.owner_id) AS count, T1.owner_id AS owner_id\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH count(T1.owner_id) AS count, T1.last_name AS last_name, T1.owner_id AS owner_id\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "dog_kennels",
         "answers": []
     },
     {
         "question": "Tell me the owner id and last name of the owner who spent the most on treatments of his or her dogs.",
-        "query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH T1.last_name AS last_name, count(T1.owner_id) AS count, T1.owner_id AS owner_id\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (T3:`dog_kennels.Treatments`)-[]-(T2:`dog_kennels.Dogs`)-[]-(T1:`dog_kennels.Owners`)-[]-(T2:`dog_kennels.Dogs`)\nWITH count(T1.owner_id) AS count, T1.last_name AS last_name, T1.owner_id AS owner_id\nRETURN owner_id,last_name\nORDER BY count DESC\nLIMIT 1",
         "db_id": "dog_kennels",
         "answers": []
     },
     {
         "question": "Which professionals have done at least two types of treatments? List the professional id and cell phone.",
-        "query": "MATCH (T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nWITH T1.professional_id AS professional_id, count(*) AS count, T1.cell_number AS cell_number\nWHERE count  >= 2\nRETURN professional_id,cell_number",
+        "query": "MATCH (T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nWITH count(*) AS count, T1.cell_number AS cell_number, T1.professional_id AS professional_id\nWHERE count  >= 2\nRETURN professional_id,cell_number",
         "db_id": "dog_kennels",
         "answers": [
             [
@@ -11031,7 +11031,7 @@
     },
     {
         "question": "Find the id and cell phone of the professionals who operate two or more types of treatments.",
-        "query": "MATCH (T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nWITH T1.professional_id AS professional_id, count(*) AS count, T1.cell_number AS cell_number\nWHERE count  >= 2\nRETURN professional_id,cell_number",
+        "query": "MATCH (T1:`dog_kennels.Professionals`)-[]-(T2:`dog_kennels.Treatments`)\nWITH count(*) AS count, T1.cell_number AS cell_number, T1.professional_id AS professional_id\nWHERE count  >= 2\nRETURN professional_id,cell_number",
         "db_id": "dog_kennels",
         "answers": [
             [
@@ -12674,7 +12674,7 @@
     },
     {
         "question": "Show different citizenship of singers and the number of singers of each citizenship.",
-        "query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship,count",
+        "query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship,count",
         "db_id": "singer",
         "answers": [
             [
@@ -12701,7 +12701,7 @@
     },
     {
         "question": "For each citizenship, how many singers are from that country?",
-        "query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship,count",
+        "query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship,count",
         "db_id": "singer",
         "answers": [
             [
@@ -12728,7 +12728,7 @@
     },
     {
         "question": "Please show the most common citizenship of singers.",
-        "query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
         "db_id": "singer",
         "answers": [
             [
@@ -12738,7 +12738,7 @@
     },
     {
         "question": "What is the most common singer citizenship ?",
-        "query": "MATCH (singer:`singer.singer`)\nWITH count(singer.Citizenship) AS count, singer.Citizenship AS Citizenship\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
+        "query": "MATCH (singer:`singer.singer`)\nWITH singer.Citizenship AS Citizenship, count(singer.Citizenship) AS count\nRETURN Citizenship\nORDER BY count DESC\nLIMIT 1",
         "db_id": "singer",
         "answers": [
             [

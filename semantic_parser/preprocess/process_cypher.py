@@ -79,13 +79,10 @@ def get_schema_from_json(fpath):
     :param file: the schema json file
     :return: schema dict
     """
-    schema = {}
-    with open(fpath) as reader:
-        data = json.load(reader)
-        for k, v in data.items():
-            schema[k]=v['property_names']
 
-    return schema
+    with open(fpath) as reader:
+        schema = json.load(reader)
+        return schema
 
 
 def tokenize(string):
