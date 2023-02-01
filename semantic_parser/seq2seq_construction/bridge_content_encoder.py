@@ -65,8 +65,7 @@ def is_span_separator(c: str) -> bool:
 
 
 def split(s: str) -> List[str]:
-    # ZZY: fix s.strip() - > s.split()
-    return [c.lower() for c in s.split()]
+    return [c.lower() for c in s.strip()]
 
 
 def prefix_match(s1: str, s2: str) -> bool:

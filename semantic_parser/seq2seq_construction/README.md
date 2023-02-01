@@ -197,7 +197,7 @@ Note: **[peteshaw](https://arxiv.org/abs/2010.12725)**
 
 This point aims to understand how field values in the context of Text-to-SQL are cancatenated alongside column names and table names, especially for the case that one column contains thousands of field values. 
 
-:grinning: Bacially the idea is straightforward and using the quetion tokens to filterout (or match) the most possible filed value(s) for the targeted field. It simply and trivally use **difflib.SequenceMatch** to get the maxmimum string matching. The idea is called **picklists** and described in **[TabularSemanticParsing](https://arxiv.org/abs/2012.12627)** paper. 
+:grinning: Bacially the idea is straightforward and using the quetion tokens to filter out (or match) the most possible filed value(s) for the targeted field. It simply and trivally use **difflib.SequenceMatch** to get the maxmimum string matching. The idea is called **picklists** and described in **[TabularSemanticParsing](https://arxiv.org/abs/2012.12627)** paper. 
 
 
 - [This](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/general_testing.ipynb) shows an example of picklist regarding column **name** in table **department_management** in the **department_management.db**. 
@@ -213,8 +213,12 @@ question = 'What are the names of the heads who are born outside the California 
 1. Get the whole field values of one column
     picklist = get_column_picklist(table_name, column_name, db_path) # R: List[str]
 
-2. Split the question into a list of tokens, and filter out all stop words, the common db terms (i.e. **id**)
+2. Split the question into a list of characters denoted as **n_grams**, as well as each field value denoted as **fv_tokens**. Then **difflib.SequenceMatcher** is employed to get the similary of **n_grams** and **fv_tokens**, and find the longest match start index, end index, and match size. These indices are used to specified the matched spans of the question and corresponding field value respectively. Finally, the matched entries are obtained by filtering out all stop words, the common db terms (i.e. **id**) and other common words (e.g., "no", "yes", "many"). One can even add a list of sensitive words involving data privacy, say personal id number. 
+
     get_matched_entries = get_matched_entries(question, picklist, match_threshold, s_theta) # R: Optional[List[Tuple[str, Tuple[str, str, float, float, int]]]]
+
+    # w.r.t. running example
+    # ['California', ]
 
 3. 
     matches = get_database_matches(question, table_name, column_name, db_path)
