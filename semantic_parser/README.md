@@ -9,7 +9,9 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Reformat input dataset which includes three json files, namely train.json, dev.json and schema.json. 
     - Create a small dataset in `department_management` domain.
 -  `31/01/2023`
-    - Define text2cypher [data features](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_dataset_builder.py)
+    - Define text2cypher :point_right: [data features](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_dataset_builder.py)
+-  `01/02/2023`
+    - DB content encoder :point_right: [picklist](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/bridge_content_encoder.py)
 
 ### :point_right: TODO LIST
 - ddl: `31/01/2023`
@@ -46,6 +48,7 @@ Each file in`train.json` and `dev.json` contains the following fields:
 - `question`: the natural language question
 - `query`: the Cypher query corresponding to the question. 
 - `db_id`: the database id to which this question is addressed.
+- `answers`: List[List(str)]
 <!-- - `query_toks`: the Cypher query tokens corresponding to the question. (TODO)
 - `Cypher`: parsed results of this Cypher query using `process_cypher.py`. Please refer to `parsed_cypher_examples.cypher` in the`preprocess` directory for the detailed documentation. (TODO) -->
 
@@ -53,9 +56,30 @@ Each file in`train.json` and `dev.json` contains the following fields:
 ```
  {
 
-        "question": "How many heads of the departments are older than 56 ?",
-        "query": "MATCH (head:`department_management.head`)\nWHERE head.age > 56\nRETURN count(*)",
+        "question": "What are the names of the heads who are born outside the California state?",
+        "query": "MATCH (head:`department_management.head`)\nWHERE head.born_state <> 'California'\nRETURN head.name",
         "db_id": "department_management",
+        "answers": [
+            [
+                "Tiger Woods"
+            ],
+            [
+                "K. J. Choi"
+            ],
+            [
+                "Jeff Maggert"
+            ],
+            [
+                "Stewart Cink"
+            ],
+            [
+                "P\u00e1draig Harrington"
+            ],
+            [
+                "Franklin Langham"
+            ]
+        ]
+        
     },
 
 ```
@@ -69,7 +93,7 @@ We showcase the schema of `department_management` domain in `schema.json` which 
 
 For the whole property graph database schema, please refer to [this page](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/data/text2cypher/schema.json).
 ``` 
-  "department_management": {
+    "department_management": {
         "property_types": [
             "String",
             "String",
@@ -83,29 +107,180 @@ For the whole property graph database schema, please refer to [this page](https:
             "Long",
             "String"
         ],
-        ":`department_management.department`": {
-            "property_names": [
-                "Name",
-                "Creation",
-                "Department_ID",
-                "Ranking",
-                "Budget_in_Billions",
-                "Num_Employees"
-            ]
-        },
-        ":`department_management.head`": {
-            "property_names": [
-                "name",
-                "born_state",
-                "age",
-                "head_ID"
-            ]
-        },
-        ":`department_management.management`": {
-            "property_names": [
-                "temporary_acting"
-            ]
-        }
+        ":`department_management.department`": [
+            {
+                "Name": [
+                    "Justice",
+                    "Commerce",
+                    "Interior",
+                    "Education",
+                    "Veterans Affairs",
+                    "Energy",
+                    "Homeland Security",
+                    "State",
+                    "Housing and Urban Development",
+                    "Agriculture",
+                    "Labor",
+                    "Transportation",
+                    "Defense",
+                    "Treasury",
+                    "Health and Human Services"
+                ]
+            },
+            {
+                "Creation": [
+                    "1979",
+                    "1966",
+                    "1889",
+                    "1977",
+                    "1965",
+                    "1947",
+                    "1903",
+                    "1953",
+                    "1913",
+                    "1870",
+                    "1989",
+                    "1789",
+                    "1849",
+                    "2002"
+                ]
+            },
+            {
+                "Department_ID": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ]
+            },
+            {
+                "Ranking": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ]
+            },
+            {
+                "Budget_in_Billions": [
+                    439.3,
+                    6.2,
+                    9.96,
+                    10.7,
+                    11.1,
+                    73.2,
+                    77.6,
+                    46.2,
+                    44.6,
+                    21.5,
+                    23.4,
+                    58.0,
+                    59.7,
+                    62.8,
+                    543.2
+                ]
+            },
+            {
+                "Num_Employees": [
+                    3000000.0,
+                    36000.0,
+                    208000.0,
+                    17347.0,
+                    116100.0,
+                    4487.0,
+                    109832.0,
+                    10600.0,
+                    235000.0,
+                    71436.0,
+                    112557.0,
+                    67000.0,
+                    115897.0,
+                    30266.0,
+                    58622.0
+                ]
+            }
+        ],
+        ":`department_management.head`": [
+            {
+                "name": [
+                    "Tiger Woods",
+                    "Billy Mayfair",
+                    "Jeff Maggert",
+                    "K. J. Choi",
+                    "Franklin Langham",
+                    "Nick Faldo",
+                    "P\u00e1draig Harrington",
+                    "Dudley Hart",
+                    "Sergio Garc\u00eda",
+                    "Stewart Cink"
+                ]
+            },
+            {
+                "born_state": [
+                    "Delaware",
+                    "Alabama",
+                    "Connecticut",
+                    "California",
+                    "Florida"
+                ]
+            },
+            {
+                "age": [
+                    67.0,
+                    68.0,
+                    69.0,
+                    43.0,
+                    50.0,
+                    52.0,
+                    53.0,
+                    56.0
+                ]
+            },
+            {
+                "head_ID": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10
+                ]
+            }
+        ],
+        ":`department_management.management`": [
+            {
+                "temporary_acting": [
+                    "Yes",
+                    "No"
+                ]
+            }
+        ]
     },
 
 ```

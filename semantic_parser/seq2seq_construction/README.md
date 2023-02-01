@@ -249,9 +249,13 @@ question = 'What are the names of the heads who are born outside the California 
 3. Once got the matches, they are joined into a string and be a element of a tuple alongside the column name. The tuple then is appended to a list. 
 
 
-:boom:
+:boom: Text2Cypher DB Content Solution. 
+:point_down:
 
 We extract all the field values and attach them into the **schem.json** as part of the schema items rather than relying on the cursor engine to read each time. 
 
 We use sqlite cursor to get field values. This is a lazy but efficient way to sort out the data. Cypher might be effecient in the sense of interaction with database, but not as effecient as relational database in the sense of database management I suspect. 
+
+
+### :point_right: [Serialization](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_constructor.py)
 
