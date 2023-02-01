@@ -259,7 +259,8 @@ We use sqlite cursor to get field values. This is a lazy but efficient way to so
 
 ### :point_right: [Serialization](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_constructor.py)
 
-:point_right: Showcasing spider **schema** of **department_management**, a yield **example** and **raw_datasets_split**
+:point_right: Showcasing our subset of spider **schema** of **department_management**, a yield **example** and **raw_datasets_split**
+[some more examples](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/showcasing_spider_dataset)
 
 department_management_schema :point_down:
 
@@ -280,6 +281,16 @@ schema: {'db_id': 'department_management', 'table_names_original': ['department'
 raw_datasets_split :point_down:
 
 ```
+DatasetDict({
+    train: Dataset({
+        features: ['query', 'question', 'db_id', 'db_path', 'db_table_names', 'db_column_names', 'db_column_types', 'db_primary_keys', 'db_foreign_keys'],
+        num_rows: 4730
+    })
+    validation: Dataset({
+        features: ['query', 'question', 'db_id', 'db_path', 'db_table_names', 'db_column_names', 'db_column_types', 'db_primary_keys', 'db_foreign_keys'],
+        num_rows: 705
+    })
+})
 
 ```
 
