@@ -57,6 +57,7 @@ def text2cypher_add_serialized_schema(ex: dict, args) -> dict:
             db_id=ex["db_id"],
             db_property_names=ex["db_property_names"],
             db_tag_names=ex["db_tag_names"],
+            schema_path=ex["schema_path"],
             schema_serialization_with_db_content=args.seq2seq.schema_serialization_with_db_content,
             normalize_query=True,
         )
@@ -66,6 +67,7 @@ def text2cypher_add_serialized_schema(ex: dict, args) -> dict:
             db_id=ex["db_id"],
             db_property_names=ex["db_property_names"],
             db_tag_names=ex["db_tag_names"],
+            schema_path=ex["schema_path"],
             schema_serialization_type="peteshaw",
             schema_serialization_randomized=False,
             schema_serialization_with_db_id=True,
@@ -141,6 +143,7 @@ def serialize_schema_natural_language(
         db_id: str,
         db_property_names: Dict[str, str],
         db_tag_names: List[str],
+        schema_path: str,
         schema_serialization_with_db_content: bool = False,
         normalize_query: bool = True,
 ) -> str:
@@ -160,7 +163,6 @@ def serialize_schema_natural_language(
         db_tag_name_strs.append(tag_name_str)
         propertys = []
         property_value_pairs = []
-        primary_keys = []
         for property_id, (x, y) in enumerate(zip(db_property_names["tag_id"], db_property_names["property_name"])):
             if property_id == 0:
                 continue
@@ -170,9 +172,11 @@ def serialize_schema_natural_language(
                 propertys.append(property_str)
                 if schema_serialization_with_db_content:
                     matches = get_database_matches(
+                        db_id=db_id,
                         question=question,
                         tag_name=tag_name,
                         property_name=y,
+                        schema_path = schema_path
                     )
                     if matches:
                         property_value_pairs.append((property_str, value_sep.join(matches)))
@@ -190,6 +194,7 @@ def serialize_schema(
         db_id: str,
         db_property_names: Dict[str, str],
         db_tag_names: List[str],
+        schema_path: str,
         schema_serialization_type: str = "peteshaw",
         schema_serialization_randomized: bool = False,
         schema_serialization_with_db_id: bool = True,
@@ -197,7 +202,7 @@ def serialize_schema(
         normalize_query: bool = True,
 ) -> str:
     if schema_serialization_type == "verbose":
-        db_id_str = "Database: {db_id}. "
+        db_id_str = "Domain: {db_id}. "
         tag_sep = ". "
         tag_str = "tag: {tag}. propertys: {propertys}"
         property_sep = ", "
@@ -220,9 +225,11 @@ def serialize_schema(
         property_name_str = property_name.lower() if normalize_query else property_name
         if schema_serialization_with_db_content:
             matches = get_database_matches(
+                db_id=db_id,
                 question=question,
                 tag_name=tag_name,
                 property_name=property_name,
+                schema_path=schema_path,
             )
             if matches:
                 return property_str_with_values.format(

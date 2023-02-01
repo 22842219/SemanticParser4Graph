@@ -10,8 +10,9 @@
 import difflib
 from typing import List, Optional, Tuple
 from rapidfuzz import fuzz
-import sqlite3
 import functools
+
+import codecs, json
 
 # fmt: off
 _stopwords = {'who', 'ourselves', 'down', 'only', 'were', 'him', 'at', "weren't", 'has', 'few', "it's", 'm', 'again',
@@ -195,42 +196,32 @@ def get_matched_entries(
             key=lambda x: (1e16 * x[1][2] + 1e8 * x[1][3] + x[1][4]),
             reverse=True,
         )
+        
 
-
+# ZZY: to adapt to our task:
 @functools.lru_cache(maxsize=1000, typed=False)
-def get_column_picklist(table_name: str, column_name: str, db_path: str) -> list:
-    fetch_sql = "SELECT DISTINCT `{}` FROM `{}`".format(column_name, table_name)
-    try:
-        conn = sqlite3.connect(db_path)
-        conn.text_factory = bytes
-        c = conn.cursor()
-        c.execute(fetch_sql)
-        picklist = set()
-        for x in c.fetchall():
-            if isinstance(x[0], str):
-                picklist.add(x[0].encode("utf-8"))
-            elif isinstance(x[0], bytes):
-                try:
-                    picklist.add(x[0].decode("utf-8"))
-                except UnicodeDecodeError:
-                    picklist.add(x[0].decode("latin-1"))
-            else:
-                picklist.add(x[0])
-        picklist = list(picklist)
-    finally:
-        conn.close()
+def get_property_picklist(db_id: str, tag_name: str, property_name: str, schema_path: str) -> list:
+    with codecs.open(schema_path, 'r') as f:
+        schema = json.load(f)
+        every_schema=schema[db_id]
+        for property_value_pair in every_schema[tag_name]:
+            print(property_value_pair)
+            
+            if property_name in list(property_value_pair.keys()):
+                picklist = property_value_pair[property_name]
     return picklist
 
 def get_database_matches(
+    db_id: str,
     question: str,
-    table_name: str,
-    column_name: str,
-    db_path: str,
+    tag_name: str,
+    property_name: str,
+    schema_path: str,
     top_k_matches: int = 2,
     match_threshold: float = 0.85,
 ) -> List[str]:
-    picklist = get_column_picklist(
-        table_name=table_name, column_name=column_name, db_path=db_path
+    picklist = get_property_picklist(
+        db_id=db_id, tag_name=tag_name, property_name=property_name, schema_path=schema_path
     )
     print(f'picklist: {picklist}, question: {type(question)}, {question}')
     matches = []
@@ -250,9 +241,9 @@ def get_database_matches(
                 s_match_score,
                 _match_size,
             ) in matched_entries:
-                if "name" in column_name and match_score * s_match_score < 1:
+                if "name" in property_name and match_score * s_match_score < 1:
                     continue
-                if table_name != "sqlite_sequence":  # Spider database artifact
+                if tag_name != "sqlite_sequence":  # Spider database artifact
                     matches.append(field_value)
                     num_values_inserted += 1
                     if num_values_inserted >= top_k_matches:

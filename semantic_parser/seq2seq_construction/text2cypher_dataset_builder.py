@@ -76,6 +76,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 "query": datasets.Value("string"), 
                 "question": datasets.Value("string"),
                 "answers": datasets.features.Sequence(datasets.Value("string")),
+                "schema_path": datasets.Value("string"),
                 "db_id": datasets.Value("string"),
                 "db_tag_names": datasets.features.Sequence(datasets.Value("string")),
                 "db_property_names": datasets.features.Sequence(
@@ -105,13 +106,14 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
                     "data_filepath": downloaded_filepath + "/train.json",
+                    "schema_path": downloaded_filepath + "/schema.json", 
                 },
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
                 gen_kwargs={
                     "data_filepath": downloaded_filepath + "/dev.json",
-
+                    "schema_path": downloaded_filepath + "/schema.json", 
                 },
             ),
         ]
@@ -138,10 +140,11 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                     for pair in property_name_value_pairs:
                         for property_name, field_values in pair.items():      
                             yield idx, {
-                                "db_id": db_id,
                                 "query": sample["query"],
                                 "question": sample["question"],
                                 "answers": sample["answers"],
+                                "schema_path": schema_path, 
+                                "db_id": db_id,
                                 "db_tag_names": tags, 
                                 "db_property_names": 
                                     [
