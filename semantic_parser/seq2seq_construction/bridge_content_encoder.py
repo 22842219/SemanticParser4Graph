@@ -186,7 +186,7 @@ def get_matched_entries(
                             s_match_score,
                             match.size,
                         )
-
+    
     if not matched:
         return None
     else:
@@ -241,7 +241,6 @@ def get_database_matches(
             m_theta=match_threshold,
             s_theta=match_threshold,
         )
-        print(f'matched_entries: {matched_entries}')
         if matched_entries:
             num_values_inserted = 0
             for _match_str, (

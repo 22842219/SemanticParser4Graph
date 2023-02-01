@@ -211,17 +211,27 @@ column_name = 'born_state'
 question = 'What are the names of the heads who are born outside the California state?'
 
 1. Get the whole field values of one column
+    :point_down: 
     picklist = get_column_picklist(table_name, column_name, db_path) # R: List[str]
 
-2. Split the question into a list of characters denoted as **n_grams**, as well as each field value denoted as **fv_tokens**. Then **difflib.SequenceMatcher** is employed to get the similary of **n_grams** and **fv_tokens**, and find the longest match start index, end index, and match size. These indices are used to specified the matched spans of the question and corresponding field value respectively. Finally, the matched entries are obtained by filtering out all stop words, the common db terms (i.e. **id**) and other common words (e.g., "no", "yes", "many"). One can even add a list of sensitive words involving data privacy, say personal id number. 
+2. Compare the similary of the question and field values at character level. 
+    - Split the question into a list of characters denoted as **n_grams**, as well as each field value denoted as **fv_tokens**. 
+    - Then **difflib.SequenceMatcher** is employed to get the similary of **n_grams** and **fv_tokens**, and find the longest match start index, end index, and match size. 
+    - These indices are used to specified the matched spans of the question and corresponding field value respectively. 
+    - A **matched_score** is computed by filtering out all stop words, the common db terms (i.e. **id**) and other common words (e.g., "no", "yes", "many"). One can even add a list of sensitive words involving data privacy, say personal id number. 
+    - A matched threshold is applied to the **matched_scored**. **s_matched_score** is initialized by **match_score** and a **s_theta** (another threshold) is applied. 
+    
 
+    :point_down: 
     get_matched_entries = get_matched_entries(question, picklist, match_threshold, s_theta) # R: Optional[List[Tuple[str, Tuple[str, str, float, float, int]]]]
 
     # w.r.t. running example
     # ['California', ]
 
 
-    matches = get_database_matches(question, table_name, column_name, db_path)
+    - Finally, a **top_k_matches** (say 2 by default) is applied to get the top k matches field values. 
+    :point_down: 
+    matches = get_database_matches(question, table_name, column_name, db_path, top_k_matches = 2, match_threshold = 0.85)
 
 3. Once got the matches, they are joined into a string and be a element of a tuple alongside the column name. The tuple then is appended to a list. 
 
