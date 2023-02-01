@@ -14,13 +14,13 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - DB content encoder :point_right: [picklist](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/bridge_content_encoder.py)
 
 ### :point_right: TODO LIST
-- ddl: `31/01/2023`
-    - Debugging [DB content encoding](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/general_testing.ipynb)
+- ddl: `01/02/2023`
     - Debugging [Seq2seq constructor](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_constructor.py)
 
 - ddl: `3/02/2023` 
     - Encoder-Decoder architecture using a running example
     - Test training/Evaluation [data generator](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/tasks/text2cypher.py)
+    - Hopefully get a model running!!
 
 
 - cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match.
