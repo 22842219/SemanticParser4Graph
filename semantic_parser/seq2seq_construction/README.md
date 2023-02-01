@@ -188,10 +188,16 @@ e.g.,
     "target_with_db_id": true,
 }
 ```
+Note: **[peteshaw](https://arxiv.org/abs/2010.12725)**
+
+
+
 
 ### :point_right: [DB Content Encoding](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/bridge_content_encoder.py)
 
-This point aims to understand how field values in the context of Text-to-SQL are cancatenated alongside column names and table names, especially for the case that one column contains thousands of field values. Bacially the idea is straightforward and using the quetion tokens to filterout (or match) the most possible filed value(s) for the targeted field. It simply and trivally use **difflib.SequenceMatch** to get the maxmimum string matching. The idea is called **picklists** and described in **[TabularSemanticParsing](https://arxiv.org/abs/2012.12627)** paper. 
+This point aims to understand how field values in the context of Text-to-SQL are cancatenated alongside column names and table names, especially for the case that one column contains thousands of field values. 
+
+:grinning: Bacially the idea is straightforward and using the quetion tokens to filterout (or match) the most possible filed value(s) for the targeted field. It simply and trivally use **difflib.SequenceMatch** to get the maxmimum string matching. The idea is called **picklists** and described in **[TabularSemanticParsing](https://arxiv.org/abs/2012.12627)** paper. 
 
 
 - [This](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/general_testing.ipynb) shows an example of picklist regarding column **name** in table **department_management** in the **department_management.db**. 
@@ -215,6 +221,4 @@ question = 'What are the names of the heads who are born outside the California 
 
 ```
 
-
-Note: **[peteshaw](https://arxiv.org/abs/2010.12725)**
 
