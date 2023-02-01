@@ -220,8 +220,12 @@ question = 'What are the names of the heads who are born outside the California 
     # w.r.t. running example
     # ['California', ]
 
-3. 
+
     matches = get_database_matches(question, table_name, column_name, db_path)
+
+3. Once got the matches, they are joined into a string and be a element of a tuple alongside the column name. The tuple then is appended to a list. 
+
+    
 
 ```
 
