@@ -259,3 +259,28 @@ We use sqlite cursor to get field values. This is a lazy but efficient way to so
 
 ### :point_right: [Serialization](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_constructor.py)
 
+:point_right: Showcasing spider **schema** of **department_management**, a yield **example** and **raw_datasets_split**
+
+department_management_schema :point_down:
+
+```
+ {'db_id': 'department_management', 'table_names_original': ['department', 'head', 'management'], 'table_names': ['department', 'head', 'management'], 'column_names_original': [(-1, '*'), (0, 'Department_ID'), (0, 'Name'), (0, 'Creation'), (0, 'Ranking'), (0, 'Budget_in_Billions'), (0, 'Num_Employees'), (1, 'head_ID'), (1, 'name'), (1, 'born_state'), (1, 'age'), (2, 'department_ID'), (2, 'head_ID'), (2, 'temporary_acting')], 'column_names': [(-1, '*'), (0, 'department id'), (0, 'name'), (0, 'creation'), (0, 'ranking'), (0, 'budget in billions'), (0, 'num employees'), (1, 'head id'), (1, 'name'), (1, 'born state'), (1, 'age'), (2, 'department id'), (2, 'head id'), (2, 'temporary acting')], 'column_types': ['text', 'number', 'text', 'text', 'number', 'number', 'number', 'number', 'text', 'text', 'number', 'number', 'number', 'text'], 'primary_keys': [1, 7, 11], 'foreign_keys': [[12, 7], [11, 1]]}
+
+```
+
+
+A yield example with idx :point_down:
+
+```
+0, {'query': 'SELECT count(*) FROM head WHERE age  >  56', 'question': 'How many heads of the departments are older than 56 ?', 'db_id': 'department_management', 'db_path': '/home/22842219/Desktop/openSource/UnifiedSKGG-subSpider/data/downloads/spider/database', 'db_table_names': ['department', 'head', 'management'], 'db_column_names': [{'table_id': -1, 'column_name': '*'}, {'table_id': 0, 'column_name': 'Department_ID'}, {'table_id': 0, 'column_name': 'Name'}, {'table_id': 0, 'column_name': 'Creation'}, {'table_id': 0, 'column_name': 'Ranking'}, {'table_id': 0, 'column_name': 'Budget_in_Billions'}, {'table_id': 0, 'column_name': 'Num_Employees'}, {'table_id': 1, 'column_name': 'head_ID'}, {'table_id': 1, 'column_name': 'name'}, {'table_id': 1, 'column_name': 'born_state'}, {'table_id': 1, 'column_name': 'age'}, {'table_id': 2, 'column_name': 'department_ID'}, {'table_id': 2, 'column_name': 'head_ID'}, {'table_id': 2, 'column_name': 'temporary_acting'}], 'db_column_types': ['text', 'number', 'text', 'text', 'number', 'number', 'number', 'number', 'text', 'text', 'number', 'number', 'number', 'text'], 'db_primary_keys': [{'column_id': 1}, {'column_id': 7}, {'column_id': 11}], 'db_foreign_keys': [{'column_id': 12, 'other_column_id': 7}, {'column_id': 11, 'other_column_id': 1}]}
+schema: {'db_id': 'department_management', 'table_names_original': ['department', 'head', 'management'], 'table_names': ['department', 'head', 'management'], 'column_names_original': [(-1, '*'), (0, 'Department_ID'), (0, 'Name'), (0, 'Creation'), (0, 'Ranking'), (0, 'Budget_in_Billions'), (0, 'Num_Employees'), (1, 'head_ID'), (1, 'name'), (1, 'born_state'), (1, 'age'), (2, 'department_ID'), (2, 'head_ID'), (2, 'temporary_acting')], 'column_names': [(-1, '*'), (0, 'department id'), (0, 'name'), (0, 'creation'), (0, 'ranking'), (0, 'budget in billions'), (0, 'num employees'), (1, 'head id'), (1, 'name'), (1, 'born state'), (1, 'age'), (2, 'department id'), (2, 'head id'), (2, 'temporary acting')], 'column_types': ['text', 'number', 'text', 'text', 'number', 'number', 'number', 'number', 'text', 'text', 'number', 'number', 'number', 'text'], 'primary_keys': [1, 7, 11], 'foreign_keys': [[12, 7], [11, 1]]}
+
+```
+
+raw_datasets_split :point_down:
+
+```
+
+```
+
+

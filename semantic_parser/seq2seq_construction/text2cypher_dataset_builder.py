@@ -131,9 +131,9 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 if db_id not in self.schema_cache:
                     self.schema_cache[db_id] = schema_data[db_id]
                 every_schema = self.schema_cache[db_id]
-                print(db_id)
-                print(every_schema)
-                print(sample)
+                # print(db_id)
+                # print(every_schema)
+                # print(sample)
                 tags = list(every_schema.keys())[1:]
                 for tag_id, tag in enumerate(tags):
                     property_name_value_pairs = every_schema[tag]
