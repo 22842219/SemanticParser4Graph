@@ -132,15 +132,24 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 print(db_id)
                 print(every_schema)
                 print(sample)
-                yield idx, {
-                    "db_id": db_id,
-                    "query": sample["query"],
-                    "question": sample["question"],
-                    "answers": sample["answers"],
-                    "db_tag_names": list(every_schema.keys()),
-                    "db_property_names": [
-                        {"tag_id": tag_id, "property_name": property_name}
-                        for tag_id, property_name in every_schema.items()],
-                    "db_property_types": every_schema['property_types']
-                    }
+                tags = list(every_schema.keys())[1:]
+                for tag_id, tag in enumerate(tags):
+                    property_name_value_pairs = every_schema[tag]
+                    for pair in property_name_value_pairs:
+                        for property_name, field_values in pair.items():      
+                            yield idx, {
+                                "db_id": db_id,
+                                "query": sample["query"],
+                                "question": sample["question"],
+                                "answers": sample["answers"],
+                                "db_tag_names": tags, 
+                                "db_property_names": 
+                                    [
+                                        {
+                                            "tag_id": tag_id, 
+                                            "property_name": property_name
+                                        }
+                                    ],
+                                "db_property_types": every_schema['property_types']
+                                }
 
