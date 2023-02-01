@@ -114,7 +114,9 @@ For the whole property graph database schema, please refer to [this page](https:
 
 <!-- Our evaluation metrics include Component Matching, Exact Matching, and Execution Accuracy. For component and exact matching evaluation, instead of simply conducting string comparison between the predicted and gold SQL queries, we decompose each SQL into several clauses, and conduct set comparison in each SQL clause.  -->
 
-For Execution Accuracy, our current models do not predict any value in Cypher conditions so that we do not provide execution accuracies. However, we encourage you to provide it in the future submissions. For value prediction, you can assume that a list of gold values for each question is given. Your model has to fill them into the right slots in the SQL.
+<!-- For Execution Accuracy, our current models do not predict any value in Cypher conditions so that we do not provide execution accuracies. However, we encourage you to provide it in the future submissions. For value prediction, you can assume that a list of gold values for each question is given. Your model has to fill them into the right slots in the SQL. -->
+
+Execution Accuracy Metric
 
 Please refer to [Spider paper]() and [this page](https://github.com/taoyds/spider/tree/master/evaluation) for more details and examples.
 
