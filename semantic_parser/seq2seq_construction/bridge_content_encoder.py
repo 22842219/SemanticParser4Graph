@@ -204,12 +204,10 @@ def get_property_picklist(db_id: str, tag_name: str, property_name: str, schema_
     with codecs.open(schema_path, 'r') as f:
         schema = json.load(f)
         every_schema=schema[db_id]
-        for property_value_pair in every_schema[tag_name]:
-            print(property_value_pair)
-            
-            if property_name in list(property_value_pair.keys()):
-                picklist = property_value_pair[property_name]
-    return picklist
+        if tag_name.startswith(":`"):
+            tag_name = tag_name.strip(":").strip("`").split(".")[1]
+        property_name_value_pairs = every_schema[tag_name]
+        return property_name_value_pairs[property_name]
 
 def get_database_matches(
     db_id: str,
@@ -220,6 +218,7 @@ def get_database_matches(
     top_k_matches: int = 2,
     match_threshold: float = 0.85,
 ) -> List[str]:
+    
     picklist = get_property_picklist(
         db_id=db_id, tag_name=tag_name, property_name=property_name, schema_path=schema_path
     )
