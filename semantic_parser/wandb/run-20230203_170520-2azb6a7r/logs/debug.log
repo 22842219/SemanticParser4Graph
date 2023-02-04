@@ -1,0 +1,329 @@
+2023-02-03 17:05:20,462 INFO    MainThread:870908 [wandb_setup.py:_flush():69] setting env: {'project': 'text-to-sql(text2cyphr)', 'api_key': 'edd277e1d782e96634109705a6235577032da246', 'entity': 'leamonzea929'}
+2023-02-03 17:05:20,462 INFO    MainThread:870908 [wandb_setup.py:_flush():69] setting login settings: {}
+2023-02-03 17:05:20,462 INFO    MainThread:870908 [wandb_init.py:_log_setup():342] Logging user logs to /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_170520-2azb6a7r/logs/debug.log
+2023-02-03 17:05:20,462 INFO    MainThread:870908 [wandb_init.py:_log_setup():343] Logging internal logs to /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_170520-2azb6a7r/logs/debug-internal.log
+2023-02-03 17:05:20,463 INFO    MainThread:870908 [wandb_init.py:init():375] calling init triggers
+2023-02-03 17:05:20,463 INFO    MainThread:870908 [wandb_init.py:init():382] wandb.init called with sweep_config: {}
+config: {}
+2023-02-03 17:05:20,463 INFO    MainThread:870908 [wandb_init.py:init():424] starting backend
+2023-02-03 17:05:20,463 INFO    MainThread:870908 [backend.py:_multiprocessing_setup():72] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-02-03 17:05:20,480 INFO    MainThread:870908 [backend.py:ensure_launched():135] starting backend process...
+2023-02-03 17:05:20,512 INFO    MainThread:870908 [backend.py:ensure_launched():140] started backend process with pid: 870953
+2023-02-03 17:05:20,514 INFO    MainThread:870908 [wandb_init.py:init():429] backend started and connected
+2023-02-03 17:05:20,517 INFO    MainThread:870908 [wandb_init.py:init():477] updated telemetry
+2023-02-03 17:05:20,518 INFO    MainThread:870908 [wandb_init.py:init():500] communicating current version
+2023-02-03 17:05:21,250 INFO    MainThread:870908 [wandb_init.py:init():505] got version response upgrade_message: "wandb version 0.13.9 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2023-02-03 17:05:21,250 INFO    MainThread:870908 [wandb_init.py:init():513] communicating run to backend with 30 second timeout
+2023-02-03 17:05:21,751 INFO    MainThread:870908 [wandb_init.py:init():540] starting run threads in backend
+2023-02-03 17:05:26,755 INFO    MainThread:870908 [wandb_run.py:_console_start():1601] atexit reg
+2023-02-03 17:05:26,755 INFO    MainThread:870908 [wandb_run.py:_redirect():1475] redirect: SettingsConsole.REDIRECT
+2023-02-03 17:05:26,756 INFO    MainThread:870908 [wandb_run.py:_redirect():1480] Redirecting console.
+2023-02-03 17:05:26,757 INFO    MainThread:870908 [wandb_run.py:_redirect():1536] Redirects installed.
+2023-02-03 17:05:26,757 INFO    MainThread:870908 [wandb_init.py:init():565] run started, returning control to user process
+2023-02-03 17:05:26,766 INFO    MainThread:870908 [wandb_run.py:_config_callback():843] config_cb None None {'output_dir': 'output/T5_base_prefix_text2cypher_with_cell_value', 'overwrite_output_dir': True, 'do_train': True, 'do_eval': True, 'do_predict': True, 'evaluation_strategy': 'IntervalStrategy.STEPS', 'prediction_loss_only': False, 'per_device_train_batch_size': 2, 'per_device_eval_batch_size': 8, 'per_gpu_train_batch_size': None, 'per_gpu_eval_batch_size': None, 'gradient_accumulation_steps': 8, 'eval_accumulation_steps': None, 'learning_rate': 0.0001, 'weight_decay': 0.0, 'adam_beta1': 0.9, 'adam_beta2': 0.999, 'adam_epsilon': 1e-08, 'max_grad_norm': 1.0, 'num_train_epochs': 5.0, 'max_steps': -1, 'lr_scheduler_type': 'SchedulerType.LINEAR', 'warmup_ratio': 0.0, 'warmup_steps': 0, 'log_level': -1, 'log_level_replica': -1, 'log_on_each_node': True, 'logging_dir': 'output/T5_base_prefix_text2cypher_with_cell_value/runs/Feb03_17-05-19_DEP24073.uniwa.uwa.edu.au', 'logging_strategy': 'IntervalStrategy.STEPS', 'logging_first_step': True, 'logging_steps': 4, 'save_strategy': 'IntervalStrategy.STEPS', 'save_steps': 5, 'save_total_limit': 1, 'save_on_each_node': False, 'no_cuda': False, 'seed': 2, 'fp16': False, 'fp16_opt_level': 'O1', 'fp16_backend': 'auto', 'fp16_full_eval': False, 'local_rank': 0, 'tpu_num_cores': None, 'tpu_metrics_debug': False, 'debug': [], 'dataloader_drop_last': False, 'eval_steps': 5, 'dataloader_num_workers': 0, 'past_index': -1, 'run_name': 'T5_base_prefix_text2cypher_with_cell_value', 'disable_tqdm': False, 'remove_unused_columns': True, 'label_names': None, 'load_best_model_at_end': True, 'metric_for_best_model': 'avr', 'greater_is_better': True, 'ignore_data_skip': False, 'sharded_ddp': [], 'deepspeed': None, 'label_smoothing_factor': 0.0, 'adafactor': True, 'group_by_length': False, 'length_column_name': 'length', 'report_to': ['tensorboard', 'wandb'], 'ddp_find_unused_parameters': True, 'dataloader_pin_memory': True, 'skip_memory_metrics': True, 'use_legacy_prediction_loop': False, 'push_to_hub': False, 'resume_from_checkpoint': None, 'push_to_hub_model_id': 'T5_base_prefix_text2cypher_with_cell_value', 'push_to_hub_organization': None, 'push_to_hub_token': None, 'mp_parameters': '', 'sortish_sampler': False, 'predict_with_generate': True, 'cfg': 'Salesforce/T5_base_prefix_text2cypher_with_cell_value.cfg', 'input_max_length': 512, 'generation_max_length': 512, 'generation_num_beams': 1, 'load_weights_from': None, '_n_gpu': 1, '__cached__setup_devices': 'cuda:0'}
+2023-02-03 17:05:57,951 INFO    MainThread:870908 [wandb_run.py:_config_callback():843] config_cb None None {'return_dict': True, 'output_hidden_states': False, 'output_attentions': False, 'torchscript': False, 'torch_dtype': None, 'use_bfloat16': False, 'pruned_heads': {}, 'tie_word_embeddings': True, 'is_encoder_decoder': True, 'is_decoder': False, 'add_cross_attention': False, 'tie_encoder_decoder': False, 'max_length': 20, 'min_length': 0, 'do_sample': False, 'early_stopping': False, 'num_beams': 1, 'num_beam_groups': 1, 'diversity_penalty': 0.0, 'temperature': 1.0, 'top_k': 50, 'top_p': 1.0, 'repetition_penalty': 1.0, 'length_penalty': 1.0, 'no_repeat_ngram_size': 0, 'encoder_no_repeat_ngram_size': 0, 'bad_words_ids': None, 'num_return_sequences': 1, 'chunk_size_feed_forward': 0, 'output_scores': False, 'return_dict_in_generate': False, 'forced_bos_token_id': None, 'forced_eos_token_id': None, 'remove_invalid_values': False, 'architectures': ['T5ForConditionalGeneration'], 'finetuning_task': None, 'id2label': {0: 'LABEL_0', 1: 'LABEL_1'}, 'label2id': {'LABEL_0': 0, 'LABEL_1': 1}, 'tokenizer_class': None, 'prefix': None, 'bos_token_id': None, 'pad_token_id': 0, 'eos_token_id': 1, 'sep_token_id': None, 'decoder_start_token_id': 0, 'task_specific_params': {'summarization': {'early_stopping': True, 'length_penalty': 2.0, 'max_length': 200, 'min_length': 30, 'no_repeat_ngram_size': 3, 'num_beams': 4, 'prefix': 'summarize: '}, 'translation_en_to_de': {'early_stopping': True, 'max_length': 300, 'num_beams': 4, 'prefix': 'translate English to German: '}, 'translation_en_to_fr': {'early_stopping': True, 'max_length': 300, 'num_beams': 4, 'prefix': 'translate English to French: '}, 'translation_en_to_ro': {'early_stopping': True, 'max_length': 300, 'num_beams': 4, 'prefix': 'translate English to Romanian: '}}, 'problem_type': None, '_name_or_path': 't5-base', 'transformers_version': '4.9.2', 'model_type': 't5', 'n_positions': 512, 'output_past': True, 'vocab_size': 32102, 'd_model': 768, 'd_kv': 64, 'd_ff': 3072, 'num_layers': 12, 'num_decoder_layers': 12, 'num_heads': 12, 'relative_attention_num_buckets': 32, 'dropout_rate': 0.1, 'layer_norm_epsilon': 1e-06, 'initializer_factor': 1.0, 'feed_forward_proj': 'relu', 'use_cache': True, 'gradient_checkpointing': False, 'output_dir': 'output/T5_base_prefix_text2cypher_with_cell_value', 'overwrite_output_dir': True, 'do_train': True, 'do_eval': True, 'do_predict': True, 'evaluation_strategy': 'steps', 'prediction_loss_only': False, 'per_device_train_batch_size': 2, 'per_device_eval_batch_size': 8, 'per_gpu_train_batch_size': 'None', 'per_gpu_eval_batch_size': 'None', 'gradient_accumulation_steps': 8, 'eval_accumulation_steps': 'None', 'learning_rate': 0.0001, 'weight_decay': 0.0, 'adam_beta1': 0.9, 'adam_beta2': 0.999, 'adam_epsilon': 1e-08, 'max_grad_norm': 1.0, 'num_train_epochs': 5.0, 'max_steps': -1, 'lr_scheduler_type': 'linear', 'warmup_ratio': 0.0, 'warmup_steps': 0, 'log_level': -1, 'log_level_replica': -1, 'log_on_each_node': True, 'logging_dir': 'output/T5_base_prefix_text2cypher_with_cell_value/runs/Feb03_17-05-19_DEP24073.uniwa.uwa.edu.au', 'logging_strategy': 'steps', 'logging_first_step': True, 'logging_steps': 4, 'save_strategy': 'steps', 'save_steps': 5, 'save_total_limit': 1, 'save_on_each_node': False, 'no_cuda': False, 'seed': 2, 'fp16': False, 'fp16_opt_level': 'O1', 'fp16_backend': 'auto', 'fp16_full_eval': False, 'local_rank': 0, 'tpu_num_cores': 'None', 'tpu_metrics_debug': False, 'debug': '[]', 'dataloader_drop_last': False, 'eval_steps': 5, 'dataloader_num_workers': 0, 'past_index': -1, 'run_name': 'T5_base_prefix_text2cypher_with_cell_value', 'disable_tqdm': False, 'remove_unused_columns': True, 'label_names': 'None', 'load_best_model_at_end': True, 'metric_for_best_model': 'avr', 'greater_is_better': True, 'ignore_data_skip': False, 'sharded_ddp': '[]', 'deepspeed': 'None', 'label_smoothing_factor': 0.0, 'adafactor': True, 'group_by_length': False, 'length_column_name': 'length', 'report_to': "['tensorboard', 'wandb']", 'ddp_find_unused_parameters': True, 'dataloader_pin_memory': True, 'skip_memory_metrics': True, 'use_legacy_prediction_loop': False, 'push_to_hub': False, 'resume_from_checkpoint': 'None', 'push_to_hub_model_id': 'T5_base_prefix_text2cypher_with_cell_value', 'push_to_hub_organization': 'None', 'push_to_hub_token': 'None', '_n_gpu': 1, 'mp_parameters': '', 'sortish_sampler': False, 'predict_with_generate': True, 'cfg': 'Salesforce/T5_base_prefix_text2cypher_with_cell_value.cfg', 'input_max_length': 512, 'generation_max_length': 512, 'generation_num_beams': 1, 'load_weights_from': 'None', 'train_batch_size': 2, 'eval_batch_size': 8}
+2023-02-03 17:05:57,957 INFO    MainThread:870908 [wandb_watch.py:watch():43] Watching
+2023-02-03 17:13:01,355 INFO    MainThread:870908 [wandb_run.py:_atexit_cleanup():1571] got exitcode: 1
+2023-02-03 17:13:01,356 INFO    MainThread:870908 [wandb_run.py:_restore():1543] restore
+2023-02-03 17:13:04,103 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2198
+}
+
+2023-02-03 17:13:04,856 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2198
+}
+
+2023-02-03 17:13:04,969 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 4
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2358226
+}
+
+2023-02-03 17:13:05,072 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,174 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,276 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,377 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,479 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,581 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,683 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2198
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,785 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 15468
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,887 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 222189
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:05,988 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 795629
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,090 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,192 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,294 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,396 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,499 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,602 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,705 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,809 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:06,912 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,015 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,118 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,222 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,325 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,429 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,532 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,635 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,737 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:07,840 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:08,891 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:08,995 INFO    MainThread:870908 [wandb_run.py:_wait_for_finish():1693] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 2369939
+  total_bytes: 2369939
+}
+
+2023-02-03 17:13:10,290 INFO    MainThread:870908 [wandb_run.py:_show_summary():1848] rendering summary
+2023-02-03 17:13:10,290 INFO    MainThread:870908 [wandb_run.py:_show_history():1886] rendering history
+2023-02-03 17:13:10,291 INFO    MainThread:870908 [wandb_run.py:_show_files():1915] logging synced files

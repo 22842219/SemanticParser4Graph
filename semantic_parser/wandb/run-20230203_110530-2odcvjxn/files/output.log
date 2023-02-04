@@ -1,0 +1,1038 @@
+WARNING:datasets.builder:Reusing dataset text2_cypher (./data/text2_cypher/text2cypher/1.0.0/9a357b853717b5477de0f3366bc46fa3acccb14451d367061841b05a3909f446)
+100%|███████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00, 365.31it/s]
+  0%|▍                                                                               | 15/3175 [00:01<04:03, 12.98it/s]
+Traceback (most recent call last):
+  File "train.py", line 229, in <module>
+    main()
+  File "train.py", line 107, in main
+    to_seq2seq(task_raw_datasets_split, cache_root) # task_args.seq2seq.constructor: seq2seq_construction.spider
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/seq2seq_construction/text2cypher_constructor.py", line 312, in to_seq2seq
+    train_dataset = TrainDataset(self.args, raw_datasets["train"], cache_root)
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/seq2seq_construction/text2cypher_constructor.py", line 330, in __init__
+    extend_data.update(text2cypher_add_serialized_schema(extend_data, args))
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/seq2seq_construction/text2cypher_constructor.py", line 75, in text2cypher_add_serialized_schema
+    normalize_query=True,
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/seq2seq_construction/text2cypher_constructor.py", line 259, in serialize_schema
+    for tag_id, tag_name in enumerate(db_tag_names)
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/seq2seq_construction/text2cypher_constructor.py", line 259, in <listcomp>
+    for tag_id, tag_name in enumerate(db_tag_names)
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/seq2seq_construction/text2cypher_constructor.py", line 248, in <lambda>
+    lambda y: get_property_str(tag_name=tag_name, property_name=y[1]),
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/seq2seq_construction/text2cypher_constructor.py", line 225, in get_property_str
+    property_name_str = property_name.lower() if normalize_query else property_name
+AttributeError: 'NoneType' object has no attribute 'lower'
+get_file_cfg: configure/META_TUNING/text2cypher_with_cell.cfg
+section in configure: model
+item in configure: ('name', 'unified_text2cypher_component')
+item in configure: ('description', 'task: text2cypher')
+section in configure: dataset
+item in configure: ('loader_path', './seq2seq_construction/text2cypher_dataset_builder.py')
+item in configure: ('data_store_path', './data')
+item in configure: ('use_cache', 'True')
+section in configure: seq2seq
+item in configure: ('constructor', 'seq2seq_construction.text2cypher_constructor')
+item in configure: ('target_with_db_id', 'False')
+item in configure: ('schema_serialization_with_db_content', 'True')
+section in configure: evaluate
+item in configure: ('tool', 'metrics.text2cypher.evaluator')
+task_args.bert.location: t5-base
+META_TUNING/text2cypher_with_cell.cfg
+task_args: <utils.configue.Args object at 0x7fd5797cac18> ./seq2seq_construction/text2cypher_dataset_builder.py
+constructor: seq2seq_construction.text2cypher_constructor
+importlib Constrctor: <class 'seq2seq_construction.text2cypher_constructor.Constructor'>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, How many heads of the departments are older than 56 ?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'o', 'l', 'd', 'e', 'r', ' ', 't', 'h', 'a', 'n', ' ', '5', '6', ' ', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, How many heads of the departments are older than 56 ?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'o', 'l', 'd', 'e', 'r', ' ', 't', 'h', 'a', 'n', ' ', '5', '6', ' ', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, How many heads of the departments are older than 56 ?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, How many heads of the departments are older than 56 ?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, How many heads of the departments are older than 56 ?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, How many heads of the departments are older than 56 ?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, How many heads of the departments are older than 56 ?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'o', 'l', 'd', 'e', 'r', ' ', 't', 'h', 'a', 'n', ' ', '5', '6', ' ', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, How many heads of the departments are older than 56 ?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'o', 'l', 'd', 'e', 'r', ' ', 't', 'h', 'a', 'n', ' ', '5', '6', ' ', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, How many heads of the departments are older than 56 ?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, How many heads of the departments are older than 56 ?
+picklist: ['No', 'Yes'], question: <class 'str'>, How many heads of the departments are older than 56 ?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'o', 'l', 'd', 'e', 'r', ' ', 't', 'h', 'a', 'n', ' ', '5', '6', ' ', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ',', ' ', 'b', 'o', 'r', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', 'a', 'n', 'd', ' ', 'a', 'g', 'e', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'o', 'r', 'd', 'e', 'r', 'e', 'd', ' ', 'b', 'y', ' ', 'a', 'g', 'e', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ',', ' ', 'b', 'o', 'r', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', 'a', 'n', 'd', ' ', 'a', 'g', 'e', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'o', 'r', 'd', 'e', 'r', 'e', 'd', ' ', 'b', 'y', ' ', 'a', 'g', 'e', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ',', ' ', 'b', 'o', 'r', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', 'a', 'n', 'd', ' ', 'a', 'g', 'e', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'o', 'r', 'd', 'e', 'r', 'e', 'd', ' ', 'b', 'y', ' ', 'a', 'g', 'e', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ',', ' ', 'b', 'o', 'r', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', 'a', 'n', 'd', ' ', 'a', 'g', 'e', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'o', 'r', 'd', 'e', 'r', 'e', 'd', ' ', 'b', 'y', ' ', 'a', 'g', 'e', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+picklist: ['No', 'Yes'], question: <class 'str'>, List the name, born state and age of the heads of departments ordered by age.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ',', ' ', 'b', 'o', 'r', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', 'a', 'n', 'd', ' ', 'a', 'g', 'e', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'o', 'f', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'o', 'r', 'd', 'e', 'r', 'e', 'd', ' ', 'b', 'y', ' ', 'a', 'g', 'e', '.']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, List the creation year, name and budget of each department.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 'e', 'a', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, List the creation year, name and budget of each department.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 'e', 'a', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, List the creation year, name and budget of each department.
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, List the creation year, name and budget of each department.
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, List the creation year, name and budget of each department.
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, List the creation year, name and budget of each department.
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, List the creation year, name and budget of each department.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 'e', 'a', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, List the creation year, name and budget of each department.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 'e', 'a', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, List the creation year, name and budget of each department.
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, List the creation year, name and budget of each department.
+picklist: ['No', 'Yes'], question: <class 'str'>, List the creation year, name and budget of each department.
+n_grams: ['l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 'e', 'a', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', '.']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'm', 'a', 'x', 'i', 'm', 'u', 'm', ' ', 'a', 'n', 'd', ' ', 'm', 'i', 'n', 'i', 'm', 'u', 'm', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'm', 'a', 'x', 'i', 'm', 'u', 'm', ' ', 'a', 'n', 'd', ' ', 'm', 'i', 'n', 'i', 'm', 'u', 'm', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'm', 'a', 'x', 'i', 'm', 'u', 'm', ' ', 'a', 'n', 'd', ' ', 'm', 'i', 'n', 'i', 'm', 'u', 'm', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'm', 'a', 'x', 'i', 'm', 'u', 'm', ' ', 'a', 'n', 'd', ' ', 'm', 'i', 'n', 'i', 'm', 'u', 'm', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+picklist: ['No', 'Yes'], question: <class 'str'>, What are the maximum and minimum budget of the departments?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'm', 'a', 'x', 'i', 'm', 'u', 'm', ' ', 'a', 'n', 'd', ' ', 'm', 'i', 'n', 'i', 'm', 'u', 'm', ' ', 'b', 'u', 'd', 'g', 'e', 't', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+n_grams: ['w', 'h', 'a', 't', ' ', 'i', 's', ' ', 't', 'h', 'e', ' ', 'a', 'v', 'e', 'r', 'a', 'g', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 'r', 'a', 'n', 'k', ' ', 'i', 's', ' ', 'b', 'e', 't', 'w', 'e', 'e', 'n', ' ', '1', '0', ' ', 'a', 'n', 'd', ' ', '1', '5', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+n_grams: ['w', 'h', 'a', 't', ' ', 'i', 's', ' ', 't', 'h', 'e', ' ', 'a', 'v', 'e', 'r', 'a', 'g', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 'r', 'a', 'n', 'k', ' ', 'i', 's', ' ', 'b', 'e', 't', 'w', 'e', 'e', 'n', ' ', '1', '0', ' ', 'a', 'n', 'd', ' ', '1', '5', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+n_grams: ['w', 'h', 'a', 't', ' ', 'i', 's', ' ', 't', 'h', 'e', ' ', 'a', 'v', 'e', 'r', 'a', 'g', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 'r', 'a', 'n', 'k', ' ', 'i', 's', ' ', 'b', 'e', 't', 'w', 'e', 'e', 'n', ' ', '1', '0', ' ', 'a', 'n', 'd', ' ', '1', '5', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+n_grams: ['w', 'h', 'a', 't', ' ', 'i', 's', ' ', 't', 'h', 'e', ' ', 'a', 'v', 'e', 'r', 'a', 'g', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 'r', 'a', 'n', 'k', ' ', 'i', 's', ' ', 'b', 'e', 't', 'w', 'e', 'e', 'n', ' ', '1', '0', ' ', 'a', 'n', 'd', ' ', '1', '5', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+picklist: ['No', 'Yes'], question: <class 'str'>, What is the average number of employees of the departments whose rank is between 10 and 15?
+n_grams: ['w', 'h', 'a', 't', ' ', 'i', 's', ' ', 't', 'h', 'e', ' ', 'a', 'v', 'e', 'r', 'a', 'g', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 'r', 'a', 'n', 'k', ' ', 'i', 's', ' ', 'b', 'e', 't', 'w', 'e', 'e', 'n', ' ', '1', '0', ' ', 'a', 'n', 'd', ' ', '1', '5', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'b', 'o', 'r', 'n', ' ', 'o', 'u', 't', 's', 'i', 'd', 'e', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'i', 'f', 'o', 'r', 'n', 'i', 'a', ' ', 's', 't', 'a', 't', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'b', 'o', 'r', 'n', ' ', 'o', 'u', 't', 's', 'i', 'd', 'e', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'i', 'f', 'o', 'r', 'n', 'i', 'a', ' ', 's', 't', 'a', 't', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'b', 'o', 'r', 'n', ' ', 'o', 'u', 't', 's', 'i', 'd', 'e', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'i', 'f', 'o', 'r', 'n', 'i', 'a', ' ', 's', 't', 'a', 't', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'b', 'o', 'r', 'n', ' ', 'o', 'u', 't', 's', 'i', 'd', 'e', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'i', 'f', 'o', 'r', 'n', 'i', 'a', ' ', 's', 't', 'a', 't', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+picklist: ['No', 'Yes'], question: <class 'str'>, What are the names of the heads who are born outside the California state?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'b', 'o', 'r', 'n', ' ', 'o', 'u', 't', 's', 'i', 'd', 'e', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'i', 'f', 'o', 'r', 'n', 'i', 'a', ' ', 's', 't', 'a', 't', 'e', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'a', ' ', 's', 'e', 'c', 'r', 'e', 't', 'a', 'r', 'y', ' ', 'b', 'o', 'r', 'n', ' ', 'i', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', "'", 'a', 'l', 'a', 'b', 'a', 'm', 'a', "'", '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'a', ' ', 's', 'e', 'c', 'r', 'e', 't', 'a', 'r', 'y', ' ', 'b', 'o', 'r', 'n', ' ', 'i', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', "'", 'a', 'l', 'a', 'b', 'a', 'm', 'a', "'", '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'a', ' ', 's', 'e', 'c', 'r', 'e', 't', 'a', 'r', 'y', ' ', 'b', 'o', 'r', 'n', ' ', 'i', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', "'", 'a', 'l', 'a', 'b', 'a', 'm', 'a', "'", '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'a', ' ', 's', 'e', 'c', 'r', 'e', 't', 'a', 'r', 'y', ' ', 'b', 'o', 'r', 'n', ' ', 'i', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', "'", 'a', 'l', 'a', 'b', 'a', 'm', 'a', "'", '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+picklist: ['No', 'Yes'], question: <class 'str'>, What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ' ', 'y', 'e', 'a', 'r', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'a', ' ', 's', 'e', 'c', 'r', 'e', 't', 'a', 'r', 'y', ' ', 'b', 'o', 'r', 'n', ' ', 'i', 'n', ' ', 's', 't', 'a', 't', 'e', ' ', "'", 'a', 'l', 'a', 'b', 'a', 'm', 'a', "'", '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 's', 't', 'a', 't', 'e', 's', ' ', 'w', 'h', 'e', 'r', 'e', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', '3', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'e', 'r', 'e', ' ', 'b', 'o', 'r', 'n', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 's', 't', 'a', 't', 'e', 's', ' ', 'w', 'h', 'e', 'r', 'e', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', '3', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'e', 'r', 'e', ' ', 'b', 'o', 'r', 'n', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 's', 't', 'a', 't', 'e', 's', ' ', 'w', 'h', 'e', 'r', 'e', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', '3', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'e', 'r', 'e', ' ', 'b', 'o', 'r', 'n', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 's', 't', 'a', 't', 'e', 's', ' ', 'w', 'h', 'e', 'r', 'e', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', '3', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'e', 'r', 'e', ' ', 'b', 'o', 'r', 'n', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+picklist: ['No', 'Yes'], question: <class 'str'>, What are the names of the states where at least 3 heads were born?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 's', 't', 'a', 't', 'e', 's', ' ', 'w', 'h', 'e', 'r', 'e', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', '3', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'e', 'r', 'e', ' ', 'b', 'o', 'r', 'n', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, In which year were most departments established?
+n_grams: ['i', 'n', ' ', 'w', 'h', 'i', 'c', 'h', ' ', 'y', 'e', 'a', 'r', ' ', 'w', 'e', 'r', 'e', ' ', 'm', 'o', 's', 't', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'e', 's', 't', 'a', 'b', 'l', 'i', 's', 'h', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, In which year were most departments established?
+n_grams: ['i', 'n', ' ', 'w', 'h', 'i', 'c', 'h', ' ', 'y', 'e', 'a', 'r', ' ', 'w', 'e', 'r', 'e', ' ', 'm', 'o', 's', 't', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'e', 's', 't', 'a', 'b', 'l', 'i', 's', 'h', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, In which year were most departments established?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, In which year were most departments established?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, In which year were most departments established?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, In which year were most departments established?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, In which year were most departments established?
+n_grams: ['i', 'n', ' ', 'w', 'h', 'i', 'c', 'h', ' ', 'y', 'e', 'a', 'r', ' ', 'w', 'e', 'r', 'e', ' ', 'm', 'o', 's', 't', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'e', 's', 't', 'a', 'b', 'l', 'i', 's', 'h', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, In which year were most departments established?
+n_grams: ['i', 'n', ' ', 'w', 'h', 'i', 'c', 'h', ' ', 'y', 'e', 'a', 'r', ' ', 'w', 'e', 'r', 'e', ' ', 'm', 'o', 's', 't', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'e', 's', 't', 'a', 'b', 'l', 'i', 's', 'h', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, In which year were most departments established?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, In which year were most departments established?
+picklist: ['No', 'Yes'], question: <class 'str'>, In which year were most departments established?
+n_grams: ['i', 'n', ' ', 'w', 'h', 'i', 'c', 'h', ' ', 'y', 'e', 'a', 'r', ' ', 'w', 'e', 'r', 'e', ' ', 'm', 'o', 's', 't', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'e', 's', 't', 'a', 'b', 'l', 'i', 's', 'h', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+n_grams: ['s', 'h', 'o', 'w', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'f', 'o', 'r', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 't', 'e', 'm', 'p', 'o', 'r', 'a', 'r', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 'v', 'a', 'l', 'u', 'e', ' ', 'i', 's', ' ', "'", 'y', 'e', 's', "'", '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+n_grams: ['s', 'h', 'o', 'w', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'f', 'o', 'r', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 't', 'e', 'm', 'p', 'o', 'r', 'a', 'r', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 'v', 'a', 'l', 'u', 'e', ' ', 'i', 's', ' ', "'", 'y', 'e', 's', "'", '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+n_grams: ['s', 'h', 'o', 'w', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'f', 'o', 'r', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 't', 'e', 'm', 'p', 'o', 'r', 'a', 'r', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 'v', 'a', 'l', 'u', 'e', ' ', 'i', 's', ' ', "'", 'y', 'e', 's', "'", '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+n_grams: ['s', 'h', 'o', 'w', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'f', 'o', 'r', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 't', 'e', 'm', 'p', 'o', 'r', 'a', 'r', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 'v', 'a', 'l', 'u', 'e', ' ', 'i', 's', ' ', "'", 'y', 'e', 's', "'", '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+picklist: ['No', 'Yes'], question: <class 'str'>, Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?
+n_grams: ['s', 'h', 'o', 'w', ' ', 't', 'h', 'e', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'e', 'm', 'p', 'l', 'o', 'y', 'e', 'e', 's', ' ', 'f', 'o', 'r', ' ', 't', 'h', 'e', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'm', 'a', 'n', 'a', 'g', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', 's', 'e', ' ', 't', 'e', 'm', 'p', 'o', 'r', 'a', 'r', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 'v', 'a', 'l', 'u', 'e', ' ', 'i', 's', ' ', "'", 'y', 'e', 's', "'", '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, How many acting statuses are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 's', 't', 'a', 't', 'u', 's', 'e', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, How many acting statuses are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 's', 't', 'a', 't', 'u', 's', 'e', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, How many acting statuses are there?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, How many acting statuses are there?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, How many acting statuses are there?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, How many acting statuses are there?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, How many acting statuses are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 's', 't', 'a', 't', 'u', 's', 'e', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, How many acting statuses are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 's', 't', 'a', 't', 'u', 's', 'e', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, How many acting statuses are there?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, How many acting statuses are there?
+picklist: ['No', 'Yes'], question: <class 'str'>, How many acting statuses are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'a', 'c', 't', 'i', 'n', 'g', ' ', 's', 't', 'a', 't', 'u', 's', 'e', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'n', 'o', 't', ' ', 'm', 'e', 'n', 't', 'i', 'o', 'n', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'n', 'o', 't', ' ', 'm', 'e', 'n', 't', 'i', 'o', 'n', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'n', 'o', 't', ' ', 'm', 'e', 'n', 't', 'i', 'o', 'n', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'n', 'o', 't', ' ', 'm', 'e', 'n', 't', 'i', 'o', 'n', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+picklist: ['No', 'Yes'], question: <class 'str'>, How many departments are led by heads who are not mentioned?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', 's', ' ', 'a', 'r', 'e', ' ', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'n', 'o', 't', ' ', 'm', 'e', 'n', 't', 'i', 'o', 'n', 'e', 'd', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'a', 'g', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'a', 'c', 't', 'i', 'n', 'g', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'a', 'g', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'a', 'c', 't', 'i', 'n', 'g', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'a', 'g', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'a', 'c', 't', 'i', 'n', 'g', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'a', 'g', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'a', 'c', 't', 'i', 'n', 'g', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+picklist: ['No', 'Yes'], question: <class 'str'>, What are the distinct ages of the heads who are acting?
+n_grams: ['w', 'h', 'a', 't', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', ' ', 'd', 'i', 's', 't', 'i', 'n', 'c', 't', ' ', 'a', 'g', 'e', 's', ' ', 'o', 'f', ' ', 't', 'h', 'e', ' ', 'h', 'e', 'a', 'd', 's', ' ', 'w', 'h', 'o', ' ', 'a', 'r', 'e', ' ', 'a', 'c', 't', 'i', 'n', 'g', '?']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', ' ', 'h', 'a', 's', ' ', 'm', 'o', 'r', 'e', ' ', 't', 'h', 'a', 'n', ' ', '1', ' ', 'h', 'e', 'a', 'd', ' ', 'a', 't', ' ', 'a', ' ', 't', 'i', 'm', 'e', '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'h', 'e', 'a', 'd', 's', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', ' ', 'h', 'a', 's', ' ', 'm', 'o', 'r', 'e', ' ', 't', 'h', 'a', 'n', ' ', '1', ' ', 'h', 'e', 'a', 'd', ' ', 'a', 't', ' ', 'a', ' ', 't', 'i', 'm', 'e', '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'h', 'e', 'a', 'd', 's', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', ' ', 'h', 'a', 's', ' ', 'm', 'o', 'r', 'e', ' ', 't', 'h', 'a', 'n', ' ', '1', ' ', 'h', 'e', 'a', 'd', ' ', 'a', 't', ' ', 'a', ' ', 't', 'i', 'm', 'e', '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'h', 'e', 'a', 'd', 's', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', ' ', 'h', 'a', 's', ' ', 'm', 'o', 'r', 'e', ' ', 't', 'h', 'a', 'n', ' ', '1', ' ', 'h', 'e', 'a', 'd', ' ', 'a', 't', ' ', 'a', ' ', 't', 'i', 'm', 'e', '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'h', 'e', 'a', 'd', 's', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+picklist: ['No', 'Yes'], question: <class 'str'>, Which department has more than 1 head at a time? List the id, name and the number of heads.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'd', 'e', 'p', 'a', 'r', 't', 'm', 'e', 'n', 't', ' ', 'h', 'a', 's', ' ', 'm', 'o', 'r', 'e', ' ', 't', 'h', 'a', 'n', ' ', '1', ' ', 'h', 'e', 'a', 'd', ' ', 'a', 't', ' ', 'a', ' ', 't', 'i', 'm', 'e', '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ',', ' ', 'n', 'a', 'm', 'e', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', ' ', 'n', 'u', 'm', 'b', 'e', 'r', ' ', 'o', 'f', ' ', 'h', 'e', 'a', 'd', 's', '.']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Treasury', 'Defense', 'Justice', 'Interior', 'Health and Human Services', 'Agriculture', 'Transportation', 'Energy', 'Veterans Affairs', 'Education', 'Commerce', 'Homeland Security', 'Housing and Urban Development', 'State', 'Labor'], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'h', 'e', 'a', 'd', "'", 's', ' ', 'n', 'a', 'm', 'e', ' ', 'h', 'a', 's', ' ', 't', 'h', 'e', ' ', 's', 'u', 'b', 's', 't', 'r', 'i', 'n', 'g', ' ', "'", 'h', 'a', "'", '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'a', 'm', 'e', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['1870', '1965', '1989', '1903', '1977', '1953', '1913', '1979', '2002', '1889', '1849', '1947', '1789', '1966'], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'h', 'e', 'a', 'd', "'", 's', ' ', 'n', 'a', 'm', 'e', ' ', 'h', 'a', 's', ' ', 't', 'h', 'e', ' ', 's', 'u', 'b', 's', 't', 'r', 'i', 'n', 'g', ' ', "'", 'h', 'a', "'", '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'a', 'm', 'e', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+picklist: [439.3, 6.2, 9.96, 10.7, 11.1, 73.2, 77.6, 46.2, 44.6, 21.5, 23.4, 58.0, 59.7, 62.8, 543.2], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+picklist: [3000000.0, 36000.0, 208000.0, 17347.0, 116100.0, 4487.0, 109832.0, 10600.0, 235000.0, 71436.0, 112557.0, 67000.0, 115897.0, 30266.0, 58622.0], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+picklist: ['Sergio García', 'Dudley Hart', 'Tiger Woods', 'Stewart Cink', 'Nick Faldo', 'Pádraig Harrington', 'Jeff Maggert', 'K. J. Choi', 'Billy Mayfair', 'Franklin Langham'], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'h', 'e', 'a', 'd', "'", 's', ' ', 'n', 'a', 'm', 'e', ' ', 'h', 'a', 's', ' ', 't', 'h', 'e', ' ', 's', 'u', 'b', 's', 't', 'r', 'i', 'n', 'g', ' ', "'", 'h', 'a', "'", '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'a', 'm', 'e', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: ['Connecticut', 'Delaware', 'California', 'Florida', 'Alabama'], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'h', 'e', 'a', 'd', "'", 's', ' ', 'n', 'a', 'm', 'e', ' ', 'h', 'a', 's', ' ', 't', 'h', 'e', ' ', 's', 'u', 'b', 's', 't', 'r', 'i', 'n', 'g', ' ', "'", 'h', 'a', "'", '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'a', 'm', 'e', '.']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [67.0, 68.0, 69.0, 43.0, 50.0, 52.0, 53.0, 56.0], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+picklist: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+picklist: ['No', 'Yes'], question: <class 'str'>, Which head's name has the substring 'Ha'? List the id and name.
+n_grams: ['w', 'h', 'i', 'c', 'h', ' ', 'h', 'e', 'a', 'd', "'", 's', ' ', 'n', 'a', 'm', 'e', ' ', 'h', 'a', 's', ' ', 't', 'h', 'e', ' ', 's', 'u', 'b', 's', 't', 'r', 'i', 'n', 'g', ' ', "'", 'h', 'a', "'", '?', ' ', 'l', 'i', 's', 't', ' ', 't', 'h', 'e', ' ', 'i', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'a', 'm', 'e', '.']
+fv_tokens:
+fv_tokens:
+serialized_schema: <function serialize_schema at 0x7fd4e96890d0>
+picklist: ['Village', 'Town'], question: <class 'str'>, How many farms are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'f', 'a', 'r', 'm', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5], question: <class 'str'>, How many farms are there?
+picklist: [775.0, 5706.0, 1135.0, 1778.0, 351.0], question: <class 'str'>, How many farms are there?
+picklist: ['3460 of 5008', '1936 of 5,008', '1442 of 5,008', '636 of 5008', '2418 of 5008'], question: <class 'str'>, How many farms are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'f', 'a', 'r', 'm', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [2.24, 3.09, 8.89, 8.91, 18.06], question: <class 'str'>, How many farms are there?
+picklist: ['Perth-Andover', 'Grand Falls/Grand-Sault', 'Drummond', 'Aroostook', 'Plaster Rock'], question: <class 'str'>, How many farms are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'f', 'a', 'r', 'm', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [4161.2, 3171.8, 2089.2, 4236.7, 3373.3, 6962.9, 4412.4, 2623.7], question: <class 'str'>, How many farms are there?
+picklist: [5056.5, 5607.5, 3658.9, 2604.8, 4781.3, 5486.9, 2546.9, 5308.2], question: <class 'str'>, How many farms are there?
+picklist: [32.8, 37.6, 71.6, 40.0, 46.7, 49.6, 26.9, 31.6], question: <class 'str'>, How many farms are there?
+picklist: [1, 2, 3, 4, 5, 6, 7, 8], question: <class 'str'>, How many farms are there?
+picklist: [6274.1, 6189.5, 5006.7, 8374.5, 7611.0, 8604.8, 5277.5, 4446.3], question: <class 'str'>, How many farms are there?
+picklist: [1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934], question: <class 'str'>, How many farms are there?
+picklist: [805.5, 105.2, 593.7, 113.8, 116.9, 156.5, 254.8, 895.3], question: <class 'str'>, How many farms are there?
+picklist: [3364.8, 8112.2, 7956.3, 4533.4, 7030.8, 2004.7, 2197.1, 2109.5], question: <class 'str'>, How many farms are there?
+picklist: [3873.0, 2407.2, 3852.1, 3471.6, 3377.0, 3987.0, 2739.5, 2518.0], question: <class 'str'>, How many farms are there?
+picklist: [4198.8, 3721.6, 3593.7, 3711.2, 2197.3, 4090.5, 3900.1, 3711.6], question: <class 'str'>, How many farms are there?
+picklist: ['Alicia Keys', 'Mandy Moore and Ronan Keating', 'Vanness Wu and Michelle Branch', 'Miley Cyrus Jared Leto and Karen Mok', 'Shaggy and Coco Lee', 'Leehom Wang and Kelly Rowland'], question: <class 'str'>, How many farms are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'f', 'a', 'r', 'm', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5], question: <class 'str'>, How many farms are there?
+picklist: ['Carnival M is back!', 'MTV Asia Aid', 'MTV Cube', "Valentine's Day", 'Codehunters', 'Aliens'], question: <class 'str'>, How many farms are there?
+n_grams: ['h', 'o', 'w', ' ', 'm', 'a', 'n', 'y', ' ', 'f', 'a', 'r', 'm', 's', ' ', 'a', 'r', 'e', ' ', 't', 'h', 'e', 'r', 'e', '?']
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+fv_tokens:
+picklist: [1, 2, 3, 4, 5, 6], question: <class 'str'>, How many farms are there?
+picklist: [2002, 2003, 2004, 2005, 2006, 2013], question: <class 'str'>, How many farms are there?
+picklist: [1, 2, 3, 4], question: <class 'str'>, How many farms are there?

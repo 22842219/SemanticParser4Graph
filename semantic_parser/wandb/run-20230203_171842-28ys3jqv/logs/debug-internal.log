@@ -1,0 +1,349 @@
+2023-02-03 17:18:43,007 INFO    MainThread:873537 [internal.py:wandb_internal():89] W&B internal server running at pid: 873537, started at: 2023-02-03 17:18:43.006728
+2023-02-03 17:18:43,009 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: check_version
+2023-02-03 17:18:43,009 INFO    WriterThread:873537 [datastore.py:open_for_write():77] open: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/run-28ys3jqv.wandb
+2023-02-03 17:18:43,014 DEBUG   SenderThread:873537 [sender.py:send():182] send: header
+2023-02-03 17:18:43,014 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: check_version
+2023-02-03 17:18:43,055 DEBUG   SenderThread:873537 [sender.py:send():182] send: run
+2023-02-03 17:18:43,654 INFO    SenderThread:873537 [dir_watcher.py:__init__():169] watching files in: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files
+2023-02-03 17:18:43,654 INFO    SenderThread:873537 [sender.py:_start_run_threads():743] run started: 28ys3jqv with start time 1675415922
+2023-02-03 17:18:43,654 DEBUG   SenderThread:873537 [sender.py:send():182] send: summary
+2023-02-03 17:18:43,655 INFO    SenderThread:873537 [sender.py:_save_file():873] saving file wandb-summary.json with policy end
+2023-02-03 17:18:43,655 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: run_start
+2023-02-03 17:18:44,656 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_created():217] file/dir created: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/wandb-summary.json
+2023-02-03 17:18:45,070 DEBUG   HandlerThread:873537 [meta.py:__init__():40] meta init
+2023-02-03 17:18:45,070 DEBUG   HandlerThread:873537 [meta.py:__init__():54] meta init done
+2023-02-03 17:18:45,070 DEBUG   HandlerThread:873537 [meta.py:probe():211] probe
+2023-02-03 17:18:45,077 DEBUG   HandlerThread:873537 [meta.py:_setup_git():201] setup git
+2023-02-03 17:18:45,113 DEBUG   HandlerThread:873537 [meta.py:_setup_git():208] setup git done
+2023-02-03 17:18:45,114 DEBUG   HandlerThread:873537 [meta.py:_save_pip():58] save pip
+2023-02-03 17:18:45,115 DEBUG   HandlerThread:873537 [meta.py:_save_pip():72] save pip done
+2023-02-03 17:18:45,115 DEBUG   HandlerThread:873537 [meta.py:_save_conda():79] save conda
+2023-02-03 17:18:45,662 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_created():217] file/dir created: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/requirements.txt
+2023-02-03 17:18:45,663 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_created():217] file/dir created: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/conda-environment.yaml
+2023-02-03 17:18:48,663 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_created():217] file/dir created: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:18:50,579 DEBUG   HandlerThread:873537 [meta.py:_save_conda():87] save conda done
+2023-02-03 17:18:50,579 DEBUG   HandlerThread:873537 [meta.py:probe():249] probe done
+2023-02-03 17:18:50,582 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:18:50,584 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:18:50,664 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/conda-environment.yaml
+2023-02-03 17:18:50,664 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_created():217] file/dir created: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/wandb-metadata.json
+2023-02-03 17:18:51,032 DEBUG   SenderThread:873537 [sender.py:send():182] send: config
+2023-02-03 17:18:51,034 DEBUG   SenderThread:873537 [sender.py:send():182] send: files
+2023-02-03 17:18:51,034 INFO    SenderThread:873537 [sender.py:_save_file():873] saving file wandb-metadata.json with policy now
+2023-02-03 17:18:51,665 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:18:52,521 INFO    Thread-11 :873537 [upload_job.py:push():137] Uploaded file /tmp/tmptli5rfm8wandb/nu95euzn-wandb-metadata.json
+2023-02-03 17:19:06,037 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:19:06,037 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:19:07,693 DEBUG   SenderThread:873537 [sender.py:send():182] send: config
+2023-02-03 17:19:07,695 DEBUG   SenderThread:873537 [sender.py:send():182] send: metric
+2023-02-03 17:19:07,695 DEBUG   SenderThread:873537 [sender.py:send():182] send: metric
+2023-02-03 17:19:07,696 WARNING SenderThread:873537 [sender.py:send_metric():831] Seen metric with glob (shouldnt happen)
+2023-02-03 17:19:09,673 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:10,940 DEBUG   SenderThread:873537 [sender.py:send():182] send: metric
+2023-02-03 17:19:10,940 DEBUG   SenderThread:873537 [sender.py:send():182] send: metric
+2023-02-03 17:19:10,941 DEBUG   SenderThread:873537 [sender.py:send():182] send: metric
+2023-02-03 17:19:10,941 DEBUG   SenderThread:873537 [sender.py:send():182] send: history
+2023-02-03 17:19:10,941 DEBUG   SenderThread:873537 [sender.py:send():182] send: summary
+2023-02-03 17:19:10,945 INFO    SenderThread:873537 [sender.py:_save_file():873] saving file wandb-summary.json with policy end
+2023-02-03 17:19:11,674 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/wandb-summary.json
+2023-02-03 17:19:13,479 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:19:13,674 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:14,675 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/config.yaml
+2023-02-03 17:19:15,675 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:19,676 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:19,828 DEBUG   SenderThread:873537 [sender.py:send():182] send: history
+2023-02-03 17:19:19,828 DEBUG   SenderThread:873537 [sender.py:send():182] send: summary
+2023-02-03 17:19:19,828 INFO    SenderThread:873537 [sender.py:_save_file():873] saving file wandb-summary.json with policy end
+2023-02-03 17:19:20,677 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/wandb-summary.json
+2023-02-03 17:19:21,513 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:19:21,513 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:19:21,677 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:25,678 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:29,680 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:31,681 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:35,682 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:36,959 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:19:36,959 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:19:39,683 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:41,684 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:43,837 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:19:45,686 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:49,687 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:52,400 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:19:52,400 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:19:53,688 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:55,689 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:19:57,689 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:01,691 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:03,691 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:07,692 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:07,842 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:20:07,842 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:20:11,694 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:13,694 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:14,165 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:20:17,696 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:21,697 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:23,378 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:20:23,379 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:20:35,702 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:38,823 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:20:38,823 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:20:44,515 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:20:47,705 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:51,706 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:54,364 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:20:54,364 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:20:55,708 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:20:59,709 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:21:01,710 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:21:05,711 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:21:09,713 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:21:09,807 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:21:09,807 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:21:13,714 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:21:14,846 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:21:25,323 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:21:25,323 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:21:27,718 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:21:37,721 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:21:40,771 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:21:40,772 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:21:45,207 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:21:51,725 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:21:56,210 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:21:56,211 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:22:03,729 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:07,730 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:11,655 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:22:11,655 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:22:15,561 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:22:21,735 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:27,095 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:22:27,095 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:22:35,739 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:39,740 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:41,741 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:42,548 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:22:42,548 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:22:45,743 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:45,889 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:22:49,744 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:53,746 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:57,747 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:22:57,988 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:22:57,988 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:23:01,749 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:05,750 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:09,751 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:13,436 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:23:13,436 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:23:16,252 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:23:23,755 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:27,757 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:28,981 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:23:28,981 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:23:31,758 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:33,759 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:37,760 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:41,761 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:44,430 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:23:44,431 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:23:45,763 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:46,627 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:23:47,763 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:49,764 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:53,765 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:55,766 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:59,767 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:23:59,876 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:23:59,876 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:24:03,768 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:24:07,770 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:24:09,770 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:24:13,772 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:24:15,325 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:24:15,325 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:24:16,960 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:24:17,773 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:24:19,774 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:24:23,775 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:24:27,776 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:24:30,780 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:24:30,781 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:24:46,237 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:24:46,237 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:24:47,286 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:25:01,707 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:25:01,708 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:25:17,173 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:25:17,174 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:25:17,620 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:25:32,652 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:25:32,652 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:25:47,958 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:25:48,109 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:25:48,109 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:26:03,582 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: stop_status
+2023-02-03 17:26:03,582 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: stop_status
+2023-02-03 17:26:17,807 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_created():217] file/dir created: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/predictions_eval_0.02518891687657431.json
+2023-02-03 17:26:18,287 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:26:18,807 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/predictions_eval_0.02518891687657431.json
+2023-02-03 17:26:19,808 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:26:20,396 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:20,397 DEBUG   SenderThread:873537 [sender.py:send():182] send: telemetry
+2023-02-03 17:26:20,397 DEBUG   SenderThread:873537 [sender.py:send():182] send: exit
+2023-02-03 17:26:20,397 INFO    SenderThread:873537 [sender.py:send_exit():291] handling exit code: 1
+2023-02-03 17:26:20,398 INFO    SenderThread:873537 [sender.py:send_exit():293] handling runtime: 456
+2023-02-03 17:26:20,398 INFO    SenderThread:873537 [sender.py:_save_file():873] saving file wandb-summary.json with policy end
+2023-02-03 17:26:20,399 INFO    SenderThread:873537 [sender.py:send_exit():303] send defer
+2023-02-03 17:26:20,399 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:20,400 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:20,400 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 0
+2023-02-03 17:26:20,400 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:20,400 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 0
+2023-02-03 17:26:20,400 INFO    SenderThread:873537 [sender.py:transition_state():316] send defer: 1
+2023-02-03 17:26:20,400 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:20,400 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 1
+2023-02-03 17:26:20,436 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:20,436 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 1
+2023-02-03 17:26:20,436 INFO    SenderThread:873537 [sender.py:transition_state():316] send defer: 2
+2023-02-03 17:26:20,437 DEBUG   SenderThread:873537 [sender.py:send():182] send: stats
+2023-02-03 17:26:20,437 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:20,437 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 2
+2023-02-03 17:26:20,438 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:20,438 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 2
+2023-02-03 17:26:20,438 INFO    SenderThread:873537 [sender.py:transition_state():316] send defer: 3
+2023-02-03 17:26:20,438 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:20,438 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 3
+2023-02-03 17:26:20,438 DEBUG   SenderThread:873537 [sender.py:send():182] send: summary
+2023-02-03 17:26:20,439 INFO    SenderThread:873537 [sender.py:_save_file():873] saving file wandb-summary.json with policy end
+2023-02-03 17:26:20,439 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:20,439 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 3
+2023-02-03 17:26:20,439 INFO    SenderThread:873537 [sender.py:transition_state():316] send defer: 4
+2023-02-03 17:26:20,439 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:20,439 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 4
+2023-02-03 17:26:20,439 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:20,440 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 4
+2023-02-03 17:26:20,501 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:20,808 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/wandb-summary.json
+2023-02-03 17:26:20,808 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:26:20,959 INFO    SenderThread:873537 [sender.py:transition_state():316] send defer: 5
+2023-02-03 17:26:20,959 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:20,960 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:20,960 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 5
+2023-02-03 17:26:20,961 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:20,961 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 5
+2023-02-03 17:26:20,961 INFO    SenderThread:873537 [dir_watcher.py:finish():283] shutting down directory watcher
+2023-02-03 17:26:21,062 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:21,808 INFO    Thread-8  :873537 [dir_watcher.py:_on_file_modified():230] file/dir modified: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/config.yaml
+2023-02-03 17:26:21,809 INFO    SenderThread:873537 [dir_watcher.py:finish():313] scan: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files
+2023-02-03 17:26:21,809 INFO    SenderThread:873537 [dir_watcher.py:finish():327] scan save: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/config.yaml config.yaml
+2023-02-03 17:26:21,810 INFO    SenderThread:873537 [dir_watcher.py:finish():327] scan save: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/requirements.txt requirements.txt
+2023-02-03 17:26:21,810 INFO    SenderThread:873537 [dir_watcher.py:finish():327] scan save: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/wandb-metadata.json wandb-metadata.json
+2023-02-03 17:26:21,811 INFO    SenderThread:873537 [dir_watcher.py:finish():327] scan save: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/wandb-summary.json wandb-summary.json
+2023-02-03 17:26:21,811 INFO    SenderThread:873537 [dir_watcher.py:finish():327] scan save: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/predictions_eval_0.02518891687657431.json predictions_eval_0.02518891687657431.json
+2023-02-03 17:26:21,817 INFO    SenderThread:873537 [dir_watcher.py:finish():327] scan save: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log output.log
+2023-02-03 17:26:21,826 INFO    SenderThread:873537 [dir_watcher.py:finish():327] scan save: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/conda-environment.yaml conda-environment.yaml
+2023-02-03 17:26:21,827 INFO    SenderThread:873537 [sender.py:transition_state():316] send defer: 6
+2023-02-03 17:26:21,836 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:21,837 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:21,850 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 6
+2023-02-03 17:26:21,850 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:21,850 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 6
+2023-02-03 17:26:21,850 INFO    SenderThread:873537 [file_pusher.py:finish():177] shutting down file pusher
+2023-02-03 17:26:21,945 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:21,945 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,047 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,047 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,149 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,149 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,252 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,252 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,355 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,356 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,459 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,459 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,562 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,563 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,666 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,667 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,770 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,770 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,873 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,873 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:22,976 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:22,976 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,078 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,078 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,167 INFO    Thread-16 :873537 [upload_job.py:push():137] Uploaded file /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/output.log
+2023-02-03 17:26:23,175 INFO    Thread-12 :873537 [upload_job.py:push():137] Uploaded file /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/config.yaml
+2023-02-03 17:26:23,179 INFO    Thread-17 :873537 [upload_job.py:push():137] Uploaded file /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/conda-environment.yaml
+2023-02-03 17:26:23,181 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,182 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,189 INFO    Thread-13 :873537 [upload_job.py:push():137] Uploaded file /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/requirements.txt
+2023-02-03 17:26:23,194 INFO    Thread-14 :873537 [upload_job.py:push():137] Uploaded file /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/wandb-summary.json
+2023-02-03 17:26:23,285 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,285 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,388 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,388 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,491 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,492 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,595 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,595 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,698 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,698 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,801 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,802 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:23,905 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:23,905 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,008 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,008 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,110 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,110 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,213 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,213 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,316 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,316 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,418 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,419 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,522 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,522 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,625 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,625 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,709 INFO    Thread-15 :873537 [upload_job.py:push():137] Uploaded file /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/files/predictions_eval_0.02518891687657431.json
+2023-02-03 17:26:24,728 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,728 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,831 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:24,832 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:24,910 INFO    Thread-7  :873537 [sender.py:transition_state():316] send defer: 7
+2023-02-03 17:26:24,911 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:24,911 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 7
+2023-02-03 17:26:24,911 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:24,912 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 7
+2023-02-03 17:26:24,935 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:25,466 INFO    SenderThread:873537 [sender.py:transition_state():316] send defer: 8
+2023-02-03 17:26:25,467 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:25,467 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:25,468 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 8
+2023-02-03 17:26:25,468 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:25,468 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 8
+2023-02-03 17:26:25,469 INFO    SenderThread:873537 [sender.py:transition_state():316] send defer: 9
+2023-02-03 17:26:25,470 DEBUG   SenderThread:873537 [sender.py:send():182] send: final
+2023-02-03 17:26:25,470 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: defer
+2023-02-03 17:26:25,470 DEBUG   SenderThread:873537 [sender.py:send():182] send: footer
+2023-02-03 17:26:25,470 INFO    HandlerThread:873537 [handler.py:handle_request_defer():143] handle defer: 9
+2023-02-03 17:26:25,470 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: defer
+2023-02-03 17:26:25,470 INFO    SenderThread:873537 [sender.py:send_request_defer():312] handle sender defer: 9
+2023-02-03 17:26:25,570 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: poll_exit
+2023-02-03 17:26:25,570 DEBUG   SenderThread:873537 [sender.py:send_request():196] send_request: poll_exit
+2023-02-03 17:26:25,570 INFO    SenderThread:873537 [file_pusher.py:join():182] waiting for file pusher
+2023-02-03 17:26:25,572 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: get_summary
+2023-02-03 17:26:25,572 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: sampled_history
+2023-02-03 17:26:25,573 DEBUG   HandlerThread:873537 [handler.py:handle_request():126] handle_request: shutdown
+2023-02-03 17:26:25,573 INFO    HandlerThread:873537 [handler.py:finish():683] shutting down handler
+2023-02-03 17:26:26,470 INFO    WriterThread:873537 [datastore.py:close():281] close: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230203_171842-28ys3jqv/run-28ys3jqv.wandb
+2023-02-03 17:26:26,571 INFO    SenderThread:873537 [sender.py:finish():979] shutting down sender
+2023-02-03 17:26:26,571 INFO    SenderThread:873537 [file_pusher.py:finish():177] shutting down file pusher
+2023-02-03 17:26:26,571 INFO    SenderThread:873537 [file_pusher.py:join():182] waiting for file pusher
+2023-02-03 17:26:26,572 INFO    MainThread:873537 [internal.py:handle_exit():76] Internal process exited

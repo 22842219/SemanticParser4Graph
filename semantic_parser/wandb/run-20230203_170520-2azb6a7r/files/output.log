@@ -1,0 +1,119 @@
+task_args.bert.location: t5-base
+META_TUNING/text2cypher_with_cell.cfg
+task_args: <utils.configue.Args object at 0x7feeca4bdbe0> ./seq2seq_construction/text2cypher_dataset_builder.py
+constructor: seq2seq_construction.text2cypher_constructor
+importlib Constrctor: <class 'seq2seq_construction.text2cypher_constructor.Constructor'>
+constructor: seq2seq_construction.meta_tuning
+importlib Constrctor: <class 'seq2seq_construction.meta_tuning.Constructor'>
+evaluate_tool: metrics.meta_tuning.evaluator
+WARNING:datasets.builder:Reusing dataset text2_cypher (./data/text2_cypher/text2cypher/1.0.0/9a357b853717b5477de0f3366bc46fa3acccb14451d367061841b05a3909f446)
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00, 578.96it/s]
+prefix-tuning sequence length is 10.
+***** Running training *****
+  Num examples = 3175
+  Num Epochs = 5
+  Instantaneous batch size per device = 2
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 8
+  Total optimization steps = 990
+Automatic Weights & Biases logging enabled, to disable set os.environ["WANDB_DISABLED"] = "true"
+  0%|                                                                                                                                                                              | 0/990 [00:00<?, ?it/s]
+  0%|                                                                                                                                                                              | 0/990 [00:00<?, ?it/s][W reducer.cpp:1298] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+  0%|▏                                                                                                                                                                     | 1/990 [00:03<53:14,  3.23s/it]
+
+
+
+  0%|▋                                                                                                                                                                     | 4/990 [00:12<48:40,  2.96s/it]
+  1%|▊                                                                                                                                                                     | 5/990 [00:14<48:34,  2.96s/it]***** Running Evaluation *****
+  Num examples = 491
+  Batch size = 8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 62/62 [04:52<00:00,  3.28s/it]
+  File "train.py", line 229, in <module>███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 62/62 [04:52<00:00,  3.28s/it]
+    main()
+  File "train.py", line 188, in main
+    train_result = trainer.train(resume_from_checkpoint=checkpoint)
+  File "/root/anaconda3/envs/py3.7pytorch1.8new/lib/python3.7/site-packages/transformers/trainer.py", line 1342, in train
+    self._maybe_log_save_evaluate(tr_loss, model, trial, epoch, ignore_keys_for_eval)
+  File "/root/anaconda3/envs/py3.7pytorch1.8new/lib/python3.7/site-packages/transformers/trainer.py", line 1443, in _maybe_log_save_evaluate
+    metrics = self.evaluate(ignore_keys=ignore_keys_for_eval)
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/utils/trainer.py", line 169, in evaluate
+    summary = self.compute_metrics(eval_preds, section="dev")
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/utils/trainer.py", line 354, in _compute_metrics
+    return self.evaluator.evaluate(eval_prediction.predictions, eval_prediction.items, section)
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/metrics/meta_tuning/evaluator.py", line 32, in evaluate
+    evaluator = utils.tool.get_evaluator(args.evaluate.tool)(args)
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/utils/tool.py", line 18, in get_evaluator
+    EvaluateTool = importlib.import_module('{}'.format(evaluate_tool)).EvaluateTool
+  File "/root/anaconda3/envs/py3.7pytorch1.8new/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/metrics/text2cypher/evaluator.py", line 3, in <module>
+    from .text2cypher_exec import compute_execuation_acc_metric
+  File "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/metrics/text2cypher/text2cypher_exec.py", line 4, in <module>
+    from evaluation import evaluation as text2cypher_evaluation
+ModuleNotFoundError: No module named 'evaluation'

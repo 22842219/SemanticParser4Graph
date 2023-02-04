@@ -16,7 +16,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Sequence2sequence constructor :point_right: [Seq2seq constructor](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_constructor.py)    
 - `03/02/2023`
     - updata [schema](https://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/data/text2cypher). 
-    - Get (serialization)[https://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction] done. 
+    - [Input serialization](https://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!) 
     - Test training/Evaluation [datasets object applied in a seqseq constructor](hhttps://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!)
     - Test training/Evaluation [evaluation metrics](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/.py) (done!)
     - :boom: The text2cypher model with prefix tuning is training now. Hopefully we could get a not bad result. 
