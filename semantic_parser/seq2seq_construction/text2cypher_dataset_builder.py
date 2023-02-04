@@ -75,7 +75,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
             {
                 "query": datasets.Value("string"), 
                 "question": datasets.Value("string"),
-                "answers": datasets.features.Sequence(datasets.Value("string")),
+                # "answers": datasets.features.Sequence(datasets.Value("string")),
                 "schema_path": datasets.Value("string"),
                 "db_id": datasets.Value("string"),
                 "db_tag_names": datasets.features.Sequence(datasets.Value("string")),
@@ -122,22 +122,24 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", data_filepath)
         schema_data= get_schema_from_json(schema_path)
+
         with open(data_filepath, 'r', encoding="utf-8") as f:
             data = json.load(f)
-            print(len(data))
+            # print("len(data)", len(data))
             for idx, sample in enumerate(data):
                 db_id = sample["db_id"]
-                print(f'db_id: {db_id}, {type(db_id)}')
                 if db_id not in self.schema_cache:
                     self.schema_cache[db_id] = schema_data[db_id]
-                schema = self.schema_cache[db_id]                
+                schema = self.schema_cache[db_id]   
+
                 yield idx, {
                 "db_id": db_id,
                 "query": sample["query"],
                 "question": sample["question"],
-                "answers": sample["answers"],
+                # "answers": sample["answers"],
                 "schema_path": schema_path,
                 "db_tag_names": schema['tag_names'], 
+
                 "db_property_names": 
                     [
                         {

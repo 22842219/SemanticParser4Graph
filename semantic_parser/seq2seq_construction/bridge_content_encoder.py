@@ -201,13 +201,15 @@ def get_matched_entries(
 # ZZY: to adapt to our task:
 @functools.lru_cache(maxsize=1000, typed=False)
 def get_property_picklist(db_id: str, tag_name: str, property_name: str, schema_path: str) -> list:
+    print('property_name:', db_id, property_name)
     with codecs.open(schema_path, 'r') as f:
         schema = json.load(f)
         every_schema=schema[db_id]
         if tag_name.startswith(":`"):
             tag_name = tag_name.strip(":").strip("`").split(".")[1]
         property_name_value_pairs = every_schema[tag_name]
-        return property_name_value_pairs[property_name]
+        if bool(property_name):
+            return property_name_value_pairs[property_name]
 
 def get_database_matches(
     db_id: str,

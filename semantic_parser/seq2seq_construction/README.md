@@ -295,3 +295,4 @@ DatasetDict({
 ```
 
 
+:boom: [text2cypher DB content values picklist](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_dataset_builder.py)

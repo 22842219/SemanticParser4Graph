@@ -9,7 +9,7 @@ from datasets.dataset_dict import DatasetDict
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
 
-from bridge_content_encoder import get_database_matches
+from .bridge_content_encoder import get_database_matches
 
 from tqdm import tqdm
 
@@ -222,7 +222,11 @@ def serialize_schema(
         raise NotImplementedError
 
     def get_property_str(tag_name: str, property_name: str) -> str:
-        property_name_str = property_name.lower() if normalize_query else property_name
+        print(property_name)
+        if bool(property_name):
+            property_name_str = property_name.lower() if normalize_query else property_name
+        else:
+            property_name_str = property_name
         if schema_serialization_with_db_content:
             matches = get_database_matches(
                 db_id=db_id,

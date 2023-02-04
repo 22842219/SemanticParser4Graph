@@ -89,6 +89,7 @@ class Configure(object):
         args.dir.model = DEFAULT_MODEL_DIR
         args.dir.dataset = DEFAULT_DATASET_DIR
         args.dir.configure = DEFAULT_CONFIGURE_DIR
+
         for arg_name, arg in prev_args:
             if arg is None:
                 continue

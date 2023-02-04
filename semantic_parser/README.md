@@ -9,18 +9,23 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Reformat input dataset which includes three json files, namely train.json, dev.json and schema.json. 
     - Create a small dataset in `department_management` domain.
 -  `31/01/2023`
-    - Define text2cypher :point_right: [data features](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_dataset_builder.py)
+    - Define text2cypher dataset builder :point_right: [data features](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_dataset_builder.py)
 -  `01/02/2023`
     - DB content encoder :point_right: [picklist](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/bridge_content_encoder.py)
+-  `02/02/2023`
+    - Sequence2sequence constructor :point_right: [Seq2seq constructor](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_constructor.py)    
+- `03/02/2023`
+    - updata [schema](https://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/data/text2cypher). 
+    - Get (serialization)[https://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction] done. 
+    - Test training/Evaluation [datasets object applied in a seqseq constructor](hhttps://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!)
+    - Test training/Evaluation [evaluation metrics](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/.py) (done!)
+    - :boom: The text2cypher model with prefix tuning is training now. Hopefully we could get a not bad result. 
 
 ### :point_right: TODO LIST
-- ddl: `01/02/2023`
-    - Debugging [Seq2seq constructor](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/seq2seq_construction/text2cypher_constructor.py)
 
 - ddl: `3/02/2023` 
-    - Encoder-Decoder architecture using a running example
-    - Test training/Evaluation [data generator](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/tasks/text2cypher.py)
-    - Hopefully get a model running!!
+    - Update the implementation details in the paper. 
+    - Encoder-Decoder architecture using a running example  
 
 
 - cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match.
