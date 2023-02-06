@@ -317,7 +317,7 @@ Please refer to [Spider paper]() and [this page](https://github.com/taoyds/spide
   "n_embd", 768
   "match_n_embd":  64
 
-  "batch size": 
+  "batch size": 2
 
   "wte": [prefix_tuning.prefix_sequence_length, n_emdb]
   "wte_enc": [prefix_tuning.prefix_sequence_length, n_emdb]
