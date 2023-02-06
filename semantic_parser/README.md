@@ -307,8 +307,27 @@ Please refer to [Spider paper]() and [this page](https://github.com/taoyds/spide
 
   "Tensor shape of input": [64, 512, 32102] # [Minibach size, sequence length, embedding dimention size]
   "Tensor shape of output": [64, 512, 32102] # [Minibach size, sequence length, embedding dimention size]
-  
   "beam size": 2
+  "prefix_tuning.prefix_sequence_length": 10
+  "prefix_tuning.mid_dim": 512, 
+  "tokenizer": AutoTOkenizer.from_pretrained('t5-base),
+  "pretrain_model": T5ForConditionalGeneration.from_pretrained('t5-base')
+  "match_n_layer": 12
+  "match_n_head", 12
+  "n_embd", 768
+  "match_n_embd":  64
+
+  "batch size": 
+
+  "wte": [prefix_tuning.prefix_sequence_length, n_emdb]
+  "wte_enc": [prefix_tuning.prefix_sequence_length, n_emdb]
+  "control_trans": [mid_dim, match_n_layer*2*match_n_head*match_n_embd]
+  "control_trans_enc": [mid_dim, match_n_layer*2*match_n_head*match_n_embd]
+
+  "wte_dec": [prefix_tuning.prefix_sequence_length, n_emdb]
+  "control_trans_dec": [mid_dim, match_n_layer*2*match_n_head*match_n_embd]
+  "dropout": 0
+
 } 
 ```
 Note: [PICARD](https://arxiv.org/abs/2109.05093) paper has pointed out that beam size with 4 is the best, however due to the computation capacity, we have to set it as 2 at the moment. (could change to 4 once the mode is ready to upload to kaya.)
