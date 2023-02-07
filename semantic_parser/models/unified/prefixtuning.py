@@ -18,8 +18,6 @@ class Model(PushToHubFriendlyModel):
         self.preseqlen = args.prefix_tuning.prefix_sequence_length
         self.mid_dim = args.prefix_tuning.mid_dim
 
-        print("prefix-tuning sequence length is {}.".format(self.preseqlen))
-
         # Load tokenizer and model.
         self.tokenizer = AutoTokenizer.from_pretrained(args.bert.location, use_fast=False)
         self.pretrain_model = AutoModelForSeq2SeqLM.from_pretrained(
@@ -48,6 +46,7 @@ class Model(PushToHubFriendlyModel):
 
         # Prefix related.
         self.register_buffer('input_tokens', torch.arange(self.preseqlen).long())
+        print(f'match_n_layer: {self.match_n_layer}, match_n_head: {self.match_n_head}, n_embd: {self.n_embd}, match_n_embd:{self.match_n_embd}' )
 
         self.wte = nn.Embedding(self.preseqlen, self.n_embd)
         self.control_trans = nn.Sequential(
@@ -254,9 +253,11 @@ class Model(PushToHubFriendlyModel):
                 **kwargs,
                 ):
         bsz = input_ids.shape[0]
+        print(f'batch size: {bsz}')
 
         # Encode description.
         description_representation = self.get_description_representation(kwargs)
+        print(f' description_representation: {description_representation} ')
 
         # Encode knowledge.
         knowledge_representation = self.get_knowledge_representation(kwargs)
@@ -265,6 +266,9 @@ class Model(PushToHubFriendlyModel):
             bsz=bsz, description=description_representation, knowledge=knowledge_representation,
         )
 
+        print(f'knowledge_representation: {knowledge_representation}')
+        print(f' labels: {labels.size()}')
+        
         loss = self.pretrain_model(
             input_ids=input_ids,
             attention_mask=attention_mask,

@@ -1,26 +1,16 @@
 import os, sys
 import json
-import sqlite3
-import traceback
 import argparse
-from process_sql import get_sql
-
-
-#TODO: update the following dirs
-sql_path = '/home/22842219/Desktop/openSource/UnifiedSKGG-Cypher/data/downloads/spider/train.json'  #'spider/train.json'
-db_dir = '/home/22842219/Desktop/openSource/UnifiedSKGG-Cypher/data/downloads/spider/database'      #'database/'
-output_file = 'dev_new.json'
-table_file = '/home/22842219/Desktop/openSource/UnifiedSKGG-Cypher/data/downloads/spider/tables.json'  #'spider/tables.json'
+from process_cypher import get_cypher
 
 
 class Schema:
     """
-    Simple schema which maps table&column to a unique identifier
+    Simple schema which maps node lable/type edge&property to a unique identifier
     """
-    def __init__(self, schema, table):
+    def __init__(self, schema):
         self._schema = schema
-        self._table = table
-        self._idMap = self._map(self._schema, self._table)
+        self._idMap = self._map(self._schema)
 
     @property
     def schema(self):
@@ -30,20 +20,18 @@ class Schema:
     def idMap(self):
         return self._idMap
 
-    def _map(self, schema, table):
-        column_names_original = table['column_names_original']
-        table_names_original = table['table_names_original']
-        #print 'column_names_original: ', column_names_original
-        #print 'table_names_original: ', table_names_original
-        for i, (tab_id, col) in enumerate(column_names_original):
-            if tab_id == -1:
+    def _map(self, schema):
+        property_names_original = schema['property_names']
+        tag_names_original = schema['table_names_original']
+        for i, (tag_id, property) in enumerate(property_names_original):
+            if tag_id == -1:
                 idMap = {'*': i}
             else:
-                key = table_names_original[tab_id].lower()
-                val = col.lower()
+                key = tag_names_original[tag_id].lower()
+                val = property.lower()
                 idMap[key + "." + val] = i
 
-        for i, tab in enumerate(table_names_original):
+        for i, tab in enumerate(tag_names_original):
             key = tab.lower()
             idMap[key] = i
 
@@ -55,43 +43,48 @@ def get_schemas_from_json(fpath):
         data = json.load(f)
     db_names = [db['db_id'] for db in data]
 
-    tables = {}
+    tags = {}
     schemas = {}
     for db in data:
         db_id = db['db_id']
-        schema = {} #{'table': [col.lower, ..., ]} * -> __all__
-        column_names_original = db['column_names_original']
-        table_names_original = db['table_names_original']
-        tables[db_id] = {'column_names_original': column_names_original, 'table_names_original': table_names_original}
-        for i, tabn in enumerate(table_names_original):
-            table = str(tabn.lower())
-            cols = [str(col.lower()) for td, col in column_names_original if td == i]
-            schema[table] = cols
+        schema = {} #{'tag': [property.lower, ..., ]} * -> __all__
+        property_names_original = db['property_names']
+        tag_names_original = db['tag_names_original']
+        tags[db_id] = {'column_names_original': property_names_original, 'tag_names_original': tag_names_original}
+        for i, tabn in enumerate(tag_names_original):
+            tag = str(tabn.lower())
+            props = [str(prop.lower()) for td, prop in property_names_original if td == i]
+            schema[tag] = props
         schemas[db_id] = schema
 
-    return schemas, db_names, tables
+    return schemas, db_names, tags
 
 
 
-schemas, db_names, tables = get_schemas_from_json(table_file)
+#TODO: update the following dirs
+cypher_path = os.getcwd() + '/data/text2cypher/dev.json' 
+output_file = os.getcwd() + '/data/text2cypher/dev_new.json'
+raw_schema_file = os.getcwd() + '/data/text2cypher/schema.json'  
 
-with open(sql_path) as inf:
-    sql_data = json.load(inf)
+schemas, db_names, tables = get_schemas_from_json(raw_schema_file)
 
-sql_data_new = []
-for data in sql_data:
+with open(cypher_path) as inf:
+    cypher_data = json.load(inf)
+
+cypher_data_new = []
+for data in cypher_data:
     try:
         db_id = data["db_id"]
         schema = schemas[db_id]
         table = tables[db_id]
         schema = Schema(schema, table)
-        sql = data["query"]
-        sql_label = get_sql(schema, sql)
-        data["sql"] = sql_label
-        sql_data_new.append(data)
+        cypher = data["query"]
+        cypher_label = get_cypher(schema, cypher)
+        data["cypher"] = cypher_label
+        cypher_data_new.append(data)
     except:
         print("db_id: ", db_id)
-        print("sql: ", sql)
+        print("cypher: ", cypher)
         
 with open(output_file, 'wt') as out:
-    json.dump(sql_data_new, out, sort_keys=True, indent=4, separators=(',', ': '))
+    json.dump(cypher_data_new, out, sort_keys=True, indent=4, separators=(',', ': '))

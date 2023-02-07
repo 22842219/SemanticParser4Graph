@@ -53,7 +53,9 @@ class Evaluator:
         self.scores["count"] += 1
         syntactic_error = False
         if isValidCypher(predicted, self.graph):
-
+            print(f"self.scores[exec]: {self.scores['exec']}")
+            print("hyyyyyyy check it out:", eval_exec_match(
+                self.graph, predicted, gold))
             self.scores["exec"] += eval_exec_match(
                 self.graph, predicted, gold)
         else:
@@ -70,7 +72,6 @@ class Evaluator:
 
 
 def compute_execuation_acc_metric(predictions, references) -> Dict[str, Any]:
-    print("metrics/text2cypher/text2cypher_exact_match.py, references", references)
     evaluator = Evaluator(graph, "all")
     for prediction, reference in zip(predictions, references):
         turn_idx = reference.get("turn_idx", 0)
@@ -91,10 +92,12 @@ class EvaluateTool(object):
     
         if self.args.seq2seq.target_with_db_id:
             # Remove database id from all predictions
+            print(f'heyyyyyyyyyyy preds befor split: {preds}')
             preds = [pred.split("|", 1)[-1].strip() for pred in preds]
+            print(f'heyyyyyyyyyyy preds in evaluator: {preds}')
+
         exact_match = compute_execuation_acc_metric(preds, golds)
         # test_suite = compute_test_suite_metric(preds, golds, db_dir=self.args.test_suite_db_dir)
-        print(f'metrics/text2cypher/evaluator.py, preds: {preds}, golds: {golds}, section: {section}')
 
         return {**exact_match}
 
@@ -168,18 +171,32 @@ def eval_exec_match(graph, p_str, g_str):
     """
 
     try:
-        p_res = graph.run(p_str).data()
+        prediction_res = graph.run(p_str).data()
     except:
         return False
 
-    q_res = graph.run(g_str)
+    cypher_res = graph.run(g_str).data()
+    q_res = []
+    for dict_q in cypher_res:
+        q_res.append(tuple(dict_q.values()))
+
+    p_res=[]
+    for dict_p in prediction_res:
+        p_res.append(tuple(dict_p.values()))
+    
 
     # sort results for the comparision
+    print(f'q_res: {q_res}')
+    print(f'p_res: {p_res}')
     p_sorted = sorted(p_res, key=lambda x: x[0])
     q_sorted =  sorted(q_res, key=lambda x: x[0]) 
+    print(f'sorted results. p_sorted: {p_sorted}, q_sorted: {q_sorted}')
+    
     
     if not set(p_sorted)-set(q_sorted):
         return True
+    else:
+        return  False
 
 
 def main(gold, pred, graph, etype, output):

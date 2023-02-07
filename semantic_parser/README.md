@@ -23,13 +23,21 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
 ### :point_right: TODO LIST
 
-- ddl: `3/02/2023` 
+- ddl: `7/02/2023` 
+    - :boom: Priority task
+        training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
+        - Change the code to achive the following targets.
+            - The predictions always output lowercase tokens. I've looked up the T5 documentation and it seems like that's their settings. 
+        - Analyse the results with the focus of **num_train_epochs**, **generation_num_beams** and **generation_max_length**. 
+
+        - testing **evaluator**. 
+
     - Update the implementation details in the paper. 
     - Encoder-Decoder architecture using a running example  
 
+    - Result Visualisation 
 
 - cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match.
-
 
 ### :point_right: Environment
 - CUDA 11.4
@@ -300,7 +308,6 @@ Execution Accuracy Metric
 
 Please refer to [Spider paper]() and [this page](https://github.com/taoyds/spider/tree/master/evaluation) for more details and examples.
 
-
 ### Model Main Parameters
 ```
 {
@@ -328,10 +335,22 @@ Please refer to [Spider paper]() and [this page](https://github.com/taoyds/spide
   "control_trans_dec": [mid_dim, match_n_layer*2*match_n_head*match_n_embd]
   "dropout": 0
 
+
 } 
 ```
+
+### Training Arguments
+```
+{
+
+python -m torch.distributed.launch              --nproc_per_node 1               --master_port 1234 train.py               --seed 2               --cfg Salesforce/T5_base_prefix_text2cypher_with_cell_value.cfg               --run_name T5_base_prefix_text2cypher_with_cell_value              --logging_strategy steps               --logging_first_step true               --logging_steps 500               --evaluation_strategy steps               --eval_steps 500               --metric_for_best_model avr               --greater_is_better true               --save_strategy steps               --save_steps 500               --save_total_limit 1               --load_best_model_at_end               --gradient_accumulation_steps 8               --num_train_epochs 400               --adafactor true               --learning_rate 1e-4               --do_train               --do_eval               --do_predict               --predict_with_generate               --output_dir output/T5_base_prefix_text2cypher_with_cell_value           --overwrite_output_dir           --per_device_train_batch_size 2               --per_device_eval_batch_size 8               --generation_num_beams 4               --generation_max_length 64               --input_max_length 512               --ddp_find_unused_parameters true       
+    
+}
+```
+
+
+
 Note: [PICARD](https://arxiv.org/abs/2109.05093) paper has pointed out that beam size with 4 is the best, however due to the computation capacity, we have to set it as 2 at the moment. (could change to 4 once the mode is ready to upload to kaya.)
 ### FAQ
-
 
 

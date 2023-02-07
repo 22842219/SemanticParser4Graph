@@ -1,0 +1,37 @@
+.
+├── configure                              # Config files for experiments, tasks, and settings
+│   ├── META_TUNING                        # Config files for tasks and settings
+│   └── Salesforce                         # Config files for experiments (see Misc)
+│
+├── metrics                                # Code for evaluation
+│   └── ...                                # Please check the README of the ./seq2seq_construction.
+├── models                                 # Code for models
+│   ├── adapter                            # Code for T5 and BART with adapters (based on HuggingFace Transformers)
+│   ├── prompt                             # Code for T5 and BART with prefix-tuning (based on HuggingFace Transformers)
+│   └── unified
+│           ├── base.py                    # Code for the base model that enables an arbitrary model to be pushed to HuggingFace Model Hub 
+                                           #(namely, PushToHubFriendlyModel)
+│           ├── finetune.py                # Code for finetuning
+│           ├── adaptertuning.py           # Code for adapter-tuning
+│           ├── prefixtuning.py            # Code for prefix-tuning
+│           └── combined_prefixtuning.py   # Code for combined prefix-tuning (not used in our paper, see Misc)
+│
+├── seq2seq_construction                   # Code for data loader and wraper.                        
+│       ├── text2cypher_dataset_builder.py # Code for loading raw data
+│       ├── text2cypher_constructor.py     # Code for converting raw data into sequences
+│
+│
+├── utils                                  # Code for some (probably) useful stuff
+│       ├── processor                      # Adopted from Tapex: the processor that handles table truncation and linearization
+        │        └──  ...            
+│       ├── configure.py                   # Code for parsing config files in ./configure
+│       ├── dataset.py                     # Code for converting input and output sequences into Datasets for training
+│       ├── tool.py                        # Code for loading models, seq2seq constructors, and evaluators
+│       ├── trainer.py                     # Code for EvaluationFriendlyTrainer. If you want make training-specific modifications, you may want to change something here.
+│       └── training_arguments.py          # Code for seq2seq training arguments
+│
+├── .gitignore                 
+├── .gitmodules                    
+├── py3.7pytorch1.8.yaml                   # Anaconda environment config file
+├── README.md                              # The README file you are looking at :)
+└── train.py                               # Entry code, which controls train, eval, test, storage, and logging

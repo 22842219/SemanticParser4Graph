@@ -30,16 +30,12 @@ class EvaluateTool(object):
         for arg_path, preds_golds in wait_for_eval.items():
             args = Configure.refresh_args_by_file_cfg(os.path.join(meta_args.dir.configure, arg_path), meta_args)
             evaluator = utils.tool.get_evaluator(args.evaluate.tool)(args)
-            print('meta_args.dir.configure:', meta_args.dir.configure)
-            print("metrics/meta_tuning/evaluator.py, preds_golds['preds']", preds_golds['preds'])
-            print("metrics/meta_tuning/evaluator.py, preds_golds['golds']", preds_golds['golds'])
-            print("metrics/meta_tuning/evaluator.py, section:", section)
-            print("metrics/meta_tuning/evaluator.py, args:", args)
+            # print("metrics/meta_tuning/evaluator.py, preds_golds['preds']", preds_golds['preds'])
+            # print("metrics/meta_tuning/evaluator.py, preds_golds['golds']", preds_golds['golds'])
             summary_tmp = evaluator.evaluate(preds_golds['preds'], preds_golds['golds'], section)
             for key, metric in summary_tmp.items():  # TODO
                 summary[os.path.join(arg_path, key)] = metric
             # summary[os.path.join(arg_path, args.train.stop)] = summary_tmp[args.train.stop]
 
         summary['avr'] = float(np.mean([float(v) for k, v in summary.items()]))
-        print(f'summary: {summary}')
         return summary

@@ -223,6 +223,7 @@ class EvaluateFriendlySeq2SeqTrainer(transformers.trainer_seq2seq.Seq2SeqTrainer
             eval_preds = self._post_process_function(
                 test_examples, output.predictions, metric_key_prefix)
             output.metrics.update(self.compute_metrics(eval_preds, section="test"))
+            print(f'eval_preds: {eval_preds}')
 
         output.metrics.update(speed_metrics(metric_key_prefix, start_time, len(test_dataset)))
 
@@ -273,6 +274,7 @@ class EvaluateFriendlySeq2SeqTrainer(transformers.trainer_seq2seq.Seq2SeqTrainer
         has_labels = "labels" in inputs
         inputs = self._prepare_inputs(inputs)
 
+
         # XXX: adapt synced_gpus for fairscale as well
         gen_kwargs = {
             "max_length": self._max_length if self._max_length is not None else self.model.config.max_length,
@@ -297,6 +299,8 @@ class EvaluateFriendlySeq2SeqTrainer(transformers.trainer_seq2seq.Seq2SeqTrainer
             attention_mask=inputs["attention_mask"],
             **gen_kwargs,
         )
+
+        print(f'generated_tokens :{generated_tokens.size()}')
         # in case the batch is shorter than max length, the output should be padded
         if generated_tokens.shape[-1] < gen_kwargs["max_length"]:
             generated_tokens = self._pad_tensors_to_max_len(generated_tokens, gen_kwargs["max_length"])
@@ -330,6 +334,7 @@ class EvaluateFriendlySeq2SeqTrainer(transformers.trainer_seq2seq.Seq2SeqTrainer
         assert isinstance(examples, Dataset)
 
         predictions = self.tokenizer.batch_decode(predictions, skip_special_tokens=True)
+        print(predictions)
 
         # Save locally.
         if self.args.local_rank <= 0:

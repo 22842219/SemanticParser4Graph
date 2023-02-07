@@ -1,6 +1,6 @@
 ### class transformers.T5ForConditionalGeneration
 
-It is a T5 model with a **lanugage modeling head** on top. 
+It is a T5 model with a **lanugage modeling head** which I suspect is the so called **control codes** on top. 
 
 :point_right: T5 model
 - [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683)
@@ -25,10 +25,11 @@ It is a T5 model with a **lanugage modeling head** on top.
         - [How to generate text: using different decoding methods for language generation with Transformers](https://huggingface.co/blog/how-to-generate)
 
 
-: point_right: Controllable generation
+:point_right: Controllable generation
 - [CTRL: A CONDITIONAL TRANSFORMER LANGUAGE MODEL FOR CONTROLLABLE GENERATION](https://arxiv.org/pdf/1909.05858.pdf)
     - train a model to condition on cotrol codes that govern style, content, and task-specific behavior. 
     - control codes were derived from structure that naturlally co-occurs with raw text. 
     - all control codes can be traced back to a particular subset of the training data. 
         - style by domain
+        - ZZY: control codes feel like labels. 
     
