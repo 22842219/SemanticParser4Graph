@@ -31,14 +31,16 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
                 - The predictions always output lowercase tokens. I've looked up the T5 documentation and it seems like that's their settings. 
                     (confirmation required!!!)
             - Analyse the results with the focus below. 
+                - :point_right: study the dataset distribution.
+                    I observe the gained from evaluation seen examples benefits the unseen examples. 
                 - :point_right: study the generation of the fowllowing items.
                     - **special tokens**, 
                     - **capitalized tokens**, 
                     - **alias**, 
                     - **graph patterns** including graph nodes and edges. 
                 - :point_right: tuning the following training arguments
-                    - **num_train_epochs** : 400
-                    - **generation_num_beams**: 4
+                    - **num_train_epochs** : 400 is much bettern than 5. 
+                    - **generation_num_beams**: 4 is bettern than 2. 
                     - **generation_max_length**: 512 makes no difference with 64 when the **num_train_epochs** are increased from 5 to 500
                     - **larning_rate**: 1e-4    
                     - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
