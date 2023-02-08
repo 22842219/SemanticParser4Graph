@@ -226,9 +226,81 @@ python -m torch.distributed.launch         --nproc_per_node 1          --master_
 3.1 run model on text2cypher on the following dataset setting.
 
 train.json -> department_management
-dev.json -> real_estate_properties
+dev.json -> real_estate_properties + department_management
 
 export WANDB_API_KEY=edd277e1d782e96634109705a6235577032da246
 export WANDB_PROJECT='text-to-sql-text2cypher-Feb(small-set)'
 export WANDB_ENTITY=leamonzea929
-python -m torch.distributed.launch              --nproc_per_node 1               --master_port 1234 train.py               --seed 2               --cfg Salesforce/T5_base_prefix_text2cypher_with_cell_value.cfg               --run_name T5_base_prefix_text2cypher_with_cell_value              --logging_strategy steps               --logging_first_step true               --logging_steps 500               --evaluation_strategy steps               --eval_steps 500               --metric_for_best_model avr               --greater_is_better true               --save_strategy steps               --save_steps 500               --save_total_limit 1               --load_best_model_at_end               --gradient_accumulation_steps 8               --num_train_epochs 400               --adafactor true               --learning_rate 1e-4               --do_train               --do_eval               --do_predict               --predict_with_generate               --output_dir output/T5_base_prefix_text2cypher_with_cell_value           --overwrite_output_dir           --per_device_train_batch_size 2               --per_device_eval_batch_size 8               --generation_num_beams 4               --generation_max_length 64               --input_max_length 512               --ddp_find_unused_parameters true       
+python -m torch.distributed.launch              --nproc_per_node 1               --master_port 1234 train.py               --seed 2               --cfg Salesforce/T5_base_prefix_text2cypher_with_cell_value.cfg               --run_name T5_base_prefix_text2cypher_with_cell_value              --logging_strategy steps               --logging_first_step true               --logging_steps 500               --evaluation_strategy steps               --eval_steps 500               --metric_for_best_model avr               --greater_is_better true               --save_strategy steps               --save_steps 500               --save_total_limit 1               --load_best_model_at_end               --gradient_accumulation_steps 8               --num_train_epochs 500               --adafactor true               --learning_rate 1e-4               --do_train               --do_eval               --do_predict               --predict_with_generate               --output_dir output/T5_base_prefix_text2cypher_with_cell_value           --overwrite_output_dir           --per_device_train_batch_size 2               --per_device_eval_batch_size 8               --generation_num_beams 4               --generation_max_length 512               --input_max_length 512               --ddp_find_unused_parameters true 
+
+***** predict metrics *****
+  epoch                                                              =      500.0
+  predict_META_TUNING/text2cypher_with_cell.cfg/exectuation accuracy =     0.3889
+  predict_avr                                                        =     0.3889
+  predict_loss                                                       =     0.6234
+  predict_runtime                                                    = 0:00:17.61
+  predict_samples                                                    =         18
+  predict_samples_per_second                                         =      1.022
+
+wandb: Waiting for W&B process to finish, PID 1124683
+wandb: Program ended successfully.
+wandb:                                                                                
+wandb: Find user logs for this run at: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230208_102148-2nt3tdbm/logs/debug.log
+wandb: Find internal logs for this run at: /home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/wandb/run-20230208_102148-2nt3tdbm/logs/debug-internal.log
+wandb: Run summary:
+wandb:                                                                 train/loss 0.8821
+wandb:                                                        train/learning_rate 0.0
+wandb:                                                                train/epoch 500.0
+wandb:                                                          train/global_step 500
+wandb:                                                                   _runtime 1659
+wandb:                                                                 _timestamp 1675824567
+wandb:                                                                      _step 5
+wandb:                                                                  eval/loss 0.62338
+wandb:                                                               eval/runtime 17.5908
+wandb:                                                    eval/samples_per_second 1.023
+wandb:            eval/META_TUNING/text2cypher_with_cell.cfg/exectuation accuracy 0.38889
+wandb:                                                                   eval/avr 0.38889
+wandb:                                                        train/train_runtime 1578.463
+wandb:                                             train/train_samples_per_second 4.751
+wandb:                                               train/train_steps_per_second 0.317
+wandb:                                                           train/total_flos 5247970725330944.0
+wandb:                                                           train/train_loss 0.89275
+wandb:                                                         train/predict_loss 0.62338
+wandb:                                                      train/predict_runtime 17.6191
+wandb:                                           train/predict_samples_per_second 1.022
+wandb:   train/predict_META_TUNING/text2cypher_with_cell.cfg/exectuation accuracy 0.38889
+wandb:                                                          train/predict_avr 0.38889
+wandb: Run history:
+wandb:                                                                 train/loss █▁
+wandb:                                                        train/learning_rate █▁
+wandb:                                                                train/epoch ▁█████
+wandb:                                                          train/global_step ▁█████
+wandb:                                                                   _runtime ▁█████
+wandb:                                                                 _timestamp ▁█████
+wandb:                                                                      _step ▁▂▄▅▇█
+wandb:                                                                  eval/loss ▁▁
+wandb:                                                               eval/runtime █▁
+wandb:                                                    eval/samples_per_second ▁█
+wandb:            eval/META_TUNING/text2cypher_with_cell.cfg/exectuation accuracy ▁▁
+wandb:                                                                   eval/avr ▁▁
+wandb:                                                        train/train_runtime ▁
+wandb:                                             train/train_samples_per_second ▁
+wandb:                                               train/train_steps_per_second ▁
+wandb:                                                           train/total_flos ▁
+wandb:                                                           train/train_loss ▁
+wandb:                                                         train/predict_loss ▁
+wandb:                                                      train/predict_runtime ▁
+wandb:                                           train/predict_samples_per_second ▁
+wandb:   train/predict_META_TUNING/text2cypher_with_cell.cfg/exectuation accuracy ▁
+wandb:                                                          train/predict_avr ▁
+wandb: 
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 2 other file(s)
+
+
+
+3.2 run model on text2cypher on the following dataset setting.
+
+export WANDB_API_KEY=edd277e1d782e96634109705a6235577032da246
+export WANDB_PROJECT='text-to-sql-text2cypher-Feb(whole-set)'
+export WANDB_ENTITY=leamonzea929
+python -m torch.distributed.launch              --nproc_per_node 1               --master_port 1234 train.py               --seed 2               --cfg Salesforce/T5_base_prefix_text2cypher_with_cell_value.cfg               --run_name T5_base_prefix_text2cypher_with_cell_value              --logging_strategy steps               --logging_first_step true               --logging_steps 500               --evaluation_strategy steps               --eval_steps 500               --metric_for_best_model avr               --greater_is_better true               --save_strategy steps               --save_steps 500               --save_total_limit 1               --load_best_model_at_end               --gradient_accumulation_steps 8               --num_train_epochs 500               --adafactor true               --learning_rate 1e-4               --do_train               --do_eval               --do_predict               --predict_with_generate               --output_dir output/T5_base_prefix_text2cypher_with_cell_value           --overwrite_output_dir           --per_device_train_batch_size 2               --per_device_eval_batch_size 8               --generation_num_beams 4               --generation_max_length 512               --input_max_length 512               --ddp_find_unused_parameters true 
