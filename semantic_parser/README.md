@@ -20,8 +20,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Test training/Evaluation [datasets object applied in a seqseq constructor](hhttps://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!)
     - Test training/Evaluation [evaluation metrics](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/.py) (done!)
     - :boom: The text2cypher model with prefix tuning is training now. Hopefully we could get a not bad result. 
-- `08/02/2023`
-    - 
+
 
 ### :point_right: TODO LIST
 
