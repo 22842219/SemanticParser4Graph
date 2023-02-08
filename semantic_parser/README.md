@@ -25,7 +25,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
 ### :point_right: TODO LIST
 
-- ddl: `7/02/2023` 
+- `8/02/2023` 
     - :boom: Priority task
         - training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
             - Improving the code to achive the following targets.
