@@ -20,17 +20,26 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Test training/Evaluation [datasets object applied in a seqseq constructor](hhttps://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!)
     - Test training/Evaluation [evaluation metrics](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/.py) (done!)
     - :boom: The text2cypher model with prefix tuning is training now. Hopefully we could get a not bad result. 
+- `08/02/2023`
+    - 
 
 ### :point_right: TODO LIST
 
 - ddl: `7/02/2023` 
     - :boom: Priority task
-        training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
-        - Change the code to achive the following targets.
-            - The predictions always output lowercase tokens. I've looked up the T5 documentation and it seems like that's their settings. 
-        - Analyse the results with the focus of **num_train_epochs**, **generation_num_beams** and **generation_max_length**. 
+        - training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
+            - Improving the code to achive the following targets.
+                - The predictions always output lowercase tokens. I've looked up the T5 documentation and it seems like that's their settings. 
+                    (confirmation required!!!)
+            - Analyse the results with the focus of **num_train_epochs**, **generation_num_beams** and **generation_max_length**. 
+                - :point_right: study the generation of the fowllowing items.
+                    - **special tokens**, 
+                    - **capitalized tokens**, 
+                    - **alias**, 
+                    - **graph patterns** including graph nodes and edges. 
 
-        - testing **evaluator**. 
+            - testing **execution accurarcy** in **evaluator**. (done!)
+        - Few/Zero shot learning. 
 
     - Update the implementation details in the paper. 
     - Encoder-Decoder architecture using a running example  
