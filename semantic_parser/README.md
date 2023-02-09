@@ -26,6 +26,10 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
 - `8/02/2023` 
     - :boom: Priority task
+        - training the model using the whole set in kaya.
+            - The sbatch slurm has done. 
+            - :imp: The model stopped training due to the failure of graph connection which requires the installation of java in kaya. I've created a ticket asking for avice from uwa it service. 
+
         - training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
             - Improving the code to achive the following targets.
                 - The predictions always output lowercase tokens. I've looked up the T5 documentation and it seems like that's their settings. 
