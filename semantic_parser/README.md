@@ -77,6 +77,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
                     - **capitalized tokens**, 
                     - **alias**, 
                     - **graph patterns** including graph nodes and edges. 
+                    - **repetitions of the same word sequences**, e.g., ``return return return``.
                 - :point_right: tuning the following training arguments
                     - **num_train_epochs** : 400 is much bettern than 5. 
                     - **generation_num_beams**: 4 is bettern than 2. 
