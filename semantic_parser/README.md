@@ -56,7 +56,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - :boom: Priority task
         - training the model using the whole set in kaya. (ongoing)
             - The sbatch slurm. (done!) 
-            - :similing_imp: The model stopped training due to the failure of graph connection which requires the installation of java in kaya. I've created a ticket asking for avice from uwa it service. (solved!)
+            - :smiling_imp: The model stopped training due to the failure of graph connection which requires the installation of java in kaya. I've created a ticket asking for avice from uwa it service. (solved!)
                 - module avail  # show available modules
                 - module load java/11* # load java 11.*  to fit our neo4j-community-4.4.13 
 
