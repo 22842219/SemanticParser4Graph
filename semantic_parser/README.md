@@ -29,9 +29,11 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Title and Abstract ddl: 3rd March, 2023
     - Paper ddl: 14th March, 2023
 - Experiments part
-    - mile stone 1: 12nd Feb, 2023
-        - Baseline Results and Analysis
+    - mile stone 1: 12nd Feb, 2023 
+        - :vulcan_salute: Baseline Results and Analysis
         - Update baseline results and analysis to the overleaf
+    - mile stone 2:
+        - Most likey I will work on the model architecture improvement, e.g., fussion decoder?
 - Paper Draft
     - mile stone 1: 19th Feb, 2023
         - At least most of the part including **related work** and **baseline implementation details** should be reflected in the overleaf
@@ -82,7 +84,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
                     - **larning_rate**: 1e-4    
                     - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
             - testing **execution accurarcy** in **evaluator**. (done!)
-        - Few/Zero shot learning. 
+        - :vulcan_salute: **Few/Zero shot learning.**
 
     - Update the implementation details in the paper. 
     - Encoder-Decoder architecture using a running example  
