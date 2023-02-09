@@ -19,16 +19,18 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - [Input serialization](https://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!) 
     - Test training/Evaluation [datasets object applied in a seqseq constructor](hhttps://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!)
     - Test training/Evaluation [evaluation metrics](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/.py) (done!)
-    - :boom: The text2cypher model with prefix tuning is training now. Hopefully we could get a not bad result. 
+- `08/02/2023`
+    - :boom: The text2cypher model with prefix tuning is training now in the local ubuntu machine with the following training arguments. Hopefully we could get a not bad result. Please refer to our [expriments log file](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/exps-2023.md).
+
 
 
 ### :point_right: TODO LIST
 
-- `8/02/2023` 
+- `9/02/2023` 
     - :boom: Priority task
         - training the model using the whole set in kaya.
             - The sbatch slurm has done. 
-            - :imp: The model stopped training due to the failure of graph connection which requires the installation of java in kaya. I've created a ticket asking for avice from uwa it service. 
+            - :imp: The model stopped training due to the failure of graph connection which requires the installation of java in kaya. I've created a ticket asking for avice from uwa it service. (have to solve it!)
 
         - training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
             - Improving the code to achive the following targets.
