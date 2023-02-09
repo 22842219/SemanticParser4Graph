@@ -126,8 +126,70 @@ Please refer to [this page](https://github.com/22842219/SemanticParser4Graph/blo
 We showcase the schema of `department_management` domain in `schema.json` which contains the following information for each node labels/edge types:
 
 For the whole property graph database schema, please refer to [this page](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/data/text2cypher/schema.json).
-``` 
+
+```
     "department_management": {
+        "db_id": "department_management",
+        "tag_names_original": [
+            "department",
+            "head",
+            "management"
+        ],
+        "tag_names": [
+            ":`department_management.department`",
+            ":`department_management.head`",
+            ":`department_management.management`"
+        ],
+        "property_names": [
+            [
+                -1,
+                "*"
+            ],
+            [
+                0,
+                "Name"
+            ],
+            [
+                0,
+                "Creation"
+            ],
+            [
+                0,
+                "Department_ID"
+            ],
+            [
+                0,
+                "Ranking"
+            ],
+            [
+                0,
+                "Budget_in_Billions"
+            ],
+            [
+                0,
+                "Num_Employees"
+            ],
+            [
+                1,
+                "name"
+            ],
+            [
+                1,
+                "born_state"
+            ],
+            [
+                1,
+                "age"
+            ],
+            [
+                1,
+                "head_ID"
+            ],
+            [
+                2,
+                "temporary_acting"
+            ]
+        ],
         "property_types": [
             "String",
             "String",
@@ -141,184 +203,160 @@ For the whole property graph database schema, please refer to [this page](https:
             "Long",
             "String"
         ],
-        ":`department_management.department`": [
-            {
-                "Name": [
-                    "Justice",
-                    "Commerce",
-                    "Interior",
-                    "Education",
-                    "Veterans Affairs",
-                    "Energy",
-                    "Homeland Security",
-                    "State",
-                    "Housing and Urban Development",
-                    "Agriculture",
-                    "Labor",
-                    "Transportation",
-                    "Defense",
-                    "Treasury",
-                    "Health and Human Services"
-                ]
-            },
-            {
-                "Creation": [
-                    "1979",
-                    "1966",
-                    "1889",
-                    "1977",
-                    "1965",
-                    "1947",
-                    "1903",
-                    "1953",
-                    "1913",
-                    "1870",
-                    "1989",
-                    "1789",
-                    "1849",
-                    "2002"
-                ]
-            },
-            {
-                "Department_ID": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10,
-                    11,
-                    12,
-                    13,
-                    14,
-                    15
-                ]
-            },
-            {
-                "Ranking": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10,
-                    11,
-                    12,
-                    13,
-                    14,
-                    15
-                ]
-            },
-            {
-                "Budget_in_Billions": [
-                    439.3,
-                    6.2,
-                    9.96,
-                    10.7,
-                    11.1,
-                    73.2,
-                    77.6,
-                    46.2,
-                    44.6,
-                    21.5,
-                    23.4,
-                    58.0,
-                    59.7,
-                    62.8,
-                    543.2
-                ]
-            },
-            {
-                "Num_Employees": [
-                    3000000.0,
-                    36000.0,
-                    208000.0,
-                    17347.0,
-                    116100.0,
-                    4487.0,
-                    109832.0,
-                    10600.0,
-                    235000.0,
-                    71436.0,
-                    112557.0,
-                    67000.0,
-                    115897.0,
-                    30266.0,
-                    58622.0
-                ]
-            }
-        ],
-        ":`department_management.head`": [
-            {
-                "name": [
-                    "Tiger Woods",
-                    "Billy Mayfair",
-                    "Jeff Maggert",
-                    "K. J. Choi",
-                    "Franklin Langham",
-                    "Nick Faldo",
-                    "P\u00e1draig Harrington",
-                    "Dudley Hart",
-                    "Sergio Garc\u00eda",
-                    "Stewart Cink"
-                ]
-            },
-            {
-                "born_state": [
-                    "Delaware",
-                    "Alabama",
-                    "Connecticut",
-                    "California",
-                    "Florida"
-                ]
-            },
-            {
-                "age": [
-                    67.0,
-                    68.0,
-                    69.0,
-                    43.0,
-                    50.0,
-                    52.0,
-                    53.0,
-                    56.0
-                ]
-            },
-            {
-                "head_ID": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10
-                ]
-            }
-        ],
-        ":`department_management.management`": [
-            {
-                "temporary_acting": [
-                    "Yes",
-                    "No"
-                ]
-            }
-        ]
+        "department": {
+            "Name": [
+                "Health and Human Services",
+                "Defense",
+                "State",
+                "Justice",
+                "Energy",
+                "Commerce",
+                "Homeland Security",
+                "Treasury",
+                "Housing and Urban Development",
+                "Transportation",
+                "Education",
+                "Veterans Affairs",
+                "Agriculture",
+                "Interior",
+                "Labor"
+            ],
+            "Creation": [
+                "1965",
+                "1903",
+                "1789",
+                "1977",
+                "1849",
+                "1913",
+                "1889",
+                "2002",
+                "1870",
+                "1989",
+                "1953",
+                "1947",
+                "1979",
+                "1966"
+            ],
+            "Department_ID": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+            ],
+            "Ranking": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+            ],
+            "Budget_in_Billions": [
+                439.3,
+                6.2,
+                9.96,
+                10.7,
+                11.1,
+                73.2,
+                77.6,
+                46.2,
+                44.6,
+                21.5,
+                23.4,
+                58.0,
+                59.7,
+                62.8,
+                543.2
+            ],
+            "Num_Employees": [
+                3000000.0,
+                36000.0,
+                208000.0,
+                17347.0,
+                116100.0,
+                4487.0,
+                109832.0,
+                10600.0,
+                235000.0,
+                71436.0,
+                112557.0,
+                67000.0,
+                115897.0,
+                30266.0,
+                58622.0
+            ]
+        },
+        "head": {
+            "name": [
+                "Tiger Woods",
+                "Sergio Garc\u00eda",
+                "Dudley Hart",
+                "Franklin Langham",
+                "P\u00e1draig Harrington",
+                "Jeff Maggert",
+                "Nick Faldo",
+                "K. J. Choi",
+                "Stewart Cink",
+                "Billy Mayfair"
+            ],
+            "born_state": [
+                "Delaware",
+                "Alabama",
+                "Florida",
+                "Connecticut",
+                "California"
+            ],
+            "age": [
+                67.0,
+                68.0,
+                69.0,
+                43.0,
+                50.0,
+                52.0,
+                53.0,
+                56.0
+            ],
+            "head_ID": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+            ]
+        },
+        "management": {
+            "temporary_acting": [
+                "Yes",
+                "No"
+            ]
+        }
     },
-
 ```
-
 ### Evaluation
 
 <!-- Our evaluation metrics include Component Matching, Exact Matching, and Execution Accuracy. For component and exact matching evaluation, instead of simply conducting string comparison between the predicted and gold SQL queries, we decompose each SQL into several clauses, and conduct set comparison in each SQL clause.  -->

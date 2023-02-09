@@ -1,0 +1,376 @@
+[
+    {
+        "question": "What is the feature type name of feature AirCon?",
+        "query": "MATCH (T1:`real_estate_properties.Other_Available_Features`)-[]-(T2:`real_estate_properties.Ref_Feature_Types`)\nWHERE T1.feature_name = 'AirCon'\nRETURN T2.feature_type_name",
+        "db_id": "real_estate_properties",
+        "answers": [
+            [
+                "Amenity, eg Pool."
+            ]
+        ]
+    },
+    {
+        "question": "Show the property type descriptions of properties belonging to that code.",
+        "query": "MATCH (T1:`real_estate_properties.Properties`)-[]-(T2:`real_estate_properties.Ref_Property_Types`)\nWITH count(T1.property_type_code) AS count, T2.property_type_description AS property_type_description\nRETURN property_type_description",
+        "db_id": "real_estate_properties",
+        "answers": [
+            [
+                "House, Bungalow, etc."
+            ],
+            [
+                "Apartment, Flat, Condo, etc."
+            ],
+            [
+                "Field, Meadow."
+            ],
+            [
+                "Other, to be determined."
+            ],
+            [
+                "Shop, Retail Outlet."
+            ]
+        ]
+    },
+    {
+        "question": "What are the names of properties that are either houses or apartments with more than 1 room?",
+        "query": "MATCH (properties:`real_estate_properties.Properties`)\nWHERE properties.property_type_code = 'House'\nRETURN properties.property_name  AS property_name \nUNION\nMATCH (properties:`real_estate_properties.Properties`)\nWHERE properties.property_type_code = 'Apartment' AND properties.room_count > 1\nRETURN properties.property_name  AS property_name",
+        "db_id": "real_estate_properties",
+        "answers": [
+            [
+                "park"
+            ],
+            [
+                "the cole"
+            ],
+            [
+                "parc east"
+            ],
+            [
+                "vogue"
+            ],
+            [
+                "longacre"
+            ],
+            [
+                "renoir"
+            ],
+            [
+                "ten tower"
+            ],
+            [
+                "parc coliseum"
+            ]
+        ]
+    },
+    {
+        "question": "How many heads of the departments are older than 56 ?",
+        "query": "MATCH (head:`department_management.head`)\nWHERE head.age > 56\nRETURN count(*)",
+        "db_id": "department_management",
+        "answers": [
+            [
+                5
+            ]
+        ]
+    },
+    {
+        "question": "List the name, born state and age of the heads of departments ordered by age.",
+        "query": "MATCH (head:`department_management.head`)\nRETURN head.name,head.born_state,head.age\nORDER BY head.age",
+        "db_id": "department_management",
+        "answers": [
+            [
+                "P\u00e1draig Harrington",
+                "Connecticut",
+                43.0
+            ],
+            [
+                "Stewart Cink",
+                "Florida",
+                50.0
+            ],
+            [
+                "Dudley Hart",
+                "California",
+                52.0
+            ],
+            [
+                "Jeff Maggert",
+                "Delaware",
+                53.0
+            ],
+            [
+                "Nick Faldo",
+                "California",
+                56.0
+            ],
+            [
+                "Tiger Woods",
+                "Alabama",
+                67.0
+            ],
+            [
+                "Franklin Langham",
+                "Connecticut",
+                67.0
+            ],
+            [
+                "Sergio Garc\u00eda",
+                "California",
+                68.0
+            ],
+            [
+                "K. J. Choi",
+                "Alabama",
+                69.0
+            ],
+            [
+                "Billy Mayfair",
+                "California",
+                69.0
+            ]
+        ]
+    },
+    {
+        "question": "List the creation year, name and budget of each department.",
+        "query": "MATCH (department:`department_management.department`)\nRETURN department.Creation,department.Name,department.Budget_in_Billions",
+        "db_id": "department_management",
+        "answers": [
+            [
+                "1789",
+                "State",
+                9.96
+            ],
+            [
+                "1789",
+                "Treasury",
+                11.1
+            ],
+            [
+                "1947",
+                "Defense",
+                439.3
+            ],
+            [
+                "1870",
+                "Justice",
+                23.4
+            ],
+            [
+                "1849",
+                "Interior",
+                10.7
+            ],
+            [
+                "1889",
+                "Agriculture",
+                77.6
+            ],
+            [
+                "1903",
+                "Commerce",
+                6.2
+            ],
+            [
+                "1913",
+                "Labor",
+                59.7
+            ],
+            [
+                "1953",
+                "Health and Human Services",
+                543.2
+            ],
+            [
+                "1965",
+                "Housing and Urban Development",
+                46.2
+            ],
+            [
+                "1966",
+                "Transportation",
+                58.0
+            ],
+            [
+                "1977",
+                "Energy",
+                21.5
+            ],
+            [
+                "1979",
+                "Education",
+                62.8
+            ],
+            [
+                "1989",
+                "Veterans Affairs",
+                73.2
+            ],
+            [
+                "2002",
+                "Homeland Security",
+                44.6
+            ]
+        ]
+    },
+    {
+        "question": "What are the maximum and minimum budget of the departments?",
+        "query": "MATCH (department:`department_management.department`)\nRETURN max(department.Budget_in_Billions),min(department.Budget_in_Billions)",
+        "db_id": "department_management",
+        "answers": [
+            [
+                543.2,
+                6.2
+            ]
+        ]
+    },
+    {
+        "question": "What is the average number of employees of the departments whose rank is between 10 and 15?",
+        "query": "MATCH (department:`department_management.department`)\nWHERE 10<=department.Ranking<=15\nRETURN avg(department.Num_Employees)",
+        "db_id": "department_management",
+        "answers": [
+            [
+                105468.16666666667
+            ]
+        ]
+    },
+    {
+        "question": "What are the names of the heads who are born outside the California state?",
+        "query": "MATCH (head:`department_management.head`)\nWHERE head.born_state <> 'California'\nRETURN head.name",
+        "db_id": "department_management",
+        "answers": [
+            [
+                "Tiger Woods"
+            ],
+            [
+                "K. J. Choi"
+            ],
+            [
+                "Jeff Maggert"
+            ],
+            [
+                "Stewart Cink"
+            ],
+            [
+                "P\u00e1draig Harrington"
+            ],
+            [
+                "Franklin Langham"
+            ]
+        ]
+    },
+    {
+        "question": "What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?",
+        "query": "MATCH (T1:`department_management.department`)-[T2:`department_management.management`]-(T3:`department_management.head`)\nWHERE T3.born_state = 'Alabama'\nRETURN DISTINCT T1.Creation",
+        "db_id": "department_management",
+        "answers": [
+            [
+                "1903"
+            ]
+        ]
+    },
+    {
+        "question": "What are the names of the states where at least 3 heads were born?",
+        "query": "MATCH (head:`department_management.head`)\nWITH count(*) AS count, head.born_state AS born_state\nWHERE count  >= 3\nRETURN born_state",
+        "db_id": "department_management",
+        "answers": [
+            [
+                "California"
+            ]
+        ]
+    },
+    {
+        "question": "In which year were most departments established?",
+        "query": "MATCH (department:`department_management.department`)\nWITH department.Creation AS Creation, count(department.Creation) AS count\nRETURN Creation\nORDER BY count DESC\nLIMIT 1",
+        "db_id": "department_management",
+        "answers": [
+            [
+                "1789"
+            ]
+        ]
+    },
+    {
+        "question": "Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?",
+        "query": "MATCH (T1:`department_management.department`)-[T2:`department_management.management`]-()\nWHERE T2.temporary_acting = 'Yes'\nRETURN T1.Name,T1.Num_Employees",
+        "db_id": "department_management",
+        "answers": [
+            [
+                "Treasury",
+                115897.0
+            ],
+            [
+                "Treasury",
+                115897.0
+            ],
+            [
+                "Homeland Security",
+                208000.0
+            ]
+        ]
+    },
+    {
+        "question": "How many acting statuses are there?",
+        "query": "MATCH ()-[management:`department_management.management`]-()\nRETURN count(DISTINCT management.temporary_acting)",
+        "db_id": "department_management",
+        "answers": [
+            [
+                2
+            ]
+        ]
+    },
+    {
+        "question": "How many departments are led by heads who are not mentioned?",
+        "query": "MATCH (department:`department_management.department`)\nWHERE NOT (department:`department_management.department`)-[:`department_management.management`]-()\nRETURN count(*)",
+        "db_id": "department_management",
+        "answers": [
+            [
+                11
+            ]
+        ]
+    },
+    {
+        "question": "What are the distinct ages of the heads who are acting?",
+        "query": "MATCH ()-[T2:`department_management.management`]-(T1:`department_management.head`)\nWHERE T2.temporary_acting = 'Yes'\nRETURN DISTINCT T1.age",
+        "db_id": "department_management",
+        "answers": [
+            [
+                52.0
+            ],
+            [
+                53.0
+            ],
+            [
+                69.0
+            ]
+        ]
+    },
+    {
+        "question": "Which department has more than 1 head at a time? List the id, name and the number of heads.",
+        "query": "MATCH ()-[T2:`department_management.management`]-(T1:`department_management.department`)\nWITH count(*) AS count, T1.Department_ID AS Department_ID, T1.Name AS Name\nWHERE count  > 1\nRETURN Department_ID,Name,count",
+        "db_id": "department_management",
+        "answers": [
+            [
+                2,
+                "Treasury",
+                2
+            ]
+        ]
+    },
+    {
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "query": "MATCH (head:`department_management.head`)\nWHERE head.name =~'.*[H|h]a.*'\nRETURN head.head_ID,head.name",
+        "db_id": "department_management",
+        "answers": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ]
+    }
+]
