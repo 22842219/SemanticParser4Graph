@@ -6,7 +6,7 @@
 # cond_unit: (not_op, op_id, val_unit, val1, val2)
 # condition: [cond_unit1, 'and'/'or', cond_unit2, ...]
 # cypher {
-#   'select': (isDistinct(bool), [(agg_id, val_unit), (agg_id, val_unit), ...])
+#   'match': (isDistinct(bool), [(agg_id, val_unit), (agg_id, val_unit), ...])
 #   'from': {'table_units': [table_unit1, table_unit2, ...], 'conds': condition}
 #   'where': condition
 #   'groupBy': [col_unit1, col_unit2, ...]
@@ -24,6 +24,8 @@ import json
 import traceback
 import argparse
 from typing import Dict, Any
+# sys.path.append('../..')
+# from seq2seq_construction.bridge_content_encoder import get_database_matches
 
 
 from py2neo import Graph
@@ -52,6 +54,11 @@ class Evaluator:
     def evaluate_one(self, gold, predicted):
         self.scores["count"] += 1
         syntactic_error = False
+
+        # ZZY: TODO align the predicted field names with our graph database schema items, because Cypher query is case sensitive, 
+        # but the tokenization of T5 family models seems not supporting to generate capitalized tokens. 
+
+
         if isValidCypher(predicted, self.graph):
             print(f"self.scores[exec]: {self.scores['exec']}")
             print("hyyyyyyy check it out:", eval_exec_match(
