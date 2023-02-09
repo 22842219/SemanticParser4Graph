@@ -59,7 +59,9 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
             - :smiling_imp: The model stopped training due to the failure of graph connection which requires the installation of java in kaya. I've created a ticket asking for avice from uwa it service. (solved!)
                 - module avail  # show available modules
                 - module load java/11* # load java 11.*  to fit our neo4j-community-4.4.13 
-
+        - Updating the paper
+            - 1) to work out the loss function in a mathematical way together with input and output, 
+            - 2) to work out how the prefix-tuning process is interacting with the evaluation process.
 
         - training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
             - Improving the code to achive the following targets.
