@@ -23,6 +23,31 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - :boom: The text2cypher model with prefix tuning is training now in the local ubuntu machine. Hopefully we could get a not bad result. Please refer to our [expriments log file](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/exps-2023.md).
 
 
+### :point_right: Submission Plan
+    - KR 2023 
+        - Title and Abstract ddl: 3rd March, 2023
+        - Paper ddl: 14th March, 2023
+    - Experiments part
+        - mile stone 1: 12nd Feb, 2023
+            - Baseline Results and Analysis
+            - Update baseline results and analysis to the overleaf
+    - Paper Draft
+        - mile stone 1: 19th Feb, 2023
+            - At least most of the part including **related work** and **baseline implementation details** should be reflected in the overleaf
+            <!-- - Ask yitong to help review it. send out request on 18/19 Feb-->
+            - first round review.
+            - investigate different decoding methods? to improve the model's performance
+        - mile stone 2: 26th Feb, 2023
+            - The first draft should be completed!
+              <!-- - Ask yitong to help review it. send out request on 25/26 Feb-->
+            - second round review. 
+        - mile stone 3: 3rd March, 2023
+            - submit title and abstract
+        - mile stone 4: 5rd March
+            -  <!-- - Ask yitong to help review it. send out request on 4/5 March-->
+            - third round review
+        - mile stone 5: 14th March, 2023
+            - submit the paper. 
 
 ### :point_right: TODO LIST
 
@@ -357,6 +382,7 @@ For the whole property graph database schema, please refer to [this page](https:
         }
     },
 ```
+
 ### Evaluation
 
 <!-- Our evaluation metrics include Component Matching, Exact Matching, and Execution Accuracy. For component and exact matching evaluation, instead of simply conducting string comparison between the predicted and gold SQL queries, we decompose each SQL into several clauses, and conduct set comparison in each SQL clause.  -->
