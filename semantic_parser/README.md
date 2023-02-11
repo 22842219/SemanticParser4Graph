@@ -18,10 +18,16 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - updata [schema](https://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/data/text2cypher). 
     - [Input serialization](https://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!) 
     - Test training/Evaluation [datasets object applied in a seqseq constructor](hhttps://github.com/22842219/SemanticParser4Graph/tree/main/semantic_parser/seq2seq_construction) (done!)
-    - Test training/Evaluation [evaluation metrics](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/.py) (done!)
+    - Test training/Evaluation [evaluation metrics](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/metrics/text2cypher/evaluator.py) (done!)
 - `08/02/2023`
     - :boom: The text2cypher model with prefix tuning is training now in the local ubuntu machine. Hopefully we could get a not bad result. Please refer to our [expriments log file](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/exps-2023.md).
-
+- `11/02/2023`
+    - training the model using the whole set in kaya. (ongoing)
+        - The sbatch slurm. (done!) 
+        - :smiling_imp: The model stopped training due to the failure of graph connection which requires the installation of java in kaya. I've created a ticket asking for avice from uwa it service. (solved!)
+            - module avail  # show available modules
+            - module load java/11* # load java 11.*  to fit our neo4j-community-4.4.13 
+            - solved the ``py2neo.errors.ConnectionUnavailable`` issue. Please refer to line 43-54 in [this page](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/kaya_scripts/text2cypher-kaya-prefix-tuning.slurm).
 
 ### :point_right: Submission Plan
 
@@ -54,16 +60,12 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
 ### :point_right: TODO LIST
 
-- `9/02/2023` 
+- `11/02/2023` 
     - :boom: Priority task
-        - training the model using the whole set in kaya. (ongoing)
-            - The sbatch slurm. (done!) 
-            - :smiling_imp: The model stopped training due to the failure of graph connection which requires the installation of java in kaya. I've created a ticket asking for avice from uwa it service. (solved!)
-                - module avail  # show available modules
-                - module load java/11* # load java 11.*  to fit our neo4j-community-4.4.13 
         - Updating the paper
             - 1) to work out the loss function in a mathematical way together with input and output, 
             - 2) to work out how the prefix-tuning process is interacting with the evaluation process.
+            - 3) related work
 
         - training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
             - Improving the code to achive the following targets.
@@ -84,7 +86,9 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
                     - **generation_max_length**: 512 makes no difference with 64 when the **num_train_epochs** are increased from 5 to 500
                     - **larning_rate**: 1e-4    
                     - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
-            - testing **execution accurarcy** in **evaluator**. (done!)
+
+           
+
         - :vulcan_salute: **Few/Zero shot learning.**
 
     - Update the implementation details in the paper. 
