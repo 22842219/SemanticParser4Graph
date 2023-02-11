@@ -28,10 +28,30 @@ module load Anaconda3/2021.05
 
 # activate a group wide Python environment 
 conda activate py3.7pytorch1.8new
+
+
 # list the environment loaded by the modules.
 # Can remove the two lines below if you want.
 # module list
-# conda list
+# conda env list
+# module avail
+module load java/11.0.12
+export WANDB_API_KEY=edd277e1d782e96634109705a6235577032da246
+export WANDB_PROJECT='text2cypher-Feb(whole-set)-kaya'
+export WANDB_ENTITY=leamonzea929
+
+# step1: activate neo4j
+
+cd ${MYGROUP}/neo4j-community-4.4.13/bin
+./neo4j start
+
+
+
+# step2: build graph database
+cd ${MYGROUP}/SemanticParser4Graph/application/rel_db2kg
+python schema2graph.py --spider
+#echo SLURM_SUBMIT_DIR is ${SLURM_SUBMIT_DIR}
+echo running in ${MYGROUP}/SemanticParser4Graph/application/rel_db2kg
 
 # Note: SLURM_JOB_ID is a unique number for every job.
 # These are geTabularSemanticParsingneric variables.
