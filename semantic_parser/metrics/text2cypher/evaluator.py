@@ -57,8 +57,10 @@ class Evaluator:
 
         # ZZY: TODO align the predicted field names with our graph database schema items, because Cypher query is case sensitive, 
         # but the tokenization of T5 family models seems not supporting to generate capitalized tokens. 
-
-
+        # 1) remove the space between the specify token "`" and node labels/type edges.
+        # 2) normalise the 
+        predicted = predicted.replace(" ` ", "`")
+        print(f'post processed predicted by removing space: {predicted}')
         if isValidCypher(predicted, self.graph):
             print(f"self.scores[exec]: {self.scores['exec']}")
             print("hyyyyyyy check it out:", eval_exec_match(

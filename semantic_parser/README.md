@@ -28,6 +28,12 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
             - module avail  # show available modules
             - module load java/11* # load java 11.*  to fit our neo4j-community-4.4.13 
             - solved the ``py2neo.errors.ConnectionUnavailable`` issue. Please refer to line 43-54 in [this page](https://github.com/22842219/SemanticParser4Graph/blob/main/semantic_parser/kaya_scripts/text2cypher-kaya-prefix-tuning.slurm).
+- `13/02/2023`
+    - Updating the paper
+        - 1) to work out the loss function in a mathematical way together with input and output, (done!)
+        - 2) to work out how the prefix-tuning process is interacting with the evaluation process. (done!)
+
+    
 
 ### :point_right: Submission Plan
 
@@ -36,8 +42,8 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Paper ddl: 14th March, 2023
 - Experiments part
     - mile stone 1: 12nd Feb, 2023 
-        - :vulcan_salute: Baseline Results and Analysis
-        - Update baseline results and analysis to the overleaf
+        - :vulcan_salute: Baseline Results and Analysis (kinda done! require more solid jobs)
+        - Update baseline results and analysis to the overleaf (ongoing!)
     - mile stone 2:
         - Most likey I will work on the model architecture improvement, e.g., fussion decoder?
 - Paper Draft
@@ -60,14 +66,12 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
 ### :point_right: TODO LIST
 
-- `11/02/2023` 
+- `14/02/2023` 
     - :boom: Priority task
         - Updating the paper
-            - 1) to work out the loss function in a mathematical way together with input and output, 
-            - 2) to work out how the prefix-tuning process is interacting with the evaluation process.
-            - 3) related work
+            - 3) related work (focusing on just neural semantic parsing part!)
 
-        - training the model using **department_management** of train, and **real_estate_properties** and **department_management** of dev. 
+        - training the model using **3,175** train, and **491** dev. 
             - Improving the code to achive the following targets.
                 - The predictions always output lowercase tokens. I've looked up the T5 documentation and it seems like that's their settings. 
                     (confirmation required!!!)
@@ -81,18 +85,16 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
                     - **graph patterns** including graph nodes and edges. 
                     - **repetitions of the same word sequences**, e.g., ``return return return``.
                 - :point_right: tuning the following training arguments
-                    - **num_train_epochs** : 400 is much bettern than 5. 
+                    - **num_train_epochs** : len(training data)/batch_size (to avoid overfitting)
                     - **generation_num_beams**: 4 is bettern than 2. 
-                    - **generation_max_length**: 512 makes no difference with 64 when the **num_train_epochs** are increased from 5 to 500
-                    - **larning_rate**: 1e-4    
+                    - **generation_max_length**: 512 (as long as it does not exceed the transformers configuration threshold.)
+                    - **larning_rate**: 1e-4 is kinda enough for the Adam optimization
                     - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
 
-           
+        <!-- - :vulcan_salute: **Few/Zero shot learning.** -->
 
-        - :vulcan_salute: **Few/Zero shot learning.**
-
-    - Update the implementation details in the paper. 
-    - Encoder-Decoder architecture using a running example  
+    - Update the implementation details in the paper. (done! but can be improved.)
+    - Encoder-Decoder architecture using a running example.  ()
 
     - Result Visualisation 
 
