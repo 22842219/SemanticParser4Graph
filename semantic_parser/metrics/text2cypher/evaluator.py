@@ -61,6 +61,7 @@ class Evaluator:
         # 2) normalise the 
         predicted = predicted.replace(" ` ", "`")
         print(f'post processed predicted by removing space: {predicted}')
+        print(f'gold query: {gold}')
         if isValidCypher(predicted, self.graph):
             print(f"self.scores[exec]: {self.scores['exec']}")
             print("hyyyyyyy check it out:", eval_exec_match(
@@ -188,20 +189,25 @@ def eval_exec_match(graph, p_str, g_str):
     q_res = []
     for dict_q in cypher_res:
         q_res.append(tuple(dict_q.values()))
+    # sort results for the comparision
+    q_sorted = sorted(q_res, key=lambda x: x[0])
+
 
     p_res=[]
     for dict_p in prediction_res:
         p_res.append(tuple(dict_p.values()))
-    
-
     # sort results for the comparision
+    if not all(map(lambda x: all(x), p_res)): # check any of the element is None.
+        return False
+    else:
+        p_sorted =  sorted(p_res, key=lambda x: x[0]) 
+
+
     print(f'q_res: {q_res}')
     print(f'p_res: {p_res}')
-    p_sorted = sorted(p_res, key=lambda x: x[0])
-    q_sorted =  sorted(q_res, key=lambda x: x[0]) 
     print(f'sorted results. p_sorted: {p_sorted}, q_sorted: {q_sorted}')
-    
-    
+
+        
     if not set(p_sorted)-set(q_sorted):
         return True
     else:
