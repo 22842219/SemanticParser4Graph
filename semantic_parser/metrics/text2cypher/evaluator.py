@@ -39,6 +39,51 @@ neo4j_user = filenames['neo4j_user']
 neo4j_password = filenames['neo4j_password']
 graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
+schema_fpath = '/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/data/text2cypher/schema.json'
+with open(schema_fpath, 'r', encoding="utf-8") as f:
+    schema = json.load(f)
+    print(len(schema))
+
+def prediction_normalisation(preds):
+    # tag_pattern = re.compile(r'(`*.*`')	
+    preds = preds.replace(" ` ", "`").replace(' -[', '-[').replace(']- ', ']-')
+    # print(f'preds: {preds}')
+
+    mentioned_tag_prop_pairs = {}
+    tag_span_start_id=tag_span_end_id = 0
+    for id, c in enumerate(preds):
+        if c == '`': 
+            # the indicator starting postprocessing the predicted query, 
+            # including the space sitting ahead of the graph nodes/edges and the case of property names regarding targeted labels/types
+            if tag_span_start_id!=0:
+                tag_span_end_id=id
+                db, tag = preds[tag_span_start_id+1: tag_span_end_id].split('.')[:2]
+                if db in schema:
+                    lower_cased_tags = [original_tag.lower() for original_tag in schema[db]['tag_names_original']]
+                    # 1) check the case sensitivity of tag names
+                    if tag.lower() in lower_cased_tags:
+                        tag_idx = lower_cased_tags.index(tag.lower())
+                        # normalised the existing predicted tag names.
+                        preds = preds.replace(preds[tag_span_start_id+1:tag_span_end_id], '{}.{}'.format(db, schema[db]['tag_names_original'][tag_idx]))
+                        property_names = schema[db]['property_names']
+                        mentioned_tag_prop_pairs[tag] = [ prop[1]  for prop in property_names if prop[0]==tag_idx]
+                        # 2) check if any targeted property name is predicted and its capitalization. 
+                        print(f'normalized preds: {preds}')
+                tag_span_end_id=0
+            else:
+                tag_span_start_id = id
+    for tag, props in mentioned_tag_prop_pairs.items():
+        # print(tag, props)
+        for id, c in enumerate(preds):
+            if c=='.' and preds[id-len(tag):id]==tag:
+                if id+len(tag)+2 < len(preds) -1 and preds[id+1: id+len(tag)+2]!='{}`'.format(tag):
+                    for prop in props:
+                        # print("checking prop", prop, preds[id+1: id+1+len(prop)])
+                        if preds[id+1: id+1+len(prop)].lower() ==prop.lower():
+                            preds = preds.replace(preds[id+1:id+1+len(prop)], prop)
+    print("finally: ", preds)
+    return preds
+
 class Evaluator:
     """A simple evaluator"""
 
@@ -62,6 +107,10 @@ class Evaluator:
         predicted = predicted.replace(" ` ", "`")
         print(f'post processed predicted by removing space: {predicted}')
         print(f'gold query: {gold}')
+
+        predicted = prediction_normalisation(predicted)
+        print(f'normalised_predicted: {predicted}')
+        
         if isValidCypher(predicted, self.graph):
             print(f"self.scores[exec]: {self.scores['exec']}")
             print("hyyyyyyy check it out:", eval_exec_match(
