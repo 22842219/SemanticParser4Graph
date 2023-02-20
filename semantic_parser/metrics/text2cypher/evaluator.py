@@ -47,8 +47,7 @@ with open(schema_fpath, 'r', encoding="utf-8") as f:
 def prediction_normalisation(preds):
     # tag_pattern = re.compile(r'(`*.*`')	
     preds = preds.replace(" ` ", "`").replace(' -[', '-[').replace(']- ', ']-')
-    # print(f'preds: {preds}')
-
+    print(f'preds: {preds}')
     mentioned_tag_prop_pairs = {}
     tag_span_start_id=tag_span_end_id = 0
     for id, c in enumerate(preds):
@@ -57,21 +56,26 @@ def prediction_normalisation(preds):
             # including the space sitting ahead of the graph nodes/edges and the case of property names regarding targeted labels/types
             if tag_span_start_id!=0:
                 tag_span_end_id=id
-                db, tag = preds[tag_span_start_id+1: tag_span_end_id].split('.')[:2]
-                if db in schema:
-                    lower_cased_tags = [original_tag.lower() for original_tag in schema[db]['tag_names_original']]
-                    # 1) check the case sensitivity of tag names
-                    if tag.lower() in lower_cased_tags:
-                        tag_idx = lower_cased_tags.index(tag.lower())
-                        # normalised the existing predicted tag names.
-                        preds = preds.replace(preds[tag_span_start_id+1:tag_span_end_id], '{}.{}'.format(db, schema[db]['tag_names_original'][tag_idx]))
-                        property_names = schema[db]['property_names']
-                        mentioned_tag_prop_pairs[tag] = [ prop[1]  for prop in property_names if prop[0]==tag_idx]
-                        # 2) check if any targeted property name is predicted and its capitalization. 
-                        print(f'normalized preds: {preds}')
-                tag_span_end_id=0
+                splits = preds[tag_span_start_id+1: tag_span_end_id].split('.')
+                if len(splits)>=2:
+                    db, tag = splits[:2]
+                    print("heyyy", splits[:2])
+                    dbs = [db.lower() for db in schema.keys()]
+                    if db.lower() in dbs:
+                        db = list(schema.keys())[dbs.index(db.lower())]
+                        lower_cased_tags = [original_tag.lower() for original_tag in schema[db]['tag_names_original']]
+                        # 1) check the case sensitivity of tag names
+                        if tag.lower() in lower_cased_tags:
+                            tag_idx = lower_cased_tags.index(tag.lower())
+                            # normalised the existing predicted tag names.
+                            preds = preds.replace(preds[tag_span_start_id+1:tag_span_end_id], '{}.{}'.format(db, schema[db]['tag_names_original'][tag_idx]))
+                            property_names = schema[db]['property_names']
+                            mentioned_tag_prop_pairs[tag] = [ prop[1]  for prop in property_names if prop[0]==tag_idx]
+                            # 2) check if any targeted property name is predicted and its capitalization. 
+                    tag_span_end_id=0
             else:
                 tag_span_start_id = id
+
     for tag, props in mentioned_tag_prop_pairs.items():
         # print(tag, props)
         for id, c in enumerate(preds):
@@ -83,6 +87,7 @@ def prediction_normalisation(preds):
                             preds = preds.replace(preds[id+1:id+1+len(prop)], prop)
     print("finally: ", preds)
     return preds
+    
 
 class Evaluator:
     """A simple evaluator"""
