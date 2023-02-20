@@ -32,40 +32,6 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Updating the paper
         - 1) to work out the loss function in a mathematical way together with input and output, (done!)
         - 2) to work out how the prefix-tuning process is interacting with the evaluation process. (done!)
-
-    
-
-### :point_right: Submission Plan
-
-- KR 2023 
-    - Title and Abstract ddl: 3rd March, 2023
-    - Paper ddl: 14th March, 2023
-- Experiments part
-    - mile stone 1: 12nd Feb, 2023 
-        - :vulcan_salute: Baseline Results and Analysis (kinda done! require more solid jobs)
-        - Update baseline results and analysis to the overleaf (ongoing!)
-    - mile stone 2:
-        - Most likey I will work on the model architecture improvement, e.g., fussion decoder?
-- Paper Draft
-    - mile stone 1: 19th Feb, 2023
-        - At least most of the part including **related work** and **baseline implementation details** should be reflected in the overleaf
-        <!-- - Ask yitong to help review it. send out request on 18/19 Feb-->
-        - first round review.
-        - investigate different decoding methods? to improve the model's performance
-    - mile stone 2: 26th Feb, 2023
-        - The first draft should be completed!
-            <!-- - Ask yitong to help review it. send out request on 25/26 Feb-->
-        - second round review. 
-    - mile stone 3: 3rd March, 2023
-        - submit title and abstract
-    - mile stone 4: 5rd March
-         <!-- - Ask yitong to help review it. send out request on 4/5 March-->
-        - third round review
-    - mile stone 5: 14th March, 2023
-        - submit the paper. 
-
-### :point_right: TODO LIST
-
 - `14/02/2023` 
     - :boom: Priority task
         - Updating the paper
@@ -89,8 +55,43 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
                     - **generation_num_beams**: 4 is bettern than 2. 
                     - **generation_max_length**: 512 (as long as it does not exceed the transformers configuration threshold.)
                     - **larning_rate**: 1e-4 is kinda enough for the Adam optimization
-                    - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
 
+
+### :point_right: Submission Plan
+
+- KR 2023 
+    - Title and Abstract ddl: 3rd March, 2023
+    - Paper ddl: 14th March, 2023
+- Experiments part
+    ~~~- mile stone 1: 12nd Feb, 2023 ~~~
+        ~~~- :vulcan_salute: Baseline Results and Analysis (kinda done! require more solid jobs)~~
+        ~~~- Update baseline results and analysis to the overleaf (ongoing!)~~
+    - mile stone 2:
+        - Most likey I will work on the model architecture improvement, e.g., fussion decoder?
+- Paper Draft
+    ~~~- mile stone 1: 19th Feb, 2023 (kinda achieved)~~~
+     ~~~   - At least most of the part including **related work** and **baseline implementation details** should be reflected in the overleaf~~
+        <!-- - Ask yitong to help review it. send out request on 18/19 Feb-->
+        ~~~- first round review.~~~
+        ~~~- investigate different decoding methods? to improve the model's performance~~~
+    - mile stone 2: 26th Feb, 2023
+        - The first draft should be completed!
+            <!-- - Ask yitong to help review it. send out request on 25/26 Feb-->
+        - second round review. 
+    - mile stone 3: 3rd March, 2023
+        - submit title and abstract
+    - mile stone 4: 5rd March
+         <!-- - Ask yitong to help review it. send out request on 4/5 March-->
+        - third round review
+    - mile stone 5: 14th March, 2023
+        - submit the paper. 
+
+### :point_right: TODO LIST
+-`20/02/2024`
+    - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
+    - evaluator post processing
+    - add codeGPT?
+    
         <!-- - :vulcan_salute: **Few/Zero shot learning.** -->
 
     - Update the implementation details in the paper. (done! but can be improved.)
