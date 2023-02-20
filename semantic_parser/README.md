@@ -74,17 +74,16 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
     ~~~- mile stone 1: 19th Feb, 2023 (kinda achieved)~~~
      ~~~   - At least most of the part including **related work** and **baseline implementation details** should be reflected in the overleaf~~
-        ~~~- first round review.~~~
-        ~~~- investigate different decoding methods? to improve the model's performance~~~
-
+       - first round review. 
+        ~~~ - investigate different decoding methods? to improve the model's performance ~~~
     - mile stone 2: 26th Feb, 2023
         - The first draft should be completed!
-
+            <!-- - Ask yitong to help review it. send out request on 25/26 Feb-->
         - second round review. 
     - mile stone 3: 3rd March, 2023
         - submit title and abstract
     - mile stone 4: 5rd March
-
+         <!-- - Ask yitong to help review it. send out request on 4/5 March-->
         - third round review
     - mile stone 5: 14th March, 2023
         - submit the paper. 
