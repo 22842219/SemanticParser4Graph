@@ -63,17 +63,23 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Title and Abstract ddl: 3rd March, 2023
     - Paper ddl: 14th March, 2023
 - Experiments part
+
     ~~~- mile stone 1: 12nd Feb, 2023 ~~~
         ~~~- :vulcan_salute: Baseline Results and Analysis (kinda done! require more solid jobs)~~
         ~~~- Update baseline results and analysis to the overleaf (ongoing!)~~
+
     - mile stone 2:
         - Most likey I will work on the model architecture improvement, e.g., fussion decoder?
 - Paper Draft
+
     ~~~- mile stone 1: 19th Feb, 2023 (kinda achieved)~~~
      ~~~   - At least most of the part including **related work** and **baseline implementation details** should be reflected in the overleaf~~
+
         <!-- - Ask yitong to help review it. send out request on 18/19 Feb-->
+
         ~~~- first round review.~~~
         ~~~- investigate different decoding methods? to improve the model's performance~~~
+        
     - mile stone 2: 26th Feb, 2023
         - The first draft should be completed!
             <!-- - Ask yitong to help review it. send out request on 25/26 Feb-->
