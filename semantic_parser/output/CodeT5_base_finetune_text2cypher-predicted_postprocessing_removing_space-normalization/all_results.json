@@ -1,0 +1,20 @@
+{
+    "epoch": 100.0,
+    "eval_META_TUNING/text2cypher_with_cell.cfg/exectuation accuracy": 0.6435845213849287,
+    "eval_avr": 0.6435845213849287,
+    "eval_loss": 0.21598060429096222,
+    "eval_runtime": 242.3784,
+    "eval_samples": 491,
+    "eval_samples_per_second": 2.026,
+    "predict_META_TUNING/text2cypher_with_cell.cfg/exectuation accuracy": 0.6435845213849287,
+    "predict_avr": 0.6435845213849287,
+    "predict_loss": 0.21598060429096222,
+    "predict_runtime": 242.4949,
+    "predict_samples": 491,
+    "predict_samples_per_second": 2.025,
+    "train_loss": 0.0057001404009401945,
+    "train_runtime": 102027.2963,
+    "train_samples": 3175,
+    "train_samples_per_second": 3.112,
+    "train_steps_per_second": 0.194
+}
