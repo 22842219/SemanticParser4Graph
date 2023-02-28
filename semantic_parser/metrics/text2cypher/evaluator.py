@@ -24,6 +24,7 @@ import json
 import traceback
 import argparse
 from typing import Dict, Any
+from py2neo.data import Node, Relationship
 # sys.path.append('../..')
 # from seq2seq_construction.bridge_content_encoder import get_database_matches
 
@@ -249,8 +250,13 @@ def eval_exec_match(graph, p_str, g_str):
 
     p_res=[]
     for dict_p in prediction_res:
-        p_res.append(tuple(dict_p.values()))
+        for k, v in dict_p.items():
+            if isinstance(v, Node) or isinstance(v, Relationship):
+                continue
+            else:
+                q_res.append(tuple(v))
     # sort results for the comparision
+
     if not all(map(lambda x: all(x), p_res)): # check any of the element is None.
         return False
     else:
