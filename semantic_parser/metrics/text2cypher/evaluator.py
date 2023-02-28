@@ -59,7 +59,7 @@ def prediction_normalisation(preds):
                 splits = preds[tag_span_start_id+1: tag_span_end_id].split('.')
                 if len(splits)>=2:
                     db, tag = splits[:2]
-                    print("heyyy", splits[:2])
+                    # print("heyyy", splits[:2])
                     dbs = [db.lower() for db in schema.keys()]
                     if db.lower() in dbs:
                         db = list(schema.keys())[dbs.index(db.lower())]
@@ -85,7 +85,7 @@ def prediction_normalisation(preds):
                         # print("checking prop", prop, preds[id+1: id+1+len(prop)])
                         if preds[id+1: id+1+len(prop)].lower() ==prop.lower():
                             preds = preds.replace(preds[id+1:id+1+len(prop)], prop)
-    print("finally: ", preds)
+    # print("finally: ", preds)
     return preds
     
 
@@ -110,16 +110,16 @@ class Evaluator:
         # 1) remove the space between the specify token "`" and node labels/type edges.
         # 2) normalise the 
         predicted = predicted.replace(" ` ", "`")
-        print(f'post processed predicted by removing space: {predicted}')
-        print(f'gold query: {gold}')
+        # print(f'post processed predicted by removing space: {predicted}')
+        # print(f'gold query: {gold}')
 
         predicted = prediction_normalisation(predicted)
-        print(f'normalised_predicted: {predicted}')
+        # print(f'normalised_predicted: {predicted}')
         
         if isValidCypher(predicted, self.graph):
-            print(f"self.scores[exec]: {self.scores['exec']}")
-            print("hyyyyyyy check it out:", eval_exec_match(
-                self.graph, predicted, gold))
+            # print(f"self.scores[exec]: {self.scores['exec']}")
+            # print("hyyyyyyy check it out:", eval_exec_match(
+            #     self.graph, predicted, gold))
             self.scores["exec"] += eval_exec_match(
                 self.graph, predicted, gold)
         else:
@@ -156,9 +156,9 @@ class EvaluateTool(object):
     
         if self.args.seq2seq.target_with_db_id:
             # Remove database id from all predictions
-            print(f'heyyyyyyyyyyy preds befor split: {preds}')
+            # print(f'heyyyyyyyyyyy preds befor split: {preds}')
             preds = [pred.split("|", 1)[-1].strip() for pred in preds]
-            print(f'heyyyyyyyyyyy preds in evaluator: {preds}')
+            # print(f'heyyyyyyyyyyy preds in evaluator: {preds}')
 
         exact_match = compute_execuation_acc_metric(preds, golds)
         # test_suite = compute_test_suite_metric(preds, golds, db_dir=self.args.test_suite_db_dir)

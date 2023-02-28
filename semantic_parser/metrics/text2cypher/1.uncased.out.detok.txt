@@ -1,0 +1,491 @@
+match (singer: ` concert_singer.singer ` ) return count(*)
+match (singer: ` concert_singer.singer ` ) return avg(singer.name)
+match (singer: ` concert_singer.singer ` ) return singer.name,singer.country,singer.age order by singer.age desc
+match (singer: ` concert_singer.singer ` ) return singer.name,singer.country,singer.age order by singer.age desc
+match (singer: ` concert_singer.singer ` ) where singer.country = 'france' return avg(singer.age),min(singer.age),max(singer.age)
+match (singer: ` concert_singer.singer ` ) where singer.age  < = 'france' return avg(singer.age),min(singer.age),max(singer.age)
+match (singer: ` concert_singer.singer ` ) return singer.name,singer.song_release_year order by singer.age asc limit 1
+match (singer: ` concert_singer.singer ` ) return singer.name,singer.song_release_year order by singer.age asc limit 1
+match (singer: ` concert_singer.singer ` ) where singer.age > 20 return distinct singer.country
+match (singer: ` concert_singer.singer ` ) where singer.age > 20 return avg(singer.country)
+match (singer: ` concert_singer.singer ` ) with count(singer.country) as count, singer.country as country return country,count
+match (singer: ` concert_singer.singer ` ) with singer.country as country, count(singer.country) as count return country,count order by count desc limit 1
+match (stadium: ` concert_singer.stadium ` ) return avg(stadium.capacity),max(stadium.capacity)
+match (stadium: ` concert_singer.stadium ` ) return stadium.name,stadium.capacity order by stadium.average desc limit 1
+match (stadium: ` concert_singer.stadium ` ) return stadium.name,stadium.capacity order by stadium.average desc limit 1
+match (t1: ` concert_singer.singer ` )-[]-(t2: ` concert_singer.singer ` ) where t2.song_name ='.*[hey.*' return t1.name,t1.country
+match (t1: ` concert_singer.singer ` )-[]-(t2: ` concert_singer.singer ` ) where t2.song_name ='.*[hey.*' return t1.name,t1.country
+match (pets: ` pets_1.pets ` ) where pets.weight > 10 return count(*)
+match (pets: ` pets_1.pets ` ) where pets.weight > 10 return count(*)
+match (pets: ` pets_1.pets ` ) return pets.weight order by pets.weight asc limit 1
+match (pets: ` pets_1.pets ` ) return pets.weight order by pets.weight asc limit 1
+match (pets: ` pets_1.pets ` ) return count(distinct pets.pettype)
+match (pets: ` pets_1.pets ` ) return count(distinct pets.pettype)
+match (student: ` pets_1.student ` ) where not (student: ` pets_1.student ` )-[]-(: ` pets_1.pets ` ) where student.pettype  < > 'cat' return student.major,student.age
+match (student: ` pets_1.student ` ) where student.pettype  < > 'cat' return student.major,student.age
+match (pets: ` pets_1.pets ` ) return pets.pet_type,pets.weight order by pets.age asc limit 1
+match (pets: ` pets_1.pets ` ) return pets.pettype order by pets.weight asc limit 1
+match (pets: ` pets_1.pets ` ) where pets.pet_age > 1 return pets.petid,pets.weight
+match (pets: ` pets_1.pets ` ) where pets.age > 1 return pets.petid,pets.weight
+match (continents: ` car_1.continents ` ) return count(*)
+match (continents: ` car_1.continents ` ) return count(*)
+match (t1: ` car_1.continents ` )-[]-(t2: ` car_1.countries ` ) with t1.contid as contid, t1.countryname as countryname, count(t1.contid) as count return continent,count
+match (t1: ` car_1.continents ` )-[]-(t2: ` car_1.countries ` ) with t1.continent as continent, count(t1.countryid) as count return continent,count
+match (countries: ` car_1.countries ` ) return count(*)
+match (countries: ` car_1.countries ` ) return count(*)
+match (car_makers: ` car_1.car_makers ` ) with count(car_makers.maker) as count, car_makers.maker as maker return maker,maker,count
+match (car_makers: ` car_1.car_makers ` ) return car_makers.fullname,car_makers.modelid,car_makers.model
+match (cars_data: ` car_1.cars_data ` ) return cars_data.model order by cars_data.hp limit 1
+match (cars_data: ` car_1.cars_data ` ) return cars_data.model order by cars_data.hp limit 1
+match (car_makers: ` car_1.car_makers ` ) with count(car_makers.maker) as count, car_makers.maker as maker return maker,count
+match (cars_data: ` car_1.cars_data ` ) where cars_data.make = 'amc hornet' and cars_data.make ='sw' return cars_data.accelerated
+match (cars_data: ` car_1.cars_data ` ) where cars_data.make = 'amc hornet' and cars_data.make ='sw' return cars_data.accelerated
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders = 1974 return min(cars_data.weight)
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders = 1974 return min(cars_data.weight)
+match (car_names: ` car_1.car_names ` ) return car_names.maker,car_names.modelid
+match (car_names: ` car_1.car_names ` ) return car_names.maker,car_names.modelid
+match (car_names: ` car_1.car_names ` ) where car_names.cylinders >= 3 return max(car_names.hp),car_names.make
+match (car_names: ` car_1.car_names ` ) where car_names.cylinders >= 3 return car_names.hp,car_names.make order by car_names.hp desc limit 1
+match (cars_data: ` car_1.cars_data ` ) return cars_data.model order by cars_data.mpg desc limit 1
+match (car_names: ` car_1.car_names ` ) where car_names.model = 'volvo' return avg(car_names.edispl)
+match (car_makers: ` car_1.car_makers ` ) where models.model = 'volvo' return avg(car_makers.edispl)
+match (car_names: ` car_1.car_names ` ) with count(car_names.model) as count, car_names.model as model return model order by count desc limit 1
+match (model_list: ` car_1.model_list ` ) with count(model_list.model) as count, model_list.model as model return model order by count desc limit 1
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders > 4 return count(*)
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders > 4 return count(*)
+match (car_makers: ` car_1.car_makers ` ) where cars.year = 1980 return count(*)
+match (car_makers: ` car_1.car_makers ` ) where car_makers.make = 1980 return count(*)
+match (car_makers: ` car_1.car_makers ` ) where cars_makers.maker = 'american motor company' return count(*)
+match (car_makers: ` car_1.car_makers ` ) where cars_makers.maker = 'american motor company' return count(*)
+match (car_makers: ` car_1.car_makers ` ) with count(*) as count, car_makers.maker as maker where count > 3 return maker,fullname,id
+match (car_makers: ` car_1.car_makers ` ) with count(*) as count, car_makers.maker as maker where count > 3 return maker,maker
+match (cars_data: ` car_1.cars_data ` ) where cars_data.weight  < 3000 and cars_data.weight  < 4000 return cars_data.year
+match (cars_data: ` car_1.cars_data ` ) where cars_data.weight  < 4000 and cars_data.weight > 3000 return distinct cars_data.year
+match (cars_data: ` car_1.cars_data ` ) where cars_data.model = 'volvo' return cars_data.cylinders order by cars_data.accelerate limit 1
+match (cars_data: ` car_1.cars_data ` ) where cars_data.model = 'volvo' return cars_data.cylinders order by cars_data.accelerate limit 1
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders > 6 return count(*)
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders > 6 return count(*)
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders >= 4 return cars_data.model order by cars_data.hp desc limit 1
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders = 4 return cars_data.model order by cars_data.hp limit 1
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders >= 8 return max(cars_data.mpg)
+match (cars_data: ` car_1.cars_data ` ) where cars_data.cylinders >= 8 return max(cars_data.mpg)
+match (airlines: ` flight_2.airlines ` ) where airlines.airline = 'jetblue airways' return airlines.country
+match (airlines: ` flight_2.airlines ` ) where airlines.airline = 'jetblue airways' return airlines.country
+match (airlines: ` flight_2.airlines ` ) where airlines.airline = 'jetblue airways' return airlines.abbreviation
+match (airlines: ` flight_2.airlines ` ) where airlines.airline = 'jetblue airways' return airlines.abbreviation
+match (airlines: ` flight_2.airlines ` ) where airlines.country = 'usa' return airlines.airline,airlines.abbreviation
+match (airlines: ` flight_2.airlines ` ) where airlines.country = 'usa' return airlines.airline,airlines.abbreviation
+match (airlines: ` flight_2.airlines ` ) return count(*)
+match (airlines: ` flight_2.airlines ` ) return count(*)
+match (airports: ` flight_2.airports ` ) return count(*)
+match (airports: ` flight_2.airports ` ) return count(*)
+match (airlines: ` flight_2.airlines ` ) where airlines.abbreviation = 'ual' return airlines.airline
+match (airlines: ` flight_2.airlines ` ) where airlines.abbreviation = 'ual' return airlines.airline
+match (airlines: ` flight_2.airlines ` ) where airlines.country = 'usa' return count(*)
+match (airlines: ` flight_2.airlines ` ) where airlines.country = 'usa' return count(*)
+match (airports: ` flight_2.airports ` ) where airports.sourceairport = 'ako' return airports.airportname
+match (airports: ` flight_2.airports ` ) where airports.airportcode = 'ako' return airports.airportname
+match (airports: ` flight_2.airports ` ) where not (airports: ` flight_2.airports ` )-[: ` flight_2.flights ` ]-() return airports.airportname,airports.airportname
+match (airports: ` flight_2.airports ` ) where not (airports: ` flight_2.airports ` )-[: ` flight_2.flights ` ]-() return airports.airportname
+match (employee: ` employee_hire_evaluation.employee ` ) return count(*)
+match (employee: ` employee_hire_evaluation.employee ` ) return count(*)
+match (employee: ` employee_hire_evaluation.employee ` ) return employee.name order by employee.age asc
+match (employee: ` employee_hire_evaluation.employee ` ) return employee.name order by employee.age asc
+match (employee: ` employee_hire_evaluation.employee ` ) with employee.city as city, count(employee.city) as count return city,count
+match (employee: ` employee_hire_evaluation.employee ` ) with employee.city as city, count(employee.city) as count return city,count
+match (employee: ` employee_hire_evaluation.employee ` ) where employee.age  < 30 with employee.city as city, count(*) as count where count > 1 return city
+match (employee: ` employee_hire_evaluation.employee ` ) where employee.age > 30 with count(*) as count, employee.city as city where count > 1 return city
+match (shop: ` employee_hire_evaluation.shop ` ) with shop.location as location, count(shop.location) as count return location,count
+match (shop: ` employee_hire_evaluation.shop ` ) with shop.location as location, count(shop.location) as count return location,count
+match (shop: ` employee_hire_evaluation.shop ` ) return shop.manager_name,shop.district order by shop.number_products desc limit 1
+match (shop: ` employee_hire_evaluation.shop ` ) return shop.manager_name,shop.district order by shop.number_products desc limit 1
+match (shop: ` employee_hire_evaluation.shop ` ) return min(shop.number_products),max(shop.number_products)
+match (shop: ` employee_hire_evaluation.shop ` ) return min(shop.number_products),max(shop.number_products)
+match (shop: ` employee_hire_evaluation.shop ` ) return shop.name,shop.location,shop.district order by shop.number_products desc
+match (shop: ` employee_hire_evaluation.shop ` ) return shop.name,shop.location,shop.district order by shop.number_products desc
+match (shop: ` employee_hire_evaluation.shop ` ) return count(distinct shop.location)
+match (shop: ` employee_hire_evaluation.shop ` ) return count(distinct shop.location)
+match (documents: ` cre_doc_template_mgt.documents ` ) return count(*)
+match (documents: ` cre_doc_template_mgt.documents ` ) return count(*)
+match (documents: ` cre_doc_template_mgt.documents ` ) return documents.document_id,documents.document_name,documents.document_description
+match (documents: ` cre_doc_template_mgt.documents ` ) return documents.document_id,documents.document_name,documents.document_description
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.document_name = 'robbin cv' return documents.document_id,documents.template_id,documents.document_description
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.document_name = 'robbin cv' return documents.document_id,documents.template_id,documents.document_description
+match (templates: ` cre_doc_template_mgt.templates ` ) return count(distinct templates.template_type_code)
+match (documents: ` cre_doc_template_mgt.documents ` ) return count(distinct documents.template_type_code)
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.template_type_code = 'ppt' return count(*)
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.template_type_code = 'ppt' return count(*)
+match (documents: ` cre_doc_template_mgt.documents ` ) with documents.template_id as template_id, count(documents.template_id) as count return template_id,count
+match (documents: ` cre_doc_template_mgt.documents ` ) with documents.template_id as template_id, count(documents.template_id) as count return template_id,count
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.templates ` ) with t1.template_id as template_id, count(t1.template_type_code) as count, t1.template_type_code as template_type_code return template_id,template_type_code order by count desc limit 1
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.templates ` ) with count(t1.template_id) as count, t2.template_type_code as template_type_code return template_id,template_type_code order by count desc limit 1
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.templates ` ) with count(*) as count, t2.template_id as template_id where count > 1 return template_id
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.templates ` ) with count(*) as count, t2.template_id as template_id where count > 1 return template_id
+match (templates: ` cre_doc_template_mgt.templates ` ) return count(*)
+match (templates: ` cre_doc_template_mgt.templates ` ) return count(*)
+match (templates: ` cre_doc_template_mgt.templates ` ) return templates.template_id,templates.version_number,templates.template_type_code
+match (templates: ` cre_doc_template_mgt.templates ` ) return templates.template_id,templates.version_number,templates.template_type_code
+match (templates: ` cre_doc_template_mgt.templates ` ) return distinct templates.template_type_code
+match (templates: ` cre_doc_template_mgt.templates ` ) return distinct templates.template_type_code
+match (templates: ` cre_doc_template_mgt.templates ` ) where templates.template_type_code = 'pp' or templates.template_type_code = 'ppt' return templates.template_id
+match (templates: ` cre_doc_template_mgt.templates ` ) where templates.template_type_code = 'pp' or templates.template_type_code = 'ppt' return templates.template_id
+match (templates: ` cre_doc_template_mgt.templates ` ) where templates.template_type_code = 'cv' return count(*)
+match (templates: ` cre_doc_template_mgt.templates ` ) where templates.template_type_code = 'cv' return count(*)
+match (templates: ` cre_doc_template_mgt.templates ` ) where templates.version_number > 5 return templates.version_number,templates.template_type_code
+match (templates: ` cre_doc_template_mgt.templates ` ) where templates.version_number > 5 return templates.version_number,templates.template_type_code
+match (templates: ` cre_doc_template_mgt.templates ` ) with count(templates.template_type_code) as count, templates.template_type_code as template_type_code return template_type_code,count
+match (templates: ` cre_doc_template_mgt.templates ` ) with count(templates.template_type_code) as count, templates.template_type_code as template_type_code return template_type_code,count
+match (templates: ` cre_doc_template_mgt.templates ` ) with count(templates.template_type_code) as count, templates.template_type_code as template_type_code return template_type_code order by count desc limit 1
+match (templates: ` cre_doc_template_mgt.templates ` ) with count(templates.template_type_code) as count, templates.template_type_code as template_type_code return template_type_code order by count desc limit 1
+match (templates: ` cre_doc_template_mgt.templates ` ) with count(*) as count, templates.template_type_code as template_type_code where count  < 3 return template_type_code
+match (templates: ` cre_doc_template_mgt.templates ` ) with count(*) as count, templates.template_type_code as template_type_code where count  < 3 return template_type_code
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.templates ` ) where t2.document_name = 'data base' return t1.template_type_code
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.templates ` ) where t2.document_name = 'data base' return t1.template_type_code
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.template_type_code = 'bk' return documents.document_name
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.templates ` ) where t2.template_type_code = 'bk' return t1.document_name
+match (documents: ` cre_doc_template_mgt.documents ` ) with documents.template_type_code as template_type_code, count(documents.template_type_code) as count return template_type_code,count
+match (documents: ` cre_doc_template_mgt.documents ` ) with documents.template_type_code as template_type_code, count(documents.template_type_code) as count return template_type_code,count
+match (documents: ` cre_doc_template_mgt.documents ` ) with documents.template_type_code as template_type_code, count(documents.template_type_code) as count return template_type_code order by count desc limit 1
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.templates ` ) with t1.template_type_code as template_type_code, count(t1.template_type_code) as count return template_type_code order by count desc limit 1
+match (ref_template_types: ` cre_doc_template_mgt.ref_template_types ` ) return ref_template_types.template_type_code,ref_template_types.template_type_description
+match (ref_template_types: ` cre_doc_template_mgt.ref_template_types ` ) return ref_template_types.template_type_code,ref_template_types.template_type_description
+match (ref_template_types: ` cre_doc_template_mgt.ref_template_types ` ) where ref_template_types.template_type_code = 'ad' return ref_template_types.template_type_description
+match (ref_template_types: ` cre_doc_template_mgt.ref_template_types ` ) where ref_template_types.template_type_code = 'ad' return ref_template_types.template_type_description
+match (ref_template_types: ` cre_doc_template_mgt.ref_template_types ` ) where ref_template_types.template_type_description = 'book' return ref_template_types.template_type_code
+match (ref_template_types: ` cre_doc_template_mgt.ref_template_types ` ) where ref_template_types.template_type_description = 'book' return ref_template_types.template_type_code
+match (ref_template_types: ` cre_doc_template_mgt.ref_template_types ` ) where ref_template_types.template_type_description = 'presentation' return ref_template_types.template_id
+match (t1: ` cre_doc_template_mgt.templates ` )-[]-(t2: ` cre_doc_template_mgt.ref_template_types ` ) where t2.template_type_description = 'presentation' return t1.template_id
+match (paragraphs: ` cre_doc_template_mgt.paragraphs ` ) return count(*)
+match (paragraphs: ` cre_doc_template_mgt.paragraphs ` ) return count(*)
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.document_name = 'summer show' return count(*)
+match (t1: ` cre_doc_template_mgt.paragraphs ` )-[]-(t2: ` cre_doc_template_mgt.documents ` ) where t2.document_name = 'summer show' return count(*)
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.document_name = 'welcome to ny' return documents.paragraph_id,documents.paragraph_text
+match (t1: ` cre_doc_template_mgt.paragraphs ` )-[]-(t2: ` cre_doc_template_mgt.documents ` ) where t2.document_name = 'welcome to ny' return t1.paragraph_id,t2.paragraph_text
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.document_name = 'customer reviews' return documents.paragraph_text
+match (documents: ` cre_doc_template_mgt.documents ` ) where documents.document_name = 'customer reviews' return documents.paragraph_text
+match (documents: ` cre_doc_template_mgt.documents ` ) with documents.document_name as document_name, count(documents.document_id) as count return document_id,document_name,count
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.paragraphs ` ) with t1.document_name as document_name, count(t1.document_id) as count, t1.document_id as document_id return document_id,document_name,count
+match (paragraphs: ` cre_doc_template_mgt.paragraphs ` ) with count(*) as count, paragraphs.document_id as document_id where count >= 2 return document_id
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.paragraphs ` ) with count(*) as count, t2.document_id as document_id where count >= 2 return document_id
+match (paragraphs: ` cre_doc_template_mgt.paragraphs ` ) with paragraphs.document_id as document_id, count(paragraphs.document_id) as count return document_id,document_name order by count desc limit 1
+match (t1: ` cre_doc_template_mgt.documents ` )-[]-(t2: ` cre_doc_template_mgt.paragraphs ` ) with t1.document_name as document_name, count(t1.document_id) as count return document_id,document_name order by count desc limit 1
+match (paragraphs: ` cre_doc_template_mgt.paragraphs ` ) with paragraphs.paragraph_id as paragraph_id, count(paragraphs.paragraph_id) as count return document_id order by count asc limit 1
+match (paragraphs: ` cre_doc_template_mgt.paragraphs ` ) with paragraphs.paragraph_id as paragraph_id, count(paragraphs.paragraph_id) as count return document_id order by count asc limit 1
+match (teacher: ` course_teach.teacher ` ) return count(*)
+match (teacher: ` course_teach.teacher ` ) return count(*)
+match (teacher: ` course_teach.teacher ` ) return teacher.name order by teacher.age asc
+match (teacher: ` course_teach.teacher ` ) return teacher.name order by teacher.age asc
+match (teacher: ` course_teach.teacher ` ) return teacher.age,teacher.hometown
+match (teacher: ` course_teach.teacher ` ) return teacher.age,teacher.hometown
+match (teacher: ` course_teach.teacher ` ) where teacher.hometown  < > 'little lever urban district' return teacher.name
+match (teacher: ` course_teach.teacher ` ) where teacher.hometown  < > 'little lever urban district' return teacher.name
+match (teacher: ` course_teach.teacher ` ) return teacher.hometown order by teacher.age asc limit 1
+match (teacher: ` course_teach.teacher ` ) return teacher.name order by teacher.age asc limit 1
+match (teacher: ` course_teach.teacher ` ) with teacher.hometown as hometown, count(teacher.hometown) as count return hometown,count
+match (teacher: ` course_teach.teacher ` ) with teacher.hometown as hometown, count(teacher.hometown) as count return hometown,count
+match (t1: ` course_teach.teacher ` )-[t2: ` course_teach.course_arrange ` ]-() return t1.name,t2.course
+match (teacher: ` course_teach.teacher ` ) return teacher.name,teacher.course_teach
+match (t1: ` course_teach.teacher ` )-[t2: ` course_teach.course_arrange ` ]-() return t1.name,t1.course order by t1.name asc
+match (teacher: ` course_teach.teacher ` ) return teacher.name,teacher.course order by teacher.name asc
+match (course: ` course_teach.course ` ) where course.course = 'math' return course.name
+match (t1: ` course_teach.teacher ` )-[]-(t2: ` course_teach.course ` ) where t2.course = 'math' return t1.name
+match (t1: ` course_teach.teacher ` )-[t2: ` course_teach.course_arrange ` ]-() with t1.name as name, count(t1.teacher_id) as count return name,count
+match (teacher: ` course_teach.teacher ` ) with teacher.name as name, count(teacher.name) as count return name,count
+match (teacher: ` course_teach.teacher ` ) with count(*) as count, teacher.name as name where count >= 2 return name
+match (teacher: ` course_teach.teacher ` ) with count(*) as count, teacher.name as name where count >= 2 return name
+match (teacher: ` course_teach.teacher ` ) where not (teacher: ` course_teach.teacher ` )-[: ` course_teach.course_arrange ` ]-() return teacher.name
+match (teacher: ` course_teach.teacher ` ) where not (teacher: ` course_teach.teacher ` )-[: ` course_teach.course_arrange ` ]-() return teacher.name
+match (visitor: ` museum_visit.visitor ` ) where visitor.age  < 30 return count(*)
+match (visitor: ` museum_visit.visitor ` ) where visitor.level_of_membership > 4 return visitor.name order by visitor.level_of_membership desc
+match (visitor: ` museum_visit.visitor ` ) where visitor.level_of_membership  < 4 return avg(visitor.age)
+match (visitor: ` museum_visit.visitor ` ) where visitor.level_of_membership > 4 return visitor.name,visitor.level_of_membership order by visitor.age
+match (museum: ` museum_visit.museum ` ) return museum.id,museum.name order by museum.num_of_staff desc limit 1
+match (museum: ` museum_visit.museum ` ) where museum.name = 'palais museum' return museum.open_year,museum.num_of_staff
+match (ship: ` battle_death.ship ` ) where ship.disposition_of_ship = 'captured' return count(*)
+match (ship: ` battle_death.ship ` ) return ship.name,ship.tonnage order by ship.name desc
+match (death: ` battle_death.death ` ) with death.killed as killed, count(death.killed) as count return max(death.killed),min(death.killed)
+match (battle: ` battle_death.battle ` ) where battle.bulgararian_commander  < > 'boril' return battle.name,battle.result
+match (t1: ` battle_death.battle ` )-[]-(t2: ` battle_death.ship ` ) where t2.ship_type = 'brig' return distinct t1.id,t2.name
+match (battle: ` battle_death.battle ` ) where battle.battle = 'kaloyan' and battle.latin_commander = 'baldwin i' return distinct battle.name
+match (battle: ` battle_death.battle ` ) return count(distinct battle.result)
+match (death: ` battle_death.death ` ) where death.death ='.*[e|e]n.*' return death.note
+match (addresses: ` student_transcripts_tracking.addresses ` ) where addresses.line_1=addresses.line_2=2 return addresses.address_id
+match (addresses: ` student_transcripts_tracking.addresses ` ) return addresses.line_1 and addresses.line_2
+match (courses: ` student_transcripts_tracking.courses ` ) return count(*)
+match (courses: ` student_transcripts_tracking.courses ` ) return count(*)
+match (courses: ` student_transcripts_tracking.courses ` ) where courses.course_name ='math' return courses.course_description
+match (courses: ` student_transcripts_tracking.courses ` ) where courses.course_name ='math' return courses.course_description
+match (addresses: ` student_transcripts_tracking.addresses ` ) where addresses.city = 'port chelsea' return addresses.zip_postcode
+match (addresses: ` student_transcripts_tracking.addresses ` ) where addresses.city = 'port chelsea' return addresses.zip_postcode
+match (t1: ` student_transcripts_tracking.departments ` )-[]-(t2: ` student_transcripts_tracking.degree_programs ` ) with t1.department_name as department_name, count(t1.department_id) as count, t1.department_id as department_id return department_name,department_id order by count desc limit 1
+match (departments: ` student_transcripts_tracking.departments ` ) return count(distinct departments.department_name)
+match (departments: ` student_transcripts_tracking.departments ` ) return count(distinct departments.department_description)
+match (degree_programs: ` student_transcripts_tracking.degree_programs ` ) return count(distinct degree_programs.degree_program_name)
+match (degree_programs: ` student_transcripts_tracking.degree_programs ` ) return count(distinct degree_programs.degree_program_id)
+match (sections: ` student_transcripts_tracking.sections ` ) return sections.section_name,sections.section_description
+match (sections: ` student_transcripts_tracking.sections ` ) return sections.section_name,sections.section_description
+match (t1: ` student_transcripts_tracking.courses ` )-[]-(t2: ` student_transcripts_tracking.sections ` ) with count(*) as count, t2.course_name as course_name, t1.course_id as course_id where count ` = 2 return course_name,course_id
+match (t1: ` student_transcripts_tracking.courses ` )-[]-(t2: ` student_transcripts_tracking.sections ` ) with count(*) as count, t2.course_name as course_name, t1.course_id as course_id where count  < 2 return course_name,course_id
+match (sections: ` student_transcripts_tracking.sections ` ) return sections.section_name order by sections.section_name
+match (sections: ` student_transcripts_tracking.sections ` ) return sections.section_name order by sections.section_name reverse
+match (student_enrolment: ` student_transcripts_tracking.student_enrolment ` ) with student_enrolment.semester_name as semester_name, count(student_enrolment.semester_id) as count return semester_name,semester_id order by count desc limit 1
+match (t1: ` student_transcripts_tracking.students ` )-[]-(t2: ` student_transcripts_tracking.semesters ` ) with t1.semester_name as semester_name, count(t1.semester_id) as count, t1.semester_id as semester_id return semester_name,semester_id order by count desc limit 1
+match (departments: ` student_transcripts_tracking.departments ` ) where departments.department_name ='.*[s|s]uper_string.*' return departments.department_description
+match (departments: ` student_transcripts_tracking.departments ` ) where departments.department_name ='.*[computer: ` student_transcripts_tracking.transcripts ` ]-() return departments.department_description
+match (student_enrolment: ` student_transcripts_tracking.student_enrolment ` ) with count(*) as count, student_enrolment.first_name as first_name, count(*) as count where count >= 2 return first_name,middle_name,last_name,student_enrolment_id
+match (student_enrolment: ` student_transcripts_tracking.student_enrolment ` ) where student_enrolment.degree_program_id = 2 return student_enrolment.first_name,student_enrolment.middle_name,student_enrolment.last_name,student_enrolment.student_id
+match (student_enrolment: ` student_transcripts_tracking.student_enrolment ` ) with student_enrolment.degree_program_id as degree_program_id, count(student_enrolment.degree_program_id) as count return degree_program_id order by count desc limit 1
+match (student_enrolment: ` student_transcripts_tracking.student_enrolment ` ) with student_enrolment.degree_summary_name as degree_summary_name, count(student_enrolment.degree_summary_name) as count return degree_summary_name order by count desc limit 1
+match (student_enrolment: ` student_transcripts_tracking.student_enrolment ` ) with student_enrolment.degree_program_id as degree_program_id, count(student_enrolment.degree_program_id) as count return degree_program_id,count order by count desc limit 1
+match (student_enrolment: ` student_transcripts_tracking.student_enrolment ` ) with student_enrolment.degree_program_id as degree_program_id, count(student_enrolment.degree_program_id) as count return degree_program_id,degree_program_description order by count desc limit 1
+match (semesters: ` student_transcripts_tracking.semesters ` ) where not (semesters: ` student_transcripts_tracking.semesters ` )-[]-(: ` student_transcripts_tracking.student_enrolment ` ) return semesters.semester_name
+match (semesters: ` student_transcripts_tracking.semesters ` ) where not (semesters: ` student_transcripts_tracking.semesters ` )-[]-(: ` student_transcripts_tracking.student_enrolment ` ) return semesters.semester_name
+match (students: ` student_transcripts_tracking.students ` ) where students.first_name = 'timmothy' and students.last_name = 'ward' return students.cell_mobile_number
+match (students: ` student_transcripts_tracking.students ` ) return students.first_name,students.middle_name,students.last_name
+match (students: ` student_transcripts_tracking.students ` ) return students.date_first_registered,students.middle_name,students.last_name
+match (students: ` student_transcripts_tracking.students ` ) return students.first_name,students.middle_name,students.last_name order by students.date_first_registered limit 1
+match (students: ` student_transcripts_tracking.students ` ) return students.first_name,students.middle_name,students.last_name order by students.date_first_registered limit 1
+match (addresses: ` student_transcripts_tracking.addresses ` ) return distinct addresses.permanent_address_id
+match (t1: ` student_transcripts_tracking.students ` )-[]-(t2: ` student_transcripts_tracking.addresses ` ) where t2.permanent_address_id > 'y' return t1.first_name
+match (t1: ` student_transcripts_tracking.addresses ` )-[]-(t2: ` student_transcripts_tracking.students ` ) with t1.current_address_id as current_address_id, count(t1.current_address_id) as count return current_address_id,count order by count desc limit 1
+match (t1: ` student_transcripts_tracking.addresses ` )-[]-(t2: ` student_transcripts_tracking.students ` ) with t1.address_id as address_id, count(t1.address_id) as count, t1.address_id as address_id return address_id,line_1,line_2 order by count desc limit 1
+match (transcripts: ` student_transcripts_tracking.transcripts ` ) return transcripts.date_first_registered,transcripts.other_student_details
+match (addresses: ` student_transcripts_tracking.addresses ` ) return addresses.date_first_registered,addresses.other_student_details order by addresses.date_first_registered limit 1
+match (transcripts: ` student_transcripts_tracking.transcripts ` ) return count(*)
+match (transcripts: ` student_transcripts_tracking.transcripts ` ) return count(*)
+match (transcripts: ` student_transcripts_tracking.transcripts ` ) return transcripts.last_name
+match (students: ` student_transcripts_tracking.students ` ) return distinct students.last_name
+match (addresses: ` student_transcripts_tracking.addresses ` ) return count(distinct addresses.current_address_id)
+match (t1: ` student_transcripts_tracking.addresses ` )-[]-(t2: ` student_transcripts_tracking.students ` ) return distinct t1.address_id
+match (students: ` student_transcripts_tracking.students ` ) return students.student_details order by students.student_details reversed
+match (students: ` student_transcripts_tracking.students ` ) return students.other_student_details order by students.other_student_details asc
+match (sections: ` student_transcripts_tracking.sections ` ) return sections.section_name
+match (sections: ` student_transcripts_tracking.sections ` ) where sections.section_name = 'h' return sections.section_description
+match (cartoon: ` tvshow.cartoon ` ) return cartoon.title order by cartoon.title
+match (cartoon: ` tvshow.cartoon ` ) return cartoon.title order by cartoon.title
+match (cartoon: ` tvshow.cartoon ` ) where cartoon.directed_by = 'ben jones' return cartoon.cartoon
+match (cartoon: ` tvshow.cartoon ` ) where cartoon.directed_by = 'ben jones' return cartoon.title
+match (cartoon: ` tvshow.cartoon ` ) where cartoon.written_by = 'joseph kuhr' return count(*)
+match (cartoon: ` tvshow.cartoon ` ) where cartoon.written_by = 'joseph kuhr' return count(*)
+match (cartoon: ` tvshow.cartoon ` ) return cartoon.title,cartoon.directed_by order by cartoon.air_date
+match (cartoon: ` tvshow.cartoon ` ) return cartoon.title,cartoon.directed_by order by cartoon.air_date
+match (cartoon: ` tvshow.cartoon ` ) where cartoon.directed_by = 'ben jones' or cartoon.directed_by = 'brandon vietti' return cartoon.title
+match (cartoon: ` tvshow.cartoon ` ) where cartoon.directed_by = 'ben jones' or cartoon.directed_by = 'brandon vietti' return cartoon.title
+match (tv_channel: ` tvshow.tv_channel ` ) with count(tv_channel.country) as count, tv_channel.country as country return country,count order by count desc limit 1
+match (tv_channel: ` tvshow.tv_channel ` ) with count(tv_channel.country) as count, tv_channel.country as country return country,count order by count desc limit 1
+match (tv_channel: ` tvshow.tv_channel ` ) return count(distinct tv_channel.series_name),count(tv_channel.content)
+match (tv_channel: ` tvshow.tv_channel ` ) return count(distinct tv_channel.content)
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.series_name = 'sky radio' return tv_channel.content
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.series_name = 'sky radio' return tv_channel.content
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.series_name = 'sky radio' return tv_channel.package_option
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.series_name = 'sky radio' return tv_channel.package_option
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.language = 'english' return count(*)
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.language = 'english' return count(*)
+match (tv_channel: ` tvshow.tv_channel ` ) with count(tv_channel.language) as count, tv_channel.language as language return language,count order by count asc limit 1
+match (tv_channel: ` tvshow.tv_channel ` ) with count(tv_channel.language) as count, tv_channel.language as language return language order by count asc limit 1
+match (tv_channel: ` tvshow.tv_channel ` ) with count(tv_channel.language) as count, tv_channel.language as language return language,count
+match (tv_channel: ` tvshow.tv_channel ` ) with count(tv_channel.language) as count, tv_channel.language as language return language,count
+match (t1: ` tvshow.tv_channel ` )-[]-(t2: ` tvshow.cartoon ` ) where t2.title = 'the rise of the blue beetle!' return t2.channel
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.title = 'the rise of the blue beetle' return tv_channel.series_name
+match (cartoon: ` tvshow.cartoon ` ) where cartoon.series_name = 'sky radio' return cartoon.title
+match (cartoon: ` tvshow.cartoon ` ) where cartoon.series_name = 'sky radio' return cartoon.title
+match (tv_series: ` tvshow.tv_series ` ) return tv_series.episode order by tv_series.rating
+match (tv_series: ` tvshow.tv_series ` ) return tv_series.episode order by tv_series.rating
+match (tv_series: ` tvshow.tv_series ` ) return tv_series.episode,tv_series.rating order by tv_series.rating desc limit 3
+match (tv_series: ` tvshow.tv_series ` ) return tv_series.episode,tv_series.rating order by tv_series.rating desc limit 3
+match (tv_series: ` tvshow.tv_series ` ) return min(tv_series.share),max(tv_series.share)
+match (tv_series: ` tvshow.tv_series ` ) return max(tv_series.share),min(tv_series.share)
+match (tv_series: ` tvshow.tv_series ` ) where tv_series.episode = 'a love of a lifetime' return tv_series.air_date
+match (tv_series: ` tvshow.tv_series ` ) where tv_series.episode = 'a love of a lifetime' return tv_series.air_date
+match (tv_series: ` tvshow.tv_series ` ) where tv_series.episode = 'a love of a lifetime' return tv_series.weekly_rank
+match (tv_series: ` tvshow.tv_series ` ) where tv_series.episode = 'a love of a lifetime' return tv_series.weekly_rank
+match (tv_series: ` tvshow.tv_series ` ) where tv_series.episode = 'a love of a lifetime' return tv_series.tv_channel
+match (tv_series: ` tvshow.tv_series ` ) where tv_series.episode = 'a love of a lifetime' return tv_series.series_name
+match (tv_series: ` tvshow.tv_series ` ) where tv_series.series_name = 'sky radio' return tv_series.episode
+match (tv_series: ` tvshow.tv_series ` ) where tv_series.series_name = 'sky radio' return tv_series.episode
+match (cartoon: ` tvshow.cartoon ` ) with cartoon.directed_by as directed_by, count(cartoon.directed_by) as count return directed_by,count
+match (cartoon: ` tvshow.cartoon ` ) with cartoon.directed_by as directed_by, count(cartoon.directed_by) as count return directed_by,count
+match (cartoon: ` tvshow.cartoon ` ) return cartoon.production_code,cartoon.channel order by cartoon.original_air_date desc limit 1
+match (cartoon: ` tvshow.cartoon ` ) return cartoon.production_code,cartoon.channel order by cartoon.original_air_date desc limit 1
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.hight_definition_tv = 'y' return tv_channel.package_option,tv_channel.series_name
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.hight_definition_tv = 'yes' return tv_channel.package_option,tv_channel.series_name
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.written_by = 'todd casey' return tv_channel.country
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.written_by = 'todd casey' return tv_channel.country
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.language  < > 'english' return tv_channel.pixel_aspect_ratio_par,tv_channel.country
+match (tv_channel: ` tvshow.tv_channel ` ) where tv_channel.language  < > 'english' return tv_channel.pixel_aspect_ratio_par,tv_channel.country
+match (poker_player: ` poker_player.poker_player ` ) return count(*)
+match (poker_player: ` poker_player.poker_player ` ) return count(*)
+match (poker_player: ` poker_player.poker_player ` ) return poker_player.employers order by poker_player.employers desc
+match (poker_player: ` poker_player.poker_player ` ) return poker_player.employers order by poker_player.employers desc
+match (poker_player: ` poker_player.poker_player ` ) return poker_player.final_table_made,poker_player.best_finish
+match (poker_player: ` poker_player.poker_player ` ) return poker_player.final_table_made,poker_player.best_finish
+match (poker_player: ` poker_player.poker_player ` ) return avg(poker_player.events)
+match (poker_player: ` poker_player.poker_player ` ) return avg(poker_player.events)
+match (poker_player: ` poker_player.poker_player ` ) return poker_player.money_rank order by poker_player.events desc limit 1
+match (poker_player: ` poker_player.poker_player ` ) return poker_player.money_rank order by poker_player.events desc limit 1
+match (poker_player: ` poker_player.poker_player ` ) where poker_player.employer ` 200000 return max(poker_player.final_table_made)
+match (poker_player: ` poker_player.poker_player ` ) where poker_player.employer ` 200000 return max(poker_player.final_table_made)
+match (t1: ` poker_player.people ` )-[]-(t2: ` poker_player.poker_player ` ) return t2.name
+match (t1: ` poker_player.people ` )-[]-(t2: ` poker_player.poker_player ` ) return t2.name
+match (t1: ` poker_player.people ` )-[]-(t2: ` poker_player.poker_player ` ) where t2.events > 300000 return t2.name
+match (t1: ` poker_player.poker_player ` )-[]-(t2: ` poker_player.people ` ) where t2.events > 300000 return t2.name
+match (t1: ` poker_player.people ` )-[]-(t2: ` poker_player.poker_player ` ) return t1.name order by t2.final_table_made asc
+match (t1: ` poker_player.people ` )-[]-(t2: ` poker_player.poker_player ` ) return t1.name order by t2.final_table_made asc
+match (t1: ` poker_player.poker_player ` )-[]-(t2: ` poker_player.people ` ) return t2.birth_date order by t2.events asc limit 1
+match (t1: ` poker_player.poker_player ` )-[]-(t2: ` poker_player.people ` ) return t2.birth_date order by t2.events asc limit 1
+match (t1: ` poker_player.poker_player ` )-[]-(t2: ` poker_player.people ` ) return t2.money_rank order by t2.height desc limit 1
+match (t1: ` poker_player.poker_player ` )-[]-(t2: ` poker_player.people ` ) return t2.money_rank order by t2.height desc limit 1
+match (t1: ` poker_player.poker_player ` )-[]-(t2: ` poker_player.people ` ) where t2.height > 200 return avg(t2.ebooks)
+match (t1: ` poker_player.poker_player ` )-[]-(t2: ` poker_player.people ` ) where t2.height > 200 return avg(t2.events)
+match (t1: ` poker_player.people ` )-[]-(t2: ` poker_player.poker_player ` ) return t2.name order by t2.events desc
+match (t1: ` poker_player.poker_player ` )-[]-(t2: ` poker_player.people ` ) return t2.name order by t2.events desc
+match (people: ` poker_player.people ` ) with people.nationality as nationality, count(people.nationality) as count return nationality,count
+match (people: ` poker_player.people ` ) with people.nationality as nationality, count(people.nationality) as count return nationality,count
+match (people: ` poker_player.people ` ) with people.nationality as nationality, count(people.nationality) as count return nationality order by count desc limit 1
+match (people: ` poker_player.people ` ) with people.nationality as nationality, count(people.nationality) as count return nationality order by count desc limit 1
+match (people: ` poker_player.people ` ) with count(*) as count, people.nationality as nationality where count >= 2 return nationality
+match (people: ` poker_player.people ` ) with count(*) as count, people.nationality as nationality where count >= 2 return nationality
+match (people: ` poker_player.people ` ) return people.name,people.birth_date order by people.name asc
+match (people: ` poker_player.people ` ) return people.name,people.birth_date order by people.name
+match (people: ` poker_player.people ` ) where people.nationality  < > 'russia' return people.name
+match (people: ` poker_player.people ` ) where people.nationality  < > 'russia' return people.name
+match (people: ` poker_player.people ` ) where not (people: ` poker_player.people ` )-[]-(: ` poker_player.poker_player ` ) return people.name
+match (people: ` poker_player.people ` ) where not (people: ` poker_player.people ` )-[]-(: ` poker_player.poker_player ` ) return people.name
+match (people: ` poker_player.people ` ) return count(distinct people.nationality)
+match (people: ` poker_player.people ` ) return count(distinct people.nationality)
+match (area_code_state: ` voter_1.area_code_state ` ) return count(*)
+match (contestants: ` voter_1.contestants ` ) return contestants.contestant_number,contestants.contestant_name order by contestants.contestant_name desc
+match (votes: ` voter_1.votes ` ) return votes.vote_id,votes.phone_number,votes.state
+match (area_code_state: ` voter_1.area_code_state ` ) return max(area_code_state.area_code),min(area_code_state.area_code)
+match (votes: ` voter_1.votes ` ) where votes.state = 'ca' return votes.created order by votes.created desc limit 1
+match (contestants: ` voter_1.contestants ` ) where contestants.contestant_name  < > 'jessie alloway' return contestants.contestant_name
+match (votes: ` voter_1.votes ` ) return distinct votes.state,votes.create
+match (votes: ` voter_1.votes ` ) where votes.state = 'ny' or votes.state = 'ca' return count(*)
+match (conductor: ` orchestra.conductor ` ) return count(*)
+match (conductor: ` orchestra.conductor ` ) return count(*)
+match (conductor: ` orchestra.conductor ` ) return conductor.name order by conductor.age asc
+match (conductor: ` orchestra.conductor ` ) return conductor.name order by conductor.age
+match (conductor: ` orchestra.conductor ` ) where conductor.nationality  < > 'usa' return conductor.name
+match (conductor: ` orchestra.conductor ` ) where conductor.nationality  < > 'usa' return conductor.name
+match (orchestra: ` orchestra.orchestra ` ) return orchestra.record_company order by orchestra.year_of_founded desc
+match (orchestra: ` orchestra.orchestra ` ) return orchestra.record_company order by orchestra.year_of_founded desc
+match (show: ` orchestra.show ` ) return avg(show.attendance)
+match (show: ` orchestra.show ` ) return avg(show.attendance)
+match (performance: ` orchestra.performance ` ) where performance.type  < > 'live final' return max(performance.share),min(performance.share)
+match (performance: ` orchestra.performance ` ) where performance.type  < > 'live final' return max(performance.share),min(performance.share)
+match (conductor: ` orchestra.conductor ` ) return count(distinct conductor.nationality)
+match (conductor: ` orchestra.conductor ` ) return count(distinct conductor.nationality)
+match (conductor: ` orchestra.conductor ` ) return conductor.name order by conductor.year_of_work desc
+match (conductor: ` orchestra.conductor ` ) return conductor.name order by conductor.year_of_work desc
+match (conductor: ` orchestra.conductor ` ) return conductor.name order by conductor.year_of_work desc limit 1
+match (conductor: ` orchestra.conductor ` ) return conductor.name order by conductor.year_of_work desc limit 1
+match (t1: ` orchestra.orchestra ` )-[]-(t2: ` orchestra.conductor ` ) return t1.name,t2.orchestration
+match (t1: ` orchestra.orchestra ` )-[]-(t2: ` orchestra.conductor ` ) return t1.name,t2.name
+match (t1: ` orchestra.orchestra ` )-[]-(t2: ` orchestra.conductor ` ) where t2.year_of_founded > 2008 return t1.name
+match (t1: ` orchestra.orchestra ` )-[]-(t2: ` orchestra.conductor ` ) where t2.year_of_founded > 2008 return t1.name
+match (orchestra: ` orchestra.orchestra ` ) with count(orchestra.record_company) as count, orchestra.record_company as record_company return record_company,count
+match (t1: ` orchestra.orchestra ` )-[]-(t2: ` orchestra.record_company ` ) with count(t2.record_company) as count, t2.record_company as record_company return count,record_company
+match (orchestra: ` orchestra.orchestra ` ) with count(orchestra.record_format) as count, orchestra.record_format as major_record_format return major_record_format order by count asc
+match (orchestra: ` orchestra.orchestra ` ) with count(orchestra.major_record_format) as count, orchestra.major_record_format as major_record_format return major_record_format order by count desc
+match (orchestra: ` orchestra.orchestra ` ) with count(orchestra.record_company) as count, orchestra.record_company as record_company return record_company order by count desc limit 1
+match (orchestra: ` orchestra.orchestra ` ) with count(orchestra.record_company) as count, orchestra.record_company as record_company return record_company order by count desc limit 1
+match (orchestra: ` orchestra.orchestra ` ) where not (orchestra: ` orchestra.orchestra ` )-[]-(: ` orchestra.performance ` ) return orchestra.name
+match (orchestra: ` orchestra.orchestra ` ) where not (orchestra: ` orchestra.orchestra ` )-[]-(: ` orchestra.performance ` ) return orchestra.orchestra
+match (orchestra: ` orchestra.orchestra ` ) where orchestra.major_record_format = 'cd' or orchestra.major_record_format = 'dvd' return count(*)
+match (orchestra: ` orchestra.orchestra ` ) where orchestra.major_record_format = 'cd' or orchestra.major_record_format = 'dvd' return count(*)
+match (highschooler: ` network_1.highschooler ` ) return count(*)
+match (highschooler: ` network_1.highschooler ` ) return count(*)
+match (highschooler: ` network_1.highschooler ` ) return highschooler.name,highschooler.grade
+match (highschooler: ` network_1.highschooler ` ) return highschooler.name,highschooler.grade
+match (highschooler: ` network_1.highschooler ` ) return distinct highschooler.grade
+match (highschooler: ` network_1.highschooler ` ) return distinct highschooler.grade
+match (highschooler: ` network_1.highschooler ` ) where highschooler.name = 'kyle' return distinct highschooler.grade
+match (highschooler: ` network_1.highschooler ` ) where highschooler.name = 'kyle' return highschooler.grade
+match (highschooler: ` network_1.highschooler ` ) where highschooler.grade = 10 return highschooler.name
+match (highschooler: ` network_1.highschooler ` ) where highschooler.grade = 10 return highschooler.name
+match (highschooler: ` network_1.highschooler ` ) where highschooler.name = 'kyle' return highschooler.id
+match (highschooler: ` network_1.highschooler ` ) where highschooler.name = 'kyle' return highschooler.id
+match (highschooler: ` network_1.highschooler ` ) where highschooler.grade = 9 or highschooler.grade = 10 return count(*)
+match (highschooler: ` network_1.highschooler ` ) where highschooler.grade = 9 or highschooler.grade = 10 return count(*)
+match (highschooler: ` network_1.highschooler ` ) with count(highschooler.grade) as count, highschooler.grade as grade return grade,count
+match (highschooler: ` network_1.highschooler ` ) with count(highschooler.grade) as count, highschooler.grade as grade return grade,count
+match (highschooler: ` network_1.highschooler ` ) with count(*) as count, highschooler.grade as grade where count >= 4 return grade
+match (highschooler: ` network_1.highschooler ` ) with count(*) as count, highschooler.grade as grade where count >= 4 return grade
+match (dogs: ` dog_kennels.dogs ` ) with dogs.owner_id as owner_id, count(dogs.owner_id) as count return owner_id,first_name,last_name order by count desc limit 1
+match (dogs: ` dog_kennels.dogs ` ) with dogs.owner_id as owner_id, count(dogs.owner_id) as count return owner_id,owners.first_name,dogs.last_name order by count desc limit 1
+match (t1: ` dog_kennels.professionals ` )-[]-(t2: ` dog_kennels.treatments ` ) with count(*) as count, t2.professional_id as professional_id, t1.role_code as role_code where count >= 2 return professional_id,role_code,first_name
+match (t1: ` dog_kennels.professionals ` )-[]-(t2: ` dog_kennels.treatments ` ) with count(*) as count, t2.professional_id as professional_id, t1.role_code as role_code, t1.first_name as first_name where count >= 2 return professional_id,role_code,first_name
+match (dogs: ` dog_kennels.dogs ` ) with dogs.breed_name as breed_name, count(dogs.breed_name) as count return breed_name order by count desc limit 1
+match (dogs: ` dog_kennels.dogs ` ) with dogs.breed_name as breed_name, count(dogs.breed_code) as count return breed_name order by count desc limit 1
+match (t1: ` dog_kennels.treatments ` )-[]-(t2: ` dog_kennels.professionals ` ) with count(*) as count, t2.professional_id as professional_id, t1.home_phone as home_phone where count >= 2 return professional_id,cell_number
+match (t1: ` dog_kennels.professionals ` )-[]-(t2: ` dog_kennels.treatments ` ) with count(*) as count, t2.professional_id as professional_id, t1.home_phone as home_phone where count >= 2 return professional_id,home_phone
+match (t1: ` dog_kennels.professionals ` )-[]-(t2: ` dog_kennels.treatments ` ) return t1.date_of_treatment,t2.first_name
+match (t1: ` dog_kennels.treatments ` )-[]-(t2: ` dog_kennels.professionals ` ) return t1.date_of_treatment,t2.first_name
+match (treatments: ` dog_kennels.treatments ` ) return treatments.cost_of_treatment,treatments.treatment_type_description
+match (treatments: ` dog_kennels.treatments ` ) return treatments.cost_of_treatment,treatments.treatment_type_description
+match (t1: ` dog_kennels.owners ` )-[]-(t2: ` dog_kennels.dogs ` ) return t1.first_name,t1.last_name,t2.size_code
+match (t1: ` dog_kennels.owners ` )-[]-(t2: ` dog_kennels.dogs ` ) return t1.first_name,t1.last_name,t2.size_code
+match (dogs: ` dog_kennels.dogs ` ) return dogs.first_name,dogs.name
+match (t1: ` dog_kennels.owners ` )-[]-(t2: ` dog_kennels.dogs ` ) return t1.first_name,t2.name
+match (t1: ` dog_kennels.owners ` )-[]-(t2: ` dog_kennels.dogs ` ) where t2.state = 'virginia' return t1.first_name,t2.name
+match (t1: ` dog_kennels.owners ` )-[]-(t2: ` dog_kennels.dogs ` ) where t2.state = 'virginia' return t1.first_name,t2.last_name
+match (t1: ` dog_kennels.dogs ` )-[t2: ` dog_kennels.treatments ` ]-(t3: ` dog_kennels.dogs ` ) return t3.date_arrived,t3.date_departed
+match (t1: ` dog_kennels.dogs ` )-[]-(t2: ` dog_kennels.treatments ` ) return t1.date_arrived,t2.date_departed
+match (professionals: ` dog_kennels.professionals ` ) where professionals.state = 'hawaii' or professionals.state = 'wisconsin' return professionals.email_address
+match (professionals: ` dog_kennels.professionals ` ) where professionals.state = 'hawaii' or professionals.state = 'wisconsin' return professionals.email_address
+match (dogs: ` dog_kennels.dogs ` ) return dogs.date_arrived,dogs.date_departed
+match (dogs: ` dog_kennels.dogs ` ) return dogs.date_arrived,dogs.date_departed
+match (t1: ` dog_kennels.dogs ` )-[]-(t2: ` dog_kennels.treatments ` ) return count(*)
+match (t1: ` dog_kennels.dogs ` )-[]-(t2: ` dog_kennels.treatments ` ) return count(distinct t1.name)
+match (t1: ` dog_kennels.professionals ` )-[]-(t2: ` dog_kennels.dogs ` ) return count(distinct t1.professional_id)
+match (t1: ` dog_kennels.professionals ` )-[]-(t2: ` dog_kennels.dogs ` ) return count(distinct t1.professional_id)
+match (professionals: ` dog_kennels.professionals ` ) where professionals.street ='.*[w|w]on.*' return professionals.role_code,professionals.city,professionals.state
+match (professionals: ` dog_kennels.professionals ` ) where professionals.street ='.*[w|w]on.*' return professionals.role_code,professionals.city,professionals.state
+match (owners: ` dog_kennels.owners ` ) where owners.state ='.*[n|n]on.*' return owners.first_name,owners.last_name,owners.email_address
+match (owners: ` dog_kennels.owners ` ) where owners.state ='.*[n|n]on.*' return owners.first_name,owners.last_name,owners.email_address
+match (treatments: ` dog_kennels.treatments ` ) return treatments.cost_of_treatment order by treatments.cost_of_treatment desc limit 1
+match (treatments: ` dog_kennels.treatments ` ) return treatments.cost_of_treatment order by treatments.date_of_treatment desc limit 1
+match (dogs: ` dog_kennels.dogs ` ) where not (dogs: ` dog_kennels.dogs ` )-[]-(: ` dog_kennels.treatments ` ) return count(*)
+match (dogs: ` dog_kennels.dogs ` ) where not (dogs: ` dog_kennels.dogs ` )-[]-(: ` dog_kennels.treatments ` ) return count(*)
+match (dogs: ` dog_kennels.dogs ` ) where not (dogs: ` dog_kennels.dogs ` )-[]-(: ` dog_kennels.owners ` ) return count(*)
+match (dogs: ` dog_kennels.dogs ` ) where not (dogs: ` dog_kennels.dogs ` )-[]-(: ` dog_kennels.owners ` ) return count(*)
+match (professionals: ` dog_kennels.professionals ` ) where not (professionals: ` dog_kennels.professionals ` )-[]-(: ` dog_kennels.treatments ` ) return count(*)
+match (professionals: ` dog_kennels.professionals ` ) where not (professionals: ` dog_kennels.professionals ` )-[]-(: ` dog_kennels.treatments ` ) return count(*)
+match (dogs: ` dog_kennels.dogs ` ) return dogs.age order by dogs.age desc limit 1
+match (dogs: ` dog_kennels.dogs ` ) return dogs.age order by dogs.age desc limit 1
+match (charges: ` dog_kennels.charges ` ) return charges.charge_type,charges.charge_amount
+match (charges: ` dog_kennels.charges ` ) return charges.charge_type,charges.charge_amount
+match (charges: ` dog_kennels.charges ` ) return charges.charge_amount order by charges.charge_amount desc limit 1
+match (charges: ` dog_kennels.charges ` ) return charges.charge_amount order by charges.charge_amount desc limit 1
+match (professionals: ` dog_kennels.professionals ` ) return professionals.email_address,professionals.cell_number,professionals.home_phone
+match (professionals: ` dog_kennels.professionals ` ) return professionals.email_address,professionals.cell_phone,professionals.home_phone
+match (dogs: ` dog_kennels.dogs ` ) return distinct dogs.breed_type,dogs.size_code
+match (dogs: ` dog_kennels.dogs ` ) return distinct dogs.breed_code,dogs.size_code
+match (singer: ` singer.singer ` ) return count(*)
+match (singer: ` singer.singer ` ) return count(*)
+match (singer: ` singer.singer ` ) return singer.name order by singer.net_worth_millions asc
+match (singer: ` singer.singer ` ) return singer.name order by singer.net_worth_millions asc
+match (singer: ` singer.singer ` ) return singer.birth_year,singer.citizenship
+match (singer: ` singer.singer ` ) return singer.birth_year,singer.citizenship
+match (singer: ` singer.singer ` ) where singer. citizenship  < > 'france' return singer.name
+match (singer: ` singer.singer ` ) where singer.citizenship  < > 'france' return singer.name
+match (singer: ` singer.singer ` ) where singer.birth_year = 1948 or singer.birth_year = 1949 return singer.name
+match (singer: ` singer.singer ` ) where singer.birth_year = 1948 or singer.birth_year = 1949 return singer.name
+match (singer: ` singer.singer ` ) return singer.name order by singer.net_worth_millions desc limit 1
+match (singer: ` singer.singer ` ) return singer.name order by singer.net_worth_millions desc limit 1
+match (singer: ` singer.singer ` ) with singer.citizenship as citizenship, count(singer.citizenship) as count return citizenship,count
+match (singer: ` singer.singer ` ) with singer.citizenship as citizenship, count(singer.citizenship) as count return citizenship,count order by count desc limit 1
+match (singer: ` singer.singer ` ) with singer.citizenship as citizenship, count(singer.citizenship) as count return citizenship order by count desc limit 1
+match (singer: ` singer.singer ` ) with singer.citizenship as citizenship, count(singer.citizenship) as count return citizenship order by count desc limit 1
+match (t1: ` singer.song ` )-[]-(t2: ` singer.singer ` ) return t2.title,t2.name order by t2.net_worth_millions desc limit 1
+match (song: ` singer.song ` ) return song.title,song.name order by song.net_worth_millions desc limit 1
+match (t1: ` singer.singer ` )-[]-(t2: ` singer.song ` ) where t2.sales > 300000 return distinct t1.name
+match (song: ` singer.song ` ) where singer.sales > 300000 return distinct singer.name
+match (song: ` singer.song ` ) with count(*) as count, song.name as name where count > 1 return name order by count desc limit 1
+match (t1: ` singer.singer ` )-[]-(t2: ` singer.song ` ) with count(*) as count, t2.name as name where count > 1 return name order by count desc limit 1
+match (singer: ` singer.singer ` ) where not (singer: ` singer.singer ` )-[]-(: ` singer.song ` ) return singer.name
+match (singer: ` singer.singer ` ) where not (singer: ` singer.singer ` )-[]-(: ` singer.song ` ) return singer.name order by singer.net_worth_millions desc limit 1
+match (other_available_features: ` real_estate_properties.other_available_features ` ) return count(*)
+match (other_available_features: ` real_estate_properties.other_available_features ` ) where other_available_features.feature_name = 'aircon' return other_available_features.feature_type_name
+match (property_types: ` real_estate_properties.property_types ` ) return property_types.property_type_description
+match (properties: ` real_estate_properties.properties ` ) where properties.property_type_code = 'apartment' or properties.room_count > 1 return properties.property_name
