@@ -30,7 +30,6 @@ from transformers.models.albert.modeling_albert import (
     AlbertForTokenClassification,
     AlbertModel,
 )
-# ZZY NOTE: they do not provide modeling_bart.py script in models.adater folder. So I copy the one in prompt folder here. 
 # Instead of loading the BART from the transformers==4.9.1, we choose to load from our own prefix-tuning version.
 from .modeling_bart import (
     BartForConditionalGeneration,
