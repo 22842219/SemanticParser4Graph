@@ -241,6 +241,7 @@ def eval_exec_match(graph, p_str, g_str):
         return False
 
     cypher_res = graph.run(g_str).data()
+
     q_res = []
     for dict_q in cypher_res:
         q_res.append(tuple(dict_q.values()))
@@ -254,7 +255,7 @@ def eval_exec_match(graph, p_str, g_str):
             if isinstance(v, Node) or isinstance(v, Relationship):
                 continue
             else:
-                q_res.append(tuple(v))
+                p_res.append(tuple(dict_p.values()))
     # sort results for the comparision
 
     if not all(map(lambda x: all(x), p_res)): # check any of the element is None.
