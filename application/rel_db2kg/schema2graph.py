@@ -251,13 +251,13 @@ class RelDBDataset:
     def __init__(self, paths,  logger):
         self.rel_dbs = self.read_dataset(paths)
         self.logger = logger
-     
+
     def read_dataset(self, paths):
         rel_dbs = []
 
         for i, db_path in enumerate(paths):
             path_compodbnents = db_path.split(os.sep)
-            db_name = path_compodbnents[-1].split('.')[0]
+            db_name = path_compodbnents[-1].split('.')[0] 
             drop_flag = False
             print(f'db_name: {db_name}, {i}, {db_path}' )
 
@@ -277,18 +277,19 @@ class RelDBDataset:
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
-            # ['cre_Theme_park', 'department_management', 'musical']
+            # ['cre_Theme_park', 'department_management', 'musical', 'concert_singer']
             if db_name:
                 # create realational database object.
                 rel_db_object = RelDB(fdb = db_path, db_name=db_name)
-            
+                
                 # engine = rel_db_object.engine
                 table_infos = rel_db_object.engine.get_table_names()
                 for table_info in table_infos:
-                    table_name = table_info[0]
+                    table_name =  table_info[0]  
+
                     # Export tables to neo4j/import as csv files.                           
                     table_records = rel_db_object.engine.get_table_values(table_name)
-                    table_headers = [desc[0] for desc in table_records.description]    
+                    table_headers = [desc[0] for desc in table_records.description]     
                     print(f'db_name: {db_name}, table_name: {table_name}, table_headers {table_headers}' )
                    
                     # df = pd.DataFrame(table_records.fetchall(), columns = table_headers)
@@ -366,14 +367,15 @@ class RelDB2KGraphBuilder(RelDBDataset):
         Note: defined_fields and node_normaliser are placeholders. 
     """
 
-    def __init__( self, paths, logger, env_file, node_normaliser=None, defined_fields=None):
+    def __init__( self, paths, logger, env_file, if_cased, node_normaliser=None, defined_fields=None):
         super().__init__(paths, logger )
         self.paths = paths
         self.logger = logger
         self.node_normaliser = node_normaliser
         self.defined_fields = defined_fields
         self.env_file = env_file
-    
+        self.if_cased = if_cased
+
         env = Env()
         env.read_env(self.env_file)
         self.graph = Graph(password=env("GRAPH_PASSWORD"))
@@ -445,10 +447,11 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     # 2) the examples, that exist compound primary keys, but no foreign keys. 
                     # e.g., in musical.db, the table `musical` is the case.
 
-
                     for i, row_dict in enumerate(table.rows):
-                        print(row_dict)
-                        r = Node('{}.{}'.format(db.db_name, table.table_name), **row_dict)
+                        graph_row_dict = dict((k.lower(), v) for k, v in row_dict.items()) if not self.if_cased else row_dict
+                        graph_db_name = db.db_name if self.if_cased else db.db_name.lower()
+                        graph_node_label = table.table_name if self.if_cased else table.table_name.lower()
+                        r = Node('{}.{}'.format(graph_db_name, graph_node_label), **graph_row_dict)
                         print("row node:", r)
                         tx.create(r)
             
@@ -565,7 +568,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     print(lookup_dict, matched, total)
                     for key, values in lookup_dict.items():
                         matched[key.lower()]=[]
-                        cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), db.db_name, key)
+                        graph_db_name = db.db_name if self.if_cased else db.db_name.lower()
+                        graph_tag_name = key if self.if_cased else key.lower()
+                        cypher_match =  "match ({}:`{}.{}`) ".format( key.lower(), graph_db_name, graph_tag_name)
                         cypher_where = []
                         for cond_i in values:
                             if isinstance(cond_i, str):
@@ -573,7 +578,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             for k, v in cond_i.items():
                                 if v=='':
                                     v='""'
-                                cypher_where.append('{}={}'.format(k, v))
+                                cypher_where.append('{}={}'.format(k if self.if_cased else k.lower(), v))
                         if cypher_where!=[]:
                             cypher_where = ' where ' + ' and '.join(cypher_where) 
                         else:
@@ -641,7 +646,10 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         # if len(ref_constraints)==2 and bool(primary_keys) and not table.check_compound_pk:
                         for start in refs_matched[ref_constraints[1].lower()]:
                             for end in refs_matched[ref_constraints[0].lower()]:
-                                rel = Relationship(start, '{}.{}'.format(db.db_name, table_name), end, **update_row_dict) 
+                                graph_db_name = db.db_name if self.if_cased else db.db_name.lower()
+                                graph_edge_type = table_name if self.if_cased else table_name.lower()
+                                graph_row_dict = update_row_dict if self.if_cased else dict((k.lower(), v) for k, v in update_row_dict.items())  
+                                rel = Relationship(start, '{}.{}'.format(graph_db_name, graph_edge_type), end, **graph_row_dict) 
                                 tx.create(rel)
                         # if len(ref_matched)==2:
                         #     # the reason to choose the second element in matched nodes as the start node, is we observe the nature of relational database
@@ -682,7 +690,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                         print(f'cypher_query: {rel_checker}, db_name: {db.db_name}')
                                         print(f'returned_rels: {res}, db_name: {db.db_name}')
                                         if not res:
-                                            rel = Relationship(ref_node, '{}_HAS_{}'.format( str(ref_node.labels)[1:].strip('`'), str(this_node.labels)[1:].strip('`')), this_node) 
+                                            start_node_label = str(ref_node.labels)[1:].strip('`') if self.if_cased else str(ref_node.labels)[1:].strip('`').lower()
+                                            end_node_label = str(this_node.labels)[1:].strip('`') if self.if_cased else str(this_node.labels)[1:].strip('`').lower()
+                                            rel = Relationship(ref_node, '{}_HAS_{}'.format( start_node_label, end_node_label ), this_node) 
                                             tx.create(rel)  
 
         self.graph.commit(tx)
@@ -724,14 +734,21 @@ def main():
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
     parser.add_argument('--spider', help='build graph from spider.', action='store_true')
     parser.add_argument('--wikisql', help='build graph from wikisql.', action='store_true')
+    parser.add_argument('--uncased', help='build graph from spider and lowercasing all properties.', action='store_true')
     args = parser.parse_args()
 
     if args.spider:
         raw_spider_folder = os.path.join(raw_folder, 'spider')
         db_folder = os.path.join(raw_spider_folder,  'database')
         spider_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
-        for i, db_path in enumerate(spider_dbs):
-            RelDB2KGraphBuilder([db_path],  Logger(), env_file).build_graph(index = i)
+       
+        if args.uncased:
+            for i, db_path in enumerate(spider_dbs):
+                RelDB2KGraphBuilder([db_path],  Logger(), env_file, if_cased=False).build_graph(index = i)
+        else:
+            for i, db_path in enumerate(spider_dbs):
+                RelDB2KGraphBuilder([db_path],  Logger(), env_file, if_cased=True).build_graph(index = i)
+
     
     if args.wikisql:
         raw_wikisql_folder = os.path.join(raw_folder, 'wikisql1.1')

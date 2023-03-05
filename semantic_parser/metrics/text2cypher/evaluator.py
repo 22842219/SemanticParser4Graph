@@ -235,12 +235,13 @@ def eval_exec_match(graph, p_str, g_str):
     return 1 if the values between prediction and gold are matching.
     """
 
+
     try:
-        prediction_res = graph.run(p_str).data()
+        prediction_res = graph.run(p_str.lower()).data()
     except:
         return False
 
-    cypher_res = graph.run(g_str).data()
+    cypher_res = graph.run(g_str.lower()).data()
 
     q_res = []
     for dict_q in cypher_res:

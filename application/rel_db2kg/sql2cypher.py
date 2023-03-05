@@ -1290,7 +1290,7 @@ class Formatter(SchemaGroundedTraverser):
 
 
 
-def build_lookup_dict(db_paths, folder):
+def build_lookup_dict(db_paths, folder, uncased_flag):
 	'''
 	Return: {'db_name':{'table_name': [table_headers]}}
 	'''
@@ -1301,8 +1301,7 @@ def build_lookup_dict(db_paths, folder):
 
 	for db_path in db_paths:
 		path_compodbnents = db_path.split(os.sep)                         
-		db_name = path_compodbnents[-2]
-
+		db_name = path_compodbnents[-2].lower() if uncased_flag else path_compodbnents[-2]
 		# create a dictionary of tables for each database. 
 		if db_name not in lookup_dict:
 			lookup_dict[db_name] = {}    
@@ -1312,20 +1311,23 @@ def build_lookup_dict(db_paths, folder):
 		table_infos = engine.get_table_names()
 
 		for table_info in table_infos:
-			table_name = table_info[0]                 
+			table_name = table_info[0].lower()  if uncased_flag else table_info[0]
+
 			primary_keys = engine.get_primay_keys(table_name) #R[(pk, )]
 			table_constraints, pks_fks_dict =  engine.get_outbound_foreign_keys(table_name) #R[{"column": from_, "ref_table": table_name, "ref_column": to_}]
 			
 			compound_pk_check =  engine.check_compound_pk(primary_keys)
 			result = engine.get_table_values(table_name)
 			headers = [desc[0] for desc in result.description]   
+			if uncased_flag:
+				headers = [h.lower() for h in headers]
 
 			if compound_pk_check and len(table_constraints)==2:  # Note: atm we just focus on binary table relationship.
 				table_name = 'rel_{}'.format(table_name)
 			if table_name not in lookup_dict[db_name]:
 				lookup_dict[db_name][table_name] = headers
 				for pk in primary_keys:
-					pks_lookup_dict[db_name][table_name] = pk[0]
+					pks_lookup_dict[db_name][table_name] = pk[0].lower() if uncased_flag else pk[0]
 
 	fields_path = os.path.join(folder, 'lookup_dict.json')
 	with open(fields_path, "w") as f:
@@ -1372,7 +1374,7 @@ def execution_accuracy(metrics_file, split, correct, incorrect, invalid_parsed_s
 		
 
 def main():
-	import glob
+	import glob, argparse
 
 	from cypher_parser import CyqueryStatmentParser
 	from pygments.lexers import get_lexer_by_name
@@ -1380,6 +1382,11 @@ def main():
 	lexer = get_lexer_by_name("py2neo.cypher")
 	import configparser
 	import shutil
+
+
+	parser = argparse.ArgumentParser(description='relational database to graph database.')
+	parser.add_argument('--uncased', help='build graph from spider and lowercasing all properties.', action='store_true')
+	args = parser.parse_args()
 
 
 	config = configparser.ConfigParser()
@@ -1409,7 +1416,12 @@ def main():
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
 
-	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_out_folder)
+	if args.uncased:
+		bool_uncased = True
+	else:
+		bool_uncased = False
+
+	lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_out_folder, uncased_flag = bool_uncased)
 
 	all_db_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))]))
 	filtered_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))  if every['num_of_rows']>4000]))
@@ -1449,17 +1461,18 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 
-			# if db_name in graph_db_list:
-			if db_name:
+			# ['cre_Theme_park', 'department_management', 'musical', 'concert_singer']
+			if db_name in ['cre_theme_park', 'department_management', 'musical', 'concert_singer']:
 				print(f'hey db: {db_name}')
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
 						evaluate[db_name]=[]
 					
 				# 1. Extract database name, questions and SQL queries
-				all_table_fields = lookup_dict[db_name]	
+
+				all_table_fields = lookup_dict[db_name.lower() if bool_uncased else db_name]	
 				question = every['question']
-				sql_query = every['query']	
+				sql_query = every['query']
 
 				if 'intersect' in sql_query.lower():
 					intersect_sql[db_name].append(i)
@@ -1492,14 +1505,16 @@ def main():
 				print(f'sql: {sql_query}')
 				print(f'sql_ans: {sql_result}')
 				print("**************SQL Query***************")
-
+				graph_db_name = every['db_id'].lower() if bool_uncased else every['db_id']
+				print("graph_db_name", graph_db_name)
 				try:
 					# 3. Convert SQL query to Cypher query.	
 					parsed_sql = parse(sql_query)	
 					print(f'parsed_sql: {parsed_sql}')
-
+					
 					try:
-						formatter  = Formatter( db_name, all_table_fields, graph)
+						
+						formatter  = Formatter( graph_db_name, all_table_fields, graph)
 						sql2cypher = formatter.format(parsed_sql)
 						print("**************Cypher Query***************")
 						print(sql2cypher)
@@ -1512,21 +1527,28 @@ def main():
 						# 4. Execute cypher query.. 
 						if sql2cypher:
 							cypher_res = graph.run(sql2cypher).data()
+							# 1) sort by returning fields
+							# for i, each_dict in enumerate(cypher_res): 
+							# 	myKeys = list(each_dict.keys())
+							# 	myKeys.sort()
+							# 	cypher_res[i]= {i: each_dict[i] for i in myKeys}
+							# print(f'cypher_res :{cypher_res}')
 							cypher_ans = []
 							for dict_ in cypher_res:
 								# if tuple(dict_.values()) not in cypher_ans:
 								cypher_ans.append(tuple(dict_.values()))
 			
 							# sort results for the comparision
-							cypher_sorted = sorted(cypher_ans, key=lambda x: x[0])
-							sql_sorted =  sorted(sql_result, key=lambda x: x[0]) 
+							# print(f'cypher_ans:', cypher_ans)
+							cypher_sorted = sorted(cypher_ans, key=lambda x: x[0] if bool(x[0]) else 0)
+							sql_sorted =  sorted(sql_result, key=lambda x: x[0] if bool(x[0]) else 0)
 							# print(f'sql_sorted: {sql_sorted}')
 							# print(f'cypher_sorted: {cypher_sorted}')
 							
 
 							if not set(cypher_sorted)-set(sql_sorted):
 								print(f'correct_ans: {cypher_ans}') 
-								correct_qa_pairs.append({'db_id':db_name, 'sql': sql_query, 'cypher_query':sql2cypher,\
+								correct_qa_pairs.append({'db_id':graph_db_name, 'sql': sql_query, 'cypher_query':sql2cypher,\
 								'parsed_cypher':tokenized_statment, 'question':question,
 								'answers':cypher_ans})
 								spider_sub_pairs.append(data[i])
@@ -1534,21 +1556,21 @@ def main():
 								if data[i]['db_id'] not in seleted_rel_dbs:
 									seleted_rel_dbs.append(data[i]['db_id'])
 									for db_tables in tables:
-										if db_name==db_tables['db_id']:
+										if graph_db_name==db_tables['db_id']:
 											spider_sub_tables.append(db_tables)	
 							else:
 								print(f'incorrect_ans: {cypher_ans}')
-								incorrect[db_name].append(i)
-								incorrect_qa_pairs.append({'db_id':db_name, 'query':question, \
+								incorrect[graph_db_name].append(i)
+								incorrect_qa_pairs.append({'db_id':graph_db_name, 'query':question, \
 								'sql_query':sql_query, 'parsed_sql':parsed_sql, 'sql_ans':sql_result,\
-								'cypher_query':sql2cypher, 'cypher_ans':cypher_ans})
+								'sql2cypher':sql2cypher, 'cypher_ans':cypher_ans})
 					except:
 						# accumulate invalid or none generated cypher queries.
-						incorrect[db_name].append(i)
+						incorrect[graph_db_name].append(i)
 				
 				except:
-					invalid_parsed_sql[db_name].append(i)
-					logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
+					invalid_parsed_sql[graph_db_name].append(i)
+					logger.error('Attention in {}.db. Can not parse sql query:{}'.format(graph_db_name, sql_query))
 
 		metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics.json')
 		metrics = execution_accuracy(metrics_file, split, len(correct_qa_pairs), incorrect, invalid_parsed_sql,
