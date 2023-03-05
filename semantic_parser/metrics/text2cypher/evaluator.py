@@ -40,17 +40,43 @@ neo4j_user = filenames['neo4j_user']
 neo4j_password = filenames['neo4j_password']
 graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
-schema_fpath = '/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/data/text2cypher/schema.json'
+schema_fpath = '/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/data/text2cypher/cased/schema.json'
 with open(schema_fpath, 'r', encoding="utf-8") as f:
     schema = json.load(f)
     print(len(schema))
 
-def prediction_normalisation(preds):
+def get_uncased_schema(schema):
+    uncased_schema = {}
+    for db, cont in schema.items():
+        uncased_schema[db.lower()]={}
+        for k, v in cont.items():
+            if isinstance(v, str):
+                uncased_schema[db.lower()][k]=v.lower()
+            if isinstance(v, list):
+                uncased_schema[db.lower()][k]=[item.lower() if isinstance(item, str) else item for item in v ]
+            if isinstance(v, dict):
+                uncased_schema[db.lower()][k.lower()] = {}
+                for kk, vv in v.items():
+                    uncased_schema[db.lower()][k.lower()][kk.lower()] = vv
+    for db, cont in uncased_schema.items():
+        for k, v in cont.items():
+            if k=='property_names':
+                cased_property_names = v
+                for i, each in enumerate(cased_property_names):
+                    if isinstance(each, list) and i !=0:
+                        for j, element in enumerate(each):
+                            if isinstance(element, str):
+                                uncased_schema[db][k][i][j]= element.lower()  
+    return uncased_schema
+
+def prediction_normalisation(preds, if_cased):
     # tag_pattern = re.compile(r'(`*.*`')	
     preds = preds.replace(" ` ", "`").replace(' -[', '-[').replace(']- ', ']-')
     print(f'preds: {preds}')
     mentioned_tag_prop_pairs = {}
     tag_span_start_id=tag_span_end_id = 0
+
+    schema = get_uncased_schema(schema) if not if_cased else schema
     for id, c in enumerate(preds):
         if c == '`': 
             # the indicator starting postprocessing the predicted query, 
@@ -93,9 +119,10 @@ def prediction_normalisation(preds):
 class Evaluator:
     """A simple evaluator"""
 
-    def __init__(self, graph, etype):
+    def __init__(self, graph, etype, if_cased):
         self.graph = graph
         self.etype = etype
+        self.if_cased = if_cased
 
         self.scores = {
                 "count": 0,
@@ -114,7 +141,10 @@ class Evaluator:
         # print(f'post processed predicted by removing space: {predicted}')
         # print(f'gold query: {gold}')
 
-        predicted = prediction_normalisation(predicted)
+
+        predicted = prediction_normalisation(predicted, self.if_cased)
+
+
         # print(f'normalised_predicted: {predicted}')
         
         if isValidCypher(predicted, self.graph):
@@ -136,8 +166,8 @@ class Evaluator:
         finalize(self.scores, self.etype)
 
 
-def compute_execuation_acc_metric(predictions, references) -> Dict[str, Any]:
-    evaluator = Evaluator(graph, "all")
+def compute_execuation_acc_metric(predictions, references, if_cased) -> Dict[str, Any]:
+    evaluator = Evaluator(graph, "all", if_cased=if_cased)
     for prediction, reference in zip(predictions, references):
         turn_idx = reference.get("turn_idx", 0)
         # skip final utterance-query pairs
@@ -153,7 +183,7 @@ class EvaluateTool(object):
     def __init__(self, args):
         self.args = args
 
-    def evaluate(self, preds, golds, section):
+    def evaluate(self, preds, golds, section, if_cased):
     
         if self.args.seq2seq.target_with_db_id:
             # Remove database id from all predictions
@@ -161,7 +191,7 @@ class EvaluateTool(object):
             preds = [pred.split("|", 1)[-1].strip() for pred in preds]
             # print(f'heyyyyyyyyyyy preds in evaluator: {preds}')
 
-        exact_match = compute_execuation_acc_metric(preds, golds)
+        exact_match = compute_execuation_acc_metric(preds, golds, if_cased)
         # test_suite = compute_test_suite_metric(preds, golds, db_dir=self.args.test_suite_db_dir)
 
         return {**exact_match}
@@ -208,7 +238,7 @@ def print_scores(scores, etype):
     #     )
 
 
-def evaluate(gold, predict, graph, etype):
+def evaluate(gold, predict, graph, etype, if_cased):
     with open(gold) as f:
         glist = [l.strip().split("\t") for l in f.readlines() if len(l.strip()) > 0]
 
@@ -217,7 +247,7 @@ def evaluate(gold, predict, graph, etype):
     
     # plist = [("MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count")]
     # glist = [("MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count")]
-    evaluator = Evaluator(graph, etype)
+    evaluator = Evaluator(graph, etype, if_cased)
     results = []
     for predicted, gold in zip(plist, glist):
         results.append(evaluator.evaluate_one(gold, predicted))
@@ -276,11 +306,11 @@ def eval_exec_match(graph, p_str, g_str):
         return  False
 
 
-def main(gold, pred, graph, etype, output):
+def main(gold, pred, graph, etype, output, if_cased):
     if etype not in [ 'exec', 'all']:
         raise ValueError()
 
-    results = evaluate(gold, pred, graph, etype)
+    results = evaluate(gold, pred, graph, etype, if_cased)
     if output:
         with open(output, "w") as f:
             json.dump(results, f)
@@ -291,6 +321,7 @@ if __name__ == "__main__":
     parser.add_argument("--gold", dest="gold", type=str)
     parser.add_argument("--pred", dest="pred", type=str)
     parser.add_argument("--etype", dest="etype", type=str)
+    parser.add_argument("--if_cased", dest="etype", type=bool)
     parser.add_argument("--output")
     args = parser.parse_args()
 
@@ -306,4 +337,4 @@ if __name__ == "__main__":
     graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
 
-    main(args.gold, args.pred, graph, args.etype, args.output)
+    main(args.gold, args.pred, graph, args.etype, args.output, args.if_cased)

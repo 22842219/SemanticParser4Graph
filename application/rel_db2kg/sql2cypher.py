@@ -1364,10 +1364,9 @@ def execution_accuracy(metrics_file, split, correct, incorrect, invalid_parsed_s
 					'report of `invalid_parsed`, `intersect`, `except queries`' : invalid_report
 				}
 		data.append(every_metric)
-
-		if len(data)==2:
-			with open(metrics_file, 'w')  as out:
-				json.dump(data, out, indent = 4)
+		
+		with open(metrics_file, 'w')  as out:
+			json.dump(data, out, indent = 4)
 		
 		return data
 
@@ -1461,8 +1460,9 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 
-			# ['cre_Theme_park', 'department_management', 'musical', 'concert_singer']
-			if db_name in ['cre_theme_park', 'department_management', 'musical', 'concert_singer']:
+			# cased: ['cre_Theme_park', 'department_management', 'musical', 'concert_singer']
+			# uncased: ['cre_theme_park', 'department_management', 'musical', 'concert_singer']
+			if db_name:
 				print(f'hey db: {db_name}')
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
