@@ -4,8 +4,19 @@
 Note: This README file is inspired by [Spider](https://github.com/taoyds/spider).
 
 ### :point_right: Changelog
+- `05/03/2023`
+    - design two baseline approaches.
+        - text2cypher
+        - text2sql2cypher
+    - three evaluation metrics.
+        - evaulation accuracy
+        - edit similarity
+        - bleu
+    - two evaluation aspects.
+        - cased prediction and ground truth
+        - uncased prediction and ground truth
 
-- `30/01/2023` 
+<!-- - `30/01/2023` 
     - Reformat input dataset which includes three json files, namely train.json, dev.json and schema.json. 
     - Create a small dataset in `department_management` domain.
 -  `31/01/2023`
@@ -54,7 +65,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
                     - **num_train_epochs** : len(training data)/batch_size (to avoid overfitting)
                     - **generation_num_beams**: 4 is bettern than 2. 
                     - **generation_max_length**: 512 (as long as it does not exceed the transformers configuration threshold.)
-                    - **larning_rate**: 1e-4 is kinda enough for the Adam optimization
+                    - **larning_rate**: 1e-4 is kinda enough for the Adam optimization -->
 
 
 ### :point_right: Submission Plan
@@ -88,10 +99,10 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
         - third round review
     - mile stone 5: 14th March, 2023
         - submit the paper. 
-
+<!-- 
 ### :point_right: TODO LIST
--`20/02/2024`
-    - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
+<!-- -`20/02/2024` -->
+    <!-- - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
     - evaluator post processing
     - add codeGPT?
     
@@ -102,7 +113,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
     - Result Visualisation 
 
-- cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match.
+- cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match. --> -->
 
 ### :point_right: Environment
 - CUDA 11.4
