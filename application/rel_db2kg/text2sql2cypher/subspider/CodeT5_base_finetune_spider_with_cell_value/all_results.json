@@ -1,0 +1,22 @@
+{
+    "epoch": 12.2,
+    "eval_META_TUNING/spider_with_cell.cfg/exact_match": 0.6283687943262412,
+    "eval_META_TUNING/spider_with_cell.cfg/exec": 0.6680851063829787,
+    "eval_avr": 0.6482269503546099,
+    "eval_loss": 0.2974526584148407,
+    "eval_runtime": 400.0194,
+    "eval_samples": 705,
+    "eval_samples_per_second": 1.762,
+    "predict_META_TUNING/spider_with_cell.cfg/exact_match": 0.6283687943262412,
+    "predict_META_TUNING/spider_with_cell.cfg/exec": 0.6680851063829787,
+    "predict_avr": 0.6482269503546099,
+    "predict_loss": 0.2974526584148407,
+    "predict_runtime": 388.7504,
+    "predict_samples": 705,
+    "predict_samples_per_second": 1.814,
+    "train_loss": 0.06844162747263909,
+    "train_runtime": 19902.6317,
+    "train_samples": 4730,
+    "train_samples_per_second": 23.766,
+    "train_steps_per_second": 1.482
+}
