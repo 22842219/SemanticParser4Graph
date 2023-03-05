@@ -1,0 +1,782 @@
+[
+    {
+        "db_id": "concert_singer",
+        "question": "What is the average, minimum, and maximum age for all French singers?",
+        "sql_ground": "SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'",
+        "text2sql": "select avg(age), min(age), max(age) from singer where name = \"French\"",
+        "sql2cypher": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.name = 'French'\nRETURN avg(singer.age),min(singer.age),max(singer.age)",
+        "cypher_ans": [
+            [
+                null,
+                null,
+                null
+            ]
+        ]
+    },
+    {
+        "db_id": "car_1",
+        "question": "What is the number of car models that are produced by each maker and what is the id and full name of each maker?",
+        "sql_ground": "SELECT Count(*) ,  T2.FullName ,  T2.id FROM MODEL_LIST AS T1 JOIN CAR_MAKERS AS T2 ON T1.Maker  =  T2.Id GROUP BY T2.id;",
+        "text2sql": "select count(*), maker from car_makers group by maker",
+        "sql2cypher": "MATCH (car_makers:`car_1.car_makers`)\nWITH car_makers.maker AS maker, count(car_makers.maker) AS count\nRETURN count,maker",
+        "cypher_ans": [
+            [
+                1,
+                "amc"
+            ],
+            [
+                1,
+                "volkswagen"
+            ],
+            [
+                1,
+                "bmw"
+            ],
+            [
+                1,
+                "gm"
+            ],
+            [
+                1,
+                "ford"
+            ],
+            [
+                1,
+                "chrysler"
+            ],
+            [
+                1,
+                "citroen"
+            ],
+            [
+                1,
+                "nissan"
+            ],
+            [
+                1,
+                "fiat"
+            ],
+            [
+                1,
+                "honda"
+            ],
+            [
+                1,
+                "mazda"
+            ],
+            [
+                1,
+                "daimler benz"
+            ],
+            [
+                1,
+                "opel"
+            ],
+            [
+                1,
+                "peugeaut"
+            ],
+            [
+                1,
+                "renault"
+            ],
+            [
+                1,
+                "saab"
+            ],
+            [
+                1,
+                "subaru"
+            ],
+            [
+                1,
+                "toyota"
+            ],
+            [
+                1,
+                "triumph"
+            ],
+            [
+                1,
+                "volvo"
+            ],
+            [
+                1,
+                "kia"
+            ],
+            [
+                1,
+                "hyundai"
+            ]
+        ]
+    },
+    {
+        "db_id": "car_1",
+        "question": "Which model saves the most gasoline? That is to say, have the maximum miles per gallon.",
+        "sql_ground": "SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id ORDER BY T2.mpg DESC LIMIT 1;",
+        "text2sql": "select model, max(mpg) from model_list group by model order by count(*) desc limit 1",
+        "sql2cypher": "MATCH (model_list:`car_1.model_list`)\nWITH model_list.model AS model, count(model_list.model) AS count\nRETURN model,count\nORDER BY count DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "amc",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "car_1",
+        "question": "What is the average edispl for all volvos?",
+        "sql_ground": "SELECT avg(T2.edispl) FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T1.Model  =  'volvo';",
+        "text2sql": "select avg(edispl) from cars_data",
+        "sql2cypher": "MATCH (cars_data:`car_1.cars_data`)\nRETURN avg(cars_data.edispl)",
+        "cypher_ans": [
+            [
+                194.77955665024618
+            ]
+        ]
+    },
+    {
+        "db_id": "car_1",
+        "question": "What model has the most different versions?",
+        "sql_ground": "SELECT Model FROM CAR_NAMES GROUP BY Model ORDER BY count(*) DESC LIMIT 1;",
+        "text2sql": "select model from model_list group by model order by count(*) desc limit 1",
+        "sql2cypher": "MATCH (model_list:`car_1.model_list`)\nWITH model_list.model AS model, count(model_list.model) AS count\nRETURN model\nORDER BY count DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "amc"
+            ]
+        ]
+    },
+    {
+        "db_id": "flight_2",
+        "question": "Which city has the most frequent destination airport?",
+        "sql_ground": "SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1",
+        "text2sql": "select city from airports group by city order by count(*) desc limit 1",
+        "sql2cypher": "MATCH (airports:`flight_2.airports`)\nWITH airports.city AS city, count(airports.city) AS count\nRETURN city\nORDER BY count DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "Albany "
+            ]
+        ]
+    },
+    {
+        "db_id": "flight_2",
+        "question": "Which city is the most frequent source airport?",
+        "sql_ground": "SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.SourceAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1",
+        "text2sql": "select city from airports group by city order by count(*) desc limit 1",
+        "sql2cypher": "MATCH (airports:`flight_2.airports`)\nWITH airports.city AS city, count(airports.city) AS count\nRETURN city\nORDER BY count DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                "Albany "
+            ]
+        ]
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "question": "What is the number of employees from each city?",
+        "sql_ground": "SELECT count(*) ,  city FROM employee GROUP BY city",
+        "text2sql": "select city, count(*) from employee group by city",
+        "sql2cypher": "MATCH (employee:`employee_hire_evaluation.employee`)\nWITH count(employee.city) AS count, employee.city AS city\nRETURN city,count",
+        "cypher_ans": [
+            [
+                "Bristol",
+                3
+            ],
+            [
+                "Bath",
+                3
+            ],
+            [
+                "Wasps",
+                2
+            ],
+            [
+                "Sale",
+                1
+            ],
+            [
+                "Leicester",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "question": "Count the number of employees for each city.",
+        "sql_ground": "SELECT count(*) ,  city FROM employee GROUP BY city",
+        "text2sql": "select city, count(*) from employee group by city",
+        "sql2cypher": "MATCH (employee:`employee_hire_evaluation.employee`)\nWITH count(employee.city) AS count, employee.city AS city\nRETURN city,count",
+        "cypher_ans": [
+            [
+                "Bristol",
+                3
+            ],
+            [
+                "Bath",
+                3
+            ],
+            [
+                "Wasps",
+                2
+            ],
+            [
+                "Sale",
+                1
+            ],
+            [
+                "Leicester",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "question": "Find the number of shops in each location.",
+        "sql_ground": "SELECT count(*) ,  LOCATION FROM shop GROUP BY LOCATION",
+        "text2sql": "select location, count(*) from shop group by location",
+        "sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nWITH shop.location AS location, count(shop.location) AS count\nRETURN location,count",
+        "cypher_ans": [
+            [
+                "Valkeakoski",
+                1
+            ],
+            [
+                "Helsinki",
+                1
+            ],
+            [
+                "Espoo",
+                1
+            ],
+            [
+                "Turku",
+                1
+            ],
+            [
+                "Jakobstad",
+                1
+            ],
+            [
+                "Kotka",
+                1
+            ],
+            [
+                "Kuopio",
+                1
+            ],
+            [
+                "Lahti",
+                1
+            ],
+            [
+                "Mariehamn",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "question": "How many shops are there in each location?",
+        "sql_ground": "SELECT count(*) ,  LOCATION FROM shop GROUP BY LOCATION",
+        "text2sql": "select location, count(*) from shop group by location",
+        "sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nWITH shop.location AS location, count(shop.location) AS count\nRETURN location,count",
+        "cypher_ans": [
+            [
+                "Valkeakoski",
+                1
+            ],
+            [
+                "Helsinki",
+                1
+            ],
+            [
+                "Espoo",
+                1
+            ],
+            [
+                "Turku",
+                1
+            ],
+            [
+                "Jakobstad",
+                1
+            ],
+            [
+                "Kotka",
+                1
+            ],
+            [
+                "Kuopio",
+                1
+            ],
+            [
+                "Lahti",
+                1
+            ],
+            [
+                "Mariehamn",
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "question": "How many documents do we have?",
+        "sql_ground": "SELECT count(*) FROM Documents",
+        "text2sql": "select count(*) from documents",
+        "sql2cypher": "MATCH (documents:`cre_Doc_Template_Mgt.documents`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "question": "Count the number of documents.",
+        "sql_ground": "SELECT count(*) FROM Documents",
+        "text2sql": "select count(*) from documents",
+        "sql2cypher": "MATCH (documents:`cre_Doc_Template_Mgt.documents`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "question": "How many templates do we have?",
+        "sql_ground": "SELECT count(*) FROM Templates",
+        "text2sql": "select count(*) from templates",
+        "sql2cypher": "MATCH (templates:`cre_Doc_Template_Mgt.templates`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "question": "Count the number of templates.",
+        "sql_ground": "SELECT count(*) FROM Templates",
+        "text2sql": "select count(*) from templates",
+        "sql2cypher": "MATCH (templates:`cre_Doc_Template_Mgt.templates`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "question": "How many templates have template type code CV?",
+        "sql_ground": "SELECT count(*) FROM Templates WHERE template_type_code  =  \"CV\"",
+        "text2sql": "select count(*) from templates where template_type_code = \"CV\"",
+        "sql2cypher": "MATCH (templates:`cre_Doc_Template_Mgt.templates`)\nWHERE templates.template_type_code = 'CV'\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "question": "Count the number of templates of the type CV.",
+        "sql_ground": "SELECT count(*) FROM Templates WHERE template_type_code  =  \"CV\"",
+        "text2sql": "select count(*) from templates where template_type_code = \"CV\"",
+        "sql2cypher": "MATCH (templates:`cre_Doc_Template_Mgt.templates`)\nWHERE templates.template_type_code = 'CV'\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "question": "How many paragraphs in total?",
+        "sql_ground": "SELECT count(*) FROM Paragraphs",
+        "text2sql": "select count(*) from paragraphs",
+        "sql2cypher": "MATCH (paragraphs:`cre_Doc_Template_Mgt.paragraphs`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "question": "Count the number of paragraphs.",
+        "sql_ground": "SELECT count(*) FROM Paragraphs",
+        "text2sql": "select count(*) from paragraphs",
+        "sql2cypher": "MATCH (paragraphs:`cre_Doc_Template_Mgt.paragraphs`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                0
+            ]
+        ]
+    },
+    {
+        "db_id": "museum_visit",
+        "question": "What is the average age of the visitors whose membership level is not higher than 4?",
+        "sql_ground": "SELECT avg(age) FROM visitor WHERE Level_of_membership  <=  4",
+        "text2sql": "select avg(age) from visitor where level_of_membership > 4",
+        "sql2cypher": "MATCH (visitor:`museum_visit.visitor`)\nWHERE visitor.level_of_membership > 4\nRETURN avg(visitor.age)",
+        "cypher_ans": [
+            [
+                33.0
+            ]
+        ]
+    },
+    {
+        "db_id": "museum_visit",
+        "question": "What are the opening year and staff number of the museum named Plaza Museum?",
+        "sql_ground": "SELECT Num_of_Staff ,  Open_Year FROM museum WHERE name  =  'Plaza Museum'",
+        "text2sql": "select open_year, num_of_staff from museum where name = 'Plaza Museum'",
+        "sql2cypher": "MATCH (museum:`museum_visit.museum`)\nWHERE museum.name = 'Plaza Museum'\nRETURN museum.open_year,museum.num_of_staff",
+        "cypher_ans": [
+            [
+                "2000",
+                62
+            ]
+        ]
+    },
+    {
+        "db_id": "battle_death",
+        "question": "What is maximum and minimum death toll caused each time?",
+        "sql_ground": "SELECT max(killed) ,  min(killed) FROM death",
+        "text2sql": "select max(tonnage), min(tonnage) from death as t1 join ship as t2 on t1.id = t2.ship_id",
+        "sql2cypher": "MATCH (t1:`battle_death.death`)-[]-(t2:`battle_death.ship`)\nRETURN max(t2.tonnage),min(t2.tonnage)",
+        "cypher_ans": [
+            [
+                "t",
+                "391"
+            ]
+        ]
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "question": "How is the math course described?",
+        "sql_ground": "SELECT course_description FROM Courses WHERE course_name  =  'math'",
+        "text2sql": "select count(*) from courses where course_name = \"math\"",
+        "sql2cypher": "MATCH (courses:`student_transcripts_tracking.courses`)\nWHERE courses.course_name = 'math'\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                1
+            ]
+        ]
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "question": "How many degrees does the engineering department offer?",
+        "sql_ground": "SELECT count(*) FROM Departments AS T1 JOIN Degree_Programs AS T2 ON T1.department_id  =  T2.department_id WHERE T1.department_name  =  'engineer'",
+        "text2sql": "select count(*) from departments as t1 join degree_programs as t2 on t1.department_id = t2.department_id",
+        "sql2cypher": "MATCH (t1:`student_transcripts_tracking.departments`)-[]-(t2:`student_transcripts_tracking.degree_programs`)\nRETURN count(*)",
+        "cypher_ans": [
+            [
+                15
+            ]
+        ]
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "question": "What is the mobile phone number of the student named Timmothy Ward ?",
+        "sql_ground": "select cell_mobile_number from students where first_name  =  'timmothy' and last_name  =  'ward'",
+        "text2sql": "select cell_mobile_number from students where first_name = \"Timmothy\" and last_name = \"Ward\"",
+        "sql2cypher": "MATCH (students:`student_transcripts_tracking.students`)\nWHERE students.first_name = 'Timmothy' AND students.last_name = 'Ward'\nRETURN students.cell_mobile_number",
+        "cypher_ans": [
+            [
+                "(096)889-8954x524"
+            ]
+        ]
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "question": "What is the first, middle, and last name of the first student to register?",
+        "sql_ground": "SELECT first_name ,  middle_name ,  last_name FROM Students ORDER BY date_first_registered ASC LIMIT 1",
+        "text2sql": "select first_name, middle_name, last_name from students",
+        "sql2cypher": "MATCH (students:`student_transcripts_tracking.students`)\nRETURN students.first_name,students.middle_name,students.last_name",
+        "cypher_ans": [
+            [
+                "Timmothy",
+                "Anna",
+                "Ward"
+            ],
+            [
+                "Hobart",
+                "Lorenz",
+                "Balistreri"
+            ],
+            [
+                "Warren",
+                "Violet",
+                "Gleichner"
+            ],
+            [
+                "Jarvis",
+                "Aaliyah",
+                "Carroll"
+            ],
+            [
+                "Milton",
+                "Vaughn",
+                "Christiansen"
+            ],
+            [
+                "Stanford",
+                "Mona",
+                "Rogahn"
+            ],
+            [
+                "Frida",
+                "Aisha",
+                "Huel"
+            ],
+            [
+                "Delaney",
+                "Judd",
+                "Ankunding"
+            ],
+            [
+                "Reva",
+                "Golda",
+                "Osinski"
+            ],
+            [
+                "Helga",
+                "Cleve",
+                "Mohr"
+            ],
+            [
+                "Gregg",
+                "Mossie",
+                "Schuppe"
+            ],
+            [
+                "Orrin",
+                "Neal",
+                "Kemmer"
+            ],
+            [
+                "Deon",
+                "Brooklyn",
+                "Weimann"
+            ],
+            [
+                "Jordy",
+                "Osborne",
+                "Rempel"
+            ],
+            [
+                "Jett",
+                "Alberta",
+                "Jaskolski"
+            ]
+        ]
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "question": "Describe the section h.",
+        "sql_ground": "SELECT section_description FROM Sections WHERE section_name  =  'h'",
+        "text2sql": "select section_name, section_description from sections group by section_name",
+        "sql2cypher": "MATCH (sections:`student_transcripts_tracking.sections`)\nWITH count(sections.section_name) AS count, sections.section_name AS section_name, sections.section_description AS section_description\nRETURN section_name,section_description",
+        "cypher_ans": [
+            [
+                "a",
+                "non"
+            ],
+            [
+                "b",
+                "voluptatem"
+            ],
+            [
+                "c",
+                "qui"
+            ],
+            [
+                "d",
+                "voluptas"
+            ],
+            [
+                "e",
+                "ex"
+            ],
+            [
+                "f",
+                "doloremque"
+            ],
+            [
+                "g",
+                "provident"
+            ],
+            [
+                "h",
+                "et"
+            ],
+            [
+                "j",
+                "quis"
+            ],
+            [
+                "k",
+                "nesciunt"
+            ],
+            [
+                "l",
+                "ad"
+            ],
+            [
+                "o",
+                "et"
+            ],
+            [
+                "p",
+                "facilis"
+            ],
+            [
+                "u",
+                "reprehenderit"
+            ],
+            [
+                "y",
+                "qui"
+            ]
+        ]
+    },
+    {
+        "db_id": "tvshow",
+        "question": "What is minimum and maximum share of TV series?",
+        "sql_ground": "SELECT max(SHARE) , min(SHARE) FROM TV_series;",
+        "text2sql": "select min(share), max(share) from tv_series",
+        "sql2cypher": "MATCH (tv_series:`tvshow.tv_series`)\nRETURN min(tv_series.share),max(tv_series.share)",
+        "cypher_ans": [
+            [
+                5.0,
+                9.0
+            ]
+        ]
+    },
+    {
+        "db_id": "tvshow",
+        "question": "Find the number of cartoons directed by each of the listed directors.",
+        "sql_ground": "SELECT count(*) ,  Directed_by FROM cartoon GROUP BY Directed_by",
+        "text2sql": "select directed_by, count(*) from cartoon group by directed_by",
+        "sql2cypher": "MATCH (cartoon:`tvshow.cartoon`)\nWITH cartoon.directed_by AS directed_by, count(cartoon.directed_by) AS count\nRETURN directed_by,count",
+        "cypher_ans": [
+            [
+                "Ben Jones",
+                4
+            ],
+            [
+                "Brandon Vietti",
+                4
+            ],
+            [
+                "Michael Chang",
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "tvshow",
+        "question": "How many cartoons did each director create?",
+        "sql_ground": "SELECT count(*) ,  Directed_by FROM cartoon GROUP BY Directed_by",
+        "text2sql": "select directed_by, count(*) from cartoon group by directed_by",
+        "sql2cypher": "MATCH (cartoon:`tvshow.cartoon`)\nWITH cartoon.directed_by AS directed_by, count(cartoon.directed_by) AS count\nRETURN directed_by,count",
+        "cypher_ans": [
+            [
+                "Ben Jones",
+                4
+            ],
+            [
+                "Brandon Vietti",
+                4
+            ],
+            [
+                "Michael Chang",
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "tvshow",
+        "question": "What is the produdction code and channel of the most recent cartoon ?",
+        "sql_ground": "select production_code ,  channel from cartoon order by original_air_date desc limit 1",
+        "text2sql": "select production_code, channel from cartoon order by id desc limit 1",
+        "sql2cypher": "MATCH (cartoon:`tvshow.cartoon`)\nRETURN cartoon.production_code,cartoon.channel\nORDER BY cartoon.id DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                112.0,
+                "707"
+            ]
+        ]
+    },
+    {
+        "db_id": "poker_player",
+        "question": "What is the average earnings of poker players with height higher than 200?",
+        "sql_ground": "SELECT avg(T2.Earnings) FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID  =  T2.People_ID WHERE T1.Height  >  200",
+        "text2sql": "select avg(earnings) from poker_player where height > 200",
+        "sql2cypher": "MATCH (poker_player:`poker_player.poker_player`)\nWHERE 'height' > 200\nRETURN avg(poker_player.earnings)",
+        "cypher_ans": [
+            [
+                null
+            ]
+        ]
+    },
+    {
+        "db_id": "poker_player",
+        "question": "Give average earnings of poker players who are taller than 200.",
+        "sql_ground": "SELECT avg(T2.Earnings) FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID  =  T2.People_ID WHERE T1.Height  >  200",
+        "text2sql": "select avg(earnings) from poker_player where taller_player_id > 200",
+        "sql2cypher": "MATCH (poker_player:`poker_player.poker_player`)\nWHERE 'taller_player_id' > 200\nRETURN avg(poker_player.earnings)",
+        "cypher_ans": [
+            [
+                null
+            ]
+        ]
+    },
+    {
+        "db_id": "dog_kennels",
+        "question": "How much does the most recent treatment cost?",
+        "sql_ground": "SELECT cost_of_treatment FROM Treatments ORDER BY date_of_treatment DESC LIMIT 1",
+        "text2sql": "select cost_of_treatment from treatments order by cost_of_treatment desc limit 1",
+        "sql2cypher": "MATCH (treatments:`dog_kennels.treatments`)\nRETURN treatments.cost_of_treatment\nORDER BY treatments.cost_of_treatment DESC\nLIMIT 1",
+        "cypher_ans": [
+            [
+                945
+            ]
+        ]
+    },
+    {
+        "db_id": "singer",
+        "question": "What are the names of the singers who are not French citizens?",
+        "sql_ground": "SELECT Name FROM singer WHERE Citizenship != \"France\"",
+        "text2sql": "select name from singer where citizenship!= \"French\"",
+        "sql2cypher": "MATCH (singer:`singer.singer`)\nWHERE singer.citizenship <> 'French'\nRETURN singer.name",
+        "cypher_ans": [
+            [
+                "Liliane Bettencourt"
+            ],
+            [
+                "Christy Walton"
+            ],
+            [
+                "Alice Walton"
+            ],
+            [
+                "Iris Fontbona"
+            ],
+            [
+                "Jacqueline Mars"
+            ],
+            [
+                "Gina Rinehart"
+            ],
+            [
+                "Susanne Klatten"
+            ],
+            [
+                "Abigail Johnson"
+            ]
+        ]
+    }
+]

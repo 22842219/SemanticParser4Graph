@@ -1,0 +1,1153 @@
+[
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT count(*) FROM singer",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nRETURN count(*)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "singer",
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "question": "How many singers do we have?",
+        "answers": [
+            [
+                6
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT count(*) FROM singer",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nRETURN count(*)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "singer",
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "question": "What is the total number of singers?",
+        "answers": [
+            [
+                6
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT name ,  country ,  age FROM singer ORDER BY age DESC",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nRETURN singer.Name,singer.Country,singer.Age\nORDER BY singer.Age DESC",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Country",
+                "Age"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": "."
+        },
+        "question": "Show name, country, age for all singers ordered by age from the oldest to the youngest.",
+        "answers": [
+            [
+                "Joe Sharp",
+                "Netherlands",
+                52
+            ],
+            [
+                "John Nizinik",
+                "France",
+                43
+            ],
+            [
+                "Rose White",
+                "France",
+                41
+            ],
+            [
+                "Timbaland",
+                "United States",
+                32
+            ],
+            [
+                "Justin Brown",
+                "France",
+                29
+            ],
+            [
+                "Tribal King",
+                "France",
+                25
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT name ,  country ,  age FROM singer ORDER BY age DESC",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nRETURN singer.Name,singer.Country,singer.Age\nORDER BY singer.Age DESC",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Country",
+                "Age"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": "."
+        },
+        "question": "What are the names, countries, and ages for every singer in descending order of age?",
+        "answers": [
+            [
+                "Joe Sharp",
+                "Netherlands",
+                52
+            ],
+            [
+                "John Nizinik",
+                "France",
+                43
+            ],
+            [
+                "Rose White",
+                "France",
+                41
+            ],
+            [
+                "Timbaland",
+                "United States",
+                32
+            ],
+            [
+                "Justin Brown",
+                "France",
+                29
+            ],
+            [
+                "Tribal King",
+                "France",
+                25
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Country = 'France'\nRETURN avg(singer.Age),min(singer.Age),max(singer.Age)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Country",
+                "Age"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'France'",
+            "Token_Name_Function": [
+                "avg",
+                "min",
+                "max"
+            ]
+        },
+        "question": "What is the average, minimum, and maximum age of all singers from France?",
+        "answers": [
+            [
+                34.5,
+                25,
+                43
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Country = 'France'\nRETURN avg(singer.Age),min(singer.Age),max(singer.Age)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Country",
+                "Age"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'France'",
+            "Token_Name_Function": [
+                "avg",
+                "min",
+                "max"
+            ]
+        },
+        "question": "What is the average, minimum, and maximum age for all French singers?",
+        "answers": [
+            [
+                34.5,
+                25,
+                43
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT song_name ,  song_release_year FROM singer ORDER BY age LIMIT 1",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nRETURN singer.Song_Name,singer.Song_release_year\nORDER BY singer.Age\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Song_Name",
+                "Song_release_year",
+                "Age"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "Show the name and the release year of the song by the youngest singer.",
+        "answers": [
+            [
+                "Love",
+                "2016"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT song_name ,  song_release_year FROM singer ORDER BY age LIMIT 1",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nRETURN singer.Song_Name,singer.Song_release_year\nORDER BY singer.Age\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Song_Name",
+                "Song_release_year",
+                "Age"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "What are the names and release years for all the songs of the youngest singer?",
+        "answers": [
+            [
+                "Love",
+                "2016"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT DISTINCT country FROM singer WHERE age  >  20",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Age > 20\nRETURN DISTINCT singer.Country",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Age",
+                "Country"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": [
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "20"
+        },
+        "question": "What are all distinct countries where singers above age 20 are from?",
+        "answers": [
+            [
+                "Netherlands"
+            ],
+            [
+                "United States"
+            ],
+            [
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT DISTINCT country FROM singer WHERE age  >  20",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Age > 20\nRETURN DISTINCT singer.Country",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Age",
+                "Country"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": [
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "20"
+        },
+        "question": "What are  the different countries with singers above age 20?",
+        "answers": [
+            [
+                "Netherlands"
+            ],
+            [
+                "United States"
+            ],
+            [
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT country ,  count(*) FROM singer GROUP BY country",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWITH singer.Country AS Country, count(singer.Country) AS count\nRETURN Country,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Country",
+                "count"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "question": "Show all countries and the number of singers in each country.",
+        "answers": [
+            [
+                "Netherlands",
+                1
+            ],
+            [
+                "United States",
+                1
+            ],
+            [
+                "France",
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT country ,  count(*) FROM singer GROUP BY country",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWITH singer.Country AS Country, count(singer.Country) AS count\nRETURN Country,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Country",
+                "count"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "question": "How many singers are from each country?",
+        "answers": [
+            [
+                "Netherlands",
+                1
+            ],
+            [
+                "United States",
+                1
+            ],
+            [
+                "France",
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT LOCATION ,  name FROM stadium WHERE capacity BETWEEN 5000 AND 10000",
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nWHERE 5000<=stadium.Capacity<=10000\nRETURN stadium.Location,stadium.Name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "stadium",
+                "Capacity",
+                "Location"
+            ],
+            "Token_Name_Label": "`concert_singer.stadium`",
+            "Token_Literal_Number_Integer": [
+                "5000",
+                "10000"
+            ],
+            "Token_Operator": [
+                "<=",
+                "."
+            ]
+        },
+        "question": "Show location and name for all stadiums with a capacity between 5000 and 10000.",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT LOCATION ,  name FROM stadium WHERE capacity BETWEEN 5000 AND 10000",
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nWHERE 5000<=stadium.Capacity<=10000\nRETURN stadium.Location,stadium.Name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "stadium",
+                "Capacity",
+                "Location"
+            ],
+            "Token_Name_Label": "`concert_singer.stadium`",
+            "Token_Literal_Number_Integer": [
+                "5000",
+                "10000"
+            ],
+            "Token_Operator": [
+                "<=",
+                "."
+            ]
+        },
+        "question": "What are the locations and names of all stations with capacity between 5000 and 10000?",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "select avg(capacity) ,  max(capacity) from stadium",
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN avg(stadium.Capacity),max(stadium.Capacity)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "stadium",
+                "Capacity"
+            ],
+            "Token_Name_Label": "`concert_singer.stadium`",
+            "Token_Name_Function": [
+                "avg",
+                "max"
+            ],
+            "Token_Operator": "."
+        },
+        "question": "What is the average and maximum capacities for all stadiums ?",
+        "answers": [
+            [
+                10621.666666666666,
+                52500
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT name ,  capacity FROM stadium ORDER BY average DESC LIMIT 1",
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN stadium.Name,stadium.Capacity\nORDER BY stadium.Average DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "stadium",
+                "Capacity",
+                "Average"
+            ],
+            "Token_Name_Label": "`concert_singer.stadium`",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "What is the name and capacity for the stadium with highest average attendance?",
+        "answers": [
+            [
+                "Stark's Park",
+                10104
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT name ,  capacity FROM stadium ORDER BY average DESC LIMIT 1",
+        "cypher_query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN stadium.Name,stadium.Capacity\nORDER BY stadium.Average DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "Name",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "stadium",
+                "Capacity",
+                "Average"
+            ],
+            "Token_Name_Label": "`concert_singer.stadium`",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "What is the name and capacity for the stadium with the highest average attendance?",
+        "answers": [
+            [
+                "Stark's Park",
+                10104
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT T2.name ,  count(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id GROUP BY T1.stadium_id",
+        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "Name",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "Stadium_ID",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`concert_singer.concert`",
+                "`concert_singer.stadium`"
+            ],
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "question": "Show the stadium name and the number of concerts in each stadium.",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT T2.name ,  count(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id GROUP BY T1.stadium_id",
+        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "Name",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "Stadium_ID",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`concert_singer.concert`",
+                "`concert_singer.stadium`"
+            ],
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "question": "For each stadium, how many concerts play there?",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT T2.name ,  T2.capacity FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.year  >=  2014 GROUP BY T2.stadium_id ORDER BY count(*) DESC LIMIT 1",
+        "cypher_query": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWHERE T1.Year >= 2014\nWITH T2.Name AS Name, count(T2.Stadium_ID) AS count, T2.Capacity AS Capacity\nRETURN Name,Capacity\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "WITH",
+                "Name",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "Year",
+                "Stadium_ID",
+                "count",
+                "Capacity"
+            ],
+            "Token_Name_Label": [
+                "`concert_singer.concert`",
+                "`concert_singer.stadium`"
+            ],
+            "Token_Operator": [
+                ".",
+                ">="
+            ],
+            "Token_Literal_Number_Integer": "2014",
+            "Token_Name_Function": "count"
+        },
+        "question": "Show the stadium name and capacity with most number of concerts in year 2014 or after.",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT T2.concert_name ,  T2.theme ,  count(*) FROM singer_in_concert AS T1 JOIN concert AS T2 ON T1.concert_id  =  T2.concert_id GROUP BY T2.concert_id",
+        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.concert`)\nWITH T2.concert_Name AS concert_Name, T2.Theme AS Theme, count(T2.concert_ID) AS count\nRETURN concert_Name,Theme,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ")-[",
+                ":",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "concert_Name",
+                "Theme",
+                "concert_ID",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`concert_singer.singer_in_concert`",
+                "`concert_singer.concert`"
+            ],
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "question": "Show the name and theme for all concerts and the number of singers in each concert.",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT T2.name ,  count(*) FROM singer_in_concert AS T1 JOIN singer AS T2 ON T1.singer_id  =  T2.singer_id GROUP BY T2.singer_id",
+        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH count(T2.Singer_ID) AS count, T2.Name AS Name\nRETURN Name,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "Name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ")-[",
+                ":",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "Singer_ID",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`concert_singer.singer_in_concert`",
+                "`concert_singer.singer`"
+            ],
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
+        },
+        "question": "List singer names and number of concerts for each singer.",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT T2.name ,  count(*) FROM singer_in_concert AS T1 JOIN singer AS T2 ON T1.singer_id  =  T2.singer_id GROUP BY T2.singer_id",
+        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)\nWITH count(T2.Singer_ID) AS count, T2.Name AS Name\nRETURN Name,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "Name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ")-[",
+                ":",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "Singer_ID",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`concert_singer.singer_in_concert`",
+                "`concert_singer.singer`"
+            ],
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
+        },
+        "question": "What are the names of the singers and number of concerts for each person?",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT T2.name FROM singer_in_concert AS T1 JOIN singer AS T2 ON T1.singer_id  =  T2.singer_id JOIN concert AS T3 ON T1.concert_id  =  T3.concert_id WHERE T3.year  =  2014",
+        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)-[]-(T3:`concert_singer.concert`)\nWHERE T3.Year = 2014\nRETURN T2.Name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ")-[",
+                ":",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "T3",
+                "Year"
+            ],
+            "Token_Name_Label": [
+                "`concert_singer.singer_in_concert`",
+                "`concert_singer.singer`",
+                "`concert_singer.concert`"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "2014"
+        },
+        "question": "List all singer names in concerts in year 2014.",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT T2.name FROM singer_in_concert AS T1 JOIN singer AS T2 ON T1.singer_id  =  T2.singer_id JOIN concert AS T3 ON T1.concert_id  =  T3.concert_id WHERE T3.year  =  2014",
+        "cypher_query": "MATCH ()-[T1:`concert_singer.singer_in_concert`]-(T2:`concert_singer.singer`)-[]-(T3:`concert_singer.concert`)\nWHERE T3.Year = 2014\nRETURN T2.Name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ")-[",
+                ":",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "T3",
+                "Year"
+            ],
+            "Token_Name_Label": [
+                "`concert_singer.singer_in_concert`",
+                "`concert_singer.singer`",
+                "`concert_singer.concert`"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_Number_Integer": "2014"
+        },
+        "question": "What are the names of the singers who performed in a concert in 2014?",
+        "answers": []
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT name ,  country FROM singer WHERE song_name LIKE '%Hey%'",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Song_Name =~'.*[H|h]ey.*'\nRETURN singer.Name,singer.Country",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Song_Name",
+                "Country"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": [
+                ".",
+                "=~"
+            ],
+            "Token_Literal_String": "'.*[H|h]ey.*'"
+        },
+        "question": "what is the name and nation of the singer who have a song having 'Hey' in its name?",
+        "answers": [
+            [
+                "Justin Brown",
+                "France"
+            ]
+        ]
+    },
+    {
+        "db_id": "concert_singer",
+        "sql": "SELECT name ,  country FROM singer WHERE song_name LIKE '%Hey%'",
+        "cypher_query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Song_Name =~'.*[H|h]ey.*'\nRETURN singer.Name,singer.Country",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "Name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "singer",
+                "Song_Name",
+                "Country"
+            ],
+            "Token_Name_Label": "`concert_singer.singer`",
+            "Token_Operator": [
+                ".",
+                "=~"
+            ],
+            "Token_Literal_String": "'.*[H|h]ey.*'"
+        },
+        "question": "What is the name and country of origin of every singer who has a song with the word 'Hey' in its title?",
+        "answers": [
+            [
+                "Justin Brown",
+                "France"
+            ]
+        ]
+    }
+]

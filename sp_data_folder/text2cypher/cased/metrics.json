@@ -1,0 +1,89 @@
+[
+    {
+        "split": "train",
+        "total": 53,
+        "execution_accuracy": 1.0,
+        "correct_num": 53,
+        "incorrect": {
+            "department_management": [],
+            "musical": []
+        },
+        "invalid_parsed_sql": {
+            "department_management": [
+                13
+            ],
+            "musical": [
+                270,
+                271
+            ]
+        },
+        "intersect_sql": {
+            "department_management": [
+                13
+            ],
+            "musical": [
+                270,
+                271
+            ]
+        },
+        "except_sql": {
+            "department_management": [],
+            "musical": []
+        },
+        "report of `invalid_parsed`, `intersect`, `except queries`": [
+            0.05,
+            0.05,
+            0.0
+        ]
+    },
+    {
+        "split": "dev",
+        "total": 40,
+        "execution_accuracy": 0.68,
+        "correct_num": 27,
+        "incorrect": {
+            "concert_singer": [
+                12,
+                13,
+                16,
+                20,
+                21,
+                25,
+                26,
+                27,
+                28,
+                29,
+                34,
+                43,
+                44
+            ]
+        },
+        "invalid_parsed_sql": {
+            "concert_singer": [
+                30,
+                31,
+                32,
+                41,
+                42
+            ]
+        },
+        "intersect_sql": {
+            "concert_singer": [
+                30,
+                41,
+                42
+            ]
+        },
+        "except_sql": {
+            "concert_singer": [
+                31,
+                32
+            ]
+        },
+        "report of `invalid_parsed`, `intersect`, `except queries`": [
+            0.11,
+            0.07,
+            0.05
+        ]
+    }
+]

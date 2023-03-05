@@ -1,0 +1,2673 @@
+[
+    {
+        "db_id": "department_management",
+        "sql": "SELECT count(*) FROM head WHERE age  >  56",
+        "cypher_query": "MATCH (head:`department_management.head`)\nWHERE head.age > 56\nRETURN count(*)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "head",
+                "age"
+            ],
+            "Token_Name_Label": "`department_management.head`",
+            "Token_Operator": [
+                ".",
+                ">",
+                "*"
+            ],
+            "Token_Literal_Number_Integer": "56",
+            "Token_Name_Function": "count"
+        },
+        "question": "How many heads of the departments are older than 56 ?",
+        "answers": [
+            [
+                5
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT name ,  born_state ,  age FROM head ORDER BY age",
+        "cypher_query": "MATCH (head:`department_management.head`)\nRETURN head.name,head.born_state,head.age\nORDER BY head.age",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "name",
+                "ORDER BY"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "head",
+                "born_state",
+                "age"
+            ],
+            "Token_Name_Label": "`department_management.head`",
+            "Token_Operator": "."
+        },
+        "question": "List the name, born state and age of the heads of departments ordered by age.",
+        "answers": [
+            [
+                "P\u00e1draig Harrington",
+                "Connecticut",
+                43.0
+            ],
+            [
+                "Stewart Cink",
+                "Florida",
+                50.0
+            ],
+            [
+                "Dudley Hart",
+                "California",
+                52.0
+            ],
+            [
+                "Jeff Maggert",
+                "Delaware",
+                53.0
+            ],
+            [
+                "Nick Faldo",
+                "California",
+                56.0
+            ],
+            [
+                "Tiger Woods",
+                "Alabama",
+                67.0
+            ],
+            [
+                "Franklin Langham",
+                "Connecticut",
+                67.0
+            ],
+            [
+                "Sergio Garc\u00eda",
+                "California",
+                68.0
+            ],
+            [
+                "K. J. Choi",
+                "Alabama",
+                69.0
+            ],
+            [
+                "Billy Mayfair",
+                "California",
+                69.0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT creation ,  name ,  budget_in_billions FROM department",
+        "cypher_query": "MATCH (department:`department_management.department`)\nRETURN department.creation,department.name,department.budget_in_billions",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "department",
+                "creation",
+                "budget_in_billions"
+            ],
+            "Token_Name_Label": "`department_management.department`",
+            "Token_Operator": "."
+        },
+        "question": "List the creation year, name and budget of each department.",
+        "answers": [
+            [
+                "1789",
+                "State",
+                9.96
+            ],
+            [
+                "1789",
+                "Treasury",
+                11.1
+            ],
+            [
+                "1947",
+                "Defense",
+                439.3
+            ],
+            [
+                "1870",
+                "Justice",
+                23.4
+            ],
+            [
+                "1849",
+                "Interior",
+                10.7
+            ],
+            [
+                "1889",
+                "Agriculture",
+                77.6
+            ],
+            [
+                "1903",
+                "Commerce",
+                6.2
+            ],
+            [
+                "1913",
+                "Labor",
+                59.7
+            ],
+            [
+                "1953",
+                "Health and Human Services",
+                543.2
+            ],
+            [
+                "1965",
+                "Housing and Urban Development",
+                46.2
+            ],
+            [
+                "1966",
+                "Transportation",
+                58.0
+            ],
+            [
+                "1977",
+                "Energy",
+                21.5
+            ],
+            [
+                "1979",
+                "Education",
+                62.8
+            ],
+            [
+                "1989",
+                "Veterans Affairs",
+                73.2
+            ],
+            [
+                "2002",
+                "Homeland Security",
+                44.6
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT max(budget_in_billions) ,  min(budget_in_billions) FROM department",
+        "cypher_query": "MATCH (department:`department_management.department`)\nRETURN max(department.budget_in_billions),min(department.budget_in_billions)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "department",
+                "budget_in_billions"
+            ],
+            "Token_Name_Label": "`department_management.department`",
+            "Token_Name_Function": [
+                "max",
+                "min"
+            ],
+            "Token_Operator": "."
+        },
+        "question": "What are the maximum and minimum budget of the departments?",
+        "answers": [
+            [
+                543.2,
+                6.2
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT avg(num_employees) FROM department WHERE ranking BETWEEN 10 AND 15",
+        "cypher_query": "MATCH (department:`department_management.department`)\nWHERE 10<=department.ranking<=15\nRETURN avg(department.num_employees)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "department",
+                "ranking",
+                "num_employees"
+            ],
+            "Token_Name_Label": "`department_management.department`",
+            "Token_Literal_Number_Integer": [
+                "10",
+                "15"
+            ],
+            "Token_Operator": [
+                "<=",
+                "."
+            ],
+            "Token_Name_Function": "avg"
+        },
+        "question": "What is the average number of employees of the departments whose rank is between 10 and 15?",
+        "answers": [
+            [
+                105468.16666666667
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT name FROM head WHERE born_state != 'California'",
+        "cypher_query": "MATCH (head:`department_management.head`)\nWHERE head.born_state <> 'California'\nRETURN head.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "head",
+                "born_state"
+            ],
+            "Token_Name_Label": "`department_management.head`",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'California'"
+        },
+        "question": "What are the names of the heads who are born outside the California state?",
+        "answers": [
+            [
+                "Tiger Woods"
+            ],
+            [
+                "K. J. Choi"
+            ],
+            [
+                "Jeff Maggert"
+            ],
+            [
+                "Stewart Cink"
+            ],
+            [
+                "P\u00e1draig Harrington"
+            ],
+            [
+                "Franklin Langham"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama'",
+        "cypher_query": "MATCH (T1:`department_management.department`)-[T2:`department_management.management`]-(T3:`department_management.head`)\nWHERE T3.born_state = 'Alabama'\nRETURN DISTINCT T1.creation",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "T3",
+                "born_state",
+                "creation"
+            ],
+            "Token_Name_Label": [
+                "`department_management.department`",
+                "`department_management.management`",
+                "`department_management.head`"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'Alabama'"
+        },
+        "question": "What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?",
+        "answers": [
+            [
+                "1903"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT born_state FROM head GROUP BY born_state HAVING count(*)  >=  3",
+        "cypher_query": "MATCH (head:`department_management.head`)\nWITH count(*) AS count, head.born_state AS born_state\nWHERE count  >= 3\nRETURN born_state",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n",
+                "  "
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "head",
+                "count",
+                "born_state"
+            ],
+            "Token_Name_Label": "`department_management.head`",
+            "Token_Name_Function": "count",
+            "Token_Operator": [
+                "*",
+                ".",
+                ">="
+            ],
+            "Token_Literal_Number_Integer": "3"
+        },
+        "question": "What are the names of the states where at least 3 heads were born?",
+        "answers": [
+            [
+                "California"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT creation FROM department GROUP BY creation ORDER BY count(*) DESC LIMIT 1",
+        "cypher_query": "MATCH (department:`department_management.department`)\nWITH count(department.creation) AS count, department.creation AS creation\nRETURN creation\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "department",
+                "creation",
+                "count"
+            ],
+            "Token_Name_Label": "`department_management.department`",
+            "Token_Name_Function": "count",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "In which year were most departments established?",
+        "answers": [
+            [
+                "1789"
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT T1.name ,  T1.num_employees FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id WHERE T2.temporary_acting  =  'Yes'",
+        "cypher_query": "MATCH (T1:`department_management.department`)-[T2:`department_management.management`]-()\nWHERE T2.temporary_acting = 'Yes'\nRETURN T1.name,T1.num_employees",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "temporary_acting",
+                "num_employees"
+            ],
+            "Token_Name_Label": [
+                "`department_management.department`",
+                "`department_management.management`"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'Yes'"
+        },
+        "question": "Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?",
+        "answers": [
+            [
+                "Treasury",
+                115897.0
+            ],
+            [
+                "Treasury",
+                115897.0
+            ],
+            [
+                "Homeland Security",
+                208000.0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "cypher_query": "MATCH ()-[management:`department_management.management`]-()\nRETURN count(DISTINCT management.temporary_acting)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "management"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ")-[",
+                ":",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "management",
+                "temporary_acting"
+            ],
+            "Token_Name_Label": "`department_management.management`",
+            "Token_Name_Function": "count",
+            "Token_Operator": [
+                "DISTINCT",
+                "."
+            ]
+        },
+        "question": "How many acting statuses are there?",
+        "answers": [
+            [
+                2
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT count(*) FROM department WHERE department_id NOT IN (SELECT department_id FROM management);",
+        "cypher_query": "MATCH (department:`department_management.department`)\nWHERE NOT (department:`department_management.department`)-[:`department_management.management`]-()\nRETURN count(*)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ")-[",
+                "]-("
+            ],
+            "Token_Name_Variable": "department",
+            "Token_Name_Label": [
+                "`department_management.department`",
+                "`department_management.management`"
+            ],
+            "Token_Operator": [
+                "NOT",
+                "*"
+            ],
+            "Token_Name_Function": "count"
+        },
+        "question": "How many departments are led by heads who are not mentioned?",
+        "answers": [
+            [
+                11
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT DISTINCT T1.age FROM management AS T2 JOIN head AS T1 ON T1.head_id  =  T2.head_id WHERE T2.temporary_acting  =  'Yes'",
+        "cypher_query": "MATCH ()-[T2:`department_management.management`]-(T1:`department_management.head`)\nWHERE T2.temporary_acting = 'Yes'\nRETURN DISTINCT T1.age",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ")-[",
+                ":",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T2",
+                "T1",
+                "temporary_acting",
+                "age"
+            ],
+            "Token_Name_Label": [
+                "`department_management.management`",
+                "`department_management.head`"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'Yes'"
+        },
+        "question": "What are the distinct ages of the heads who are acting?",
+        "answers": [
+            [
+                52.0
+            ],
+            [
+                53.0
+            ],
+            [
+                69.0
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT T1.department_id ,  T1.name ,  count(*) FROM management AS T2 JOIN department AS T1 ON T1.department_id  =  T2.department_id GROUP BY T1.department_id HAVING count(*)  >  1",
+        "cypher_query": "MATCH ()-[T2:`department_management.management`]-(T1:`department_management.department`)\nWITH count(*) AS count, T1.department_id AS department_id, T1.name AS name\nWHERE count  > 1\nRETURN department_id,name,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "name",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n",
+                "  "
+            ],
+            "Token_Punctuation": [
+                "(",
+                ")-[",
+                ":",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T2",
+                "T1",
+                "count",
+                "department_id"
+            ],
+            "Token_Name_Label": [
+                "`department_management.management`",
+                "`department_management.department`"
+            ],
+            "Token_Name_Function": "count",
+            "Token_Operator": [
+                "*",
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "Which department has more than 1 head at a time? List the id, name and the number of heads.",
+        "answers": [
+            [
+                2,
+                "Treasury",
+                2
+            ]
+        ]
+    },
+    {
+        "db_id": "department_management",
+        "sql": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "cypher_query": "MATCH (head:`department_management.head`)\nWHERE head.name =~'.*[H|h]a.*'\nRETURN head.head_id,head.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "head",
+                "head_id"
+            ],
+            "Token_Name_Label": "`department_management.head`",
+            "Token_Operator": [
+                ".",
+                "=~"
+            ],
+            "Token_Literal_String": "'.*[H|h]a.*'"
+        },
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "answers": [
+            [
+                4,
+                "Dudley Hart"
+            ],
+            [
+                9,
+                "P\u00e1draig Harrington"
+            ],
+            [
+                10,
+                "Franklin Langham"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT count(*) FROM actor",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN count(*)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "actor",
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "question": "How many actors are there?",
+        "answers": [
+            [
+                9
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT count(*) FROM actor",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN count(*)",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "actor",
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Name_Function": "count",
+            "Token_Operator": "*"
+        },
+        "question": "Count the number of actors.",
+        "answers": [
+            [
+                9
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Name FROM actor ORDER BY Name ASC",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN actor.name\nORDER BY actor.name ASC",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "name",
+                "ORDER BY",
+                "ASC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "actor",
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": "."
+        },
+        "question": "List the name of actors in ascending alphabetical order.",
+        "answers": [
+            [
+                "Alan Fletcher"
+            ],
+            [
+                "Ian Smith"
+            ],
+            [
+                "Jackie Woodburne"
+            ],
+            [
+                "Kate Ritchie"
+            ],
+            [
+                "Lynne McGranger"
+            ],
+            [
+                "Ray Meagher"
+            ],
+            [
+                "Ryan Moloney"
+            ],
+            [
+                "Stefan Dennis"
+            ],
+            [
+                "Tom Oliver"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Name FROM actor ORDER BY Name ASC",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN actor.name\nORDER BY actor.name ASC",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "name",
+                "ORDER BY",
+                "ASC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": "actor",
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": "."
+        },
+        "question": "What are the names of actors, ordered alphabetically?",
+        "answers": [
+            [
+                "Alan Fletcher"
+            ],
+            [
+                "Ian Smith"
+            ],
+            [
+                "Jackie Woodburne"
+            ],
+            [
+                "Kate Ritchie"
+            ],
+            [
+                "Lynne McGranger"
+            ],
+            [
+                "Ray Meagher"
+            ],
+            [
+                "Ryan Moloney"
+            ],
+            [
+                "Stefan Dennis"
+            ],
+            [
+                "Tom Oliver"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Character ,  Duration FROM actor",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN actor.character,actor.duration",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "actor",
+                "character",
+                "duration"
+            ],
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": "."
+        },
+        "question": "What are the characters and duration of actors?",
+        "answers": [
+            [
+                "Alf Stewart",
+                "1988\u2014"
+            ],
+            [
+                "Lou Carpenter",
+                "1988, 1992\u2014"
+            ],
+            [
+                "Irene Roberts",
+                "1993\u2014"
+            ],
+            [
+                "Sally Fletcher",
+                "1988\u20132008, 2013"
+            ],
+            [
+                "Karl Kennedy",
+                "1994\u2014"
+            ],
+            [
+                "Susan Kennedy",
+                "1994\u2014"
+            ],
+            [
+                "Toadfish Rebecchi",
+                "1995, 1996\u2014"
+            ],
+            [
+                "Harold Bishop",
+                "1987\u20131991, 1996\u20132009, 2011"
+            ],
+            [
+                "Paul Robinson",
+                "1985\u20131992, 1993, 2004\u2014"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Character ,  Duration FROM actor",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN actor.character,actor.duration",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "actor",
+                "character",
+                "duration"
+            ],
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": "."
+        },
+        "question": "Return the characters and durations for each actor.",
+        "answers": [
+            [
+                "Alf Stewart",
+                "1988\u2014"
+            ],
+            [
+                "Lou Carpenter",
+                "1988, 1992\u2014"
+            ],
+            [
+                "Irene Roberts",
+                "1993\u2014"
+            ],
+            [
+                "Sally Fletcher",
+                "1988\u20132008, 2013"
+            ],
+            [
+                "Karl Kennedy",
+                "1994\u2014"
+            ],
+            [
+                "Susan Kennedy",
+                "1994\u2014"
+            ],
+            [
+                "Toadfish Rebecchi",
+                "1995, 1996\u2014"
+            ],
+            [
+                "Harold Bishop",
+                "1987\u20131991, 1996\u20132009, 2011"
+            ],
+            [
+                "Paul Robinson",
+                "1985\u20131992, 1993, 2004\u2014"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Name FROM actor WHERE Age != 20",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nWHERE actor.age <> 20\nRETURN actor.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "actor",
+                "age"
+            ],
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_Number_Integer": "20"
+        },
+        "question": "List the name of actors whose age is not 20.",
+        "answers": [
+            [
+                "Ray Meagher"
+            ],
+            [
+                "Tom Oliver"
+            ],
+            [
+                "Lynne McGranger"
+            ],
+            [
+                "Ryan Moloney"
+            ],
+            [
+                "Ian Smith"
+            ],
+            [
+                "Stefan Dennis"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Name FROM actor WHERE Age != 20",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nWHERE actor.age <> 20\nRETURN actor.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "actor",
+                "age"
+            ],
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_Number_Integer": "20"
+        },
+        "question": "What are the names of actors who are not 20 years old?",
+        "answers": [
+            [
+                "Ray Meagher"
+            ],
+            [
+                "Tom Oliver"
+            ],
+            [
+                "Lynne McGranger"
+            ],
+            [
+                "Ryan Moloney"
+            ],
+            [
+                "Ian Smith"
+            ],
+            [
+                "Stefan Dennis"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Character FROM actor ORDER BY age DESC",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN actor.character\nORDER BY actor.age DESC",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "actor",
+                "character",
+                "age"
+            ],
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": "."
+        },
+        "question": "What are the characters of actors in descending order of age?",
+        "answers": [
+            [
+                "Alf Stewart"
+            ],
+            [
+                "Lou Carpenter"
+            ],
+            [
+                "Irene Roberts"
+            ],
+            [
+                "Sally Fletcher"
+            ],
+            [
+                "Karl Kennedy"
+            ],
+            [
+                "Susan Kennedy"
+            ],
+            [
+                "Toadfish Rebecchi"
+            ],
+            [
+                "Harold Bishop"
+            ],
+            [
+                "Paul Robinson"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Character FROM actor ORDER BY age DESC",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN actor.character\nORDER BY actor.age DESC",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "actor",
+                "character",
+                "age"
+            ],
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": "."
+        },
+        "question": "Return the characters for actors, ordered by age descending.",
+        "answers": [
+            [
+                "Alf Stewart"
+            ],
+            [
+                "Lou Carpenter"
+            ],
+            [
+                "Irene Roberts"
+            ],
+            [
+                "Sally Fletcher"
+            ],
+            [
+                "Karl Kennedy"
+            ],
+            [
+                "Susan Kennedy"
+            ],
+            [
+                "Toadfish Rebecchi"
+            ],
+            [
+                "Harold Bishop"
+            ],
+            [
+                "Paul Robinson"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Duration FROM actor ORDER BY Age DESC LIMIT 1",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN actor.duration\nORDER BY actor.age DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "actor",
+                "duration",
+                "age"
+            ],
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "What is the duration of the oldest actor?",
+        "answers": [
+            [
+                "1988\u2014"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Duration FROM actor ORDER BY Age DESC LIMIT 1",
+        "cypher_query": "MATCH (actor:`musical.actor`)\nRETURN actor.duration\nORDER BY actor.age DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "actor",
+                "duration",
+                "age"
+            ],
+            "Token_Name_Label": "`musical.actor`",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "Return the duration of the actor with the greatest age.",
+        "answers": [
+            [
+                "1988\u2014"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Name FROM musical WHERE Nominee  =  \"Bob Fosse\"",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWHERE musical.nominee = 'Bob Fosse'\nRETURN musical.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "nominee"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'Bob Fosse'"
+        },
+        "question": "What are the names of musicals with nominee \"Bob Fosse\"?",
+        "answers": [
+            [
+                "The Phantom of the Opera"
+            ],
+            [
+                "Wicked"
+            ],
+            [
+                "West Side Story"
+            ],
+            [
+                "The Book of Mormon"
+            ],
+            [
+                "Chicago"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Name FROM musical WHERE Nominee  =  \"Bob Fosse\"",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWHERE musical.nominee = 'Bob Fosse'\nRETURN musical.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "nominee"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'Bob Fosse'"
+        },
+        "question": "Return the names of musicals who have the nominee Bob Fosse.",
+        "answers": [
+            [
+                "The Phantom of the Opera"
+            ],
+            [
+                "Wicked"
+            ],
+            [
+                "West Side Story"
+            ],
+            [
+                "The Book of Mormon"
+            ],
+            [
+                "Chicago"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT DISTINCT Nominee FROM musical WHERE Award != \"Tony Award\"",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWHERE musical.award <> 'Tony Award'\nRETURN DISTINCT musical.nominee",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "award",
+                "nominee"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'Tony Award'"
+        },
+        "question": "What are the distinct nominees of the musicals with the award that is not \"Tony Award\"?",
+        "answers": [
+            [
+                "Cleavant Derricks"
+            ],
+            [
+                "Bob Fosse"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT DISTINCT Nominee FROM musical WHERE Award != \"Tony Award\"",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWHERE musical.award <> 'Tony Award'\nRETURN DISTINCT musical.nominee",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN DISTINCT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "award",
+                "nominee"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": [
+                ".",
+                "<>"
+            ],
+            "Token_Literal_String": "'Tony Award'"
+        },
+        "question": "Return the different nominees of musicals that have an award that is not the Tony Award.",
+        "answers": [
+            [
+                "Cleavant Derricks"
+            ],
+            [
+                "Bob Fosse"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T1.Name ,  T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nRETURN T1.name,T2.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Operator": "."
+        },
+        "question": "Show names of actors and names of musicals they are in.",
+        "answers": [
+            [
+                "Ray Meagher",
+                "The Phantom of the Opera"
+            ],
+            [
+                "Tom Oliver",
+                "The Phantom of the Opera"
+            ],
+            [
+                "Lynne McGranger",
+                "Les Mis\u00e9rables"
+            ],
+            [
+                "Kate Ritchie",
+                "Les Mis\u00e9rables"
+            ],
+            [
+                "Alan Fletcher",
+                "West Side Story"
+            ],
+            [
+                "Jackie Woodburne",
+                "The Book of Mormon"
+            ],
+            [
+                "Ryan Moloney",
+                "The Book of Mormon"
+            ],
+            [
+                "Ian Smith",
+                "The Book of Mormon"
+            ],
+            [
+                "Stefan Dennis",
+                "The Book of Mormon"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T1.Name ,  T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nRETURN T1.name,T2.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Operator": "."
+        },
+        "question": "What are the names of actors and the musicals that they are in?",
+        "answers": [
+            [
+                "Ray Meagher",
+                "The Phantom of the Opera"
+            ],
+            [
+                "Tom Oliver",
+                "The Phantom of the Opera"
+            ],
+            [
+                "Lynne McGranger",
+                "Les Mis\u00e9rables"
+            ],
+            [
+                "Kate Ritchie",
+                "Les Mis\u00e9rables"
+            ],
+            [
+                "Alan Fletcher",
+                "West Side Story"
+            ],
+            [
+                "Jackie Woodburne",
+                "The Book of Mormon"
+            ],
+            [
+                "Ryan Moloney",
+                "The Book of Mormon"
+            ],
+            [
+                "Ian Smith",
+                "The Book of Mormon"
+            ],
+            [
+                "Stefan Dennis",
+                "The Book of Mormon"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Name  =  \"The Phantom of the Opera\"",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nWHERE T2.name = 'The Phantom of the Opera'\nRETURN T1.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'The Phantom of the Opera'"
+        },
+        "question": "Show names of actors that have appeared in musical with name \"The Phantom of the Opera\".",
+        "answers": [
+            [
+                "Ray Meagher"
+            ],
+            [
+                "Tom Oliver"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Name  =  \"The Phantom of the Opera\"",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nWHERE T2.name = 'The Phantom of the Opera'\nRETURN T1.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Operator": [
+                ".",
+                "="
+            ],
+            "Token_Literal_String": "'The Phantom of the Opera'"
+        },
+        "question": "What are the names of actors who have been in the musical titled The Phantom of the Opera?",
+        "answers": [
+            [
+                "Ray Meagher"
+            ],
+            [
+                "Tom Oliver"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID ORDER BY T2.Year DESC",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nRETURN T1.name\nORDER BY T2.year DESC",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "year"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Operator": "."
+        },
+        "question": "Show names of actors in descending order of the year their musical is awarded.",
+        "answers": [
+            [
+                "Ray Meagher"
+            ],
+            [
+                "Tom Oliver"
+            ],
+            [
+                "Lynne McGranger"
+            ],
+            [
+                "Kate Ritchie"
+            ],
+            [
+                "Alan Fletcher"
+            ],
+            [
+                "Jackie Woodburne"
+            ],
+            [
+                "Ryan Moloney"
+            ],
+            [
+                "Ian Smith"
+            ],
+            [
+                "Stefan Dennis"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID ORDER BY T2.Year DESC",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nRETURN T1.name\nORDER BY T2.year DESC",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "RETURN",
+                "name",
+                "ORDER BY",
+                "DESC"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "year"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Operator": "."
+        },
+        "question": "What are the names of actors ordered descending by the year in which their musical was awarded?",
+        "answers": [
+            [
+                "Ray Meagher"
+            ],
+            [
+                "Tom Oliver"
+            ],
+            [
+                "Lynne McGranger"
+            ],
+            [
+                "Kate Ritchie"
+            ],
+            [
+                "Alan Fletcher"
+            ],
+            [
+                "Jackie Woodburne"
+            ],
+            [
+                "Ryan Moloney"
+            ],
+            [
+                "Ian Smith"
+            ],
+            [
+                "Stefan Dennis"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T2.Name ,  COUNT(*) FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nWITH count(T1.musical_id) AS count, T2.name AS name\nRETURN name,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "musical_id",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
+        },
+        "question": "Show names of musicals and the number of actors who have appeared in the musicals.",
+        "answers": [
+            [
+                "The Phantom of the Opera",
+                2
+            ],
+            [
+                "Les Mis\u00e9rables",
+                2
+            ],
+            [
+                "West Side Story",
+                1
+            ],
+            [
+                "The Book of Mormon",
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T2.Name ,  COUNT(*) FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nWITH count(T1.musical_id) AS count, T2.name AS name\nRETURN name,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "name",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "musical_id",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Name_Function": "count",
+            "Token_Operator": "."
+        },
+        "question": "How many actors have appeared in each musical?",
+        "answers": [
+            [
+                "The Phantom of the Opera",
+                2
+            ],
+            [
+                "Les Mis\u00e9rables",
+                2
+            ],
+            [
+                "West Side Story",
+                1
+            ],
+            [
+                "The Book of Mormon",
+                4
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID HAVING COUNT(*)  >=  3",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 3\nRETURN name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "name",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n",
+                "  "
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Name_Function": "count",
+            "Token_Operator": [
+                "*",
+                ".",
+                ">="
+            ],
+            "Token_Literal_Number_Integer": "3"
+        },
+        "question": "Show names of musicals which have at least three actors.",
+        "answers": [
+            [
+                "The Book of Mormon"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID HAVING COUNT(*)  >=  3",
+        "cypher_query": "MATCH (T1:`musical.actor`)-[]-(T2:`musical.musical`)\nWITH count(*) AS count, T2.name AS name\nWHERE count  >= 3\nRETURN name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "name",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n",
+                "  "
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")-[",
+                "]-(",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "T1",
+                "T2",
+                "count"
+            ],
+            "Token_Name_Label": [
+                "`musical.actor`",
+                "`musical.musical`"
+            ],
+            "Token_Name_Function": "count",
+            "Token_Operator": [
+                "*",
+                ".",
+                ">="
+            ],
+            "Token_Literal_Number_Integer": "3"
+        },
+        "question": "What are the names of musicals who have at 3 or more actors?",
+        "answers": [
+            [
+                "The Book of Mormon"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Nominee ,  COUNT(*) FROM musical GROUP BY Nominee",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.nominee AS nominee, count(musical.nominee) AS count\nRETURN nominee,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "nominee",
+                "count"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "question": "Show different nominees and the number of musicals they have been nominated.",
+        "answers": [
+            [
+                "Bob Fosse",
+                5
+            ],
+            [
+                "Cleavant Derricks",
+                2
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Nominee ,  COUNT(*) FROM musical GROUP BY Nominee",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.nominee AS nominee, count(musical.nominee) AS count\nRETURN nominee,count",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "nominee",
+                "count"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count"
+        },
+        "question": "How many musicals has each nominee been nominated for?",
+        "answers": [
+            [
+                "Bob Fosse",
+                5
+            ],
+            [
+                "Cleavant Derricks",
+                2
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Nominee FROM musical GROUP BY Nominee ORDER BY COUNT(*) DESC LIMIT 1",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.nominee AS nominee, count(musical.nominee) AS count\nRETURN nominee\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "nominee",
+                "count"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "Please show the nominee who has been nominated the greatest number of times.",
+        "answers": [
+            [
+                "Bob Fosse"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Nominee FROM musical GROUP BY Nominee ORDER BY COUNT(*) DESC LIMIT 1",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH musical.nominee AS nominee, count(musical.nominee) AS count\nRETURN nominee\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "nominee",
+                "count"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": ".",
+            "Token_Name_Function": "count",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "Who is the nominee who has been nominated for the most musicals?",
+        "answers": [
+            [
+                "Bob Fosse"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT RESULT FROM musical GROUP BY RESULT ORDER BY COUNT(*) DESC LIMIT 1",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(musical.result) AS count, musical.result AS result\nRETURN result\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "result",
+                "count"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Name_Function": "count",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "List the most common result of the musicals.",
+        "answers": [
+            [
+                "Nominated"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT RESULT FROM musical GROUP BY RESULT ORDER BY COUNT(*) DESC LIMIT 1",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(musical.result) AS count, musical.result AS result\nRETURN result\nORDER BY count DESC\nLIMIT 1",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "RETURN",
+                "ORDER BY",
+                "DESC",
+                "LIMIT"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "result",
+                "count"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Name_Function": "count",
+            "Token_Operator": ".",
+            "Token_Literal_Number_Integer": "1"
+        },
+        "question": "Return the most frequent result across all musicals.",
+        "answers": [
+            [
+                "Nominated"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Nominee FROM musical GROUP BY Nominee HAVING COUNT(*)  >  2",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(*) AS count, musical.nominee AS nominee\nWHERE count  > 2\nRETURN nominee",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n",
+                "  "
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "count",
+                "nominee"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Name_Function": "count",
+            "Token_Operator": [
+                "*",
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "2"
+        },
+        "question": "List the nominees that have been nominated more than two musicals.",
+        "answers": [
+            [
+                "Bob Fosse"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Nominee FROM musical GROUP BY Nominee HAVING COUNT(*)  >  2",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWITH count(*) AS count, musical.nominee AS nominee\nWHERE count  > 2\nRETURN nominee",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WITH",
+                "AS",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n",
+                "  "
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ","
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "count",
+                "nominee"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Name_Function": "count",
+            "Token_Operator": [
+                "*",
+                ".",
+                ">"
+            ],
+            "Token_Literal_Number_Integer": "2"
+        },
+        "question": "Who are the nominees who have been nominated more than two times?",
+        "answers": [
+            [
+                "Bob Fosse"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWHERE NOT (musical:`musical.musical`)-[]-(:`musical.actor`)\nRETURN musical.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ")-[",
+                "]-("
+            ],
+            "Token_Name_Variable": "musical",
+            "Token_Name_Label": [
+                "`musical.musical`",
+                "`musical.actor`"
+            ],
+            "Token_Operator": [
+                "NOT",
+                "."
+            ]
+        },
+        "question": "List the name of musicals that do not have actors.",
+        "answers": [
+            [
+                "Wicked"
+            ],
+            [
+                "Rent"
+            ],
+            [
+                "Chicago"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWHERE NOT (musical:`musical.musical`)-[]-(:`musical.actor`)\nRETURN musical.name",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN",
+                "name"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")",
+                ")-[",
+                "]-("
+            ],
+            "Token_Name_Variable": "musical",
+            "Token_Name_Label": [
+                "`musical.musical`",
+                "`musical.actor`"
+            ],
+            "Token_Operator": [
+                "NOT",
+                "."
+            ]
+        },
+        "question": "What are the names of musicals who have no actors?",
+        "answers": [
+            [
+                "Wicked"
+            ],
+            [
+                "Rent"
+            ],
+            [
+                "Chicago"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" OR Award  =  \"Cleavant Derricks\"",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWHERE musical.award = 'Tony Award' OR musical.award = 'Cleavant Derricks'\nRETURN musical.nominee",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "award",
+                "nominee"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": [
+                ".",
+                "=",
+                "OR"
+            ],
+            "Token_Literal_String": [
+                "'Tony Award'",
+                "'Cleavant Derricks'"
+            ]
+        },
+        "question": "Show the musical nominee with award \"Bob Fosse\" or \"Cleavant Derricks\".",
+        "answers": [
+            [
+                "Bob Fosse"
+            ],
+            [
+                "Cleavant Derricks"
+            ],
+            [
+                "Bob Fosse"
+            ],
+            [
+                "Bob Fosse"
+            ]
+        ]
+    },
+    {
+        "db_id": "musical",
+        "sql": "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" OR Award  =  \"Cleavant Derricks\"",
+        "cypher_query": "MATCH (musical:`musical.musical`)\nWHERE musical.award = 'Tony Award' OR musical.award = 'Cleavant Derricks'\nRETURN musical.nominee",
+        "parsed_cypher": {
+            "Token_Keyword": [
+                "MATCH",
+                "WHERE",
+                "RETURN"
+            ],
+            "Token_Text_Whitespace": [
+                " ",
+                "\n"
+            ],
+            "Token_Punctuation": [
+                "(",
+                ":",
+                ")"
+            ],
+            "Token_Name_Variable": [
+                "musical",
+                "award",
+                "nominee"
+            ],
+            "Token_Name_Label": "`musical.musical`",
+            "Token_Operator": [
+                ".",
+                "=",
+                "OR"
+            ],
+            "Token_Literal_String": [
+                "'Tony Award'",
+                "'Cleavant Derricks'"
+            ]
+        },
+        "question": "Who are the nominees who were nominated for either of the Bob Fosse or Cleavant Derricks awards?",
+        "answers": [
+            [
+                "Bob Fosse"
+            ],
+            [
+                "Cleavant Derricks"
+            ],
+            [
+                "Bob Fosse"
+            ],
+            [
+                "Bob Fosse"
+            ]
+        ]
+    }
+]

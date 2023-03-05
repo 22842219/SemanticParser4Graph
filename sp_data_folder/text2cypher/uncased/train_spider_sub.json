@@ -1,0 +1,6187 @@
+[
+    {
+        "db_id": "department_management",
+        "query": "SELECT count(*) FROM head WHERE age  >  56",
+        "query_toks": [
+            "SELECT",
+            "count",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "head",
+            "WHERE",
+            "age",
+            ">",
+            "56"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "head",
+            "where",
+            "age",
+            ">",
+            "value"
+        ],
+        "question": "How many heads of the departments are older than 56 ?",
+        "question_toks": [
+            "How",
+            "many",
+            "heads",
+            "of",
+            "the",
+            "departments",
+            "are",
+            "older",
+            "than",
+            "56",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    3,
+                    [
+                        0,
+                        [
+                            0,
+                            10,
+                            false
+                        ],
+                        null
+                    ],
+                    56.0,
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT name ,  born_state ,  age FROM head ORDER BY age",
+        "query_toks": [
+            "SELECT",
+            "name",
+            ",",
+            "born_state",
+            ",",
+            "age",
+            "FROM",
+            "head",
+            "ORDER",
+            "BY",
+            "age"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            ",",
+            "born_state",
+            ",",
+            "age",
+            "from",
+            "head",
+            "order",
+            "by",
+            "age"
+        ],
+        "question": "List the name, born state and age of the heads of departments ordered by age.",
+        "question_toks": [
+            "List",
+            "the",
+            "name",
+            ",",
+            "born",
+            "state",
+            "and",
+            "age",
+            "of",
+            "the",
+            "heads",
+            "of",
+            "departments",
+            "ordered",
+            "by",
+            "age",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                8,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "asc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            10,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT creation ,  name ,  budget_in_billions FROM department",
+        "query_toks": [
+            "SELECT",
+            "creation",
+            ",",
+            "name",
+            ",",
+            "budget_in_billions",
+            "FROM",
+            "department"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "creation",
+            ",",
+            "name",
+            ",",
+            "budget_in_billions",
+            "from",
+            "department"
+        ],
+        "question": "List the creation year, name and budget of each department.",
+        "question_toks": [
+            "List",
+            "the",
+            "creation",
+            "year",
+            ",",
+            "name",
+            "and",
+            "budget",
+            "of",
+            "each",
+            "department",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                3,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                5,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT max(budget_in_billions) ,  min(budget_in_billions) FROM department",
+        "query_toks": [
+            "SELECT",
+            "max",
+            "(",
+            "budget_in_billions",
+            ")",
+            ",",
+            "min",
+            "(",
+            "budget_in_billions",
+            ")",
+            "FROM",
+            "department"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "max",
+            "(",
+            "budget_in_billions",
+            ")",
+            ",",
+            "min",
+            "(",
+            "budget_in_billions",
+            ")",
+            "from",
+            "department"
+        ],
+        "question": "What are the maximum and minimum budget of the departments?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "maximum",
+            "and",
+            "minimum",
+            "budget",
+            "of",
+            "the",
+            "departments",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        1,
+                        [
+                            0,
+                            [
+                                0,
+                                5,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                5,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT avg(num_employees) FROM department WHERE ranking BETWEEN 10 AND 15",
+        "query_toks": [
+            "SELECT",
+            "avg",
+            "(",
+            "num_employees",
+            ")",
+            "FROM",
+            "department",
+            "WHERE",
+            "ranking",
+            "BETWEEN",
+            "10",
+            "AND",
+            "15"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "avg",
+            "(",
+            "num_employees",
+            ")",
+            "from",
+            "department",
+            "where",
+            "ranking",
+            "between",
+            "value",
+            "and",
+            "value"
+        ],
+        "question": "What is the average number of employees of the departments whose rank is between 10 and 15?",
+        "question_toks": [
+            "What",
+            "is",
+            "the",
+            "average",
+            "number",
+            "of",
+            "employees",
+            "of",
+            "the",
+            "departments",
+            "whose",
+            "rank",
+            "is",
+            "between",
+            "10",
+            "and",
+            "15",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        5,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    1,
+                    [
+                        0,
+                        [
+                            0,
+                            4,
+                            false
+                        ],
+                        null
+                    ],
+                    10.0,
+                    15.0
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT name FROM head WHERE born_state != 'California'",
+        "query_toks": [
+            "SELECT",
+            "name",
+            "FROM",
+            "head",
+            "WHERE",
+            "born_state",
+            "!",
+            "=",
+            "'California",
+            "'"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "head",
+            "where",
+            "born_state",
+            "!",
+            "=",
+            "value"
+        ],
+        "question": "What are the names of the heads who are born outside the California state?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "the",
+            "heads",
+            "who",
+            "are",
+            "born",
+            "outside",
+            "the",
+            "California",
+            "state",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                8,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    7,
+                    [
+                        0,
+                        [
+                            0,
+                            9,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"California\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama'",
+        "query_toks": [
+            "SELECT",
+            "DISTINCT",
+            "T1.creation",
+            "FROM",
+            "department",
+            "AS",
+            "T1",
+            "JOIN",
+            "management",
+            "AS",
+            "T2",
+            "ON",
+            "T1.department_id",
+            "=",
+            "T2.department_id",
+            "JOIN",
+            "head",
+            "AS",
+            "T3",
+            "ON",
+            "T2.head_id",
+            "=",
+            "T3.head_id",
+            "WHERE",
+            "T3.born_state",
+            "=",
+            "'Alabama",
+            "'"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "distinct",
+            "t1",
+            ".",
+            "creation",
+            "from",
+            "department",
+            "as",
+            "t1",
+            "join",
+            "management",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "department_id",
+            "=",
+            "t2",
+            ".",
+            "department_id",
+            "join",
+            "head",
+            "as",
+            "t3",
+            "on",
+            "t2",
+            ".",
+            "head_id",
+            "=",
+            "t3",
+            ".",
+            "head_id",
+            "where",
+            "t3",
+            ".",
+            "born_state",
+            "=",
+            "value"
+        ],
+        "question": "What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "distinct",
+            "creation",
+            "years",
+            "of",
+            "the",
+            "departments",
+            "managed",
+            "by",
+            "a",
+            "secretary",
+            "born",
+            "in",
+            "state",
+            "'Alabama",
+            "'",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ],
+                    [
+                        "table_unit",
+                        2
+                    ],
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                1,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            11,
+                            false
+                        ],
+                        null
+                    ],
+                    "and",
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                12,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            7,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                true,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                3,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            9,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Alabama\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT born_state FROM head GROUP BY born_state HAVING count(*)  >=  3",
+        "query_toks": [
+            "SELECT",
+            "born_state",
+            "FROM",
+            "head",
+            "GROUP",
+            "BY",
+            "born_state",
+            "HAVING",
+            "count",
+            "(",
+            "*",
+            ")",
+            ">",
+            "=",
+            "3"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "born_state",
+            "from",
+            "head",
+            "group",
+            "by",
+            "born_state",
+            "having",
+            "count",
+            "(",
+            "*",
+            ")",
+            ">",
+            "=",
+            "value"
+        ],
+        "question": "What are the names of the states where at least 3 heads were born?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "the",
+            "states",
+            "where",
+            "at",
+            "least",
+            "3",
+            "heads",
+            "were",
+            "born",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    9,
+                    false
+                ]
+            ],
+            "having": [
+                [
+                    false,
+                    5,
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ],
+                    3.0,
+                    null
+                ]
+            ],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT creation FROM department GROUP BY creation ORDER BY count(*) DESC LIMIT 1",
+        "query_toks": [
+            "SELECT",
+            "creation",
+            "FROM",
+            "department",
+            "GROUP",
+            "BY",
+            "creation",
+            "ORDER",
+            "BY",
+            "count",
+            "(",
+            "*",
+            ")",
+            "DESC",
+            "LIMIT",
+            "1"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "creation",
+            "from",
+            "department",
+            "group",
+            "by",
+            "creation",
+            "order",
+            "by",
+            "count",
+            "(",
+            "*",
+            ")",
+            "desc",
+            "limit",
+            "value"
+        ],
+        "question": "In which year were most departments established?",
+        "question_toks": [
+            "In",
+            "which",
+            "year",
+            "were",
+            "most",
+            "departments",
+            "established",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                3,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    3,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": 1,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT T1.name ,  T1.num_employees FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id WHERE T2.temporary_acting  =  'Yes'",
+        "query_toks": [
+            "SELECT",
+            "T1.name",
+            ",",
+            "T1.num_employees",
+            "FROM",
+            "department",
+            "AS",
+            "T1",
+            "JOIN",
+            "management",
+            "AS",
+            "T2",
+            "ON",
+            "T1.department_id",
+            "=",
+            "T2.department_id",
+            "WHERE",
+            "T2.temporary_acting",
+            "=",
+            "'Yes",
+            "'"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t1",
+            ".",
+            "name",
+            ",",
+            "t1",
+            ".",
+            "num_employees",
+            "from",
+            "department",
+            "as",
+            "t1",
+            "join",
+            "management",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "department_id",
+            "=",
+            "t2",
+            ".",
+            "department_id",
+            "where",
+            "t2",
+            ".",
+            "temporary_acting",
+            "=",
+            "value"
+        ],
+        "question": "Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?",
+        "question_toks": [
+            "Show",
+            "the",
+            "name",
+            "and",
+            "number",
+            "of",
+            "employees",
+            "for",
+            "the",
+            "departments",
+            "managed",
+            "by",
+            "heads",
+            "whose",
+            "temporary",
+            "acting",
+            "value",
+            "is",
+            "'Yes",
+            "'",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ],
+                    [
+                        "table_unit",
+                        2
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                1,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            11,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            13,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Yes\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT count(DISTINCT temporary_acting) FROM management",
+        "query_toks": [
+            "SELECT",
+            "count",
+            "(",
+            "DISTINCT",
+            "temporary_acting",
+            ")",
+            "FROM",
+            "management"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "count",
+            "(",
+            "distinct",
+            "temporary_acting",
+            ")",
+            "from",
+            "management"
+        ],
+        "question": "How many acting statuses are there?",
+        "question_toks": [
+            "How",
+            "many",
+            "acting",
+            "statuses",
+            "are",
+            "there",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        2
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                13,
+                                true
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT count(*) FROM department WHERE department_id NOT IN (SELECT department_id FROM management);",
+        "query_toks": [
+            "SELECT",
+            "count",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "department",
+            "WHERE",
+            "department_id",
+            "NOT",
+            "IN",
+            "(",
+            "SELECT",
+            "department_id",
+            "FROM",
+            "management",
+            ")",
+            ";"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "department",
+            "where",
+            "department_id",
+            "not",
+            "in",
+            "(",
+            "select",
+            "department_id",
+            "from",
+            "management",
+            ")"
+        ],
+        "question": "How many departments are led by heads who are not mentioned?",
+        "question_toks": [
+            "How",
+            "many",
+            "departments",
+            "are",
+            "led",
+            "by",
+            "heads",
+            "who",
+            "are",
+            "not",
+            "mentioned",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    true,
+                    8,
+                    [
+                        0,
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ],
+                    {
+                        "from": {
+                            "table_units": [
+                                [
+                                    "table_unit",
+                                    2
+                                ]
+                            ],
+                            "conds": []
+                        },
+                        "select": [
+                            false,
+                            [
+                                [
+                                    0,
+                                    [
+                                        0,
+                                        [
+                                            0,
+                                            11,
+                                            false
+                                        ],
+                                        null
+                                    ]
+                                ]
+                            ]
+                        ],
+                        "where": [],
+                        "groupBy": [],
+                        "having": [],
+                        "orderBy": [],
+                        "limit": null,
+                        "intersect": null,
+                        "union": null,
+                        "except": null
+                    },
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT DISTINCT T1.age FROM management AS T2 JOIN head AS T1 ON T1.head_id  =  T2.head_id WHERE T2.temporary_acting  =  'Yes'",
+        "query_toks": [
+            "SELECT",
+            "DISTINCT",
+            "T1.age",
+            "FROM",
+            "management",
+            "AS",
+            "T2",
+            "JOIN",
+            "head",
+            "AS",
+            "T1",
+            "ON",
+            "T1.head_id",
+            "=",
+            "T2.head_id",
+            "WHERE",
+            "T2.temporary_acting",
+            "=",
+            "'Yes",
+            "'"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "distinct",
+            "t1",
+            ".",
+            "age",
+            "from",
+            "management",
+            "as",
+            "t2",
+            "join",
+            "head",
+            "as",
+            "t1",
+            "on",
+            "t1",
+            ".",
+            "head_id",
+            "=",
+            "t2",
+            ".",
+            "head_id",
+            "where",
+            "t2",
+            ".",
+            "temporary_acting",
+            "=",
+            "value"
+        ],
+        "question": "What are the distinct ages of the heads who are acting?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "distinct",
+            "ages",
+            "of",
+            "the",
+            "heads",
+            "who",
+            "are",
+            "acting",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        2
+                    ],
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                7,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            12,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                true,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            13,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Yes\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT T1.department_id ,  T1.name ,  count(*) FROM management AS T2 JOIN department AS T1 ON T1.department_id  =  T2.department_id GROUP BY T1.department_id HAVING count(*)  >  1",
+        "query_toks": [
+            "SELECT",
+            "T1.department_id",
+            ",",
+            "T1.name",
+            ",",
+            "count",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "management",
+            "AS",
+            "T2",
+            "JOIN",
+            "department",
+            "AS",
+            "T1",
+            "ON",
+            "T1.department_id",
+            "=",
+            "T2.department_id",
+            "GROUP",
+            "BY",
+            "T1.department_id",
+            "HAVING",
+            "count",
+            "(",
+            "*",
+            ")",
+            ">",
+            "1"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t1",
+            ".",
+            "department_id",
+            ",",
+            "t1",
+            ".",
+            "name",
+            ",",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "management",
+            "as",
+            "t2",
+            "join",
+            "department",
+            "as",
+            "t1",
+            "on",
+            "t1",
+            ".",
+            "department_id",
+            "=",
+            "t2",
+            ".",
+            "department_id",
+            "group",
+            "by",
+            "t1",
+            ".",
+            "department_id",
+            "having",
+            "count",
+            "(",
+            "*",
+            ")",
+            ">",
+            "value"
+        ],
+        "question": "Which department has more than 1 head at a time? List the id, name and the number of heads.",
+        "question_toks": [
+            "Which",
+            "department",
+            "has",
+            "more",
+            "than",
+            "1",
+            "head",
+            "at",
+            "a",
+            "time",
+            "?",
+            "List",
+            "the",
+            "id",
+            ",",
+            "name",
+            "and",
+            "the",
+            "number",
+            "of",
+            "heads",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        2
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                1,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            11,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                1,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    1,
+                    false
+                ]
+            ],
+            "having": [
+                [
+                    false,
+                    3,
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ],
+                    1.0,
+                    null
+                ]
+            ],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "department_management",
+        "query": "SELECT head_id ,  name FROM head WHERE name LIKE '%Ha%'",
+        "query_toks": [
+            "SELECT",
+            "head_id",
+            ",",
+            "name",
+            "FROM",
+            "head",
+            "WHERE",
+            "name",
+            "LIKE",
+            "'",
+            "%",
+            "Ha",
+            "%",
+            "'"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "head_id",
+            ",",
+            "name",
+            "from",
+            "head",
+            "where",
+            "name",
+            "like",
+            "value"
+        ],
+        "question": "Which head's name has the substring 'Ha'? List the id and name.",
+        "question_toks": [
+            "Which",
+            "head",
+            "'s",
+            "name",
+            "has",
+            "the",
+            "substring",
+            "'Ha",
+            "'",
+            "?",
+            "List",
+            "the",
+            "id",
+            "and",
+            "name",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                7,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                8,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    9,
+                    [
+                        0,
+                        [
+                            0,
+                            8,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"%Ha%\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT count(*) FROM actor",
+        "query_toks": [
+            "SELECT",
+            "count",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "actor"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "actor"
+        ],
+        "question": "How many actors are there?",
+        "question_toks": [
+            "How",
+            "many",
+            "actors",
+            "are",
+            "there",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT count(*) FROM actor",
+        "query_toks": [
+            "SELECT",
+            "count",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "actor"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "actor"
+        ],
+        "question": "Count the number of actors.",
+        "question_toks": [
+            "Count",
+            "the",
+            "number",
+            "of",
+            "actors",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Name FROM actor ORDER BY Name ASC",
+        "query_toks": [
+            "SELECT",
+            "Name",
+            "FROM",
+            "actor",
+            "ORDER",
+            "BY",
+            "Name",
+            "ASC"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "actor",
+            "order",
+            "by",
+            "name",
+            "asc"
+        ],
+        "question": "List the name of actors in ascending alphabetical order.",
+        "question_toks": [
+            "List",
+            "the",
+            "name",
+            "of",
+            "actors",
+            "in",
+            "ascending",
+            "alphabetical",
+            "order",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "asc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            9,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Name FROM actor ORDER BY Name ASC",
+        "query_toks": [
+            "SELECT",
+            "Name",
+            "FROM",
+            "actor",
+            "ORDER",
+            "BY",
+            "Name",
+            "ASC"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "actor",
+            "order",
+            "by",
+            "name",
+            "asc"
+        ],
+        "question": "What are the names of actors, ordered alphabetically?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "actors",
+            ",",
+            "ordered",
+            "alphabetically",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "asc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            9,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Character ,  Duration FROM actor",
+        "query_toks": [
+            "SELECT",
+            "Character",
+            ",",
+            "Duration",
+            "FROM",
+            "actor"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "character",
+            ",",
+            "duration",
+            "from",
+            "actor"
+        ],
+        "question": "What are the characters and duration of actors?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "characters",
+            "and",
+            "duration",
+            "of",
+            "actors",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                11,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                12,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Character ,  Duration FROM actor",
+        "query_toks": [
+            "SELECT",
+            "Character",
+            ",",
+            "Duration",
+            "FROM",
+            "actor"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "character",
+            ",",
+            "duration",
+            "from",
+            "actor"
+        ],
+        "question": "Return the characters and durations for each actor.",
+        "question_toks": [
+            "Return",
+            "the",
+            "characters",
+            "and",
+            "durations",
+            "for",
+            "each",
+            "actor",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                11,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                12,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Name FROM actor WHERE Age != 20",
+        "query_toks": [
+            "SELECT",
+            "Name",
+            "FROM",
+            "actor",
+            "WHERE",
+            "Age",
+            "!",
+            "=",
+            "20"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "actor",
+            "where",
+            "age",
+            "!",
+            "=",
+            "value"
+        ],
+        "question": "List the name of actors whose age is not 20.",
+        "question_toks": [
+            "List",
+            "the",
+            "name",
+            "of",
+            "actors",
+            "whose",
+            "age",
+            "is",
+            "not",
+            "20",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    7,
+                    [
+                        0,
+                        [
+                            0,
+                            13,
+                            false
+                        ],
+                        null
+                    ],
+                    20.0,
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Name FROM actor WHERE Age != 20",
+        "query_toks": [
+            "SELECT",
+            "Name",
+            "FROM",
+            "actor",
+            "WHERE",
+            "Age",
+            "!",
+            "=",
+            "20"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "actor",
+            "where",
+            "age",
+            "!",
+            "=",
+            "value"
+        ],
+        "question": "What are the names of actors who are not 20 years old?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "actors",
+            "who",
+            "are",
+            "not",
+            "20",
+            "years",
+            "old",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    7,
+                    [
+                        0,
+                        [
+                            0,
+                            13,
+                            false
+                        ],
+                        null
+                    ],
+                    20.0,
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Character FROM actor ORDER BY age DESC",
+        "query_toks": [
+            "SELECT",
+            "Character",
+            "FROM",
+            "actor",
+            "ORDER",
+            "BY",
+            "age",
+            "DESC"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "character",
+            "from",
+            "actor",
+            "order",
+            "by",
+            "age",
+            "desc"
+        ],
+        "question": "What are the characters of actors in descending order of age?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "characters",
+            "of",
+            "actors",
+            "in",
+            "descending",
+            "order",
+            "of",
+            "age",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                11,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            13,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Character FROM actor ORDER BY age DESC",
+        "query_toks": [
+            "SELECT",
+            "Character",
+            "FROM",
+            "actor",
+            "ORDER",
+            "BY",
+            "age",
+            "DESC"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "character",
+            "from",
+            "actor",
+            "order",
+            "by",
+            "age",
+            "desc"
+        ],
+        "question": "Return the characters for actors, ordered by age descending.",
+        "question_toks": [
+            "Return",
+            "the",
+            "characters",
+            "for",
+            "actors",
+            ",",
+            "ordered",
+            "by",
+            "age",
+            "descending",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                11,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            13,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Duration FROM actor ORDER BY Age DESC LIMIT 1",
+        "query_toks": [
+            "SELECT",
+            "Duration",
+            "FROM",
+            "actor",
+            "ORDER",
+            "BY",
+            "Age",
+            "DESC",
+            "LIMIT",
+            "1"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "duration",
+            "from",
+            "actor",
+            "order",
+            "by",
+            "age",
+            "desc",
+            "limit",
+            "value"
+        ],
+        "question": "What is the duration of the oldest actor?",
+        "question_toks": [
+            "What",
+            "is",
+            "the",
+            "duration",
+            "of",
+            "the",
+            "oldest",
+            "actor",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                12,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            13,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": 1,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Duration FROM actor ORDER BY Age DESC LIMIT 1",
+        "query_toks": [
+            "SELECT",
+            "Duration",
+            "FROM",
+            "actor",
+            "ORDER",
+            "BY",
+            "Age",
+            "DESC",
+            "LIMIT",
+            "1"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "duration",
+            "from",
+            "actor",
+            "order",
+            "by",
+            "age",
+            "desc",
+            "limit",
+            "value"
+        ],
+        "question": "Return the duration of the actor with the greatest age.",
+        "question_toks": [
+            "Return",
+            "the",
+            "duration",
+            "of",
+            "the",
+            "actor",
+            "with",
+            "the",
+            "greatest",
+            "age",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                12,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            13,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": 1,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Name FROM musical WHERE Nominee  =  \"Bob Fosse\"",
+        "query_toks": [
+            "SELECT",
+            "Name",
+            "FROM",
+            "musical",
+            "WHERE",
+            "Nominee",
+            "=",
+            "``",
+            "Bob",
+            "Fosse",
+            "''"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "musical",
+            "where",
+            "nominee",
+            "=",
+            "value"
+        ],
+        "question": "What are the names of musicals with nominee \"Bob Fosse\"?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "musicals",
+            "with",
+            "nominee",
+            "``",
+            "Bob",
+            "Fosse",
+            "''",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            6,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Bob Fosse\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Name FROM musical WHERE Nominee  =  \"Bob Fosse\"",
+        "query_toks": [
+            "SELECT",
+            "Name",
+            "FROM",
+            "musical",
+            "WHERE",
+            "Nominee",
+            "=",
+            "``",
+            "Bob",
+            "Fosse",
+            "''"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "musical",
+            "where",
+            "nominee",
+            "=",
+            "value"
+        ],
+        "question": "Return the names of musicals who have the nominee Bob Fosse.",
+        "question_toks": [
+            "Return",
+            "the",
+            "names",
+            "of",
+            "musicals",
+            "who",
+            "have",
+            "the",
+            "nominee",
+            "Bob",
+            "Fosse",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            6,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Bob Fosse\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT DISTINCT Nominee FROM musical WHERE Award != \"Tony Award\"",
+        "query_toks": [
+            "SELECT",
+            "DISTINCT",
+            "Nominee",
+            "FROM",
+            "musical",
+            "WHERE",
+            "Award",
+            "!",
+            "=",
+            "``",
+            "Tony",
+            "Award",
+            "''"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "distinct",
+            "nominee",
+            "from",
+            "musical",
+            "where",
+            "award",
+            "!",
+            "=",
+            "value"
+        ],
+        "question": "What are the distinct nominees of the musicals with the award that is not \"Tony Award\"?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "distinct",
+            "nominees",
+            "of",
+            "the",
+            "musicals",
+            "with",
+            "the",
+            "award",
+            "that",
+            "is",
+            "not",
+            "``",
+            "Tony",
+            "Award",
+            "''",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                true,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    7,
+                    [
+                        0,
+                        [
+                            0,
+                            4,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Tony Award\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT DISTINCT Nominee FROM musical WHERE Award != \"Tony Award\"",
+        "query_toks": [
+            "SELECT",
+            "DISTINCT",
+            "Nominee",
+            "FROM",
+            "musical",
+            "WHERE",
+            "Award",
+            "!",
+            "=",
+            "``",
+            "Tony",
+            "Award",
+            "''"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "distinct",
+            "nominee",
+            "from",
+            "musical",
+            "where",
+            "award",
+            "!",
+            "=",
+            "value"
+        ],
+        "question": "Return the different nominees of musicals that have an award that is not the Tony Award.",
+        "question_toks": [
+            "Return",
+            "the",
+            "different",
+            "nominees",
+            "of",
+            "musicals",
+            "that",
+            "have",
+            "an",
+            "award",
+            "that",
+            "is",
+            "not",
+            "the",
+            "Tony",
+            "Award",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                true,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    7,
+                    [
+                        0,
+                        [
+                            0,
+                            4,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Tony Award\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T1.Name ,  T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID",
+        "query_toks": [
+            "SELECT",
+            "T1.Name",
+            ",",
+            "T2.Name",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t1",
+            ".",
+            "name",
+            ",",
+            "t2",
+            ".",
+            "name",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id"
+        ],
+        "question": "Show names of actors and names of musicals they are in.",
+        "question_toks": [
+            "Show",
+            "names",
+            "of",
+            "actors",
+            "and",
+            "names",
+            "of",
+            "musicals",
+            "they",
+            "are",
+            "in",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T1.Name ,  T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID",
+        "query_toks": [
+            "SELECT",
+            "T1.Name",
+            ",",
+            "T2.Name",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t1",
+            ".",
+            "name",
+            ",",
+            "t2",
+            ".",
+            "name",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id"
+        ],
+        "question": "What are the names of actors and the musicals that they are in?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "actors",
+            "and",
+            "the",
+            "musicals",
+            "that",
+            "they",
+            "are",
+            "in",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Name  =  \"The Phantom of the Opera\"",
+        "query_toks": [
+            "SELECT",
+            "T1.Name",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID",
+            "WHERE",
+            "T2.Name",
+            "=",
+            "``",
+            "The",
+            "Phantom",
+            "of",
+            "the",
+            "Opera",
+            "''"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t1",
+            ".",
+            "name",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id",
+            "where",
+            "t2",
+            ".",
+            "name",
+            "=",
+            "value"
+        ],
+        "question": "Show names of actors that have appeared in musical with name \"The Phantom of the Opera\".",
+        "question_toks": [
+            "Show",
+            "names",
+            "of",
+            "actors",
+            "that",
+            "have",
+            "appeared",
+            "in",
+            "musical",
+            "with",
+            "name",
+            "``",
+            "The",
+            "Phantom",
+            "of",
+            "the",
+            "Opera",
+            "''",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            2,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"The Phantom of the Opera\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Name  =  \"The Phantom of the Opera\"",
+        "query_toks": [
+            "SELECT",
+            "T1.Name",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID",
+            "WHERE",
+            "T2.Name",
+            "=",
+            "``",
+            "The",
+            "Phantom",
+            "of",
+            "the",
+            "Opera",
+            "''"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t1",
+            ".",
+            "name",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id",
+            "where",
+            "t2",
+            ".",
+            "name",
+            "=",
+            "value"
+        ],
+        "question": "What are the names of actors who have been in the musical titled The Phantom of the Opera?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "actors",
+            "who",
+            "have",
+            "been",
+            "in",
+            "the",
+            "musical",
+            "titled",
+            "The",
+            "Phantom",
+            "of",
+            "the",
+            "Opera",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            2,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"The Phantom of the Opera\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID ORDER BY T2.Year DESC",
+        "query_toks": [
+            "SELECT",
+            "T1.Name",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID",
+            "ORDER",
+            "BY",
+            "T2.Year",
+            "DESC"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t1",
+            ".",
+            "name",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id",
+            "order",
+            "by",
+            "t2",
+            ".",
+            "year",
+            "desc"
+        ],
+        "question": "Show names of actors in descending order of the year their musical is awarded.",
+        "question_toks": [
+            "Show",
+            "names",
+            "of",
+            "actors",
+            "in",
+            "descending",
+            "order",
+            "of",
+            "the",
+            "year",
+            "their",
+            "musical",
+            "is",
+            "awarded",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            3,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID ORDER BY T2.Year DESC",
+        "query_toks": [
+            "SELECT",
+            "T1.Name",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID",
+            "ORDER",
+            "BY",
+            "T2.Year",
+            "DESC"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t1",
+            ".",
+            "name",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id",
+            "order",
+            "by",
+            "t2",
+            ".",
+            "year",
+            "desc"
+        ],
+        "question": "What are the names of actors ordered descending by the year in which their musical was awarded?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "actors",
+            "ordered",
+            "descending",
+            "by",
+            "the",
+            "year",
+            "in",
+            "which",
+            "their",
+            "musical",
+            "was",
+            "awarded",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                9,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            3,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T2.Name ,  COUNT(*) FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID",
+        "query_toks": [
+            "SELECT",
+            "T2.Name",
+            ",",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID",
+            "GROUP",
+            "BY",
+            "T1.Musical_ID"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t2",
+            ".",
+            "name",
+            ",",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id",
+            "group",
+            "by",
+            "t1",
+            ".",
+            "musical_id"
+        ],
+        "question": "Show names of musicals and the number of actors who have appeared in the musicals.",
+        "question_toks": [
+            "Show",
+            "names",
+            "of",
+            "musicals",
+            "and",
+            "the",
+            "number",
+            "of",
+            "actors",
+            "who",
+            "have",
+            "appeared",
+            "in",
+            "the",
+            "musicals",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    10,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T2.Name ,  COUNT(*) FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID",
+        "query_toks": [
+            "SELECT",
+            "T2.Name",
+            ",",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID",
+            "GROUP",
+            "BY",
+            "T1.Musical_ID"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t2",
+            ".",
+            "name",
+            ",",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id",
+            "group",
+            "by",
+            "t1",
+            ".",
+            "musical_id"
+        ],
+        "question": "How many actors have appeared in each musical?",
+        "question_toks": [
+            "How",
+            "many",
+            "actors",
+            "have",
+            "appeared",
+            "in",
+            "each",
+            "musical",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    10,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID HAVING COUNT(*)  >=  3",
+        "query_toks": [
+            "SELECT",
+            "T2.Name",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID",
+            "GROUP",
+            "BY",
+            "T1.Musical_ID",
+            "HAVING",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            ">",
+            "=",
+            "3"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t2",
+            ".",
+            "name",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id",
+            "group",
+            "by",
+            "t1",
+            ".",
+            "musical_id",
+            "having",
+            "count",
+            "(",
+            "*",
+            ")",
+            ">",
+            "=",
+            "value"
+        ],
+        "question": "Show names of musicals which have at least three actors.",
+        "question_toks": [
+            "Show",
+            "names",
+            "of",
+            "musicals",
+            "which",
+            "have",
+            "at",
+            "least",
+            "three",
+            "actors",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    10,
+                    false
+                ]
+            ],
+            "having": [
+                [
+                    false,
+                    5,
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ],
+                    3.0,
+                    null
+                ]
+            ],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT T2.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID GROUP BY T1.Musical_ID HAVING COUNT(*)  >=  3",
+        "query_toks": [
+            "SELECT",
+            "T2.Name",
+            "FROM",
+            "actor",
+            "AS",
+            "T1",
+            "JOIN",
+            "musical",
+            "AS",
+            "T2",
+            "ON",
+            "T1.Musical_ID",
+            "=",
+            "T2.Musical_ID",
+            "GROUP",
+            "BY",
+            "T1.Musical_ID",
+            "HAVING",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            ">",
+            "=",
+            "3"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "t2",
+            ".",
+            "name",
+            "from",
+            "actor",
+            "as",
+            "t1",
+            "join",
+            "musical",
+            "as",
+            "t2",
+            "on",
+            "t1",
+            ".",
+            "musical_id",
+            "=",
+            "t2",
+            ".",
+            "musical_id",
+            "group",
+            "by",
+            "t1",
+            ".",
+            "musical_id",
+            "having",
+            "count",
+            "(",
+            "*",
+            ")",
+            ">",
+            "=",
+            "value"
+        ],
+        "question": "What are the names of musicals who have at 3 or more actors?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "musicals",
+            "who",
+            "have",
+            "at",
+            "3",
+            "or",
+            "more",
+            "actors",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        1
+                    ],
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": [
+                    [
+                        false,
+                        2,
+                        [
+                            0,
+                            [
+                                0,
+                                10,
+                                false
+                            ],
+                            null
+                        ],
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    10,
+                    false
+                ]
+            ],
+            "having": [
+                [
+                    false,
+                    5,
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ],
+                    3.0,
+                    null
+                ]
+            ],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Nominee ,  COUNT(*) FROM musical GROUP BY Nominee",
+        "query_toks": [
+            "SELECT",
+            "Nominee",
+            ",",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "musical",
+            "GROUP",
+            "BY",
+            "Nominee"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "nominee",
+            ",",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "musical",
+            "group",
+            "by",
+            "nominee"
+        ],
+        "question": "Show different nominees and the number of musicals they have been nominated.",
+        "question_toks": [
+            "Show",
+            "different",
+            "nominees",
+            "and",
+            "the",
+            "number",
+            "of",
+            "musicals",
+            "they",
+            "have",
+            "been",
+            "nominated",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    6,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Nominee ,  COUNT(*) FROM musical GROUP BY Nominee",
+        "query_toks": [
+            "SELECT",
+            "Nominee",
+            ",",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            "FROM",
+            "musical",
+            "GROUP",
+            "BY",
+            "Nominee"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "nominee",
+            ",",
+            "count",
+            "(",
+            "*",
+            ")",
+            "from",
+            "musical",
+            "group",
+            "by",
+            "nominee"
+        ],
+        "question": "How many musicals has each nominee been nominated for?",
+        "question_toks": [
+            "How",
+            "many",
+            "musicals",
+            "has",
+            "each",
+            "nominee",
+            "been",
+            "nominated",
+            "for",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ],
+                    [
+                        3,
+                        [
+                            0,
+                            [
+                                0,
+                                0,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    6,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Nominee FROM musical GROUP BY Nominee ORDER BY COUNT(*) DESC LIMIT 1",
+        "query_toks": [
+            "SELECT",
+            "Nominee",
+            "FROM",
+            "musical",
+            "GROUP",
+            "BY",
+            "Nominee",
+            "ORDER",
+            "BY",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            "DESC",
+            "LIMIT",
+            "1"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "nominee",
+            "from",
+            "musical",
+            "group",
+            "by",
+            "nominee",
+            "order",
+            "by",
+            "count",
+            "(",
+            "*",
+            ")",
+            "desc",
+            "limit",
+            "value"
+        ],
+        "question": "Please show the nominee who has been nominated the greatest number of times.",
+        "question_toks": [
+            "Please",
+            "show",
+            "the",
+            "nominee",
+            "who",
+            "has",
+            "been",
+            "nominated",
+            "the",
+            "greatest",
+            "number",
+            "of",
+            "times",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    6,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": 1,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Nominee FROM musical GROUP BY Nominee ORDER BY COUNT(*) DESC LIMIT 1",
+        "query_toks": [
+            "SELECT",
+            "Nominee",
+            "FROM",
+            "musical",
+            "GROUP",
+            "BY",
+            "Nominee",
+            "ORDER",
+            "BY",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            "DESC",
+            "LIMIT",
+            "1"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "nominee",
+            "from",
+            "musical",
+            "group",
+            "by",
+            "nominee",
+            "order",
+            "by",
+            "count",
+            "(",
+            "*",
+            ")",
+            "desc",
+            "limit",
+            "value"
+        ],
+        "question": "Who is the nominee who has been nominated for the most musicals?",
+        "question_toks": [
+            "Who",
+            "is",
+            "the",
+            "nominee",
+            "who",
+            "has",
+            "been",
+            "nominated",
+            "for",
+            "the",
+            "most",
+            "musicals",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    6,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": 1,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT RESULT FROM musical GROUP BY RESULT ORDER BY COUNT(*) DESC LIMIT 1",
+        "query_toks": [
+            "SELECT",
+            "RESULT",
+            "FROM",
+            "musical",
+            "GROUP",
+            "BY",
+            "RESULT",
+            "ORDER",
+            "BY",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            "DESC",
+            "LIMIT",
+            "1"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "result",
+            "from",
+            "musical",
+            "group",
+            "by",
+            "result",
+            "order",
+            "by",
+            "count",
+            "(",
+            "*",
+            ")",
+            "desc",
+            "limit",
+            "value"
+        ],
+        "question": "List the most common result of the musicals.",
+        "question_toks": [
+            "List",
+            "the",
+            "most",
+            "common",
+            "result",
+            "of",
+            "the",
+            "musicals",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                7,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    7,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": 1,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT RESULT FROM musical GROUP BY RESULT ORDER BY COUNT(*) DESC LIMIT 1",
+        "query_toks": [
+            "SELECT",
+            "RESULT",
+            "FROM",
+            "musical",
+            "GROUP",
+            "BY",
+            "RESULT",
+            "ORDER",
+            "BY",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            "DESC",
+            "LIMIT",
+            "1"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "result",
+            "from",
+            "musical",
+            "group",
+            "by",
+            "result",
+            "order",
+            "by",
+            "count",
+            "(",
+            "*",
+            ")",
+            "desc",
+            "limit",
+            "value"
+        ],
+        "question": "Return the most frequent result across all musicals.",
+        "question_toks": [
+            "Return",
+            "the",
+            "most",
+            "frequent",
+            "result",
+            "across",
+            "all",
+            "musicals",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                7,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    7,
+                    false
+                ]
+            ],
+            "having": [],
+            "orderBy": [
+                "desc",
+                [
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ]
+                ]
+            ],
+            "limit": 1,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Nominee FROM musical GROUP BY Nominee HAVING COUNT(*)  >  2",
+        "query_toks": [
+            "SELECT",
+            "Nominee",
+            "FROM",
+            "musical",
+            "GROUP",
+            "BY",
+            "Nominee",
+            "HAVING",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            ">",
+            "2"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "nominee",
+            "from",
+            "musical",
+            "group",
+            "by",
+            "nominee",
+            "having",
+            "count",
+            "(",
+            "*",
+            ")",
+            ">",
+            "value"
+        ],
+        "question": "List the nominees that have been nominated more than two musicals.",
+        "question_toks": [
+            "List",
+            "the",
+            "nominees",
+            "that",
+            "have",
+            "been",
+            "nominated",
+            "more",
+            "than",
+            "two",
+            "musicals",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    6,
+                    false
+                ]
+            ],
+            "having": [
+                [
+                    false,
+                    3,
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ],
+                    2.0,
+                    null
+                ]
+            ],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Nominee FROM musical GROUP BY Nominee HAVING COUNT(*)  >  2",
+        "query_toks": [
+            "SELECT",
+            "Nominee",
+            "FROM",
+            "musical",
+            "GROUP",
+            "BY",
+            "Nominee",
+            "HAVING",
+            "COUNT",
+            "(",
+            "*",
+            ")",
+            ">",
+            "2"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "nominee",
+            "from",
+            "musical",
+            "group",
+            "by",
+            "nominee",
+            "having",
+            "count",
+            "(",
+            "*",
+            ")",
+            ">",
+            "value"
+        ],
+        "question": "Who are the nominees who have been nominated more than two times?",
+        "question_toks": [
+            "Who",
+            "are",
+            "the",
+            "nominees",
+            "who",
+            "have",
+            "been",
+            "nominated",
+            "more",
+            "than",
+            "two",
+            "times",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [],
+            "groupBy": [
+                [
+                    0,
+                    6,
+                    false
+                ]
+            ],
+            "having": [
+                [
+                    false,
+                    3,
+                    [
+                        0,
+                        [
+                            3,
+                            0,
+                            false
+                        ],
+                        null
+                    ],
+                    2.0,
+                    null
+                ]
+            ],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)",
+        "query_toks": [
+            "SELECT",
+            "Name",
+            "FROM",
+            "musical",
+            "WHERE",
+            "Musical_ID",
+            "NOT",
+            "IN",
+            "(",
+            "SELECT",
+            "Musical_ID",
+            "FROM",
+            "actor",
+            ")"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "musical",
+            "where",
+            "musical_id",
+            "not",
+            "in",
+            "(",
+            "select",
+            "musical_id",
+            "from",
+            "actor",
+            ")"
+        ],
+        "question": "List the name of musicals that do not have actors.",
+        "question_toks": [
+            "List",
+            "the",
+            "name",
+            "of",
+            "musicals",
+            "that",
+            "do",
+            "not",
+            "have",
+            "actors",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    true,
+                    8,
+                    [
+                        0,
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ],
+                    {
+                        "from": {
+                            "table_units": [
+                                [
+                                    "table_unit",
+                                    1
+                                ]
+                            ],
+                            "conds": []
+                        },
+                        "select": [
+                            false,
+                            [
+                                [
+                                    0,
+                                    [
+                                        0,
+                                        [
+                                            0,
+                                            10,
+                                            false
+                                        ],
+                                        null
+                                    ]
+                                ]
+                            ]
+                        ],
+                        "where": [],
+                        "groupBy": [],
+                        "having": [],
+                        "orderBy": [],
+                        "limit": null,
+                        "intersect": null,
+                        "union": null,
+                        "except": null
+                    },
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)",
+        "query_toks": [
+            "SELECT",
+            "Name",
+            "FROM",
+            "musical",
+            "WHERE",
+            "Musical_ID",
+            "NOT",
+            "IN",
+            "(",
+            "SELECT",
+            "Musical_ID",
+            "FROM",
+            "actor",
+            ")"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "name",
+            "from",
+            "musical",
+            "where",
+            "musical_id",
+            "not",
+            "in",
+            "(",
+            "select",
+            "musical_id",
+            "from",
+            "actor",
+            ")"
+        ],
+        "question": "What are the names of musicals who have no actors?",
+        "question_toks": [
+            "What",
+            "are",
+            "the",
+            "names",
+            "of",
+            "musicals",
+            "who",
+            "have",
+            "no",
+            "actors",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                2,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    true,
+                    8,
+                    [
+                        0,
+                        [
+                            0,
+                            1,
+                            false
+                        ],
+                        null
+                    ],
+                    {
+                        "from": {
+                            "table_units": [
+                                [
+                                    "table_unit",
+                                    1
+                                ]
+                            ],
+                            "conds": []
+                        },
+                        "select": [
+                            false,
+                            [
+                                [
+                                    0,
+                                    [
+                                        0,
+                                        [
+                                            0,
+                                            10,
+                                            false
+                                        ],
+                                        null
+                                    ]
+                                ]
+                            ]
+                        ],
+                        "where": [],
+                        "groupBy": [],
+                        "having": [],
+                        "orderBy": [],
+                        "limit": null,
+                        "intersect": null,
+                        "union": null,
+                        "except": null
+                    },
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" OR Award  =  \"Cleavant Derricks\"",
+        "query_toks": [
+            "SELECT",
+            "Nominee",
+            "FROM",
+            "musical",
+            "WHERE",
+            "Award",
+            "=",
+            "``",
+            "Tony",
+            "Award",
+            "''",
+            "OR",
+            "Award",
+            "=",
+            "``",
+            "Cleavant",
+            "Derricks",
+            "''"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "nominee",
+            "from",
+            "musical",
+            "where",
+            "award",
+            "=",
+            "value",
+            "or",
+            "award",
+            "=",
+            "value"
+        ],
+        "question": "Show the musical nominee with award \"Bob Fosse\" or \"Cleavant Derricks\".",
+        "question_toks": [
+            "Show",
+            "the",
+            "musical",
+            "nominee",
+            "with",
+            "award",
+            "``",
+            "Bob",
+            "Fosse",
+            "''",
+            "or",
+            "``",
+            "Cleavant",
+            "Derricks",
+            "''",
+            "."
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            4,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Tony Award\"",
+                    null
+                ],
+                "or",
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            4,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Cleavant Derricks\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    },
+    {
+        "db_id": "musical",
+        "query": "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" OR Award  =  \"Cleavant Derricks\"",
+        "query_toks": [
+            "SELECT",
+            "Nominee",
+            "FROM",
+            "musical",
+            "WHERE",
+            "Award",
+            "=",
+            "``",
+            "Tony",
+            "Award",
+            "''",
+            "OR",
+            "Award",
+            "=",
+            "``",
+            "Cleavant",
+            "Derricks",
+            "''"
+        ],
+        "query_toks_no_value": [
+            "select",
+            "nominee",
+            "from",
+            "musical",
+            "where",
+            "award",
+            "=",
+            "value",
+            "or",
+            "award",
+            "=",
+            "value"
+        ],
+        "question": "Who are the nominees who were nominated for either of the Bob Fosse or Cleavant Derricks awards?",
+        "question_toks": [
+            "Who",
+            "are",
+            "the",
+            "nominees",
+            "who",
+            "were",
+            "nominated",
+            "for",
+            "either",
+            "of",
+            "the",
+            "Bob",
+            "Fosse",
+            "or",
+            "Cleavant",
+            "Derricks",
+            "awards",
+            "?"
+        ],
+        "sql": {
+            "from": {
+                "table_units": [
+                    [
+                        "table_unit",
+                        0
+                    ]
+                ],
+                "conds": []
+            },
+            "select": [
+                false,
+                [
+                    [
+                        0,
+                        [
+                            0,
+                            [
+                                0,
+                                6,
+                                false
+                            ],
+                            null
+                        ]
+                    ]
+                ]
+            ],
+            "where": [
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            4,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Tony Award\"",
+                    null
+                ],
+                "or",
+                [
+                    false,
+                    2,
+                    [
+                        0,
+                        [
+                            0,
+                            4,
+                            false
+                        ],
+                        null
+                    ],
+                    "\"Cleavant Derricks\"",
+                    null
+                ]
+            ],
+            "groupBy": [],
+            "having": [],
+            "orderBy": [],
+            "limit": null,
+            "intersect": null,
+            "union": null,
+            "except": null
+        }
+    }
+]
