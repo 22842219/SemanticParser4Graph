@@ -12,7 +12,7 @@ import shutil
 from sql2cypher import build_lookup_dict, Formatter, execution_accuracy
 
 from utils import Logger
-logger = Logger
+logger = Logger()
 config = configparser.ConfigParser()
 config.read('../config.ini')
 filenames = config["FILENAMES"]
@@ -47,14 +47,13 @@ def main():
         os.makedirs(sp_out_folder) 
 
     # lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_out_folder, uncased_flag = True)
-    lookup_dict_json_file = '/home/22842219/Desktop/phd/SemanticParser4Graph/sp_data_folder/cased_vs_uncased_4_dbs/uncased/lookup_dict.json'
+    lookup_dict_json_file = '/home/22842219/Desktop/phd/SemanticParser4Graph/sp_data_folder/text2cypher/uncased/lookup_dict.json'
     with open(lookup_dict_json_file, 'r', encoding='utf-8') as f:
         lookup_dict=json.load(f)
 
     # read tables json file
     with open(os.path.join(raw_spider_folder, 'tables.json'), encoding='utf-8') as tables_file:
         tables = json.loads(tables_file.read())
-
 
 
 
@@ -95,20 +94,22 @@ def main():
             print(every)
             question = every['question']
             sql_prediction = every['prediction']
-            sql_ground = every['query']
+            sql_gold= every['query']
 
             # 2. Access database, execute SQL query and get result.              
             db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))  
             # print(db_path) 
             engine = DBengine(db_path)
-            sql_result = []
+            sql_gold_result = []
+            sql_preds_result = []
             try:
                 # for res in  engine.execute(sql_query).fetchall():
                 # 	if list(res) not in sql_result:
                 # 		sql_result.append(list(res) )
-                sql_result = engine.execute(sql_ground).fetchall()
+                sql_gold_result = engine.execute(sql_gold).fetchall()
+                sql_preds_result = engine.execute(sql_prediction).fetchall()
             except:
-                logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_ground))
+                logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_gold))
                 continue
 
 
@@ -117,36 +118,49 @@ def main():
                 parsed_sql = parse(sql_prediction)	
                 print(f'parsed_sql: {parsed_sql}')
 
+                parsed_sql_gold = parse(sql_gold)
+
                 try:
                     formatter  = Formatter( db_name, all_table_fields, graph)
-                    sql2cypher = formatter.format(parsed_sql)
+                    sql_pred_2cypher = formatter.format(parsed_sql)
+                    sql_gold_2cypher = formatter.format(parsed_sql_gold)
                     print("**************Cypher Query***************")
-                    print(sql2cypher)
+                    print(sql_pred_2cypher)
                     print("**************Cypher Query***************")
 
-                    Cyparser = CyqueryStatmentParser(sql2cypher, 'statement', lexer)
+                    Cyparser = CyqueryStatmentParser(sql_pred_2cypher, 'statement', lexer)
                     tokenized_statment, token_types = Cyparser.get_tokenization()
                     # print("tokenized_statment:", tokenized_statment, token_types)
                     
                     # 4. Execute cypher query.. 
-                    if sql2cypher:
-                        cypher_res = graph.run(sql2cypher).data()
-                        cypher_ans = []
-                        for dict_ in cypher_res:
+                    if sql_pred_2cypher and sql_gold_2cypher:
+                        cypher_pred_res = graph.run(sql_pred_2cypher).data()
+                        cypher_pred_ans = []
+                        for dict_ in cypher_pred_res:
                             # if tuple(dict_.values()) not in cypher_ans:
-                            cypher_ans.append(tuple(dict_.values()))
+                            cypher_pred_ans.append(tuple(dict_.values()))
+
+                        cypher_gold_res = graph.run(sql_gold_2cypher).data()
+                        cypher_gold_ans = []
+                        for dict_ in cypher_gold_res:
+                            # if tuple(dict_.values()) not in cypher_ans:
+                            cypher_gold_ans.append(tuple(dict_.values()))
 
                         # sort results for the comparision
-                        cypher_sorted = sorted(cypher_ans, key=lambda x: x[0])
-                        sql_sorted =  sorted(sql_result, key=lambda x: x[0] if bool(x[0]) else 0)
+                        cypher_pred_sorted = sorted(cypher_pred_ans, key=lambda x: x[0])
+                        cypher_gold_sorted =  sorted(cypher_gold_ans, key=lambda x: x[0] if bool(x[0]) else 0)
+                        sql_preds_sorted =  sorted(sql_preds_result, key=lambda x: x[0] if bool(x[0]) else 0)
+                        sql_gold_sorted =  sorted(sql_gold_result, key=lambda x: x[0] if bool(x[0]) else 0)
                         # print(f'sql_sorted: {sql_sorted}')
                         # print(f'cypher_sorted: {cypher_sorted}')
+
+
                         
 
-                        if not set(cypher_sorted)-set(sql_sorted):
-                            print(f'correct_ans: {cypher_ans}') 
-                            correct_qa_pairs.append({'db_id':db_name, 'question':question, 'text2sql': sql_prediction, 'sql2cypher':sql2cypher,\
-                            'sql_ground':sql_ground, 'answers':cypher_ans})
+                        if not set(sql_gold_sorted)-set(cypher_gold_sorted):
+                            print(f'correct_ans: {cypher_pred_ans}') 
+                            correct_qa_pairs.append({'db_id':db_name, 'question':question, 'text2sql': sql_prediction, 'sql_pred_2cypher':sql_pred_2cypher,\
+                            'sql_gold':sql_gold, 'sql_gold_2cypher':sql_gold_2cypher, 'cypher_pred_ans':cypher_pred_ans, 'cypher_gold_ans': cypher_gold_ans})
                             spider_sub_pairs.append(data[i])
                             spider_sub_gold_sql.append(data[i]['query'])
                             if data[i]['db_id'] not in seleted_rel_dbs:
@@ -155,10 +169,10 @@ def main():
                                     if db_name==db_tables['db_id']:
                                         spider_sub_tables.append(db_tables)	
                         else:
-                            print(f'incorrect_ans: {cypher_ans}')
+                            print(f'incorrect_ans: {cypher_pred_ans}')
                             incorrect[db_name].append(i)
-                            incorrect_qa_pairs.append({'db_id':db_name, 'question':question, 'sql_ground':sql_ground, \
-                            'text2sql':sql_prediction, 'sql2cypher':sql2cypher, 'cypher_ans':cypher_ans})
+                            incorrect_qa_pairs.append({'db_id':db_name, 'question':question, 'sql_gold':sql_gold, 'sql_gold_2cypher':sql_gold_2cypher,\
+                            'text2sql':sql_prediction, 'sql_pred_2cypher':sql_pred_2cypher, 'cypher_pred_ans':cypher_pred_ans, 'cypher_gold_ans': cypher_gold_ans})
                 except:
                     # accumulate invalid or none generated cypher queries.
                     incorrect[db_name].append(i)
