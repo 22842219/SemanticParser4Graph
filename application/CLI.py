@@ -15,10 +15,10 @@ config = ConfigParser()
 config.read('config.ini')
 filenames = config["FILENAMES"]
 raw_data_folder = filenames['raw_folder']
-sp_folder = filenames['sp_folder']
+text2sql_data_folder = filenames['text2sql_data_folder']
 
 spider_json_folder = os.path.join(raw_data_folder, 'spider')
-spider_lookup_up = os.path.join(sp_folder, 'spider', 'lookup_dict.json')
+lookup_up = os.path.join(text2sql_data_folder, 'cased', 'lookup_dict.json')
 
 neo4j_uri = filenames['neo4j_uri']
 neo4j_user = filenames['neo4j_user']
@@ -119,12 +119,12 @@ class CLI:
     def sql2cypher(self, sql_query):
         all_table_fields = []	
         # Get table_fields information.
-        with open(spider_lookup_up) as f:
-            spider_lookup_dict = json.load(f)
+        with open(lookup_up) as f:
+            lookup_dict = json.load(f)
         config = self._load_config()
         if  self.db_name == 'sqlite3':
             sqlite3_config = config['sqlite3']
-            all_table_fields = spider_lookup_dict[sqlite3_config['database']]
+            all_table_fields = lookup_dict[sqlite3_config['database']]
            
         parsed_sql = parse(sql_query)	
         print(parsed_sql)
