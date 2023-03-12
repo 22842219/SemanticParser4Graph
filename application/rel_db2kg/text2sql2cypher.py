@@ -147,17 +147,15 @@ def main():
                             cypher_gold_ans.append(tuple(dict_.values()))
 
                         # sort results for the comparision
-                        cypher_pred_sorted = sorted(cypher_pred_ans, key=lambda x: x[0])
-                        cypher_gold_sorted =  sorted(cypher_gold_ans, key=lambda x: x[0] if bool(x[0]) else 0)
-                        sql_preds_sorted =  sorted(sql_preds_result, key=lambda x: x[0] if bool(x[0]) else 0)
-                        sql_gold_sorted =  sorted(sql_gold_result, key=lambda x: x[0] if bool(x[0]) else 0)
+                        # cypher_pred_sorted = sorted(cypher_pred_ans, key=lambda x: x[0])
+                        # cypher_gold_sorted =  sorted(cypher_gold_ans, key=lambda x: x[0])
+                        # sql_preds_sorted =  sorted(sql_preds_result, key=lambda x: x[0] if bool(x[0]) else 0)
+                        # sql_gold_sorted =  sorted(sql_gold_result, key=lambda x: x[0] if bool(x[0]) else 0)
                         # print(f'sql_sorted: {sql_sorted}')
                         # print(f'cypher_sorted: {cypher_sorted}')
-
-
                         
 
-                        if not set(sql_gold_sorted)-set(cypher_gold_sorted):
+                        if set(cypher_pred_ans)==set(cypher_gold_ans):
                             print(f'correct_ans: {cypher_pred_ans}') 
                             correct_qa_pairs.append({'db_id':db_name, 'question':question, 'text2sql': sql_prediction, 'sql_pred_2cypher':sql_pred_2cypher,\
                             'sql_gold':sql_gold, 'sql_gold_2cypher':sql_gold_2cypher, 'cypher_pred_ans':cypher_pred_ans, 'cypher_gold_ans': cypher_gold_ans})
