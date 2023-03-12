@@ -9,8 +9,8 @@ from view import app
 from configparser import ConfigParser
 
 
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, HfArgumentParser, set_seed
+sys.path.append('/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/semantic_parser')
 from utils.configue import Configure
 from utils.training_arguments import WrappedSeq2SeqTrainingArguments
 
