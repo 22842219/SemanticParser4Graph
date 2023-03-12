@@ -8,17 +8,17 @@ from configparser import ConfigParser, ParsingError, NoSectionError
 from unsw.SQLParser import SQLParser
 import jsonlines
 from py2neo import Graph
-
 from rel_db2kg.sql2cypher import Formatter
+import torch
 
 config = ConfigParser()
 config.read('config.ini')
 filenames = config["FILENAMES"]
 raw_data_folder = filenames['raw_folder']
-sp_folder = filenames['sp_folder']
+text2sql_data_folder = filenames['text2sql_data_folder']
 
 spider_json_folder = os.path.join(raw_data_folder, 'spider')
-spider_lookup_up = os.path.join(sp_folder, 'spider', 'lookup_dict.json')
+lookup_up = os.path.join(text2sql_data_folder, 'cased', 'lookup_dict.json')
 
 neo4j_uri = filenames['neo4j_uri']
 neo4j_user = filenames['neo4j_user']
@@ -119,12 +119,12 @@ class CLI:
     def sql2cypher(self, sql_query):
         all_table_fields = []	
         # Get table_fields information.
-        with open(spider_lookup_up) as f:
-            spider_lookup_dict = json.load(f)
+        with open(lookup_up) as f:
+            lookup_dict = json.load(f)
         config = self._load_config()
         if  self.db_name == 'sqlite3':
             sqlite3_config = config['sqlite3']
-            all_table_fields = spider_lookup_dict[sqlite3_config['database']]
+            all_table_fields = lookup_dict[sqlite3_config['database']]
            
         parsed_sql = parse(sql_query)	
         print(parsed_sql)
@@ -132,6 +132,25 @@ class CLI:
         sql2cypher = formatter.format(parsed_sql)
         print("sql2cypher:", sql2cypher)
         return sql2cypher
+    
+    def text2cypher(self, text, model, tokenizer):
+        #model
+        print("=====❓Request=====")
+        print(text)
+        tokenized_txt = tokenizer([text], max_length=1024, padding="max_length", truncation=True)
+        pred = tokenizer.batch_decode(
+            model.generate(
+                torch.LongTensor(tokenized_txt.data['input_ids']),
+                torch.LongTensor(tokenized_txt.data['attention_mask']),
+                num_beams=1, 
+                max_length=256
+                ), 
+            skip_special_tokens=True 
+        ) # More details see utils/dataset.py and utils/trainer.py
+        print("=====💡Answer=====")
+        print(pred)
+        text2cypher = 'MATCH (singer:`concert_singer.singer`) RETURN count(*)'
+        return text2cypher
 
     def load_web_conf(self):
         """

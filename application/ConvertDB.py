@@ -22,7 +22,7 @@ config = configparser.ConfigParser()
 import sqlite3
 
 class ConvertDB:
-    _neo4j_export_path = '/home/22842219/Desktop/phd/neo4j-community-4.4.13/import'
+    _neo4j_export_path = '/Users/ziyuzhao/Desktop/phd/neo4j-community-4.4.13/import'
     _cache_path = os.getcwd() + '/cache/'
     _output_path = os.getcwd() + '/data'
 
@@ -215,7 +215,6 @@ class ConvertDB:
                                    "where table_schema='{}';".format(self.mysql_config['database']))
         return tables
     
-
     def get_mysql_relations(self, only_table=False):
         """
         get all the relationship between tables

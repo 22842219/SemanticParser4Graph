@@ -179,6 +179,7 @@ def compute_execuation_acc_metric(predictions, references, if_cased) -> Dict[str
         "exectuation accuracy": evaluator.scores["exec"],
     }
 
+
 class EvaluateTool(object):
     def __init__(self, args):
         self.args = args
@@ -196,13 +197,11 @@ class EvaluateTool(object):
 
         return {**exact_match}
 
-
 def finalize(scores, etype):
     if scores["count"] == 0:
         pass
     if etype in ["all", "exec"]:
         scores["exec"] /= scores["count"]
-
 
 def isValidCypher(cypher, graph):
 
@@ -211,7 +210,6 @@ def isValidCypher(cypher, graph):
     except:
         return False
     return True
-
 
 def print_scores(scores, etype):
 
@@ -237,7 +235,6 @@ def print_scores(scores, etype):
     #         )
     #     )
 
-
 def evaluate(gold, predict, graph, etype, if_cased):
     with open(gold) as f:
         glist = [l.strip().split("\t") for l in f.readlines() if len(l.strip()) > 0]
@@ -258,7 +255,6 @@ def evaluate(gold, predict, graph, etype, if_cased):
         "per_item": results,
         "total_scores": evaluator.scores,
     }
-
 
 def eval_exec_match(graph, p_str, g_str):
     """
@@ -305,7 +301,6 @@ def eval_exec_match(graph, p_str, g_str):
     else:
         return  False
 
-
 def main(gold, pred, graph, etype, output, if_cased):
     if etype not in [ 'exec', 'all']:
         raise ValueError()
@@ -338,3 +333,5 @@ if __name__ == "__main__":
 
 
     main(args.gold, args.pred, graph, args.etype, args.output, args.if_cased)
+
+
