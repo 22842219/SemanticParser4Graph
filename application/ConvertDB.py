@@ -215,7 +215,6 @@ class ConvertDB:
                                    "where table_schema='{}';".format(self.mysql_config['database']))
         return tables
     
-
     def get_mysql_relations(self, only_table=False):
         """
         get all the relationship between tables

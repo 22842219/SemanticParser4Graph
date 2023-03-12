@@ -8,8 +8,8 @@ from configparser import ConfigParser, ParsingError, NoSectionError
 from unsw.SQLParser import SQLParser
 import jsonlines
 from py2neo import Graph
-
 from rel_db2kg.sql2cypher import Formatter
+import torch
 
 config = ConfigParser()
 config.read('config.ini')
@@ -132,6 +132,25 @@ class CLI:
         sql2cypher = formatter.format(parsed_sql)
         print("sql2cypher:", sql2cypher)
         return sql2cypher
+    
+    def text2cypher(self, text, model, tokenizer):
+        #model
+        print("=====❓Request=====")
+        print(text)
+        tokenized_txt = tokenizer([text], max_length=1024, padding="max_length", truncation=True)
+        pred = tokenizer.batch_decode(
+            model.generate(
+                torch.LongTensor(tokenized_txt.data['input_ids']),
+                torch.LongTensor(tokenized_txt.data['attention_mask']),
+                num_beams=1, 
+                max_length=256
+                ), 
+            skip_special_tokens=True 
+        ) # More details see utils/dataset.py and utils/trainer.py
+        print("=====💡Answer=====")
+        print(pred)
+        text2cypher = 'MATCH (singer:`concert_singer.singer`) RETURN count(*)'
+        return text2cypher
 
     def load_web_conf(self):
         """

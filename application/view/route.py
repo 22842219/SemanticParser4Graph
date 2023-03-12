@@ -8,6 +8,28 @@ import requests
 from view import app
 from configparser import ConfigParser
 
+
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+
+from utils.configue import Configure
+from utils.training_arguments import WrappedSeq2SeqTrainingArguments
+
+# Set args here for runnning on notebook, we make them out here to make it more illustrative.
+sys.argv = ['/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py', # This is the name of your .py launcher when you run this line of code.
+            # belows are the parameters we set, take spider for example
+            '--cfg', 'Salesforce/T5_base_prefix_spider_with_cell_value.cfg', 
+            '--output_dir', './tmp']
+parser = HfArgumentParser((WrappedSeq2SeqTrainingArguments,))
+
+training_args, = parser.parse_args_into_dataclasses()
+set_seed(training_args.seed)
+args = Configure.Get(training_args.cfg)
+# Load tokenizer and model(21->1 multitasked prefix)
+tokenizer = AutoTokenizer.from_pretrained("hkunlp/from_all_T5_base_prefix_spider_with_cell_value2", use_fast=False)
+from models.unified.prefixtuning import Model
+model = Model(args)
+model.load("hkunlp/from_all_T5_base_prefix_spider_with_cell_value2")
+
 # to add the module path
 PACKAGE_PARENT = '..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
@@ -141,7 +163,7 @@ def Convert():
         query = request.form.get('sql')
         if cli is None:
             cli = load_config()
-        print("ready to be converted query:", query)
+        print("input query:", query)
         # translated_cypher = cli.convert_sql_with_str(query)
         # print("translated_cypher:", translated_cypher)
         # print(cli.db_name)
@@ -150,7 +172,6 @@ def Convert():
         print("translated_cypher:", translated_cypher)
         
         return {"cypher": translated_cypher}
-
 
 @app.route('/run-code', methods=["POST", "GET"])
 def run_code():
@@ -224,6 +245,85 @@ def run_code():
                 res = {"result": None}
         print("return res:", res)
         return {"data": res, "keys": list(res[0].keys()) if type(res) is list else None, "cost": round(t2 - t1, 2)}
+
+
+@app.route('/text2cypher')
+def Text2cypher():
+    return render_template('text2cypher.html')
+
+@app.route('/chatbot', methods=["POST", "GET"])
+def Chatbot():
+    global cli
+    if request.method == "POST":
+        query = request.form.get('text')
+        if cli is None:
+            cli = load_config()
+        print("input query:", query)
+        # translated_cypher = cli.convert_sql_with_str(query)
+        # print("translated_cypher:", translated_cypher)
+        # print(cli.db_name)
+        translated_cypher = cli.text2cypher(query, model, tokenizer)
+    
+        print("translated_cypher:", translated_cypher)
+        
+        return {"cypher": translated_cypher}
+
+@app.route('/run-text2cypher', methods=["POST", "GET"])
+def run_text2cypher():
+    global cli
+    if request.method == "POST":
+        query_type = request.form.get("type")
+        query = request.form.get('query')
+        print(f'text2cypher query type: {query_type},  and query: {query}')
+        if cli is None:
+            cli = load_config()
+        cli.load_web_conf()
+        t1 = time.time()
+        t2 = time.time()
+        print("text2cypher cli.db_name: ", cli.db_name, query_type )
+        if query_type =='text':
+            t2 = time.time()
+            res = {'result': query}
+        else:
+            try:
+                print("cypher query", query )
+                query = 'MATCH (singer:`concert_singer.singer`) RETURN count(*)'
+                original = cli.cb.execute_cypher(query)
+                t2 = time.time()
+                # # ZZY: rewrite the http request in api call. 
+                # # ref: https://community.neo4j.com/t5/neo4j-graph-platform/how-to-pass-a-variable-to-the-http-request-in-api-call/td-p/20933
+                # # browser HTTP REST requests: https://neo4j.com/docs/browser-manual/current/operations/rest-requests/
+        
+                headers = {'Accept': 'application/json;charset=UTF-8', 'Content-Type':'application/json'}
+                
+                uri = 'http://localhost:7474/db/neo4j/tx/commit'
+            
+
+                data = {"statements":[{"statement":query, "parameters":{},"resultDataContents":["row","graph"]}]}
+
+                print(data, type(data))
+            
+
+                response = requests.post(uri, headers=headers, json=data,
+                                            auth=(cli.cb.neo4j_config['username'], cli.cb.neo4j_config['password']))
+                
+                
+                # print("Response of request!", response.json())
+                for d in original:
+                    d[list(original[0].keys())[0]] = str(d[list(original[0].keys())[0]])
+
+                
+
+                return {"data": response.json(), "table_data": original, "keys": list(original[0].keys()) if type(original) is list else None,
+                        "cost": round(t2 - t1, 2), "original": original}
+
+
+            except Exception as err:        
+                res = {"result": None}
+    print("return res:", res)
+    return {"data": res, "keys": list(res[0].keys()) if type(res) is list else None, "cost": round(t2 - t1, 2)}
+
+
 
 
 @app.route('/graph-view', methods=["POST", "GET"])
