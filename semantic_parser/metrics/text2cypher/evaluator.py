@@ -41,9 +41,7 @@ neo4j_password = filenames['neo4j_password']
 graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
 schema_fpath = '/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/data/text2cypher/cased/schema.json'
-with open(schema_fpath, 'r', encoding="utf-8") as f:
-    schema = json.load(f)
-    print(len(schema))
+
 
 def get_uncased_schema(schema):
     uncased_schema = {}
@@ -75,7 +73,9 @@ def prediction_normalisation(preds, if_cased):
     print(f'preds: {preds}')
     mentioned_tag_prop_pairs = {}
     tag_span_start_id=tag_span_end_id = 0
-
+    with open(schema_fpath, 'r', encoding="utf-8") as f:
+        schema = json.load(f)
+        # print(len(schema))
     schema = get_uncased_schema(schema) if not if_cased else schema
     for id, c in enumerate(preds):
         if c == '`': 
@@ -273,7 +273,7 @@ def eval_exec_match(graph, p_str, g_str):
     for dict_q in cypher_res:
         q_res.append(tuple(dict_q.values()))
     # sort results for the comparision
-    q_sorted = sorted(q_res, key=lambda x: x[0])
+    # q_sorted = sorted(q_res, key=lambda x: x[0])
 
 
     p_res=[]
@@ -285,18 +285,18 @@ def eval_exec_match(graph, p_str, g_str):
                 p_res.append(tuple(dict_p.values()))
     # sort results for the comparision
 
-    if not all(map(lambda x: all(x), p_res)): # check any of the element is None.
-        return False
-    else:
-        p_sorted =  sorted(p_res, key=lambda x: x[0]) 
+    # if not all(map(lambda x: all(x), p_res)): # check any of the element is None.
+    #     return False
+    # else:
+    #     p_sorted =  sorted(p_res, key=lambda x: x[0]) 
 
 
     print(f'q_res: {q_res}')
     print(f'p_res: {p_res}')
-    print(f'sorted results. p_sorted: {p_sorted}, q_sorted: {q_sorted}')
+    # print(f'sorted results. p_sorted: {p_sorted}, q_sorted: {q_sorted}')
 
         
-    if not set(p_sorted)-set(q_sorted):
+    if set(p_res)==set(q_res):
         return True
     else:
         return  False
