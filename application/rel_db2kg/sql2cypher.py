@@ -1540,13 +1540,13 @@ def main():
 			
 							# sort results for the comparision
 							# print(f'cypher_ans:', cypher_ans)
-							cypher_sorted = sorted(cypher_ans, key=lambda x: x[0] if bool(x[0]) else 0)
-							sql_sorted =  sorted(sql_result, key=lambda x: x[0] if bool(x[0]) else 0)
+							# cypher_sorted = sorted(cypher_ans, key=lambda x: x[0] if bool(x[0]) else 0)
+							# sql_sorted =  sorted(sql_result, key=lambda x: x[0] if bool(x[0]) else 0)
 							# print(f'sql_sorted: {sql_sorted}')
 							# print(f'cypher_sorted: {cypher_sorted}')
 							
 
-							if not set(cypher_sorted)-set(sql_sorted):
+							if set(cypher_ans)==set(sql_result):
 								print(f'correct_ans: {cypher_ans}') 
 								correct_qa_pairs.append({'db_id':graph_db_name, 'sql': sql_query, 'cypher_query':sql2cypher,\
 								'parsed_cypher':tokenized_statment, 'question':question,

@@ -47,7 +47,8 @@ def main():
         os.makedirs(sp_out_folder) 
 
     # lookup_dict, pks_lookup_dict = build_lookup_dict(db_paths, sp_out_folder, uncased_flag = True)
-    lookup_dict_json_file = '/home/22842219/Desktop/phd/SemanticParser4Graph/sp_data_folder/text2cypher/uncased/lookup_dict.json'
+    # lookup_dict_json_file = '/home/22842219/Desktop/phd/SemanticParser4Graph/sp_data_folder/text2cypher/uncased/lookup_dict.json'
+    lookup_dict_json_file = '/home/22842219/Desktop/phd/SemanticParser4Graph/sp_data_folder/lookup_dict.json'
     with open(lookup_dict_json_file, 'r', encoding='utf-8') as f:
         lookup_dict=json.load(f)
 
@@ -57,7 +58,10 @@ def main():
 
 
 
-    json_file = '/home/22842219/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/text2sql2cypher/subspider/CodeT5_base_finetune_spider_with_cell_value/predictions_predict.json'
+    # json_file = '/home/22842219/Desktop/phd/SemanticParser4Graph/application/rel_db2kg/text2sql2cypher/subspider/CodeT5_base_finetune_spider_with_cell_value/predictions_predict.json'
+    json_file = '/home/22842219/Desktop/openSource/UnifiedSKGG-subSpider/output/T5_base_finetune_spider_with_cell_value/predictions_predict.json'
+    # json_file = '/home/22842219/Desktop/openSource/UnifiedSKGG-subSpider/output/T5_base_prefix_spider_with_cell_value/predictions_predict.json'
+    # json_file = '/home/22842219/Desktop/openSource/UnifiedSKGG-subSpider/output/CodeT5_base_prefix_spider_with_cell_value/predictions_predict.json'
     # print(json_file)
     with open(json_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -73,6 +77,7 @@ def main():
     correct_qa_pairs = [] 
     seleted_rel_dbs = []
     incorrect_qa_pairs = []
+    all_qa_pairs = []
 
     incorrect = {}
     invalid_parsed_sql = {}
@@ -146,7 +151,6 @@ def main():
                             # if tuple(dict_.values()) not in cypher_ans:
                             cypher_gold_ans.append(tuple(dict_.values()))
 
-<<<<<<< HEAD
                         # sort results for the comparision
                         # cypher_pred_sorted = sorted(cypher_pred_ans, key=lambda x: x[0])
                         # cypher_gold_sorted =  sorted(cypher_gold_ans, key=lambda x: x[0])
@@ -157,7 +161,6 @@ def main():
                         
 
                         if set(cypher_pred_ans)==set(cypher_gold_ans):
-=======
                         # # sort results for the comparision
                         # cypher_pred_sorted = sorted(cypher_pred_ans, key=lambda x: x[0])
                         # cypher_gold_sorted =  sorted(cypher_gold_ans, key=lambda x: x[0] if bool(x[0]) else 0)
@@ -166,9 +169,6 @@ def main():
                         # # print(f'sql_sorted: {sql_sorted}')
                         # # print(f'cypher_sorted: {cypher_sorted}')
 
-
-                        if set(cypher_pred_ans)==set(cypher_gold_res):
->>>>>>> c02d5e1a1fa8c41751bf80e4f0ead46ac53678cc
                             print(f'correct_ans: {cypher_pred_ans}') 
                             correct_qa_pairs.append({'db_id':db_name, 'question':question, 'text2sql': sql_prediction, 'sql_pred_2cypher':sql_pred_2cypher,\
                             'sql_gold':sql_gold, 'sql_gold_2cypher':sql_gold_2cypher, 'cypher_pred_ans':cypher_pred_ans, 'cypher_gold_ans': cypher_gold_ans})
@@ -184,6 +184,18 @@ def main():
                             incorrect[db_name].append(i)
                             incorrect_qa_pairs.append({'db_id':db_name, 'question':question, 'sql_gold':sql_gold, 'sql_gold_2cypher':sql_gold_2cypher,\
                             'text2sql':sql_prediction, 'sql_pred_2cypher':sql_pred_2cypher, 'cypher_pred_ans':cypher_pred_ans, 'cypher_gold_ans': cypher_gold_ans})
+
+                        all_qa_pairs.append({'db_id':db_name, 'question':question, 'text2sql': sql_prediction, 'sql_pred_2cypher':sql_pred_2cypher,\
+                        'sql_gold':sql_gold, 'sql_gold_2cypher':sql_gold_2cypher, 'cypher_pred_ans':cypher_pred_ans, 'cypher_gold_ans': cypher_gold_ans})
+                        spider_sub_pairs.append(data[i])
+                        spider_sub_gold_sql.append(data[i]['query'])
+                        if data[i]['db_id'] not in seleted_rel_dbs:
+                            seleted_rel_dbs.append(data[i]['db_id'])
+                            for db_tables in tables:
+                                if db_name==db_tables['db_id']:
+                                    spider_sub_tables.append(db_tables)	  
+
+
                 except:
                     # accumulate invalid or none generated cypher queries.
                     incorrect[db_name].append(i)
@@ -202,6 +214,11 @@ def main():
     metrics = execution_accuracy(metrics_file, 'text2sql2cypher', len(correct_qa_pairs), incorrect, invalid_parsed_sql,
         intersect_sql, except_sql)
     print(f'metrics: {metrics}')
+
+
+    all_output_file = os.path.join(text2sql2cypher_out, '{}.json'.format('text2sql2cypher_all'))   
+    with open(all_output_file, 'a')  as f1:
+        json.dump(all_qa_pairs, f1, indent = 4)
 
     correct_output_file = os.path.join(text2sql2cypher_out, '{}.json'.format('text2sql2cypher'))   
     with open(correct_output_file, 'a')  as f1:
