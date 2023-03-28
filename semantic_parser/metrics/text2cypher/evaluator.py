@@ -70,7 +70,7 @@ def get_uncased_schema(schema):
 def prediction_normalisation(preds, if_cased):
     # tag_pattern = re.compile(r'(`*.*`')	
     preds = preds.replace(" ` ", "`").replace(' -[', '-[').replace(']- ', ']-')
-    print(f'preds: {preds}')
+    # print(f'preds: {preds}')
     mentioned_tag_prop_pairs = {}
     tag_span_start_id=tag_span_end_id = 0
     with open(schema_fpath, 'r', encoding="utf-8") as f:
@@ -151,6 +151,9 @@ class Evaluator:
             # print(f"self.scores[exec]: {self.scores['exec']}")
             # print("hyyyyyyy check it out:", eval_exec_match(
             #     self.graph, predicted, gold))
+            if not self.if_cased:
+                predicted = predicted.lower()
+                gold = gold.lower()
             self.scores["exec"] += eval_exec_match(
                 self.graph, predicted, gold)
         else:
@@ -263,11 +266,11 @@ def eval_exec_match(graph, p_str, g_str):
 
 
     try:
-        prediction_res = graph.run(p_str.lower()).data()
+        prediction_res = graph.run(p_str).data()
     except:
         return False
 
-    cypher_res = graph.run(g_str.lower()).data()
+    cypher_res = graph.run(g_str).data()
 
     q_res = []
     for dict_q in cypher_res:
@@ -291,14 +294,24 @@ def eval_exec_match(graph, p_str, g_str):
     #     p_sorted =  sorted(p_res, key=lambda x: x[0]) 
 
 
-    print(f'q_res: {q_res}')
-    print(f'p_res: {p_res}')
+    # print(f'q_res: {q_res}')
+    # print(f'p_res: {p_res}')
     # print(f'sorted results. p_sorted: {p_sorted}, q_sorted: {q_sorted}')
 
         
     if set(p_res)==set(q_res):
+        print("==========================Allign Predictions======================")
+        print('prediction:', p_str)
+        print('gold:', g_str)
+        print('p_res:', p_res)
+        print('q_res:', q_res)
         return True
     else:
+        print("==========================Not Allign Predictions======================")
+        print('prediction:', p_str)
+        print('gold:', g_str)
+        print('p_res:', p_res)
+        print('q_res:', q_res)
         return  False
 
 def main(gold, pred, graph, etype, output, if_cased):
