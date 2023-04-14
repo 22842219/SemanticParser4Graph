@@ -4,7 +4,10 @@
 Note: This README file is inspired by [Spider](https://github.com/taoyds/spider).
 
 ### :point_right: Changelog
-- `05/03/2023`
+- `13/04/2023`
+
+
+<!-- - `05/03/2023`
     - design two baseline approaches.
         - text2cypher
         - text2sql2cypher
@@ -15,6 +18,7 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - two evaluation aspects.
         - cased prediction and ground truth
         - uncased prediction and ground truth
+     -->
 
 <!-- - `30/01/2023` 
     - Reformat input dataset which includes three json files, namely train.json, dev.json and schema.json. 
@@ -69,25 +73,23 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
 
 ### :point_right: Submission Plan
-
-- KR 2023 
-    - Title and Abstract ddl: 3rd March, 2023
-    - Paper ddl: 14th March, 2023
-- Experiments part
 <!-- 
+- KR 2023 (achieved)
+    - Title and Abstract ddl: 3rd March, 2023
+    - Paper ddl: 14th March, 2023 
+- Experiments part
+
     ~~~- mile stone 1: 12nd Feb, 2023 ~~~
         ~~~- :vulcan_salute: Baseline Results and Analysis (kinda done! require more solid jobs)~~
         ~~~- Update baseline results and analysis to the overleaf (ongoing!)~~ -->
 
-    - mile stone 2:
-        - Most likey I will work on the model architecture improvement, e.g., fussion decoder?
+   <!-- - mile stone 2:
+        - Most likey I will work on the model architecture improvement, e.g., fussion decoder?  -->
         
+<!--         
 - Paper Draft
-
-    <!-- ~~~- mile stone 1: 19th Feb, 2023 (kinda achieved)~~~
-     ~~~   - At least most of the part including **related work** and **baseline implementation details** should be reflected in the overleaf~~ -->
-       <!-- - first round review.  -->
-       <!-- - investigate different decoding methods? to improve the model's performance -->
+    - first round review. 
+    - investigate different decoding methods? to improve the model's performance
 
     - mile stone 2: 26th Feb, 2023
         - The first draft should be completed!
@@ -98,22 +100,31 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
 
         - third round review
     - mile stone 5: 14th March, 2023
-        - submit the paper. 
-<!-- 
+        - submit the paper.    -->
+- CIKM 2023
+    - Title and Abstract dd: May 26, 2023
+    - Full paper ddl: Jne2, 2023
+- Experiments part
+    - milestone 1: 
+        - get output refinement done from the perspective of **exection-guided decoding**
+- Paper part
+    - milestone 1:
+        
+
 ### :point_right: TODO LIST
-<!-- -`20/02/2024` -->
-    <!-- - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
+<!-- -`20/02/2023`
+    - **edit distance or fuzzy matching** for the output so we can clearly see the impact of the modifications to the algorithm. 
     - evaluator post processing
     - add codeGPT?
     
         <!-- - :vulcan_salute: **Few/Zero shot learning.** -->
-
+<!-- 
     - Update the implementation details in the paper. (done! but can be improved.)
-    - Encoder-Decoder architecture using a running example.  ()
+    - Encoder-Decoder architecture using a running example.
 
-    - Result Visualisation 
-
-- cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match. --> -->
+    - Result Visualisation  -->
+- 16/04/2023
+- cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match. 
 
 ### :point_right: Environment
 - CUDA 11.4
