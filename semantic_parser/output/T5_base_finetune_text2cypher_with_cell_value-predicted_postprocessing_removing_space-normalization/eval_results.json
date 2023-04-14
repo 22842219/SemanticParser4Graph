@@ -1,9 +1,0 @@
-{
-    "epoch": 30.3,
-    "eval_META_TUNING/text2cypher_with_cell.cfg/exectuation accuracy": 0.6293279022403259,
-    "eval_avr": 0.6293279022403259,
-    "eval_loss": 0.1505085974931717,
-    "eval_runtime": 371.6098,
-    "eval_samples": 491,
-    "eval_samples_per_second": 1.321
-}
