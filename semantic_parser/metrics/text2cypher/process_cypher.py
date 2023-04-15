@@ -242,23 +242,23 @@ def parse_table_unit(toks, start_idx, labels_with_alias, schema):
     """
     idx = start_idx
     len_ = len(toks)
-    key = labels_with_alias[toks[idx][1]]
+    schema_key = labels_with_alias[toks[idx][1]]
+    table_alias = toks[idx][1]
 
     if idx + 2 < len_ and toks[idx+2][0] == "Token.Name.Label":
         idx += 3
     else:
         idx += 1
 
-    return idx, schema.idMap[key], key 
-
+    return idx, schema.idMap[schema_key], table_alias 
 
 def parse_val_unit(toks, start_idx, labels_with_alias, schema, default_tables=None):
     idx = start_idx
     len_ = len(toks)
-    isBlock = False
-    if toks[idx] == '(':
-        isBlock = True
-        idx += 1
+    # isBlock = False
+    # if toks[idx] == '(':
+    #     isBlock = True
+    #     idx += 1
 
     col_unit1 = None
     col_unit2 = None
@@ -270,12 +270,11 @@ def parse_val_unit(toks, start_idx, labels_with_alias, schema, default_tables=No
         idx += 1
         idx, col_unit2 = parse_col_unit(toks, idx, labels_with_alias, schema, default_tables)
 
-    if isBlock:
-        assert toks[idx] == ')'
-        idx += 1  # skip ')'
+    # if isBlock:
+    #     assert toks[idx] == ')'
+    #     idx += 1  # skip ')'
 
     return idx, (unit_op, col_unit1, col_unit2)
-
 
 def parse_value(toks, start_idx, labels_with_alias, schema, default_tables=None):
     idx = start_idx
@@ -347,6 +346,47 @@ def parse_condition(toks, start_idx, labels_with_alias, schema, default_tables=N
 
     return idx, conds
 
+def parse_with(toks, start_idx, labels_with_alias, schema):
+    # test "with" clause parsing
+    toks_ = [tok[1].lower() for tok in toks]
+    len_ = len(toks)
+    idx = start_idx
+    isDistinct = False
+
+    if idx>=len_ or toks_[idx]!='with':
+        return idx, []
+    as_idxs = [idx for idx, tok in enumerate(toks_) if tok == 'as']
+    with_units = [] # element is formulated as the format of (agg_id, alias_name, col_id, isDistinct)
+    agg_id = AGG_OPS.index('none')
+    for id in as_idxs:
+        while idx <  len_:
+            if idx < len_ and toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ]:
+                idx += 1  # skip whitespace and edge indicators
+            if toks[idx][0]=='Token.Name.Function':
+                agg_id = AGG_OPS.index(toks_[idx])
+                if  'distinct' in toks_[idx: id]:
+                    idx+=toks_[idx:id].index('distinct')
+                    isDistinct=True
+                if '*' in toks_[idx:id]:
+                    with_unit = (agg_id, toks[id+2][1], schema.idMap['*'], isDistinct)
+                    with_units.append(with_unit)
+                    idx+= toks_[idx:id].index('*')
+            if idx+2< len_ and toks[idx][0]=='Token.Name.Variable':
+                if toks[idx+1][0]=='Token.Operator':      
+                    key = labels_with_alias[toks[idx][1]]
+                    schema_key = '{}.{}'.format(key, toks[idx+2][1])
+                    with_unit =( agg_id, toks[id+2][1], schema.idMap[schema_key], isDistinct)
+                    with_units.append(with_unit)
+                    idx = id+3
+                else:
+                    idx+=2
+                break
+            else:
+                idx+=1
+
+            if idx < len_ and (toks[idx] in CLAUSE_KEYWORDS or toks[idx] in (")", ";") ):
+                break
+    return idx, with_units
 
 def parse_match(toks, start_idx, labels_with_alias, schema):
     # parse "match" clause in order to get default entity labels (i.e., graph node labels/edge types
@@ -479,8 +519,8 @@ def parse_cypher(toks, start_idx, labels_with_alias, schema):
 
     # parse 'with' clause
     idx = match_end_idx
-    idx, with_col_units = parse_with(toks, idx, labels_with_alias, schema, default_tables)
-    cypher['with'] = with_col_units
+    idx, with_units = parse_with(toks, idx, labels_with_alias, schema)
+    cypher['with'] = with_units   #(agg_id, alias_name, col_id, isDistinct)
 
     # parse 'where' clause
     idx, where_conds = parse_where(toks, idx, labels_with_alias, schema, default_tables)
