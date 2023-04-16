@@ -139,141 +139,139 @@ def tokenize(string):
 def scan_labels_with_alias(toks):
     """Scan Token.Name.Variable, distinguish alias from properties, and build the map for all alias"""
     
-    alias = {}
-    for idx, tok in enumerate(toks):
-        if tok[0]=='Token.Name.Variable' and idx+2<len(toks)-1 and \
-            (toks[idx+1][0]=='Token.Punctuation' and toks[idx+1][1] in [':', '.'] or \
-                toks[idx+1]==('Token.Operator', '.')) and \
-                    idx<len(toks)-2 and toks[idx+2][0]=='Token.Name.Label':
-                    alias[tok[1]]=toks[idx+2][1]
     len_ = len(toks)
     toks_ = [tok[1].lower() for tok in toks]
-    as_idxs = [idx for idx, tok in enumerate(toks) if tok==('Token.Keyword', 'AS')]
-    with_ids =  [idx for idx, tok in enumerate(toks) if tok==('Token.Keyword', 'WITH')]
-    for with_idx in with_ids:
-        idx = with_idx +1
-        att = ''
-        while idx < len_:
-            if idx<len_ and toks[idx][0] in ['Token.Text.Whitespace']:
-                idx+=1
+    alias = {}
 
-            if idx+2<len_ and toks[idx][0]=='Token.Name.Variable' and toks[idx+1]==('Token.Operator','.'):
-                # sort out new variables containing the results of expressions in the scope
-                att = toks[idx+2][1]
-                key = toks[idx][1]
-                att = ':{}.{}'.format(alias[key], att)
-                idx+=2 #
+    start_idx = 0
+    idx = start_idx
+    while idx<len_:
+        if toks_[idx]=='match':
+            idx+=1
+        if idx < len_ and toks_[idx]!=':' and toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ] :
+            idx+=1  # skip whitespace and edge indicators
+        if toks[idx-1][0]=='Token.Name.Variable' and toks_[idx]==':' and \
+            toks[idx+1][0]=='Token.Name.Label':
+            alias[toks[idx-1][1]]=toks[idx+1][1]
+            idx+=3 
+        else:
+            idx+=1
+        # assert 1>2
+        if idx < len_ and ((toks_[idx] in CLAUSE_KEYWORDS[1:] or toks_[idx] in (";"))):
+            break
+    if idx>=len_ or toks_[idx]!='with':
+        return alias
+        
+    idx+=1
 
-            if idx in as_idxs and idx+2<len_ and len(att)>0:
-                alias[toks[idx+2][1]] = att
-                att = ''           
+    as_ids = [idx for idx, tok in enumerate(toks_) if tok == 'as']
 
-            if idx<len_ and (toks_[idx] in CLAUSE_KEYWORDS):
-                break
-            else:
-                idx+=1            
+    if as_ids:
+        for id in as_ids:
+            while idx < len_:
+                if idx<len_ and toks[idx][0] in['Token.Punctuation', 'Token.Text.Whitespace' ]:
+                    idx+=1
+                if toks[idx][0]=='Token.Name.Function':
+                    if '*' in toks_[idx:id]:
+                        idx+= toks_[idx:id].index('*')   
+                    else:
+                        idx+1                         
+                if idx+2< len_ and toks[idx][0]=='Token.Name.Variable':
+                    if toks[idx+1][0]=='Token.Operator':      
+                        key = alias[toks[idx][1]]
+                        schema_key = '{}.{}'.format(key, toks[idx+2][1])
+                        alias[toks[id+2][1]]=schema_key
+                        idx=id+3
+                 
+                    elif '*' in toks_:
+                        alias[toks[idx][1]]='*'
+                        idx+=1
+                    break
+                if idx < len_ and (toks_[idx] in CLAUSE_KEYWORDS or toks_[idx] in ( ";") ):
+                    break
+                else:
+                    idx+=1                    
     return alias
-
 
 def parse_col(toks, start_idx, labels_with_alias, schema, default_tables=None):
     """
         :returns next idx, column id
     """
-    tok = toks[start_idx]
+    toks_ = [tok[1].lower() for tok in toks]
+    idx = start_idx
+    tok = toks_[idx]
     if tok == "*":
-        return start_idx + 1, schema.idMap[tok]
+        return idx + 1, schema.idMap[tok]
 
-    if '.' in tok:  # if token is a composite
-        alias, col = tok.split('.')
-        key = labels_with_alias[alias] + "." + col
-        return start_idx+1, schema.idMap[key]
+    if toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ]:
+        idx+=1
+    if toks[idx][0]=='Token.Name.Variable' or toks[idx][1] in labels_with_alias: # if token is a composite
+        key = labels_with_alias[toks[idx][1]]
+        if '.' in toks_[idx:]:
+            schema_key = '{}.{}'.format(key, toks[idx+2][1])
+            idx+=2
+        else:
+            schema_key = key
+            idx+=1
+        return idx, schema.idMap[schema_key]
 
     assert default_tables is not None and len(default_tables) > 0, "Default tables should not be None or empty"
 
     for alias in default_tables:
         table = labels_with_alias[alias]
-        if tok in schema.schema[table]:
+        table_original = table.strip('`').split('.')[-1]
+        if tok in schema.schema[table_original]:
             key = table + "." + tok
-            return start_idx+1, schema.idMap[key]
+            return idx+1, schema.idMap[key]
 
     assert False, "Error col: {}".format(tok)
-
 
 def parse_col_unit(toks, start_idx, labels_with_alias, schema, default_tables=None):
     """
         :returns next idx, (agg_op id, col_id)
     """
+    toks_ = [tok[1].lower() for tok in toks]
     idx = start_idx
     len_ = len(toks)
-    isBlock = False
     isDistinct = False
-    if toks[idx] == '(':
-        isBlock = True
+
+    if toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace']:
         idx += 1
 
-    if toks[idx] in AGG_OPS:
-        agg_id = AGG_OPS.index(toks[idx])
+    if toks_[idx] in AGG_OPS and toks[idx][0]=='Token.Name.Function':
+        agg_id = AGG_OPS.index(toks_[idx])
         idx += 1
-        assert idx < len_ and toks[idx] == '('
+        assert idx < len_ and toks_[idx] == '('
         idx += 1
-        if toks[idx] == "distinct":
+        if toks_[idx] == "distinct":
             idx += 1
             isDistinct = True
+        
         idx, col_id = parse_col(toks, idx, labels_with_alias, schema, default_tables)
-        assert idx < len_ and toks[idx] == ')'
+        assert idx < len_ and toks_[idx] == ')'
         idx += 1
         return idx, (agg_id, col_id, isDistinct)
 
-    if toks[idx] == "distinct":
+    if toks_[idx] == "distinct":
         idx += 1
         isDistinct = True
     agg_id = AGG_OPS.index("none")
     idx, col_id = parse_col(toks, idx, labels_with_alias, schema, default_tables)
 
-    if isBlock:
-        assert toks[idx] == ')'
-        idx += 1  # skip ')'
-
     return idx, (agg_id, col_id, isDistinct)
-
-def parse_table_unit(toks, start_idx, labels_with_alias, schema):
-    """
-        :returns next idx, table id, table name
-    """
-    idx = start_idx
-    len_ = len(toks)
-    schema_key = labels_with_alias[toks[idx][1]]
-    table_alias = toks[idx][1]
-
-    if idx + 2 < len_ and toks[idx+2][0] == "Token.Name.Label":
-        idx += 3
-    else:
-        idx += 1
-
-    return idx, schema.idMap[schema_key], table_alias 
 
 def parse_val_unit(toks, start_idx, labels_with_alias, schema, default_tables=None):
     idx = start_idx
     len_ = len(toks)
-    # isBlock = False
-    # if toks[idx] == '(':
-    #     isBlock = True
-    #     idx += 1
 
     col_unit1 = None
     col_unit2 = None
     unit_op = UNIT_OPS.index('none')
-
     idx, col_unit1 = parse_col_unit(toks, idx, labels_with_alias, schema, default_tables)
     if idx < len_ and toks[idx] in UNIT_OPS:
         unit_op = UNIT_OPS.index(toks[idx])
         idx += 1
         idx, col_unit2 = parse_col_unit(toks, idx, labels_with_alias, schema, default_tables)
-
-    # if isBlock:
-    #     assert toks[idx] == ')'
-    #     idx += 1  # skip ')'
-
     return idx, (unit_op, col_unit1, col_unit2)
 
 def parse_value(toks, start_idx, labels_with_alias, schema, default_tables=None):
@@ -308,7 +306,6 @@ def parse_value(toks, start_idx, labels_with_alias, schema, default_tables=None)
         idx += 1
 
     return idx, val
-
 
 def parse_condition(toks, start_idx, labels_with_alias, schema, default_tables=None):
     idx = start_idx
@@ -346,50 +343,28 @@ def parse_condition(toks, start_idx, labels_with_alias, schema, default_tables=N
 
     return idx, conds
 
-def parse_with(toks, start_idx, labels_with_alias, schema):
-    # test "with" clause parsing
-    toks_ = [tok[1].lower() for tok in toks]
-    len_ = len(toks)
+def parse_table_unit(toks, start_idx, labels_with_alias, schema):
+    """
+        :returns next idx, table id, table name
+    """
     idx = start_idx
-    isDistinct = False
+    len_ = len(toks)
+    schema_key = labels_with_alias[toks[idx][1]]
+    table_alias = toks[idx][1]
 
-    if idx>=len_ or toks_[idx]!='with':
-        return idx, []
-    as_idxs = [idx for idx, tok in enumerate(toks_) if tok == 'as']
-    with_units = [] # element is formulated as the format of (agg_id, alias_name, col_id, isDistinct)
-    agg_id = AGG_OPS.index('none')
-    for id in as_idxs:
-        while idx <  len_:
-            if idx < len_ and toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ]:
-                idx += 1  # skip whitespace and edge indicators
-            if toks[idx][0]=='Token.Name.Function':
-                agg_id = AGG_OPS.index(toks_[idx])
-                if  'distinct' in toks_[idx: id]:
-                    idx+=toks_[idx:id].index('distinct')
-                    isDistinct=True
-                if '*' in toks_[idx:id]:
-                    with_unit = (agg_id, toks[id+2][1], schema.idMap['*'], isDistinct)
-                    with_units.append(with_unit)
-                    idx+= toks_[idx:id].index('*')
-            if idx+2< len_ and toks[idx][0]=='Token.Name.Variable':
-                if toks[idx+1][0]=='Token.Operator':      
-                    key = labels_with_alias[toks[idx][1]]
-                    schema_key = '{}.{}'.format(key, toks[idx+2][1])
-                    with_unit =( agg_id, toks[id+2][1], schema.idMap[schema_key], isDistinct)
-                    with_units.append(with_unit)
-                    idx = id+3
-                else:
-                    idx+=2
-                break
-            else:
-                idx+=1
+    if idx + 2 < len_ and toks[idx+2][0] == "Token.Name.Label":
+        idx += 3
+    else:
+        idx += 1
 
-            if idx < len_ and (toks[idx] in CLAUSE_KEYWORDS or toks[idx] in (")", ";") ):
-                break
-    return idx, with_units
+    return idx, schema.idMap[schema_key], table_alias 
 
 def parse_match(toks, start_idx, labels_with_alias, schema):
-    # parse "match" clause in order to get default entity labels (i.e., graph node labels/edge types
+    """
+        :returns next idx, table_units, default_tables
+        where table_units = [TABLE_TYPE['cypher']/TABLE_TYPE['table_unit], table_unit)], 
+        and   table_unit = schmea.idMap[schema_key]
+    """
     """
     Assume in the from clause, all table units are combined with join
     """
@@ -413,13 +388,6 @@ def parse_match(toks, start_idx, labels_with_alias, schema):
                 idx, table_unit, table_name = parse_table_unit(toks, idx, labels_with_alias, schema)
                 table_units.append((TABLE_TYPE['table_unit'],table_unit))
                 default_tables.append(table_name)
-        
-        # if idx < len_ and toks_[idx] == "with":
-        #     idx += 1  # skip with
-        #     idx, this_conds = parse_condition(toks, idx, labels_with_alias, schema, default_tables)
-        #     if len(conds) > 0:
-        #         conds.append('and')
-        #     conds.extend(this_conds)
 
         if idx < len_ and ((toks_[idx] in CLAUSE_KEYWORDS or toks_[idx] in (";"))):
             break
@@ -428,6 +396,53 @@ def parse_match(toks, start_idx, labels_with_alias, schema):
 
     return idx, table_units, default_tables
 
+def parse_with(toks, start_idx, labels_with_alias, schema):
+    """
+        :returns next idx, with_units
+        where with_units = [with_unit], 
+        and   with_unit = (agg_id, alias_name, col_id, isDistinct)
+    """
+    toks_ = [tok[1].lower() for tok in toks]
+    len_ = len(toks)
+    idx = start_idx
+    isDistinct = False
+
+    if idx>=len_ or toks_[idx]!='with':
+        return idx, []
+    
+    idx+=1
+    as_ids = [idx for idx, tok in enumerate(toks_) if tok == 'as']
+    with_units = []
+    agg_id = AGG_OPS.index('none')
+    for id in as_ids:
+        while idx <  len_:
+            if idx < len_ and toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ]:
+                idx += 1  # skip whitespace and edge indicators
+            if toks[idx][0]=='Token.Name.Function':
+                agg_id = AGG_OPS.index(toks_[idx])
+                if  'distinct' in toks_[idx: id]:
+                    idx+=toks_[idx:id].index('distinct')
+                    isDistinct=True
+                if '*' in toks_[idx:id]:
+                    with_unit = (agg_id, toks[id+2][1], schema.idMap['*'], isDistinct)
+                    with_units.append(with_unit)
+                    idx+= toks_[idx:id].index('*')
+            if idx+2< len_ and toks[idx][0]=='Token.Name.Variable':
+                if toks[idx+1][0]=='Token.Operator':      
+                    key = labels_with_alias[toks[idx][1]]
+                    schema_key = '{}.{}'.format(key, toks[idx+2][1])
+                    with_unit =( agg_id, toks[id+2][1], schema.idMap[schema_key], isDistinct)
+                    with_units.append(with_unit)
+                    idx = id+3
+                else:
+                    idx+=1
+                break
+
+            if idx < len_ and (toks_[idx] in CLAUSE_KEYWORDS or toks_[idx] in ( ";") ):
+                break
+            else:
+                idx+=1
+    return idx, with_units
 
 def parse_where(toks, start_idx, labels_with_alias, schema, default_tables):
     idx = start_idx
@@ -440,14 +455,13 @@ def parse_where(toks, start_idx, labels_with_alias, schema, default_tables):
     idx, conds = parse_condition(toks, idx, labels_with_alias, schema, default_tables)
     return idx, conds
 
-
 def parse_return(toks, start_idx, labels_with_alias, schema, default_tables=None):
+    toks_ = [tok[1].lower() for tok in toks]
     idx = start_idx
     len_ = len(toks)
-    print(f'parse_return: idx:{idx}, len_:{len_}, toks[idx]: {toks[idx]}')
+    assert 'return' in toks_[idx:], "'return' not found"
 
-    assert toks[idx] == 'return', "'return' not found"
-    idx += 1
+    idx = toks_.index('return', idx)+1
     isDistinct = False
 
     if idx < len_ and toks[idx] == 'distinct':
@@ -455,49 +469,49 @@ def parse_return(toks, start_idx, labels_with_alias, schema, default_tables=None
         isDistinct = True
     val_units = []
 
-    while idx < len_ and toks[idx] not in CLAUSE_KEYWORDS:
+    while idx < len_ and toks_[idx] not in CLAUSE_KEYWORDS:
+        if idx < len_ and toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ]:
+            idx += 1  
         agg_id = AGG_OPS.index("none")
-        if toks[idx] in AGG_OPS:
-            agg_id = AGG_OPS.index(toks[idx])
-            print("heyyy return/toks[idx]", toks[idx]) # count
-            print("agg_id:", agg_id) #3
+        if toks_[idx] in AGG_OPS and toks[idx][0]=='Token.Name.Function':
+            agg_id = AGG_OPS.index(toks_[idx])
             idx += 1
         idx, val_unit = parse_val_unit(toks, idx, labels_with_alias, schema, default_tables)
-        print("val_unit, idx:", val_unit, idx) #(0, (0, '__all__', False), None), 5
         val_units.append((agg_id, val_unit))
-        if idx < len_ and toks[idx] == ',':
-            idx += 1  # skip ','
+        if idx < len_ and toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ]:
+            idx += 1  
     return idx, (isDistinct, val_units)
 
-
 def parse_order_by(toks, start_idx, labels_with_alias, schema, default_tables):
+    """
+        :returns next idx, (order_type, val_units), \
+            where val_units = (unit_op, col_unit1, col_unit2), \
+            and   col_unit  = (agg_id, col_id, isDistinct), \
+            and   col_id    = schema.idMap[key]
+    """
+    toks_ = [tok[1].lower() for tok in toks]
     idx = start_idx
     len_ = len(toks)
-    val_units = []
+    val_units = []  
+
     order_type = "asc"  # default type is 'asc'
-
-    if idx >= len_ or toks[idx] != "order":
+    if idx>=len_ or toks_[idx]!='order by':
         return idx, val_units
-
-    idx += 1
-    assert toks[idx] == "by"
-    idx += 1
-
-    while idx < len_ and not (toks[idx] in CLAUSE_KEYWORDS or toks[idx] in (")", ";")):
-        idx, val_unit = parse_val_unit(
-            toks, idx, labels_with_alias, schema, default_tables
-        )
+    idx+=1 
+    
+    while idx<len_ and not (toks_[idx] in CLAUSE_KEYWORDS or toks_[idx] in ( ";")):
+        idx, val_unit = parse_val_unit(toks, idx, labels_with_alias, schema, default_tables)
+        print(f'val_unit: {val_unit}')
         val_units.append(val_unit)
-        if idx < len_ and toks[idx] in ORDER_OPS:
-            order_type = toks[idx]
+        if idx < len_ and toks_[idx] in ORDER_OPS:
+            order_type = toks_[idx]
             idx += 1
-        if idx < len_ and toks[idx] == ",":
+        if idx < len_ and toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ]:
             idx += 1  # skip ','
         else:
             break
 
     return idx, (order_type, val_units)
-
 
 def parse_limit(toks, start_idx):
     idx = start_idx
@@ -522,30 +536,20 @@ def parse_cypher(toks, start_idx, labels_with_alias, schema):
     idx, with_units = parse_with(toks, idx, labels_with_alias, schema)
     cypher['with'] = with_units   #(agg_id, alias_name, col_id, isDistinct)
 
-    # parse 'where' clause
+    # TODO: parse 'where' clause
     idx, where_conds = parse_where(toks, idx, labels_with_alias, schema, default_tables)
     cypher['where'] = where_conds
 
-    # return clause
-    _, return_col_units = parse_return(toks, idx, labels_with_alias, schema, default_tables)
-    cypher['return'] = return_col_units
-
-    print(f'return_col_units: {return_col_units}')
-
+    idx, return_col_units = parse_return(toks, idx, labels_with_alias, schema, default_tables)
+    cypher['return']=return_col_units
     # order by clause
-    idx, order_col_units = parse_order_by(
-        toks, idx, labels_with_alias, schema, default_tables
-    )
-    cypher["orderBy"] = order_col_units
-    print(f'idx in order by: {idx}, order_col_units: {order_col_units}')
-    print(f'cypher: {cypher}')
-
+    idx, order_col_units = parse_order_by(toks, idx, labels_with_alias, schema, default_tables)
+    cypher['orderBy'] = order_col_units
 
     # limit clause
     idx, limit_val = parse_limit(toks, idx)
     cypher["limit"] = limit_val
 
-    print(f'idx in limit: {idx}')
     print(f'cypher: {cypher}')
 
     idx = skip_semicolon(toks, idx)
