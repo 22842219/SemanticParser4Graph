@@ -4,7 +4,7 @@
 Note: This README file is inspired by [Spider](https://github.com/taoyds/spider).
 
 ### :point_right: Changelog
-- `13/04/2023`
+- `17/04/2023`
 
 
 <!-- - `05/03/2023`
@@ -101,15 +101,21 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
         - third round review
     - mile stone 5: 14th March, 2023
         - submit the paper.    -->
+- Personal leave 2023: 12/05-16/05, 2023
 - CIKM 2023
-    - Title and Abstract dd: May 26, 2023
-    - Full paper ddl: Jne2, 2023
+    - Title and Abstract dd: 26/05, 2023
+    - Full paper ddl: 02/06, 2023
 - Experiments part
-    - milestone 1: 
+    - milestone 1: 17/04-23/04, 2023
         - get output refinement done from the perspective of **exection-guided decoding**
+
 - Paper part
-    - milestone 1:
-        
+    - milestone1: 30/04/2023
+        - content 
+        - **Schema-guided constrained decoding** part in section **Methodology**
+        - **Evaluation part** (focusing on **False Negative** and **False Positive**) in **Evaluation** section
+        - **Complexity Analysis** part in section **Result** 
+        - Related work
 
 ### :point_right: TODO LIST
 <!-- -`20/02/2023`
@@ -123,8 +129,12 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Encoder-Decoder architecture using a running example.
 
     - Result Visualisation  -->
-- 16/04/2023
-- cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match. 
+- 16/04/2023 (sort of done@, under testing)
+    - cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match. 
+- 17/04/2023
+    - get output refinement done from the perspective of **exection-guided decoding**
+    - update paper **Schema-guided constrained decoding** part in section **Methodology**
+
 
 ### :point_right: Environment
 - CUDA 11.4
