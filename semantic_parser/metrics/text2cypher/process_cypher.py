@@ -205,8 +205,12 @@ def parse_col(toks, start_idx, labels_with_alias, schema, default_tables=None):
 
     if toks[idx][0] in ['Token.Punctuation', 'Token.Text.Whitespace' ]:
         idx+=1
+    
     if toks[idx][0]=='Token.Name.Variable' or toks[idx][1] in labels_with_alias: # if token is a composite
-        key = labels_with_alias[toks[idx][1]]
+        if toks[idx][1] in labels_with_alias:
+            key = labels_with_alias[toks[idx][1]]
+        else:
+            key = toks[idx][1]
         if '.' in toks_[idx:]:
             schema_key = '{}.{}'.format(key, toks[idx+2][1])
             idx+=2
@@ -498,7 +502,7 @@ def parse_order_by(toks, start_idx, labels_with_alias, schema, default_tables):
     if idx>=len_ or toks_[idx]!='order by':
         return idx, val_units
     idx+=1 
-    
+
     while idx<len_ and not (toks_[idx] in CLAUSE_KEYWORDS or toks_[idx] in ( ";")):
         idx, val_unit = parse_val_unit(toks, idx, labels_with_alias, schema, default_tables)
         print(f'val_unit: {val_unit}')
