@@ -131,9 +131,11 @@ Note: This README file is inspired by [Spider](https://github.com/taoyds/spider)
     - Result Visualisation  -->
 - 16/04/2023 (sort of done@, under testing)
     - cypher parser to get a normalised/parsed Cypher in order to evaluation models using exact match. 
-- 18/04/2023 - 23/04.2023
+- 19/04/2023 - 23/04.2023
     - get the overview diagram done using a proper running example. 
     - literature reviews. 
+    - prioritized task: design advanced nn model on top of baselines using execution accuracy. 
+    
     - get output refinement done from the perspective of **exection-guided decoding**
     - update paper **Schema-guided constrained decoding** part in section **Methodology**
 
