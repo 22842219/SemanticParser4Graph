@@ -23,11 +23,10 @@ datetime_pattern = re.compile('(\d{4})-(\d{2})-(\d{2})( (\d{2}):(\d{2}):(\d{2}))
 DERIVED_TABLE_PREFIX = 'DERIVED_TABLE'
 DERIVED_FIELD_PREFIX = 'DERIVED_FIELD'
 
-
 class Logger:
     _log_directory = os.getcwd() + '/log'
 
-    def __init__(self):
+    def __init__(self, file):
         # ensure the correct log directory
         if not os.path.isdir(self._log_directory):
             os.mkdir(self._log_directory)
@@ -39,7 +38,7 @@ class Logger:
         # f_handler.setFormatter(f_format)
         #
         # self.logger.addHandler(f_handler)
-        self.logger.basicConfig(filename=self._log_directory + '/sql2cypher.log',
+        self.logger.basicConfig(filename=self._log_directory + file,
                                 format='%(asctime)s - %(name)s: %(levelname)s %(message)s')
 
     def error(self, msg):
@@ -48,6 +47,8 @@ class Logger:
     def warning(self, msg):
         self.logger.warning(msg)
 
+    def info(self, msg):
+        self.logger.info(msg)
 
 def is_derived_table(s):
     return s.startswith(DERIVED_TABLE_PREFIX)

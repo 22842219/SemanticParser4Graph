@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-from Logger import Logger
+from rel_db2kg.utils import Logger
 from moz_sql_parser import parse
 from ConvertDB import ConvertDB
 from configparser import ConfigParser, ParsingError, NoSectionError
@@ -18,12 +18,13 @@ raw_data_folder = filenames['raw_folder']
 text2sql_data_folder = filenames['text2sql_data_folder']
 
 spider_json_folder = os.path.join(raw_data_folder, 'spider')
-lookup_up = os.path.join(text2sql_data_folder, 'cased', 'lookup_dict.json')
+lookup_up = os.path.join(text2sql_data_folder, 'uncased', 'lookup_dict.json')
 
 neo4j_uri = filenames['neo4j_uri']
 neo4j_user = filenames['neo4j_user']
 neo4j_password = filenames['neo4j_password']
 graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
+
 
 class CLI:
     _config_path = "conf/db.ini"
@@ -33,7 +34,7 @@ class CLI:
         self.db_name = db_name
         # to declare whether output the cypher query
         self.output = output
-        self.logger = Logger()
+        self.logger = Logger('/sql2cypher.log')
         self.config = None
         self.cb = None
 
@@ -149,8 +150,8 @@ class CLI:
         ) # More details see utils/dataset.py and utils/trainer.py
         print("=====💡Answer=====")
         print(pred)
-        text2cypher = 'MATCH (singer:`concert_singer.singer`) RETURN count(*)'
-        return text2cypher
+        # text2cypher = 'MATCH (singer:`concert_singer.singer`) RETURN count(*)'
+        return pred
 
     def load_web_conf(self):
         """
