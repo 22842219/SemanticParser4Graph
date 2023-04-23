@@ -318,7 +318,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     for row_dict in tab.rows:
                         # and  (not primary_keys or table.check_compound_pk):
                         # class py2neo.data.Relationship(start_node, type, end_node, **properties)
-                        print(f'******Building graph edge directly from {tb_name}.*******')   
+                        self.logger.warning(f'******Building graph edge directly from {tb_name}.*******')   
                         '''
                         NOTE 1: deal with one-to-one by the table itself as edges, aka, a whole table is turned into graph edges,                         
                         NOTE 2: we remove the foreign keys from each graph edge's property set, for the sake of the consistency of graph database.
@@ -336,7 +336,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
                             assert tb_name!=to_tab.table_name, 'FIX ME'
                             matched_res = self.get_matched_node(db_name,to_tab.table_name, to_col, val, ref_value_type)   
-                            print("matched_res", matched_res, len(matched_res))   
+                            self.logger.warning("matched_res", matched_res, len(matched_res))   
                             assert len(matched_res)==1, 'FIX ME'
                             for label, node in matched_res[0].items():
                                 matched[label] =  node
