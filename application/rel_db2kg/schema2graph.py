@@ -103,11 +103,16 @@ class RelTable:
     
     """
     Parameters:
-        heades (List)): A list of table headers.
+        db_name (Strint):
+        table_name (String):
+        headers (List)): A list of table headers.
         data_type (Dict): A dictionary of each column's data type. 
-        rows (List): A list of rows appearing in this table. 
-        row_dict (Dict): A dictionary of each row appearing in this table, including as follows:
         pks (List): A list of primary and foreign keys appearing in this table. 
+        fks (Dict):
+        is_coumpound_pk (bool):
+        rows (List): A list of rows appearing in this table. 
+        cols (Dict): A dictionary of each column appearing in this table.
+        
     """
 
     def __init__(self, db_name, table_name):
@@ -128,8 +133,8 @@ class RelTable:
             table (Table object): The table to add.
         """
         self.rows.append(row_dict)
-    
 
+ 
 class RelDBDataset(DBengine):
     """dtaset class takes a relational databse `schema` as input. 
 
@@ -145,6 +150,22 @@ class RelDBDataset(DBengine):
     def __init__(self, paths, logger):
         self.rel_dbs, self.db_fk_constraints, self.db_data_type, self.db_pks= self.read_dataset(paths)
         self.logger = logger
+        
+    def fix_reference(self, tbs_fk_constraints, tbs_pks, db_tbs):
+        for tb_name, fks in tbs_fk_constraints.items():
+            pks = tbs_pks[tb_name]
+            for fk, constraint in fks.items():
+                to_col = constraint['to_col']
+                to_tb_name = constraint['to_tab']
+                if to_tb_name==tb_name:
+                    for tb_name_ , pks in tbs_pks.items():
+                        pks_  = [pk.lower() for pk in pks]
+                        if fk.lower() in pks_:
+                            constraint['to_tab'] = tb_name_
+                            if to_col.lower() not in pks_:
+                                constraint['to_col']= pks[pks_.index(fk.lower())]
+                    fks.update({fk:constraint})
+                    db_tbs[tb_name].fks.update({fk:constraint})
 
     def read_dataset(self, paths):
         rel_dbs = {}
@@ -170,8 +191,8 @@ class RelDBDataset(DBengine):
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
-            # ['car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']
-            if db_name in ['car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
+            
+            if db_name in ['musical', 'car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
                 db_data_type[db_name]={}
@@ -209,6 +230,8 @@ class RelDBDataset(DBengine):
                         for row in data:
                             tb_object.add_row( row)
                     rel_dbs[db_name][table_name] = tb_object
+                
+                self.fix_reference(db_fk_constraints[db_name], db_pks[db_name], rel_dbs[db_name])
         return rel_dbs, db_fk_constraints, db_data_type, db_pks
             
         
@@ -245,8 +268,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         env.read_env(self.env_file)
         self.graph = Graph(password=env("GRAPH_PASSWORD"))
         self.dataset = RelDBDataset(self.paths, self.logger)
-    
-    
+
 
     def get_matched_node(self, db_name, tb_name, col, val, val_type):
         alias = tb_name.lower()
@@ -336,7 +358,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
                             assert tb_name!=to_tab.table_name, 'FIX ME'
                             matched_res = self.get_matched_node(db_name,to_tab.table_name, to_col, val, ref_value_type)   
-                            self.logger.warning("matched_res", matched_res, len(matched_res))   
+                            self.logger.warning(f"matched_res : {matched_res}, {len(matched_res)}")   
                             assert len(matched_res)==1, 'FIX ME'
                             for label, node in matched_res[0].items():
                                 matched[label] =  node
@@ -369,6 +391,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             self.logger.warning(f'this_table: {tb_name}, fk: {fk}, value: {value}, datatype: {value_type}, to_table: {alias}, to_col: {to_col}, ref_value_type: {ref_value_type}')
                             ref_nodes = self.get_matched_node(db_name, to_tab.table_name, to_col, val, ref_value_type)      
                             this_nodes = self.get_matched_node(db_name, tb_name, fk, value, value_type) 
+                            print(ref_nodes)
+                            print('9', this_nodes)
                             for this in this_nodes:
                                 for s_label, this_node in this.items():
                                     start_node_label='{}.{}'.format(db_name, s_label)
