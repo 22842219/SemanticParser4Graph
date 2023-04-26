@@ -1335,7 +1335,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			# ['car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
-			if db_name in ['car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
+			if db_name in [ 'concert_singer', ]:
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
