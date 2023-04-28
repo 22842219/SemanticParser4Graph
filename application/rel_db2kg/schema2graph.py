@@ -67,7 +67,7 @@ class DBengine:
             cid, col_name, type, notnull, dflt_value, pk = info
             if type.lower() in ['text', 'varchar', 'varchar(20)']:
                 type=str
-            if type=='INTEGER':
+            if type in ['INTEGER', 'INT']:
                 type=int
             data_types[col_name] = type
         return data_types
