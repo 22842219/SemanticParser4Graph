@@ -302,16 +302,13 @@ class RelDB2KGraphBuilder(RelDBDataset):
         self.dataset = RelDBDataset(self.paths, self.logger)
 
 
-    def get_matched_node(self, db_name, tb_name, col: np.asscalar, val, val_type):
+    def get_matched_node(self, db_name, tb_name, col, val, val_type):
         alias = tb_name.lower()
-        if type(val)==np.ndarray:
-            val = val.item()
-        print('1', db_name, tb_name,  val, type(val), val_type)
-        assert  isinstance(val, val_type), 'FIX ME'
+        print(val, type(val), val_type, isinstance(val, val_type))
+        assert   isinstance(val, val_type), 'FIX ME'
         if val and isinstance(val, val_type):
             if type(val)==str:
                 val = '"{}"'.format(str(val).strip('\'').strip('\"'))
-                print('11', val)
                 # elif not re.findall(r'[\'|\"][a-zA-Z].*', val):
                 #     return None
                 # if isinstance(val, str) and not re.findall(r'[a-zA-Z].*', val):
@@ -394,9 +391,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             to_col = constraint['to_col']            
                             value = row_dict[fk]
                             ref_value_type = type(tbs_dict[to_tab].cols[to_col][0])
-                            val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
+                            # val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
                             assert tb_name!=to_tab, 'FIX ME'
-                            matched_res = self.get_matched_node(db_name,to_tab, to_col, val, ref_value_type)   
+                            matched_res = self.get_matched_node(db_name,to_tab, to_col, value, ref_value_type)   
                             self.logger.warning(f"matched_res : {matched_res}, {len(matched_res)}")   
                             assert len(matched_res)==1, 'FIX ME'
                             for label, node in matched_res[0].items():
@@ -424,10 +421,10 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             value = row_dict[fk]
                             ref_value_type = type(tbs_dict[to_tab].cols[to_col][0])
                             alias = constraint['to_tab'].lower()
-                            val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
+                            # val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
                             assert tb_name!=to_tab, 'FIX ME'
                             self.logger.warning(f'this_table: {tb_name}, fk: {fk}, value: {value}, datatype: {type(value)}, to_table: {alias}, to_col: {to_col}, ref_value_type: {ref_value_type}')
-                            ref_nodes = self.get_matched_node(db_name, to_tab, to_col, val, ref_value_type)      
+                            ref_nodes = self.get_matched_node(db_name, to_tab, to_col, value, ref_value_type)      
                             this_nodes = self.get_matched_node(db_name, tb_name, fk, value, type(value)) 
                             for this in this_nodes:
                                 for s_label, this_node in this.items():
