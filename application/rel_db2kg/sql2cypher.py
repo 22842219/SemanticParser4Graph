@@ -119,6 +119,8 @@ def Operator(op, parentheses=False):
 						if fm_type== str:
 							res = str(res).strip('\'').strip('\"')
 							res = "'{}'".format(res)
+						if fm_type==int:
+							res=str(res).strip('\'').strip('\"')
 						arguments.append(res)
 		
 				else:
@@ -233,11 +235,12 @@ class Formatter(SchemaGroundedTraverser):
 		cypher_clauses = ['MATCH', 'WITH', 'WHERE', 'RETURN', 'ORDER BY','LIMIT', 'UNION']
 		self.get_alias_table_map(json)
 		if isNested(json):	# deal with single nested query. 
-			ops = ['%', '*', '+', '-', '/',  
-						'<', '<=', '<>', '=', '>', '>=', 
-						'AND', 'OR', 'XOR', 'IN', 'NOT', 
-						'CONTAINS', 'DISTINCT', 'STARTS WITH', 'ENDS WITH']	
-			cypher={'nested_cypher': {}}
+			math_ops = ['%', '*', '+', '-', '/']
+			comparision_ops  = ['<', '<=', '<>', '=', '>', '>=']
+			bool_ops = ['AND', 'OR', 'XOR',  'NOT']
+			list_ops = ['IN']
+			string_ops = [ 'CONTAINS', 'DISTINCT', 'STARTS WITH', 'ENDS WITH']	
+			cypher={'nested_cypher': {}, 'where_bool': []}
 			for clause in clauses:
 				for part in [getattr(self, clause)(json)]:
 					if part:
@@ -247,24 +250,42 @@ class Formatter(SchemaGroundedTraverser):
 								assert len(part)==2, 'FIX ME'
 								cypher[clause]=part[0]
 								part = part[1]
-							for op in ops:
+							for op in math_ops+comparision_ops+bool_ops+list_ops+string_ops:
 								if op in part:
-									print('2', op, part)
 									part_split = part.split(op)
-									print('3', part_split)
-									
-									cypher[clause]='WHERE ' + part_split[0]+ op 
-									if '\n' in part_split[1]:
-										element_split = part_split[1].strip('() ').split('\n')
-										for e_split in element_split:
-											for c_clause in cypher_clauses:
-												if c_clause.upper() in e_split:	
-													cypher['nested_cypher'][c_clause]=e_split
+									print('1', part_split)
+									for each in part_split:
+										if '\n' in each:
+											element_split = each.strip('() ').split('\n')
+											print('3', element_split)
+											for e_split in element_split:
+												if e_split:
+													for c_clause in cypher_clauses:
+														if c_clause.upper() in e_split:
+															if op in comparision_ops :
+																cypher['nested_cypher'][c_clause]=e_split
+															elif op in bool_ops+list_ops:
+																cypher['where_bool'].append('(:{})'.format(e_split.split(':')[1].strip('() ')))
+										else:
+											if op in comparision_ops:
+												cypher[clause]='WHERE ' + each+ op 
+										
+											elif op in bool_ops+list_ops:
+												cypher[clause] ='WHERE '+op   
+												if '.' in each:
+													tb_alias, _ = each.split('.')
+													is_rel, _ = self.is_rel(self.table_alias_lookup[tb_alias.strip()])
+													if is_rel:
+														cypher['where_bool'].append('-[{}]-'.format(tb_alias))
+													else:
+														cypher['where_bool'].append('({})'.format(tb_alias))
+
+			
 						else:
 							cypher[clause]=part
 
 			seq_parts=[]
-			condi=''
+			condi=' '
 			with_alias=''
 			print('cypher', cypher)
 			for key, part in cypher.items():
@@ -285,6 +306,8 @@ class Formatter(SchemaGroundedTraverser):
 
 						else:
 							seq_parts.append(p_part)		
+				elif key=='where_bool':
+					condi +='-[]-'.join(part)
 				else:
 					
 					if key=='where':
@@ -1231,7 +1254,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			# ['car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
-			if db_name in [ 'concert_singer' ]:
+			if db_name in [ 'concert_singer' ] and i in [16, 26, 27, 37, 38, 43, 44]:
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:

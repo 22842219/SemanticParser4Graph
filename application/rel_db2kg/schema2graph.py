@@ -64,12 +64,12 @@ class DBengine:
             pk: Primary key flag (1 if the column is part of the primary key, 0 otherwise)
         '''
         for info in infos:
-            cid, col_name, type, notnull, dflt_value, pk = info
-            if type.lower() in ['text', 'varchar', 'varchar(20)']:
-                type=str
-            if type in ['INTEGER', 'INT']:
-                type=int
-            data_types[col_name] = type
+            cid, col_name, dtype, notnull, dflt_value, pk = info
+            if dtype.lower() in ['text', 'varchar', 'varchar(20)']:
+                dtype=str
+            if dtype in ['INTEGER', 'INT']:
+                dtype=int
+            data_types[col_name] = dtype
         return data_types
 
     def get_outbound_foreign_keys(self, table_name):
@@ -167,6 +167,35 @@ class RelDBDataset(DBengine):
                     fks.update({fk:constraint})
                     db_tbs[tb_name].fks.update({fk:constraint})
 
+    def fix_fk(self, tbs_fk_constraints, tbs_data_type, db_tbs):
+        for tb_name, fks in tbs_fk_constraints.items():
+            for fk, constraint in fks.items():
+                to_col = constraint['to_col']
+                to_tb_name = constraint['to_tab']
+                assert type(fk)==type(to_col), 'FIX ME'
+                to_col_type  = tbs_data_type[to_tb_name][to_col]
+                tbs_data_type[tb_name].update({fk: to_col_type}) #update each table's dataype dictionary, aka each fk's data type to allign with its reference's datatype. 
+
+                # update the actual value type of each fk to allign with updated fk's data type.
+                for i, row_dict in enumerate(db_tbs[tb_name].rows): 
+                    if isinstance(db_tbs[to_tb_name].cols[to_col][0], int) and not isinstance(row_dict[fk], int):
+                        db_tbs[tb_name].rows[i].update({fk: int(str(row_dict[fk]).strip('\'').strip('\"'))})
+                    if isinstance(db_tbs[to_tb_name].cols[to_col][0], str) and  not isinstance(row_dict[fk], str):
+                        db_tbs[tb_name].rows[i].update({fk: "'{}'".format(str(row_dict[fk]).strip('\'').strip('\"'))}) 
+
+                
+                # update tb_object.cols
+                for col, col_val_list in db_tbs[tb_name].cols.items(): 
+                    if col==fk:
+                        if isinstance(db_tbs[to_tb_name].cols[to_col][0], int) and not isinstance(col_val_list[0], int):
+                            col_val_list = [int(str(val).strip('\'').strip('\"')) for val in col_val_list]
+                            db_tbs[tb_name].cols.update({fk: col_val_list})
+                        if isinstance(db_tbs[to_tb_name].cols[to_col][0], str) and  not isinstance(col_val_list[0], str):
+                            col_val_list = ["'{}'".format(str(val).strip('\'').strip('\"')) for val in col_val_list]
+                            db_tbs[tb_name].cols.update({fk: col_val_list}) 
+
+                 
+
     def read_dataset(self, paths):
         rel_dbs = {}
         db_fk_constraints = {}
@@ -191,7 +220,7 @@ class RelDBDataset(DBengine):
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
-            
+          
             if db_name in ['musical', 'car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
@@ -219,6 +248,7 @@ class RelDBDataset(DBengine):
                     data = df.transpose().to_dict().values()  # to keep the origial data types.
                     tb_object.cols = df.to_dict(orient='list')
                     
+                    
                     if len(data)>4000:  # we set a threshold for the experiments.
                         break
                     if tb_object.headers == None:
@@ -232,6 +262,8 @@ class RelDBDataset(DBengine):
                     rel_dbs[db_name][table_name] = tb_object
                 
                 self.fix_reference(db_fk_constraints[db_name], db_pks[db_name], rel_dbs[db_name])
+                self.fix_fk(db_fk_constraints[db_name], db_data_type[db_name] , rel_dbs[db_name])
+
         return rel_dbs, db_fk_constraints, db_data_type, db_pks
             
         
@@ -270,15 +302,22 @@ class RelDB2KGraphBuilder(RelDBDataset):
         self.dataset = RelDBDataset(self.paths, self.logger)
 
 
-    def get_matched_node(self, db_name, tb_name, col, val, val_type):
+    def get_matched_node(self, db_name, tb_name, col: np.asscalar, val, val_type):
         alias = tb_name.lower()
-        if val and val_type==str:
-            if '"' not in val:
-                val = '"{}"'.format(val)
-            # elif not re.findall(r'[\'|\"][a-zA-Z].*', val):
-            #     return None
-            # if isinstance(val, str) and not re.findall(r'[a-zA-Z].*', val):
-            #     return None
+        if type(val)==np.ndarray:
+            val = val.item()
+        print('1', db_name, tb_name,  val, type(val), val_type)
+        assert  isinstance(val, val_type), 'FIX ME'
+        if val and isinstance(val, val_type):
+            if type(val)==str:
+                val = '"{}"'.format(str(val).strip('\'').strip('\"'))
+                print('11', val)
+                # elif not re.findall(r'[\'|\"][a-zA-Z].*', val):
+                #     return None
+                # if isinstance(val, str) and not re.findall(r'[a-zA-Z].*', val):
+                #     return None
+            if type(val)==int:
+                val = int(str(val).strip('\'').strip('\"'))
 
         match_ =  "match ({}:`{}.{}`) ".format(alias, db_name, tb_name)
         condi = []
@@ -351,13 +390,13 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         matched = {}
                         matched_labels = []
                         for fk, constraint in tab.fks.items():
-                            to_tab = self.rel_dbs[tab.db_name][constraint['to_tab']]
+                            to_tab = constraint['to_tab']
                             to_col = constraint['to_col']            
                             value = row_dict[fk]
-                            ref_value_type = to_tab.data_type[to_col]
+                            ref_value_type = type(tbs_dict[to_tab].cols[to_col][0])
                             val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
-                            assert tb_name!=to_tab.table_name, 'FIX ME'
-                            matched_res = self.get_matched_node(db_name,to_tab.table_name, to_col, val, ref_value_type)   
+                            assert tb_name!=to_tab, 'FIX ME'
+                            matched_res = self.get_matched_node(db_name,to_tab, to_col, val, ref_value_type)   
                             self.logger.warning(f"matched_res : {matched_res}, {len(matched_res)}")   
                             assert len(matched_res)==1, 'FIX ME'
                             for label, node in matched_res[0].items():
@@ -380,19 +419,16 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     self.logger.warning(f"Running {tb_name} in {db_name} with {tab.headers}")
                     for row_dict in tab.rows:
                         for fk, constraint in tab.fks.items():
-                            to_tab = self.rel_dbs[tab.db_name][constraint['to_tab']]
+                            to_tab = constraint['to_tab']
                             to_col = constraint['to_col']            
                             value = row_dict[fk]
-                            value_type = tab.data_type[fk]
-                            ref_value_type = to_tab.data_type[to_col]
+                            ref_value_type = type(tbs_dict[to_tab].cols[to_col][0])
                             alias = constraint['to_tab'].lower()
                             val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
-                            assert tb_name!=to_tab.table_name, 'FIX ME'
-                            self.logger.warning(f'this_table: {tb_name}, fk: {fk}, value: {value}, datatype: {value_type}, to_table: {alias}, to_col: {to_col}, ref_value_type: {ref_value_type}')
-                            ref_nodes = self.get_matched_node(db_name, to_tab.table_name, to_col, val, ref_value_type)      
-                            this_nodes = self.get_matched_node(db_name, tb_name, fk, value, value_type) 
-                            print(ref_nodes)
-                            print('9', this_nodes)
+                            assert tb_name!=to_tab, 'FIX ME'
+                            self.logger.warning(f'this_table: {tb_name}, fk: {fk}, value: {value}, datatype: {type(value)}, to_table: {alias}, to_col: {to_col}, ref_value_type: {ref_value_type}')
+                            ref_nodes = self.get_matched_node(db_name, to_tab, to_col, val, ref_value_type)      
+                            this_nodes = self.get_matched_node(db_name, tb_name, fk, value, type(value)) 
                             for this in this_nodes:
                                 for s_label, this_node in this.items():
                                     start_node_label='{}.{}'.format(db_name, s_label)
