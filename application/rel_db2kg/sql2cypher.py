@@ -72,7 +72,6 @@ def should_quote(identifier):
 			(not re.fullmatch(VALID, identifier)))
 
 def add_parentheses(x):
-	# print("x:", x)
 	if isinstance(x, dict):
 		return x
 	if x.startswith('(') and x.endswith(')'):
@@ -112,17 +111,18 @@ def Operator(op, parentheses=False):
 					if is_field:
 						norm_query_fm = self.norm_query_fm(res, tb)
 						tb_alias, norm_fm = norm_query_fm.split('.')
+						fm_type = self.db_info[self.table_alias_lookup[tb_alias]].data_type[norm_fm]
+					
 						if norm_query_fm not in arguments:
 							arguments.append(norm_query_fm)
-					else:
-						fm_type = self.db_info[self.table_alias_lookup[tb_alias]].data_type[norm_fm]
-						if fm_type== str:
-							res = str(res).strip('\'').strip('\"')
-							res = "'{}'".format(res)
-						if fm_type==int:
-							res=str(res).strip('\'').strip('\"')
-						arguments.append(res)
-		
+							continue
+
+					if fm_type== str:
+						res = str(res).strip('\'').strip('\"')
+						res = "'{}'".format(res)
+					if fm_type==int:
+						res=str(res).strip('\'').strip('\"')
+					arguments.append(res)
 				else:
 					arguments.append(res)		
 		out = op.join(arguments)
@@ -241,21 +241,22 @@ class Formatter(SchemaGroundedTraverser):
 		cypher_clauses = ['MATCH', 'WITH', 'WHERE', 'RETURN', 'ORDER BY', 'LIMIT', 'UNION']
 		self.get_alias_table_map(json)
 		if isNested(json):	# deal with single nested query. 
-				
 			cypher={'nested_cypher': {}, 'where_bool': []}
 			for clause in clauses:
 				for part in [getattr(self, clause)(json)]:
 					if part:
-						
+						print('1', part)
 						if clause=='where':
 							if isinstance(part, list):
 								assert len(part)==2, 'FIX ME'
 								cypher[clause]=part[0]
 								part = part[1]
-							for op in self.math_ops + self.comparision_ops + self.bool_ops + self.list_ops + self.string_ops:
+							for op in self.comparision_ops + self.bool_ops + self.list_ops :
 								if op in part:
+									print('2', op)
 									part_split = part.split(op)
 									for each in part_split:
+										print('3', each)
 										if '\n' in each:
 											element_split = each.strip('() ').split('\n')
 											for e_split in element_split:
@@ -265,8 +266,8 @@ class Formatter(SchemaGroundedTraverser):
 															if op in self.comparision_ops :
 																cypher['nested_cypher'][c_clause]=e_split
 															elif op in self.bool_ops + self.list_ops:	
-																cypher['where_bool'].append('(:{})'.format(e_split.split(':')[1].strip('() ')))
-												
+																cypher['where_bool'].append(e_split.strip().split(c_clause)[1])
+											print('4', cypher)
 										else:
 											if op in self.comparision_ops:
 												cypher[clause]='WHERE ' + each+ op 
@@ -274,21 +275,25 @@ class Formatter(SchemaGroundedTraverser):
 											elif op in self.bool_ops + self.list_ops:
 												cypher[clause] ='WHERE '+op   
 												if '.' in each:
-													tb_alias, _ = each.split('.')
-													is_rel, _ = self.is_rel(self.table_alias_lookup[tb_alias.strip()])
-													if is_rel:
-														cypher['where_bool'].append('-[{}]-'.format(tb_alias))
-													else:
-														cypher['where_bool'].append('({})'.format(tb_alias))
+													tb_alias, _ = each.strip().split('.')
+													for idx, item in enumerate(cypher['where_bool']):
+														cypher['where_bool'][idx] = item.replace('{}:'.format(tb_alias), ':')
 
-			
+													# concatenate with the outer match
+													if 'from_' in cypher and isinstance(cypher['from_'], str):
+														outer_ = cypher['from_'].strip().split('MATCH')[1].strip()
+														match_ = re.search( r':`([^`]+)`', outer_).group()
+														if match_:
+															cypher['where_bool'].append(outer_.replace(match_, ''))
+											print('5', cypher)
+
+
 						else:
 							cypher[clause]=part
 
 			seq_parts=[]
 			condi=' '
 			with_alias=''
-			print('cypher', cypher)
 			for key, part in cypher.items():
 				if key == 'nested_cypher':
 					for k_key, p_part in cypher[key].items():
@@ -308,7 +313,21 @@ class Formatter(SchemaGroundedTraverser):
 						else:
 							seq_parts.append(p_part)		
 				elif key=='where_bool':
-					condi +='-[]-'.join(part)
+					rel_flag = False
+					for i, item in enumerate(part):
+						if re.search(r'-\[', item):
+							rel_flag=True
+						if re.search(r'\(\)', item):
+							if i!=len(part)-1:
+								if not re.search(r'-\[', part[i+1]):
+									part[i] = item.replace( re.search(r'\(\)', item).group(), part[i+1], 1)
+									part.pop()
+
+					if not rel_flag:
+						joiner = '-[]-'
+					else:
+						joiner=''
+					condi += joiner.join(part)
 				else:
 					
 					if key=='where':
@@ -327,6 +346,7 @@ class Formatter(SchemaGroundedTraverser):
 
 					
 	def in_field(self, fm):
+		fm=fm.strip()
 		if '.' in fm:
 			tb_alias, fm = fm.split('.')
 			if tb_alias in self.table_alias_lookup:
@@ -339,14 +359,14 @@ class Formatter(SchemaGroundedTraverser):
 		return False, None
 
 	def norm_query_fm(self, fm, tb_name):
+		fm=fm.strip()
+		tb_name=tb_name.strip()
 		if '.' in fm:
 			tb_alias, fm = fm.split('.')	
 		else:
-			is_rel, tb_name = self.is_rel(tb_name)
 			for alias, table_name in self.table_alias_lookup.items():
 				if tb_name==table_name:
 					tb_alias = alias
-
 		fm = self.norm_field(fm, tb_name)
 		return "{}.{}".format(tb_alias, fm)
 	
@@ -368,9 +388,9 @@ class Formatter(SchemaGroundedTraverser):
 	
 
 	def is_rel(self, tb_name):
+		tb_name=tb_name.strip()
 		if '.' in tb_name:
 			_, tb_name = tb_name.strip('`').split('.')
-
 		tb_name = self.norm_tb(tb_name)
 		tab = self.db_info[tb_name]
 		
@@ -493,12 +513,12 @@ class Formatter(SchemaGroundedTraverser):
 			node_dict = {}
 			rel_dict = {}
 			for i, every in enumerate(from_):
-				print('0', every)
-				
-				tb_name = self.dispatch(every,  is_table=isinstance(every, text))
-				
+
+				tb_name = self.norm_tb(self.dispatch(every,  is_table=isinstance(every, text)))
+
 				if '.' in tb_name:
 					tb_alias, tb_name = tb_name.split('.')	
+					tb_name=self.norm_tb(tb_name)
 				else:
 					tb_alias= tb_name.lower()
 
@@ -510,10 +530,7 @@ class Formatter(SchemaGroundedTraverser):
 
 				if isinstance(every, dict) and 'on' in every:
 					is_join=True
-					paired_on = self.dispatch(every['on'])
-					
-					print('00', paired_on)
-
+					# paired_on = self.dispatch(every['on'])
 			
 				if is_rel:
 					rel_dict[tb_alias] = '-[{}:`{}.{}`]-'.format(tb_alias, self.db_name, tb_name)
@@ -533,7 +550,7 @@ class Formatter(SchemaGroundedTraverser):
 				if node_counter%2==0 :
 					for rel_alias, rel in rel_dict.items():
 						parts = [rel.join(parts)]
-						print('parts', parts)
+
 
 				assert node_counter==2, 'FIX ME'
 			
@@ -650,7 +667,10 @@ class Formatter(SchemaGroundedTraverser):
 				is_where = False
 				is_distinct = False
 
-				tb_name=''
+				if 'from' in json and isinstance(json['from'], string_types):
+					tb_name = self.norm_tb(self.dispatch(json['from'])	)
+					tb_alias = next((k for k, v in self.table_alias_lookup.items() if v == tb_name), None)
+
 				
 				for select_field in select_fields:
 					print(f'select_field: {select_field}, is_agg: {re.match(agg_pattern, select_field)}')
@@ -661,15 +681,11 @@ class Formatter(SchemaGroundedTraverser):
 
 					if not re.match(agg_pattern, select_field):
 						if '.' in select_field:
-							tb_alias, _ = select_field.split('.')
+							tb_alias, _ = select_field.strip().split('.')
 							tb_name = self.table_alias_lookup[tb_alias]
-						elif 'from' in json and isinstance(json['from'], string_types):
-							tb_name = self.dispatch(json['from'])	
 						
-
 						if tb_name:
 							norm_fm = self.norm_query_fm(select_field, tb_name)			
-							
 							if 'having'  in json:
 								is_with = True
 								# return_nodes.append('count')
@@ -677,20 +693,20 @@ class Formatter(SchemaGroundedTraverser):
 								alias_fm = '{} AS {}'.format(norm_fm, fm)
 								with_parts.append(alias_fm) 	
 								norm_fm=fm
-
-							# if 'groupby' in json and not 'having' in json:
-							# 	groupby_fm =self.groupby(json)
-							# 	norm_grouby = 'ORDER BY {}'.format(self.norm_query_fm(groupby_fm, tb_name))
-							# 	with_parts.append(norm_grouby)
-
-							
-							# if 'having' in json:
+								
 								# Setting is_with and is_where flags beging true for the final concatenation of with_statement. 
 								is_where = True
 								# Circle aggregation in having_statement. 
 								with_part, with_where = self.having(json)
 								if not set(with_parts)-(set(with_parts)-set(with_part)):
 									with_parts.extend(with_part)
+
+							if 'groupby' in json and not 'having' in json and 'orderby' in json and len(self.table_alias_lookup)!=1:
+								is_with = True
+								groupby_fm =self.groupby(json)
+								norm_grouby = 'count({}) AS cnt'.format(self.norm_query_fm(groupby_fm, tb_name))
+								if tb_alias:
+									with_parts.extend([tb_alias, norm_grouby])
 
 							return_nodes.append(norm_fm)
 
@@ -699,20 +715,28 @@ class Formatter(SchemaGroundedTraverser):
 						agg_op  = ''
 						agg_op = re.match(agg_pattern, select_field).group()
 						select_field = select_field.strip(agg_op).strip('()')
-				
+	
+						if 'distinct' in select_field:
+							is_distinct = True
+							select_field = select_field.split('distinct')[1].strip()
+						
 						if select_field=='*':
 							return_nodes.append('{}({})'.format(agg_op, select_field))
-						elif '.' in select_field:
-							tb_alias, select_field = select_field.split('.')
-							tb_name = self.table_alias_lookup[tb_alias]
+						else:
+							if '.' in select_field:
+								tb_alias, select_field = select_field.split('.')
+								tb_name = self.table_alias_lookup[tb_alias]
 
 							if tb_name:
+
 								norm_fm = self.norm_query_fm(select_field, tb_name)
 								if is_distinct:	
 									return_nodes.append('{}(DISTINCT {})'.format(agg_op, norm_fm))
 									is_distinct = False
 								else:
 									return_nodes.append('{}({})'.format(agg_op, norm_fm))
+							
+							
 							
 		
 				if is_with:
@@ -726,7 +750,7 @@ class Formatter(SchemaGroundedTraverser):
 				# 	with_statement = 'WITH DISTINCT {}'.format(', '.join(set(with_parts)))
 				# 	final_return.append(with_statement)
 					
-				if 'where' in json and 'list' in json['where'] or select == 'select_distinct':	
+				if 'where' in json and 'list' in json['where'] or select == 'select_distinct' or is_distinct:
 					# list appears in intersect statement, so distinct is added.		
 					return_statement =  'RETURN DISTINCT {}'.format(','.join(return_nodes))
 				else:
@@ -750,7 +774,10 @@ class Formatter(SchemaGroundedTraverser):
 			for idx, fm in enumerate(fields):
 
 				if 'groupby' in json and fm=='count(*)': 	
-					fields[idx] =self.groupby(json)
+					if len(self.table_alias_lookup)!=1:
+						fields[idx] ='cnt'
+					else:
+						fields[idx] = self.groupby(json)
 				if '.' in fm:
 					key, fm = fm.split('.')
 					tb = self.table_alias_lookup[key]
@@ -823,14 +850,12 @@ class Formatter(SchemaGroundedTraverser):
 		if isinstance(json, list):
 			return add_parentheses(', '.join(self._literal(v) for v in json))
 		elif isinstance(json, text):
-			print(escape(json, True))
 			return "'{0}'".format(json.replace("'", '"'))
 		else:
 			return str(json)
 
 	def _like(self, json):
 		print("*******debug like*********")
-		print(json)
 		if not isinstance(json, list):
 			json = [json]
 		for res in json:
@@ -1078,8 +1103,8 @@ def main():
 		
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			# ['car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
-			if db_name in [ 'concert_singer' ]:
+			# ['car_1', 'pets_1',  'concert_singer',, 'real_estate_properties']:
+			if db_name in [ 'department_management', ] and i in  [7, 8, 14]:
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
@@ -1100,65 +1125,64 @@ def main():
 					logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_query))
 					continue
 
-			# try:
-				# - Convert SQL query to Cypher query.	
-				parsed_sql = parse(sql_query)					
-				print("------------------------")
-				print(i)
-				print(f'databse: {db_name}, question: {question}')
-				print(f'sql: {sql_query}, sql_ans: {sql_result}')
-				print(f'parsed_sql: {parsed_sql}')	
+				try:
+					# - Convert SQL query to Cypher query.	
+					parsed_sql = parse(sql_query)					
+					print("------------------------")
+					print(i)
+					print(f'databse: {db_name}, question: {question}')
+					print(f'sql: {sql_query}, sql_ans: {sql_result}')
+					print(f'parsed_sql: {parsed_sql}')	
 
-			# try:
-				formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
-				sql2cypher = formatter.format(parsed_sql)
-				print("**************Cypher Query***************")
-				print(sql2cypher)
+					try:
+						formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
+						sql2cypher = formatter.format(parsed_sql)
+						print("**************Cypher Query***************")
+						print(sql2cypher)
 
-				# - Execute cypher query.
-				if sql2cypher:
-					cypher_res = graph.run(sql2cypher).data()
-					cypher_ans = []
-					for dict_ in cypher_res:
-						cypher_ans.append(tuple(dict_.values()))	
+						# - Execute cypher query.
+						if sql2cypher:
+							cypher_res = graph.run(sql2cypher).data()
+							cypher_ans = []
+							for dict_ in cypher_res:
+								cypher_ans.append(tuple(dict_.values()))	
 
-					if set(cypher_ans)==set(sql_result):
-						print(f'correct_ans: {cypher_ans}') 
-						qa_pairs['correct_'].append(
-							{
-								'db_id':db_name, 
-								'sql': sql_query, 
-								'cypher_query':sql2cypher,
-								'question':question,
-								'answers':cypher_ans
-							})
-						qa_pairs['spider_sub_pairs'].append(data[i])
-						qa_pairs['spider_sub_gold_sql'].append(data[i]['query'])
-					else:
-						print(f'incorrect_ans: {cypher_ans}')
+							if set(cypher_ans)==set(sql_result):
+								print(f'correct_ans: {cypher_ans}') 
+								qa_pairs['correct_'].append(
+									{
+										'db_id':db_name, 
+										'sql': sql_query, 
+										'cypher_query':sql2cypher,
+										'question':question,
+										'answers':cypher_ans
+									})
+								qa_pairs['spider_sub_pairs'].append(data[i])
+								qa_pairs['spider_sub_gold_sql'].append(data[i]['query'])
+							else:
+								print(f'incorrect_ans: {cypher_ans}')
+								incorrect[db_name].append(i)
+								qa_pairs['incorrect_'].append(
+									{
+										'db_id':db_name, 
+										'query':question,
+										'sql_query':sql_query, 
+										'parsed_sql':parsed_sql, 
+										'sql_ans':sql_result,
+										'sql2cypher':sql2cypher, 
+										'cypher_ans':cypher_ans
+									})
+					except:
 						incorrect[db_name].append(i)
-						qa_pairs['incorrect_'].append(
-							{
-								'db_id':db_name, 
-								'query':question,
-								'sql_query':sql_query, 
-								'parsed_sql':parsed_sql, 
-								'sql_ans':sql_result,
-								'sql2cypher':sql2cypher, 
-								'cypher_ans':cypher_ans
-							})
-			# except:
-			# 	print()
-			# 	incorrect[db_name].append(i)
-			
-			# except:
-				if 'intersect' in sql_query.lower():
-					intersect_sql[db_name].append(i)
-				if 'except' in sql_query.lower():
-					except_sql[db_name].append(i)	
+					
+				except:
+					if 'intersect' in sql_query.lower():
+						intersect_sql[db_name].append(i)
+					if 'except' in sql_query.lower():
+						except_sql[db_name].append(i)	
 
-				invalid_parsed_sql[db_name].append(i)
-				logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
+					invalid_parsed_sql[db_name].append(i)
+					logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
 
 		metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics.json')
 		metrics = execution_accuracy(metrics_file, split, len(qa_pairs['correct_']), incorrect, invalid_parsed_sql,
