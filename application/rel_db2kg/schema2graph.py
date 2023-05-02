@@ -382,8 +382,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         NOTE 2: we remove the foreign keys from each graph edge's property set, for the sake of the consistency of graph database.
                             to make sure the update of head or tail nodes would not violate the data consistency.                    
                         '''
-                        update_row_dict = {k: row_dict[k] for k in row_dict if k not in fks}  
-                        self.logger.warning(f'update_row_dict: {update_row_dict}')
+                        # update_row_dict = {k: row_dict[k] for k in row_dict if k not in fks}  
+                        # self.logger.warning(f'update_row_dict: {update_row_dict}')
                         matched = {}
                         matched_labels = []
                         for fk, constraint in tab.fks.items():
@@ -399,7 +399,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             for label, node in matched_res[0].items():
                                 matched[label] =  node
                                 matched_labels.append(label)
-                        rel = Relationship(matched[matched_labels[0]], '{}.{}'.format(db_name, tb_name), matched[matched_labels[1]], **update_row_dict) 
+                        rel = Relationship(matched[matched_labels[0]], '{}.{}'.format(db_name, tb_name), matched[matched_labels[1]], **row_dict) 
                         tx.create(rel)
      
         self.graph.commit(tx)
