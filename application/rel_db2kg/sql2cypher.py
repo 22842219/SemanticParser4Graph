@@ -748,7 +748,9 @@ class Formatter(SchemaGroundedTraverser):
 				if is_with:
 					with_statement = 'WITH {}'.format(', '.join(set(with_parts)))
 					final_return.append(with_statement)
-		
+					if 'count' in with_statement and 'count(*)' in return_nodes:
+						idx = return_nodes.index('count(*)')
+						return_nodes[idx]='count'
 					if is_where:
 						final_return.append(with_where)
 				
@@ -1109,8 +1111,8 @@ def main():
 		
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			# ['car_1', 'pets_1',  'concert_singer',, 'real_estate_properties']:
-			if db_name in [ 'department_management', ] and i in  [7, 8, 14]:
+			# ['car_1',  'department_management', 'concert_singer', , 'real_estate_properties']:in  [61, 62, 65, 66, 77, 78, 85, 86] 
+			if db_name in ['pets_1', ] and i in  [61, 62, 65, 66, 85, 86]:
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
@@ -1131,64 +1133,64 @@ def main():
 					logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_query))
 					continue
 
-			# try:
-				# - Convert SQL query to Cypher query.	
-				parsed_sql = parse(sql_query)					
-				print("------------------------")
-				print(i)
-				print(f'databse: {db_name}, question: {question}')
-				print(f'sql: {sql_query}, sql_ans: {sql_result}')
-				print(f'parsed_sql: {parsed_sql}')	
+				try:
+					#- Convert SQL query to Cypher query.	
+					parsed_sql = parse(sql_query)					
+					print("------------------------")
+					print(i)
+					print(f'databse: {db_name}, question: {question}')
+					print(f'sql: {sql_query}, sql_ans: {sql_result}')
+					print(f'parsed_sql: {parsed_sql}')	
 
-			# try:
-				formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
-				sql2cypher = formatter.format(parsed_sql)
-				print("**************Cypher Query***************")
-				print(sql2cypher)
+					try:
+						formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
+						sql2cypher = formatter.format(parsed_sql)
+						print("**************Cypher Query***************")
+						print(sql2cypher)
 
-				# - Execute cypher query.
-				if sql2cypher:
-					cypher_res = graph.run(sql2cypher).data()
-					cypher_ans = []
-					for dict_ in cypher_res:
-						cypher_ans.append(tuple(dict_.values()))	
+						# - Execute cypher query.
+						if sql2cypher:
+							cypher_res = graph.run(sql2cypher).data()
+							cypher_ans = []
+							for dict_ in cypher_res:
+								cypher_ans.append(tuple(dict_.values()))	
 
-					if set(cypher_ans)==set(sql_result):
-						print(f'correct_ans: {cypher_ans}') 
-						qa_pairs['correct_'].append(
-							{
-								'db_id':db_name, 
-								'sql': sql_query, 
-								'cypher_query':sql2cypher,
-								'question':question,
-								'answers':cypher_ans
-							})
-						qa_pairs['spider_sub_pairs'].append(data[i])
-						qa_pairs['spider_sub_gold_sql'].append(data[i]['query'])
-					else:
-						print(f'incorrect_ans: {cypher_ans}')
+							if set(cypher_ans)==set(sql_result):
+								print(f'correct_ans: {cypher_ans}') 
+								qa_pairs['correct_'].append(
+									{
+										'db_id':db_name, 
+										'sql': sql_query, 
+										'cypher_query':sql2cypher,
+										'question':question,
+										'answers':cypher_ans
+									})
+								qa_pairs['spider_sub_pairs'].append(data[i])
+								qa_pairs['spider_sub_gold_sql'].append(data[i]['query'])
+							else:
+								print(f'incorrect_ans: {cypher_ans}')
+								incorrect[db_name].append(i)
+								qa_pairs['incorrect_'].append(
+									{
+										'db_id':db_name, 
+										'query':question,
+										'sql_query':sql_query, 
+										'parsed_sql':parsed_sql, 
+										'sql_ans':sql_result,
+										'sql2cypher':sql2cypher, 
+										'cypher_ans':cypher_ans
+									})
+					except:
 						incorrect[db_name].append(i)
-						qa_pairs['incorrect_'].append(
-							{
-								'db_id':db_name, 
-								'query':question,
-								'sql_query':sql_query, 
-								'parsed_sql':parsed_sql, 
-								'sql_ans':sql_result,
-								'sql2cypher':sql2cypher, 
-								'cypher_ans':cypher_ans
-							})
-				# 	except:
-				# 		incorrect[db_name].append(i)
 					
-				# except:
-				# 	if 'intersect' in sql_query.lower():
-				# 		intersect_sql[db_name].append(i)
-				# 	if 'except' in sql_query.lower():
-				# 		except_sql[db_name].append(i)	
+				except:
+					if 'intersect' in sql_query.lower():
+						intersect_sql[db_name].append(i)
+					if 'except' in sql_query.lower():
+						except_sql[db_name].append(i)	
 
-				# 	invalid_parsed_sql[db_name].append(i)
-				# 	logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
+					invalid_parsed_sql[db_name].append(i)
+					logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
 
 		metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics.json')
 		metrics = execution_accuracy(metrics_file, split, len(qa_pairs['correct_']), incorrect, invalid_parsed_sql,
@@ -1212,7 +1214,7 @@ def main():
 			for item in qa_pairs['spider_sub_gold_sql']:
 				# write each item on a new line
 				f4.write("%s\n" % item)
-				print('Done')
+
 
 		sub_tables = os.path.join(sp_out_folder, 'tables.json')     
 		with open(sub_tables, 'a')  as f5:
