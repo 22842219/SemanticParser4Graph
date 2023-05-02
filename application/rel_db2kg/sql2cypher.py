@@ -47,7 +47,6 @@ graph_edge_regx = re.compile(r'\[([a-z]|T[1-9]|t[1-9])\:[a-zA-Z].*\]')
 
 operators = ['||', '*', '/', '+', '-', '<>', '>', '<', '>=', '<=', '=', 'OR', 'AND']
 
-
 def exist_operator(identifier):
 	for op in operators:
 		if op in identifier:
@@ -118,7 +117,7 @@ def Operator(op, parentheses=False):
 							continue
 					else:
 						for k, v in next((each for each in json if isinstance(each, dict)), {}).items():
-							if k in ['count', 'max', 'min', 'avg']:
+							if k in self.agg:
 								fm_type=int
 							else:
 								fm_type=str
@@ -227,9 +226,10 @@ class Formatter(SchemaGroundedTraverser):
 
 		self.math_ops = ['%', '*', '+', '-', '/']
 		self.comparision_ops  = ['<', '<=', '<>', '=', '>', '>=']
-		self.bool_ops = ['AND ', 'OR ', 'XOR ',  'NOT '] #space required
+		self.bool_ops = ['AND', 'OR', 'XOR',  'NOT'] #space required
 		self.list_ops = ['IN ']
 		self.string_ops = [ 'CONTAINS ', 'DISTINCT ', 'STARTS WITH ', 'ENDS WITH ']
+		self.agg = ['count', 'max', 'min', 'avg']
 	# This function is the trigger of decomposition of every parsed sql query.
 	def format(self, json):
 		if 'union' in json:
@@ -247,99 +247,81 @@ class Formatter(SchemaGroundedTraverser):
 		cypher_clauses = ['MATCH', 'WITH', 'WHERE', 'RETURN', 'ORDER BY', 'LIMIT', 'UNION']
 		self.get_alias_table_map(json)
 		if isNested(json):	# deal with single nested query. 
-			cypher={'nested_cypher': {}, 'where_bool': []}
+			cypher={'nested': {}, 'outer': {}}
 			for clause in clauses:
 				for part in [getattr(self, clause)(json)]:
 					if part:
-						print('1', part)
+						print('1', clause, part)
 						if clause=='where':
 							if isinstance(part, list):
 								assert len(part)==2, 'FIX ME'
-								cypher[clause]=part[0]
+								if '.' not in part[0]:
+									match_ = re.search(r'\.[^`]+`', cypher['outer']['from_'])
+									if match_:
+										tb = match_.group().strip('.`')
+										norm_fm = self.norm_query_fm(part[0], tb)
+										cypher['outer'][clause]=norm_fm
 								part = part[1]
-							for op in self.comparision_ops + self.bool_ops + self.list_ops :
-								if op in part:
-									print('2', op)
-									part_split = part.split(op)
-									for each in part_split:
-										print('3', each)
-										if '\n' in each:
-											element_split = each.strip('() ').split('\n')
-											for e_split in element_split:
-												if e_split:
-													for c_clause in cypher_clauses:
-														if c_clause.upper() in e_split:
-															if op in self.comparision_ops :
-																cypher['nested_cypher'][c_clause]=e_split
-															elif op in self.bool_ops + self.list_ops:	
-																cypher['where_bool'].append(e_split.strip().split(c_clause)[1])
-											print('4', cypher)
-										else:
-											if op in self.comparision_ops:
-												cypher[clause]='WHERE ' + each+ op 
-										
-											elif op in self.bool_ops + self.list_ops:
-												cypher[clause] ='WHERE '+op   
-												if '.' in each:
-													tb_alias, _ = each.strip().split('.')
-													for idx, item in enumerate(cypher['where_bool']):
-														cypher['where_bool'][idx] = item.replace('{}:'.format(tb_alias), ':')
 
-													# concatenate with the outer match
-													if 'from_' in cypher and isinstance(cypher['from_'], str):
-														outer_ = cypher['from_'].strip().split('MATCH')[1].strip()
-														match_ = re.search( r':`([^`]+)`', outer_).group()
-														if match_:
-															cypher['where_bool'].append(outer_.replace(match_, ''))
-											print('5', cypher)
-
-
-						else:
-							cypher[clause]=part
-
-			seq_parts=[]
-			condi=' '
-			with_alias=''
-			for key, part in cypher.items():
-				if key == 'nested_cypher':
-					for k_key, p_part in cypher[key].items():
-						if k_key=='RETURN':
-							p_part_split =p_part.split(k_key)[1]
-							if '.' in p_part_split:
-								with_alias = p_part_split.split('.')[1].lower()
-							elif '*' in p_part_split:
-								with_alias=p_part_split.split('*')[0].strip('(').lower()
+							logic_op = next((op for op in self.bool_ops + self.list_ops if op in part), None)
+							comp_op  = next((op for op in self.comparision_ops if op in part), None)
+	
+							if logic_op == 'NOT':
+								cypher['neg'] = 'NOT'
+								cypher['op']=''
+								op = logic_op
+								cypher['in']='IN'
+							elif comp_op:
+								cypher['neg'] = ''
+								op = comp_op
+								cypher['op']=op
+								cypher['in']=''
 							else:
-								with_alias = p_part_split.lower()
-							if '(' in p_part_split and ')' not in p_part_split:
-								p_part_split+=')'
-							with_ = 'WITH {} AS {}'.format(p_part_split, with_alias)
-							seq_parts.append(with_)
+								cypher['neg']=''
+								cypher['op']=''
+								cypher['in']= ''
+								op = None
+								
+							if op:
+								part_ = part.split(op)
+								for each in part_:
+									if '\n' in each:
+										each_ = each.strip('() ').split('\n')
+										for item in each_:
+											c_ = next(( c_  for c_ in cypher_clauses if c_.upper() in item), None)
+											if c_:
+												cypher['nested'][c_] = item
+									else:
+										if '.' in each:
+											tb_alias, fm = each.split('.')
+											with_alias = fm.lower()
+
+										elif next(( agg for agg in self.agg if agg in each), None):
+											with_alias = next(( agg for agg in self.agg if agg in each), None)
+										
+										else:
+											with_alias= each.lower()
+
+										cypher['nested']['WITH'] = 'WITH collect({}) AS {}'.format(each, with_alias)
+										cypher['with_alias']=with_alias
+
 
 						else:
-							seq_parts.append(p_part)		
-				elif key=='where_bool':
-					rel_flag = False
-					for i, item in enumerate(part):
-						if re.search(r'-\[', item):
-							rel_flag=True
-						if re.search(r'\(\)', item):
-							if i!=len(part)-1:
-								if not re.search(r'-\[', part[i+1]):
-									part[i] = item.replace( re.search(r'\(\)', item).group(), part[i+1], 1)
-									part.pop()
+							cypher['outer'][clause]=part
+			print(cypher)
+			seq_parts=[]
+			for k, v in cypher.items():
+				if k=='nested':
+					seq_parts.extend(list(v.values()))
+				elif k=='outer':
+					for kk, vv in v.items():
+						
+						if kk=='where':
+							outer_where = 'WHERE {} {} {} {} {}'.format(cypher['neg'], vv,cypher['op'], cypher['in'], with_alias)
+							seq_parts.append(outer_where)
+						else:
+							seq_parts.append(vv)
 
-					if not rel_flag:
-						joiner = '-[]-'
-					else:
-						joiner=''
-					condi += joiner.join(part)
-				else:
-					
-					if key=='where':
-						part+=condi
-						part+= with_alias
-					seq_parts.append(part)
 			seq = '\n'.join(seq_parts)    	
 		else:
 			seq = '\n'.join(
@@ -1111,8 +1093,8 @@ def main():
 		
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			# ['car_1',  'department_management', 'concert_singer', , 'real_estate_properties']:in  [61, 62, 65, 66, 77, 78, 85, 86] 
-			if db_name in ['pets_1', ] and i in  [61, 62, 65, 66, 85, 86]:
+			# ['car_1','department_management',   'pets_1', , 'real_estate_properties']:in  [61, 62, 65, 66, 77, 78, 85, 86] 
+			if db_name in [ 'concert_singer',] and i in [12, 13, 16, 43, 44]:
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
@@ -1133,64 +1115,64 @@ def main():
 					logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_query))
 					continue
 
-				try:
-					#- Convert SQL query to Cypher query.	
-					parsed_sql = parse(sql_query)					
-					print("------------------------")
-					print(i)
-					print(f'databse: {db_name}, question: {question}')
-					print(f'sql: {sql_query}, sql_ans: {sql_result}')
-					print(f'parsed_sql: {parsed_sql}')	
+				# try:
+				#- Convert SQL query to Cypher query.	
+				parsed_sql = parse(sql_query)					
+				print("------------------------")
+				print(i)
+				print(f'databse: {db_name}, question: {question}')
+				print(f'sql: {sql_query}, sql_ans: {sql_result}')
+				print(f'parsed_sql: {parsed_sql}')	
 
-					try:
-						formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
-						sql2cypher = formatter.format(parsed_sql)
-						print("**************Cypher Query***************")
-						print(sql2cypher)
+					#try:
+				formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
+				sql2cypher = formatter.format(parsed_sql)
+				print("**************Cypher Query***************")
+				print(sql2cypher)
 
-						# - Execute cypher query.
-						if sql2cypher:
-							cypher_res = graph.run(sql2cypher).data()
-							cypher_ans = []
-							for dict_ in cypher_res:
-								cypher_ans.append(tuple(dict_.values()))	
+				# - Execute cypher query.
+				if sql2cypher:
+					cypher_res = graph.run(sql2cypher).data()
+					cypher_ans = []
+					for dict_ in cypher_res:
+						cypher_ans.append(tuple(dict_.values()))	
 
-							if set(cypher_ans)==set(sql_result):
-								print(f'correct_ans: {cypher_ans}') 
-								qa_pairs['correct_'].append(
-									{
-										'db_id':db_name, 
-										'sql': sql_query, 
-										'cypher_query':sql2cypher,
-										'question':question,
-										'answers':cypher_ans
-									})
-								qa_pairs['spider_sub_pairs'].append(data[i])
-								qa_pairs['spider_sub_gold_sql'].append(data[i]['query'])
-							else:
-								print(f'incorrect_ans: {cypher_ans}')
-								incorrect[db_name].append(i)
-								qa_pairs['incorrect_'].append(
-									{
-										'db_id':db_name, 
-										'query':question,
-										'sql_query':sql_query, 
-										'parsed_sql':parsed_sql, 
-										'sql_ans':sql_result,
-										'sql2cypher':sql2cypher, 
-										'cypher_ans':cypher_ans
-									})
-					except:
+					if set(cypher_ans)==set(sql_result):
+						print(f'correct_ans: {cypher_ans}') 
+						qa_pairs['correct_'].append(
+							{
+								'db_id':db_name, 
+								'sql': sql_query, 
+								'cypher_query':sql2cypher,
+								'question':question,
+								'answers':cypher_ans
+							})
+						qa_pairs['spider_sub_pairs'].append(data[i])
+						qa_pairs['spider_sub_gold_sql'].append(data[i]['query'])
+					else:
+						print(f'incorrect_ans: {cypher_ans}')
 						incorrect[db_name].append(i)
+						qa_pairs['incorrect_'].append(
+							{
+								'db_id':db_name, 
+								'query':question,
+								'sql_query':sql_query, 
+								'parsed_sql':parsed_sql, 
+								'sql_ans':sql_result,
+								'sql2cypher':sql2cypher, 
+								'cypher_ans':cypher_ans
+							})
+				# 	except:
+				# 		incorrect[db_name].append(i)
 					
-				except:
-					if 'intersect' in sql_query.lower():
-						intersect_sql[db_name].append(i)
-					if 'except' in sql_query.lower():
-						except_sql[db_name].append(i)	
+				# except:
+				# 	if 'intersect' in sql_query.lower():
+				# 		intersect_sql[db_name].append(i)
+				# 	if 'except' in sql_query.lower():
+				# 		except_sql[db_name].append(i)	
 
-					invalid_parsed_sql[db_name].append(i)
-					logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
+				# 	invalid_parsed_sql[db_name].append(i)
+				# 	logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
 
 		metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics.json')
 		metrics = execution_accuracy(metrics_file, split, len(qa_pairs['correct_']), incorrect, invalid_parsed_sql,
