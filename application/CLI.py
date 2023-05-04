@@ -1,13 +1,11 @@
-import os
-import sys
-import json
+import os, sys, json, glob
 from rel_db2kg.utils import Logger
 from moz_sql_parser import parse
 from ConvertDB import ConvertDB
 from configparser import ConfigParser, ParsingError, NoSectionError
 from unsw.SQLParser import SQLParser
-import jsonlines
 from py2neo import Graph
+from rel_db2kg.schema2graph import RelDBDataset
 from rel_db2kg.sql2cypher import Formatter
 import torch
 
@@ -17,8 +15,8 @@ filenames = config["FILENAMES"]
 raw_data_folder = filenames['raw_folder']
 text2sql_data_folder = filenames['text2sql_data_folder']
 
-spider_json_folder = os.path.join(raw_data_folder, 'spider')
-lookup_up = os.path.join(text2sql_data_folder, 'uncased', 'lookup_dict.json')
+db_folder = os.path.join(raw_data_folder, 'database', 'spider')
+db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 
 neo4j_uri = filenames['neo4j_uri']
 neo4j_user = filenames['neo4j_user']
@@ -118,18 +116,17 @@ class CLI:
         return sql_parser.get_cypher()
     
     def sql2cypher(self, sql_query):
-        all_table_fields = []	
-        # Get table_fields information.
-        with open(lookup_up) as f:
-            lookup_dict = json.load(f)
+   
         config = self._load_config()
         if  self.db_name == 'sqlite3':
             sqlite3_config = config['sqlite3']
-            all_table_fields = lookup_dict[sqlite3_config['database']]
-           
+
+        logger =Logger('/sql2cypher.log')
+        rel_db_dataset = RelDBDataset(db_paths, logger)
+            
         parsed_sql = parse(sql_query)	
         print(parsed_sql)
-        formatter  = Formatter( sqlite3_config['database'], all_table_fields, graph)
+        formatter  = Formatter( logger, sqlite3_config['database'],  rel_db_dataset.rel_dbs[db_name], graph)
         sql2cypher = formatter.format(parsed_sql)
         print("sql2cypher:", sql2cypher)
         return sql2cypher
