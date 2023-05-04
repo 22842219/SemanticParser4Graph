@@ -12,7 +12,7 @@ from environs import Env
 from fire import Fire
 
 import numpy as np
-from utils import Logger, save2json, read_json
+from rel2kg_utils import Logger, save2json, read_json
 import sqlite3
 import pandas as pd
 
@@ -177,11 +177,17 @@ class RelDBDataset(DBengine):
                 tbs_data_type[tb_name].update({fk: to_col_type}) #update each table's dataype dictionary, aka each fk's data type to allign with its reference's datatype. 
 
                 # update the actual value type of each fk to allign with updated fk's data type.
+                
                 for i, row_dict in enumerate(db_tbs[tb_name].rows): 
+                    # print('fk', fk, row_dict[fk], type(row_dict[fk]), type(db_tbs[to_tb_name].cols[to_col][0]))
                     if isinstance(db_tbs[to_tb_name].cols[to_col][0], int) and not isinstance(row_dict[fk], int):
+                        # print('tb_name', tb_name)
                         db_tbs[tb_name].rows[i].update({fk: int(str(row_dict[fk]).strip('\'').strip('\"'))})
                     if isinstance(db_tbs[to_tb_name].cols[to_col][0], str) and  not isinstance(row_dict[fk], str):
                         db_tbs[tb_name].rows[i].update({fk: "'{}'".format(str(row_dict[fk]).strip('\'').strip('\"'))}) 
+                    if isinstance(db_tbs[to_tb_name].cols[to_col][0], float) and not isinstance(row_dict[fk], float):
+                        # print('tb_name', tb_name)
+                        db_tbs[tb_name].rows[i].update({fk: float(str(row_dict[fk]).strip('\'').strip('\"'))})
 
                 
                 # update tb_object.cols
@@ -220,8 +226,9 @@ class RelDBDataset(DBengine):
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
-          
+           #
             if db_name in ['musical', 'car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
+                print('db_name:', db_name)
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
                 db_data_type[db_name]={}
@@ -304,7 +311,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
 
     def get_matched_node(self, db_name, tb_name, col, val, val_type):
         alias = tb_name.lower()
-        print(val, type(val), val_type, isinstance(val, val_type))
+        # print(val, type(val), val_type, isinstance(val, val_type))
         assert   isinstance(val, val_type), 'FIX ME'
         if val and isinstance(val, val_type):
             if type(val)==str:

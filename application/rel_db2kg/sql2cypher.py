@@ -10,10 +10,10 @@ from mo_future import text, string_types
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR)))
 
-import utils as utils
+
 from traverser import SchemaGroundedTraverser
 from sql_keywords import sql_join_keywords
-from utils import Logger, read_json
+from rel2kg_utils  import Logger, read_json
 
 from schema2graph import DBengine
 

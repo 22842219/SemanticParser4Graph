@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-from rel_db2kg.utils import Logger
+from rel_db2kg.rel2kg_utils import Logger
 from moz_sql_parser import parse
 from ConvertDB import ConvertDB
 from configparser import ConfigParser, ParsingError, NoSectionError
