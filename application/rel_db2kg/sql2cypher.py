@@ -10,10 +10,11 @@ from mo_future import text, string_types
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR)))
 
-import utils as utils
+
 from traverser import SchemaGroundedTraverser
 from sql_keywords import sql_join_keywords
-from utils import Logger, read_json
+import utils
+from utils  import Logger, read_json
 
 from schema2graph import DBengine
 
@@ -1094,7 +1095,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			# ['car_1',  'concert_singer',  'pets_1', , 'real_estate_properties']:in  [61, 62, 65, 66, 77, 78, 85, 86] 
-			if db_name in ['department_management',]:
+			if db_name in ['department_management']:
 				
 				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
 					if db_name not in evaluate:
@@ -1123,6 +1124,8 @@ def main():
 					print(f'databse: {db_name}, question: {question}')
 					print(f'sql: {sql_query}, sql_ans: {sql_result}')
 					print(f'parsed_sql: {parsed_sql}')	
+					print('zzzzzzzzzzzzzzzzz', rel_db_dataset.rel_dbs[db_name])
+					
 
 					try:
 						formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)

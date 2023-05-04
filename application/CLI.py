@@ -120,13 +120,14 @@ class CLI:
         config = self._load_config()
         if  self.db_name == 'sqlite3':
             sqlite3_config = config['sqlite3']
-
+        print(sqlite3_config['database'])
+        
         logger =Logger('/sql2cypher.log')
         rel_db_dataset = RelDBDataset(db_paths, logger)
-            
+        print(rel_db_dataset.rel_dbs[sqlite3_config['database']])    
         parsed_sql = parse(sql_query)	
         print(parsed_sql)
-        formatter  = Formatter( logger, sqlite3_config['database'],  rel_db_dataset.rel_dbs[db_name], graph)
+        formatter  = Formatter( logger, sqlite3_config['database'],  rel_db_dataset.rel_dbs[sqlite3_config['database']], graph)
         sql2cypher = formatter.format(parsed_sql)
         print("sql2cypher:", sql2cypher)
         return sql2cypher
