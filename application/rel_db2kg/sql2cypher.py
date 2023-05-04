@@ -1124,8 +1124,7 @@ def main():
 					print(f'databse: {db_name}, question: {question}')
 					print(f'sql: {sql_query}, sql_ans: {sql_result}')
 					print(f'parsed_sql: {parsed_sql}')	
-					print('zzzzzzzzzzzzzzzzz', rel_db_dataset.rel_dbs[db_name])
-					
+
 
 					try:
 						formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
