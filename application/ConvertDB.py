@@ -171,7 +171,6 @@ class ConvertDB:
             # res = cursor.execute(query)
             conn = self.connect_sqlite3()
             res = self._extract_sql_result(conn.cursor(), query, args=())
-            print("heyyy res:", res)
         except sqlite3.ProgrammingError as e:
             print(e)
         

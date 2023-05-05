@@ -15,7 +15,8 @@ filenames = config["FILENAMES"]
 raw_data_folder = filenames['raw_folder']
 text2sql_data_folder = filenames['text2sql_data_folder']
 
-db_folder = os.path.join(raw_data_folder, 'database', 'spider')
+raw_spider_folder = os.path.join(raw_data_folder, 'spider')
+db_folder = os.path.join(raw_spider_folder,  'database')
 db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 
 neo4j_uri = filenames['neo4j_uri']
@@ -124,7 +125,6 @@ class CLI:
         
         logger =Logger('/sql2cypher.log')
         rel_db_dataset = RelDBDataset(db_paths, logger)
-        print(rel_db_dataset.rel_dbs[sqlite3_config['database']])    
         parsed_sql = parse(sql_query)	
         print(parsed_sql)
         formatter  = Formatter( logger, sqlite3_config['database'],  rel_db_dataset.rel_dbs[sqlite3_config['database']], graph)
