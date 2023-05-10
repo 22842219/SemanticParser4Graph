@@ -12,7 +12,6 @@ from environs import Env
 
 
 import numpy as np
-from utils import Logger
 import sqlite3
 import pandas as pd
 
@@ -173,34 +172,46 @@ class RelDBDataset(DBengine):
                 to_col = constraint['to_col']
                 to_tb_name = constraint['to_tab']
                 assert type(fk)==type(to_col), 'FIX ME'
-                to_col_type  = tbs_data_type[to_tb_name][to_col]
-                tbs_data_type[tb_name].update({fk: to_col_type}) #update each table's dataype dictionary, aka each fk's data type to allign with its reference's datatype. 
+                if tb_name in db_tbs and to_tb_name in db_tbs:
+                    print('yes', tb_name, to_tb_name)
+                    to_col_type  = tbs_data_type[to_tb_name][to_col]
+                    tbs_data_type[tb_name].update({fk: to_col_type}) #update each table's dataype dictionary, aka each fk's data type to allign with its reference's datatype. 
 
-                # update the actual value type of each fk to allign with updated fk's data type.
-                
-                for i, row_dict in enumerate(db_tbs[tb_name].rows): 
-                    # print('fk', fk, row_dict[fk], type(row_dict[fk]), type(db_tbs[to_tb_name].cols[to_col][0]))
-                    if isinstance(db_tbs[to_tb_name].cols[to_col][0], int) and not isinstance(row_dict[fk], int):
-                        # print('tb_name', tb_name)
-                        db_tbs[tb_name].rows[i].update({fk: int(str(row_dict[fk]).strip('\'').strip('\"'))})
-                    if isinstance(db_tbs[to_tb_name].cols[to_col][0], str) and  not isinstance(row_dict[fk], str):
-                        db_tbs[tb_name].rows[i].update({fk: "'{}'".format(str(row_dict[fk]).strip('\'').strip('\"'))}) 
-                    if isinstance(db_tbs[to_tb_name].cols[to_col][0], float) and not isinstance(row_dict[fk], float):
-                        # print('tb_name', tb_name)
-                        db_tbs[tb_name].rows[i].update({fk: float(str(row_dict[fk]).strip('\'').strip('\"'))})
+                    # update the actual value type of each fk to allign with updated fk's data type.
+                    for i, row_dict in enumerate(db_tbs[tb_name].rows): 
+                        if db_tbs[to_tb_name].cols[to_col]:
+                            to_col_value_type = db_tbs[to_tb_name].cols[to_col][0]
+                            stripped_value = str(row_dict[fk]).strip('\'').strip('\"')
+                            if isinstance(to_col_value_type, int) and not isinstance(row_dict[fk], int):
+                                if isinstance(row_dict[fk], float) and not math.isnan(row_dict[fk]):
+                                    db_tbs[tb_name].rows[i].update({fk: int(row_dict[fk])})
+                                elif stripped_value:
+                                    db_tbs[tb_name].rows[i].update({fk: int(stripped_value)})
+                            elif isinstance(to_col_value_type, str) and  not isinstance(row_dict[fk], str):
+                                db_tbs[tb_name].rows[i].update({fk: "'{}'".format(stripped_value)}) 
+                            elif isinstance(to_col_value_type, float) and not isinstance(row_dict[fk], float):
+                                db_tbs[tb_name].rows[i].update({fk: float(stripped_value)})
 
-                
-                # update tb_object.cols
-                for col, col_val_list in db_tbs[tb_name].cols.items(): 
-                    if col==fk:
-                        if isinstance(db_tbs[to_tb_name].cols[to_col][0], int) and not isinstance(col_val_list[0], int):
-                            col_val_list = [int(str(val).strip('\'').strip('\"')) for val in col_val_list]
-                            db_tbs[tb_name].cols.update({fk: col_val_list})
-                        if isinstance(db_tbs[to_tb_name].cols[to_col][0], str) and  not isinstance(col_val_list[0], str):
-                            col_val_list = ["'{}'".format(str(val).strip('\'').strip('\"')) for val in col_val_list]
-                            db_tbs[tb_name].cols.update({fk: col_val_list}) 
-
-                 
+                    
+                    # update tb_object.cols
+                    for col, col_val_list in db_tbs[tb_name].cols.items(): 
+                        if col==fk and db_tbs[to_tb_name].cols[to_col] and row_dict[fk]:
+                            to_col_value_type = db_tbs[to_tb_name].cols[to_col][0]
+                            stripped_value = str(row_dict[fk]).strip('\'').strip('\"')
+                            if isinstance(to_col_value_type, int) and not isinstance(col_val_list[0], int):
+                                if isinstance(row_dict[fk], float) and not math.isnan(row_dict[fk]):
+                                    col_val_list = [int(val) for val in col_val_list]
+                                elif stripped_value:
+                                    col_val_list = [int(str(val).strip('\'').strip('\"')) for val in col_val_list if val]
+                                db_tbs[tb_name].cols.update({fk: col_val_list})
+                            elif isinstance(to_col_value_type, str) and  not isinstance(col_val_list[0], str):
+                                col_val_list = ["'{}'".format(str(val).strip('\'').strip('\"')) for val in col_val_list if val]
+                                db_tbs[tb_name].cols.update({fk: col_val_list}) 
+                            
+                            elif isinstance(to_col_value_type, float) and not isinstance(row_dict[fk], float):
+                                # print('tb_name', tb_name)
+                                db_tbs[tb_name].rows[i].update({fk: float(stripped_value)})
+                    
 
     def read_dataset(self, paths):
         rel_dbs = {}
@@ -226,8 +237,8 @@ class RelDBDataset(DBengine):
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
-           # 
-            if db_name in ['musical', 'car_1', 'department_management', 'pets_1', 'concert_singer', 'real_estate_properties']:
+           # in [, 'car_1', , 'pets_1', , 'real_estate_properties']
+            if db_name in ['concert_singer', 'department_management', 'musical']:
                 print('db_name:', db_name)
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
@@ -235,7 +246,8 @@ class RelDBDataset(DBengine):
                 db_pks[db_name]={}
                 engine = DBengine(db_path)
                 tab_names = [tab_info[0] for tab_info in engine.get_table_names()]
-                for table_name in tab_names:
+                for i, table_name in enumerate(tab_names):
+                    print("table_name:", table_name)
                     tb_object = RelTable(db_name, table_name)                         
                     table_records = engine.get_table_values(table_name)
                     tb_object.headers = [desc[0] for desc in table_records.description]     
@@ -252,20 +264,18 @@ class RelDBDataset(DBengine):
                     # Do not drop duplicate rows in place, because this action would affect the query results.
                     df = pd.DataFrame(table_records.fetchall(), columns = tb_object.headers)
                     # df.drop_duplicates(inplace=True)
-                    data = df.transpose().to_dict().values()  # to keep the origial data types.
+                    # data = df.transpose().to_dict().values()  # to keep the origial data types.
+                    data = [d for d in df.transpose().to_dict().values()  if any(d.values())]
+
                     tb_object.cols = df.to_dict(orient='list')
                     
-                    
                     if len(data)>4000:  # we set a threshold for the experiments.
-                        break
+                        continue
                     if tb_object.headers == None:
                         self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
                         assert 1>2
-                    if len(data)==0:
-                        tb_object.add_row( row_dict={k: '' for k in tb_object.headers} ) # deal with no table content issue. 
-                    else:     
-                        for row in data:
-                            tb_object.add_row( row)
+                    rows = data or [ {k: '' for k in tb_object.headers} ]
+                    list(map(lambda row: tb_object.add_row(row), rows))
                     rel_dbs[db_name][table_name] = tb_object
                 
                 self.fix_reference(db_fk_constraints[db_name], db_pks[db_name], rel_dbs[db_name])
@@ -311,8 +321,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
 
     def get_matched_node(self, db_name, tb_name, col, val, val_type):
         alias = tb_name.lower()
-        # print(val, type(val), val_type, isinstance(val, val_type))
-        assert   isinstance(val, val_type), 'FIX ME'
+        print(f'tb_name: {tb_name}, val: {val}, val_type: {val_type}, tb_name: {tb_name}, col: {col}')
+        # assert   isinstance(val, val_type), 'FIX ME'
         if val and isinstance(val, val_type):
             if type(val)==str:
                 val = '"{}"'.format(str(val).strip('\'').strip('\"'))
@@ -320,20 +330,26 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 #     return None
                 # if isinstance(val, str) and not re.findall(r'[a-zA-Z].*', val):
                 #     return None
-            if type(val)==int:
-                val = int(str(val).strip('\'').strip('\"'))
+            elif type(val)==int:
+                val = int(str(val).strip('\'').strip('\"'))     
+            match_ =  "match ({}:`{}.{}`) ".format(alias, db_name, tb_name)
+            condi = []
+            condi.append('{}.{}={}'.format( alias, col, val))
+            if bool(condi):
+                where_ = ' where ' + ' and '.join(condi) 
+            else:
+                where_ = ''
+            cypher = match_ + where_ + ' return {}'.format(alias)
+            self.logger.warning(f'cypher_query: {cypher}')
+            results = self.graph.run(cypher).data()
+            for result in results:
+                yield result
 
-        match_ =  "match ({}:`{}.{}`) ".format(alias, db_name, tb_name)
-        condi = []
-        condi.append('{}.{}={}'.format( alias, col, val))
-        if bool(condi):
-            where_ = ' where ' + ' and '.join(condi) 
         else:
-            where_ = ''
-        cypher = match_ + where_ + ' return {}'.format(alias)
-        self.logger.warning(f'cypher_query: {cypher}')
-        return self.graph.run(cypher).data()
+            print(f"Value '{val}' is not an instance of {val_type}")
 
+
+   
 
     def build_schema_nodes(self, tx):
         self.logger.info("**********TOTEST: Graph Schema  Builder********")
@@ -399,15 +415,27 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             value = row_dict[fk]
                             ref_value_type = type(tbs_dict[to_tab].cols[to_col][0])
                             # val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
-                            assert tb_name!=to_tab, 'FIX ME'
-                            matched_res = self.get_matched_node(db_name,to_tab, to_col, value, ref_value_type)   
+                            assert tb_name!=to_tab, 'FIX ME'  
+                            matched_res = [res for res in self.get_matched_node(db_name, to_tab, to_col, value, ref_value_type) if res is not None]
                             self.logger.warning(f"matched_res : {matched_res}, {len(matched_res)}")   
-                            assert len(matched_res)==1, 'FIX ME'
-                            for label, node in matched_res[0].items():
-                                matched[label] =  node
-                                matched_labels.append(label)
-                        rel = Relationship(matched[matched_labels[0]], '{}.{}'.format(db_name, tb_name), matched[matched_labels[1]], **row_dict) 
-                        tx.create(rel)
+                            
+                            if len(matched_res)>1:
+                                print(f'tb_name:, {tb_name}, fk: {fk}, to_tab: {to_tab}, to_col: {to_col}')
+                                assert 1>2
+                            else:
+                                for label, node in matched_res[0].items():
+                                    matched[label] =  node
+                                    matched_labels.append(label)
+                        if len(matched)==2:
+                            rel = Relationship(matched[matched_labels[0]], '{}.{}'.format(db_name, tb_name), matched[matched_labels[1]], **row_dict) 
+                            tx.create(rel)
+                        elif len(matched)>2:
+                            self.logger.warning("Hyper edge exist in {db_name}: {tb_name}")
+                        else:
+                            print("Error: Insufficient matched_labels. Cannot create relationship.")
+
+
+
      
         self.graph.commit(tx)
 
@@ -426,21 +454,22 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             to_tab = constraint['to_tab']
                             to_col = constraint['to_col']            
                             value = row_dict[fk]
-                            ref_value_type = type(tbs_dict[to_tab].cols[to_col][0])
-                            alias = constraint['to_tab'].lower()
-                            # val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
-                            assert tb_name!=to_tab, 'FIX ME'
-                            self.logger.warning(f'this_table: {tb_name}, fk: {fk}, value: {value}, datatype: {type(value)}, to_table: {alias}, to_col: {to_col}, ref_value_type: {ref_value_type}')
-                            ref_nodes = self.get_matched_node(db_name, to_tab, to_col, value, ref_value_type)      
-                            this_nodes = self.get_matched_node(db_name, tb_name, fk, value, type(value)) 
-                            for this in this_nodes:
-                                for s_label, this_node in this.items():
-                                    start_node_label='{}.{}'.format(db_name, s_label)
-                                    for ref in ref_nodes:
-                                        for e_label, ref_node in ref.items(): 
-                                            end_node_label='{}.{}'.format(db_name, e_label)
-                                            rel = Relationship(this_node, '{}_LinkTo_{}'.format( start_node_label, end_node_label ), ref_node) 
-                                            tx.create(rel)
+    
+                            if tbs_dict[to_tab].cols[to_col]:
+                                ref_value_type = type(tbs_dict[to_tab].cols[to_col][0])
+                                alias = constraint['to_tab'].lower()
+                                # val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
+                                assert tb_name!=to_tab, 'FIX ME'
+                                self.logger.warning(f'this_table: {tb_name}, fk: {fk}, value: {value}, datatype: {type(value)}, to_table: {alias}, to_col: {to_col}, ref_value_type: {ref_value_type}')
+   
+                                for this in self.get_matched_node(db_name, tb_name, fk, value, type(value)):    
+                                    for s_label, this_node in this.items():
+                                        start_node_label='{}.{}'.format(db_name, s_label)
+                                    for ref in self.get_matched_node(db_name, to_tab, to_col, value, ref_value_type):
+                                        for ref_label, ref_node in ref.items():
+                                            end_node_label='{}.{}'.format(db_name, ref_label)
+                                        rel = Relationship(this_node, '{}_LinkTo_{}'.format( start_node_label, end_node_label ), ref_node) 
+                                        tx.create(rel)
 
         self.graph.commit(tx)
 
@@ -464,6 +493,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
 def main():
     import glob, argparse
     import configparser
+    from utils import Logger
     config = configparser.ConfigParser()
     config.read('../config.ini')
     filenames = config["FILENAMES"]
