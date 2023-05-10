@@ -8,28 +8,6 @@ import requests
 from view import app
 from configparser import ConfigParser
 
-
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, HfArgumentParser, set_seed
-sys.path.append('/Users/ziyuzhao/Desktop/phd/SemanticParser4Graph/semantic_parser')
-from utils.configue import Configure
-from utils.training_arguments import WrappedSeq2SeqTrainingArguments
-
-# Set args here for runnning on notebook, we make them out here to make it more illustrative.
-sys.argv = ['/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py', # This is the name of your .py launcher when you run this line of code.
-            # belows are the parameters we set, take spider for example
-            '--cfg', 'Salesforce/T5_base_prefix_spider_with_cell_value.cfg', 
-            '--output_dir', './tmp']
-parser = HfArgumentParser((WrappedSeq2SeqTrainingArguments,))
-
-training_args, = parser.parse_args_into_dataclasses()
-set_seed(training_args.seed)
-args = Configure.Get(training_args.cfg)
-# Load tokenizer and model(21->1 multitasked prefix)
-tokenizer = AutoTokenizer.from_pretrained("hkunlp/from_all_T5_base_prefix_spider_with_cell_value2", use_fast=False)
-from models.unified.prefixtuning import Model
-model = Model(args)
-model.load("hkunlp/from_all_T5_base_prefix_spider_with_cell_value2")
-
 # to add the module path
 PACKAGE_PARENT = '..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
@@ -254,6 +232,13 @@ def Text2cypher():
 @app.route('/chatbot', methods=["POST", "GET"])
 def Chatbot():
     global cli
+
+    from transformers import (
+        AutoTokenizer, 
+        T5ForConditionalGeneration)
+    tokenizer = AutoTokenizer.from_pretrained("Salesforce/codet5-base", use_fast=False)
+    model = T5ForConditionalGeneration.from_pretrained("/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/output/CodeT5_base_prefix_text2cypher--predicted_post_all/pytorch_model.bin")
+
     if request.method == "POST":
         query = request.form.get('text')
         if cli is None:
@@ -262,6 +247,7 @@ def Chatbot():
         # translated_cypher = cli.convert_sql_with_str(query)
         # print("translated_cypher:", translated_cypher)
         # print(cli.db_name)
+
         translated_cypher = cli.text2cypher(query, model, tokenizer)
     
         print("translated_cypher:", translated_cypher)
