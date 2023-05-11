@@ -237,8 +237,8 @@ class RelDBDataset(DBengine):
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
-           # in [, 'car_1', , 'pets_1', , 'real_estate_properties']
-            if db_name in ['concert_singer', 'department_management', 'musical']:
+           # in [, 'car_1', , 'pets_1', , 'real_estate_properties']['concert_singer', 'department_management', 'musical']
+            if db_name:
                 print('db_name:', db_name)
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
@@ -413,6 +413,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             to_tab = constraint['to_tab']
                             to_col = constraint['to_col']            
                             value = row_dict[fk]
+                            if not tbs_dict[to_tab].cols[to_col]:
+                                continue
                             ref_value_type = type(tbs_dict[to_tab].cols[to_col][0])
                             # val = np.array(value).astype(ref_value_type) # allign value_type with ref_value_type
                             assert tb_name!=to_tab, 'FIX ME'  
