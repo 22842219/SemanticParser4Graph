@@ -4,187 +4,198 @@ Author: Ziyu Zhao
 Affiliation: UWA NLT-TLP GROUP
 '''
 
-from schema2graph import DBengine
 import os, re, math
 from typing import Set
-
+import sqlite3
 import matplotlib.pyplot as plt
 import pandas as pd
 from fire import Fire
 import numpy as np
 
+def calculate_num_attributes(conn):
+    # Number of attributes (natt)
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    tables = cursor.fetchall()
+
+    total_attributes = 0
+    for table in tables:
+        table_name = table[0]
+        cursor.execute(f"PRAGMA table_info({table_name})")
+        attributes = cursor.fetchall()
+        total_attributes += len(attributes)
+    return total_attributes
+
+def get_sub_graphs(conn, table_name):
+        cursor = conn.cursor() 
+        infos = cursor.execute("PRAGMA foreign_key_list({})".format(table_name)).fetchall()
+        sub_graphs = []
+        for info in infos:
+            id, seq, to_table, fk, to_col, on_update, on_delete, match = info
+            sub_graphs.append(to_table)
+        return set(sub_graphs)
+        
+def calculate_cos(conn):
+    # Cohesion of the schema (cos)
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    tables = cursor.fetchall()
+    # Get the total number of tables in the schema
+    print(f'total tables: {len(tables)}')
+
+    total_ntus = []
+    for table in tables:
+        table_name = table[0]
+        # cursor.execute(f"SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name!='{table_name}' AND sql LIKE '%{table_name}%'")
+        # ntus = cursor.fetchone()[0] # ntus: the number of the table in the related subgraph.
+        # print(f'ntus: {ntus}')
+        sub_graph_table_list = get_sub_graphs(conn, table_name)
+        if sub_graph_table_list:
+            ntus = len(sub_graph_table_list)+1
+            print(f'ntus: {ntus}, sub_graph: {sub_graph_table_list}')
+            total_ntus.append(ntus)
+
+
+
+    print(f'total_ntus: {len(total_ntus)}')
+
+    # Get the number of tables in each unrelated subgraph
+    us = len(tables)-sum(total_ntus)
+    cos = sum([ntus ** 2 for ntus in total_ntus])
+    print(f'us: {us}, cos: {cos}')
+    return cos
+
+def get_drt(conn):
+    # Get list of all foreign keys
+    c = conn.cursor()
+    c.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    tables = [row[0] for row in c.fetchall()]
+    foreign_keys = []
+    for table in tables:
+        c.execute(f"PRAGMA foreign_key_list({table})")
+        for row in c.fetchall():
+            foreign_keys.append((table, row[3], row[2]))
+
+    # Traverse relationships recursively to find longest path
+    def dfs(table, path):
+        if table not in path:
+            path.append(table)
+            max_depth = 0
+            for fk in foreign_keys:
+                if fk[0] == table:
+                    depth = dfs(fk[1], path.copy())
+                    max_depth = max(max_depth, depth)
+            return max_depth + 1
+        else:
+            return 0
+
+    max_depth = 0
+    for table in tables:
+        depth = dfs(table, [])
+        max_depth = max(max_depth, depth)
+
+    return max_depth
+
+def calculate_metrics(conn):
+    c = conn.cursor()
+
+    natt = calculate_num_attributes(conn)
+
+    # Number of foreign keys (nfk) 
+    c.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND sql LIKE '%FOREIGN KEY%';")
+    nfk = c.fetchone()[0]
+    print(f'nfk: {nfk}')
+    
+    cos = calculate_cos(conn)
+
+    # Schema size (ss)
+    c.execute("SELECT SUM(pgsize) FROM dbstat WHERE name NOT LIKE 'sqlite_%';")
+    ss = c.fetchone()[0]
+    print(f'schema size: {ss}')
+
+    drt = get_drt(conn)
+
+    return {'natt': natt, 'nfk': nfk, 'cos': cos, 'ss': ss, 'drt': drt}
+
 
 def data_complexity(spider_dbs):
 
-    db_atts = {} # the number of attributes in all the tabls of each domain schema. 
-    stat_db_atts = []
     for_plot = {}
-    total_natt = 0
-    total_fks = 0
-    total_cos = 0
+    
     for i, db_path in enumerate(spider_dbs):
+        conn = sqlite3.connect(db_path)
         db_name = db_path.split(os.sep)[-1].split('.')[0] 
-        print(db_name)
-        engine = DBengine(db_path)
-        tab_names = [tab_info[0] for tab_info in engine.get_table_names()]
-        unique_atts = []
-        each={}
-        each['db_name'] = db_name
-        num_of_fks = 0
-        num_of_no_fks_tbs=0
-        num_of_with_fks_tbs = 0
-        cos=0
-        for tb_name in tab_names:
-            tb_records = engine.get_table_values(tb_name)
-            tb_headers = [desc[0] for desc in tb_records.description]  
-            df = pd.DataFrame(tb_records.fetchall(), columns = tb_headers)
-            rows = data = [d for d in df.transpose().to_dict().values()  if any(d.values())]
-            tb_constraints = engine.get_outbound_foreign_keys(tb_name)
-            unique_atts.extend(tb_headers)    
-            if tb_constraints:
-                num_of_fks+=len(tb_constraints)
-                num_of_with_fks_tbs+=1
-            else:
-                num_of_no_fks_tbs+=1
-        db_atts[db_name]=set(unique_atts)
-        each['natt']=len(set(unique_atts))
-        each['nfk']=num_of_fks
-        for i in range(1, num_of_no_fks_tbs+1):
-            cos+=num_of_with_fks_tbs**2
-        each['cos']=cos
-        stat_db_atts.append(each)
-        total_natt+= len(set(unique_atts))
-        total_cos += cos
-        total_fks+=num_of_fks
-
-        for_plot[db_name] = [len(set(unique_atts)), num_of_fks, cos]
+        # ['concert_singer', 'department_management', 'musical']
+        if db_name :
+            print(db_name)
+            for_plot[db_name] = calculate_metrics(conn)
 
 
-    for db, values in for_plot.items():
-        [i, j, k] = values
-        values = [i*100/total_natt, j*100/total_fks, k*100/total_cos]
-        for_plot[db]=values
-
-
-
-    csv_file = "rel_data_complexity.csv"
+    print(for_plot)
+    csv_file = "spider_data_complexity.csv"
     import csv
     try:
-        with open(csv_file, 'w') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=['db_name', 'natt', 'nfk', 'cos'])
-            writer.writeheader()
-            for data in stat_db_atts:
-                writer.writerow(data)
+        with open(csv_file, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(['db_name', 'natt', 'nfk', 'cos', 'ss', 'drt'])
+            for db_name, metrics in for_plot.items():
+                metrics = [db_name] + list(metrics.values())
+                writer.writerow(metrics)
     except IOError:
         print("I/O error")
     
     return for_plot
 
 
-import sqlite3
-
-def calculate_metrics(db_path):
-    conn = sqlite3.connect(db_path)
-    c = conn.cursor()
-
-    # Number of attributes (natt)
-    c.execute("SELECT SUM(COUNT(*)) FROM pragma_table_info('table_name')")
-    natt = c.fetchone()[0]
-    print(f'natt: {natt}')
-    # Depth referential tree (drt)
-    c.execute("""
-        WITH RECURSIVE drt(parent, child, depth) AS (
-          SELECT parent, child, 1 FROM pragma_foreign_key_list('all')
-          UNION ALL
-          SELECT drt.parent, f.child, drt.depth + 1 FROM drt
-          JOIN pragma_foreign_key_list(drt.child, drt.parent) AS f ON 1=1
-        )
-        SELECT MAX(depth) FROM drt
-    """)
-    drt = c.fetchone()[0]
-
-    # Number of foreign keys (nfk)
-    c.execute("SELECT COUNT(*) FROM pragma_foreign_key_list('all')")
-    nfk = c.fetchone()[0]
-
-    # Cohesion of the schema (cos)
-    c.execute("""
-        WITH subgraphs AS (
-          SELECT name, group_concat(tbl_name, ',') AS tbl_names
-          FROM sqlite_master WHERE type = 'table' GROUP BY name
-        ),
-        tbl_graph AS (
-          SELECT tbl_name, fkey_table AS fkey_tbl
-          FROM pragma_foreign_key_list('all')
-        ),
-        tbl_subgraph AS (
-          SELECT tbl_name, name
-          FROM tbl_graph JOIN subgraphs ON tbl_graph.fkey_tbl = subgraphs.tbl_names
-        ),
-        subgraph_sizes AS (
-          SELECT name, COUNT(*) AS size
-          FROM tbl_subgraph GROUP BY name
-        ),
-        subgraph_cos AS (
-          SELECT SUM(size * size) AS cos
-          FROM subgraph_sizes
-        )
-        SELECT cos FROM subgraph_cos
-    """)
-    cos = c.fetchone()[0]
-
-    # Schema size (ss)
-    c.execute("SELECT SUM(page_count * page_size) FROM pragma_page_count('main')")
-    ss = c.fetchone()[0]
-
-    conn.close()
-
-    return {'natt': natt, 'drt': drt, 'nfk': nfk, 'cos': cos, 'ss': ss}
-
-
-
-
 
 def plot(for_plot):
-    data=[]
-    for k, v in for_plot.items():
-        each = []
-        each.append(k)
-        each.extend(v)
+    data = []
+    for db_name, metrics in for_plot.items():
+        each = [db_name] + list(metrics.values())
         data.append(each)
+    
     data = sorted(data, key=lambda x: x[0])
 
     # Create data frame
-    data = pd.DataFrame(data, columns=['db_name', 'natt', 'nfk', 'cos'])
+    data = pd.DataFrame(data, columns=['db_name', 'natt', 'nfk', 'cos', 'ss', 'drt'])
+
+    # Normalize the metrics
+    data['natt'] = data['natt']*100 / sum(data['natt'])
+    data['nfk'] = data['nfk'] *100 / sum(data['nfk'])
+    data['cos'] = data['cos'] *100 / sum(data['cos'])
+    data['ss'] = data['ss'] *100 / sum(data['ss'])
+    data['drt'] = data['drt'] *100 / sum(data['drt'])
 
     # Create subplots
     fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(15, 10))
 
-    # Plot histograms of the three metrics against 166 domains
-    axs[0].hist(data[['natt', 'nfk', 'cos']].values, bins=20, label=['Number of Attributes', 'Number of Foreign Keys', 'Cohension of the Schema'])
+    # Plot histograms of the metrics
+    axs[0].hist(data[['natt', 'nfk', 'cos', 'ss', 'drt']].values, bins=6, label=['Number of Attributes', 'Number of Foreign Keys', 'Cohesion of the Schema (COS)', 'Schema Size', 'Depth Referential Tree'], color=['red', 'green', 'yellow',  'black', 'blue'])
     axs[0].legend()
-    axs[0].set_xlabel('Normalized Complexity')
+    axs[0].set_xlabel('Data Complexity')
     axs[0].set_ylabel('Frequency')
-    axs[0].set_title('Histogram of Normalized Complexity')
+    axs[0].set_title('Histogram of Data Complexity')
 
-    # Plot scatter diagram of the three evaluation metrics w.r.t each relational database
-    # Only plot every 10th database name to avoid overlap
-    tick_labels = data['db_name'][::10]
-    axs[1].scatter(np.arange(len(data))[::10], data['natt'][::10], color='b', label = 'Number of Attributes')
-    axs[1].scatter(np.arange(len(data))[::10], data['nfk'][::10], color='r', label = 'Number of Foreign Keys')
-    axs[1].scatter(np.arange(len(data))[::10], data['cos'][::10], color='g', label = 'Cohesion of the Schema')
+    # Plot scatter diagram of the metrics
+    tick_labels = data['db_name'][::2]
+    colors = ['red', 'green', 'yellow',  'black', 'blue']
+    metrics = ['natt', 'nfk', 'cos', 'ss', 'drt']
+    for i, metric in enumerate(metrics):
+        axs[1].scatter(np.arange(len(data))[::2], data[metric][::2], color=colors[i], label=metric)
     axs[1].set_xlabel('Relational Database Name')
-    axs[1].set_xticks(np.arange(len(data))[::10])
+    axs[1].set_xticks(np.arange(len(data))[::2])
     axs[1].set_xticklabels(tick_labels, rotation=90)
-    axs[1].set_ylabel('Normalized Complexity')
-    axs[1].set_title('Scatter Diagram of Normalized Complexity')
+    axs[1].set_ylabel('Normalized Data Complexity')
+    axs[1].set_title('Scatter Diagram of Normalized Data Complexity')
     axs[1].legend()
 
     fig.tight_layout()
     fig.show()
 
     # Save the figure
-    fig.savefig('my_plot.png', dpi=300)
+    fig.savefig('spider_plot.png', dpi=300)
+
+
 def main():
 
     import glob, argparse
@@ -198,12 +209,9 @@ def main():
     db_folder = os.path.join(raw_spider_folder,  'database')
     spider_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True)
 
-    # for_plot = data_complexity(spider_dbs)
-    # plot(for_plot)
-
-    for i, db_path in enumerate(spider_dbs):
-        metric = calculate_metrics(db_path)
-        print(metric)
+    metric = data_complexity(spider_dbs)
+    print(metric)
+    plot(metric)
 
 
 if __name__ == "__main__":
