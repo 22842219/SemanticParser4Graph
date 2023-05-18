@@ -191,9 +191,10 @@ class RelDBDataset(DBengine):
 
                 to_col_types = [tbs_data_type[to_tb_name][col] for col in to_col_list]
                 fk_data_type_mapping = dict(zip(fks, to_col_types))
-
+                
                 for i, row_dict in enumerate(db_tbs[tb_name].rows):
                     for fk in fks:
+                        
                         if fk in row_dict:
                             row_value = row_dict[fk]
                             to_col_value_type = fk_data_type_mapping[fk]
@@ -201,15 +202,15 @@ class RelDBDataset(DBengine):
                             if isinstance(to_col_value_type, int) and not isinstance(row_value, int):
                                 row_dict[fk] = int(row_value) if not math.isnan(row_value) else None
                             elif isinstance(to_col_value_type, str) and not isinstance(row_value, str):
-                                row_dict[fk] = str(row_value).strip('\'').strip('\"') if row_value else None
+                                row_dict[fk] = "'{}'".format(str(row_value).strip('\'').strip('\"')) if row_value else None
+                                
                             elif isinstance(to_col_value_type, float) and not isinstance(row_value, float):
                                 row_dict[fk] = float(row_value) if not math.isnan(row_value) else None
-
+                        print(f'tb_name: {tb_name}, fk: {fk}, row_dict:{row_dict[fk]}')
                 for col, col_val_list in db_tbs[tb_name].cols.items():
                     if col in fks and db_tbs[to_tb_name].cols[to_col_list[0]]:
                         to_col_value_type = fk_data_type_mapping[col]
                         col_values = col_val_list
-
                         if isinstance(to_col_value_type, int) and not isinstance(col_values[0], int):
                             col_values = [int(val) if val and not math.isnan(val) else None for val in col_values]
                             db_tbs[tb_name].cols[col] = col_values
@@ -246,7 +247,7 @@ class RelDBDataset(DBengine):
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
            # in [ 'car_1',  'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', 'department_management', 'musical']
-            if db_name :
+            if db_name in ['concert_singer']:
                 print('db_name:', db_name)
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
@@ -254,8 +255,9 @@ class RelDBDataset(DBengine):
                 db_pks[db_name]={}
                 engine = DBengine(db_path)
                 tab_names = [tab_info[0] for tab_info in engine.get_table_names()]
+                drop_flag = False
+            
                 for i, table_name in enumerate(tab_names):
-                    print("table_name:", table_name)
                     tb_object = RelTable(db_name, table_name)                         
                     table_records = engine.get_table_values(table_name)
                     tb_object.headers = [desc[0] for desc in table_records.description]     
@@ -278,16 +280,24 @@ class RelDBDataset(DBengine):
                     tb_object.cols = df.to_dict(orient='list')
                     
                     if len(data)>4000:  # we set a threshold for the experiments.
-                        continue
+                        drop_flag =True
+                        break
                     if tb_object.headers == None:
                         self.logger.error("There is no table headers in {} of {}!".format(table_name, db_name))
                         assert 1>2
                     rows = data or [ {k: '' for k in tb_object.headers} ]
                     list(map(lambda row: tb_object.add_row(row), rows))
-                    rel_dbs[db_name][table_name] = tb_object
+                    rel_dbs[db_name][table_name] = tb_object    
                 
-                self.fix_reference(db_fk_constraints[db_name], db_pks[db_name], rel_dbs[db_name])
-                self.fix_fk(db_fk_constraints[db_name], db_data_type[db_name] , rel_dbs[db_name])
+                if drop_flag:
+                    del rel_dbs[db_name]              
+                    del db_fk_constraints[db_name] 
+                    del db_data_type[db_name]
+                    del db_pks[db_name]
+                                                                                                                       
+                if rel_dbs[db_name]:
+                    self.fix_reference(db_fk_constraints[db_name], db_pks[db_name], rel_dbs[db_name])
+                    self.fix_fk(db_fk_constraints[db_name], db_data_type[db_name] , rel_dbs[db_name])
 
         return rel_dbs, db_fk_constraints, db_data_type, db_pks
             
@@ -337,6 +347,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
             if not tbs_dict[to_tab].cols[col]:
                 continue
             val_type = type(tbs_dict[to_tab].cols[col][0])
+            print(f'val_type: {val_type}, {type(val)}')
             if val and isinstance(val, val_type):
                 if type(val)==str:
                     val = '"{}"'.format(str(val).strip('\'').strip('\"'))
