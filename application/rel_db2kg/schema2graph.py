@@ -74,7 +74,7 @@ class DBengine:
     def get_outbound_foreign_keys(self, table_name):
         cursor = self.conn.cursor() 
         infos = cursor.execute("PRAGMA foreign_key_list({})".format(table_name)).fetchall()
-        constraints = {}
+        constraints_ = {}
         id_fks = {}
         for info in infos:
             id, seq, to_table, fk, to_col, on_update, on_delete, match = info
@@ -83,16 +83,17 @@ class DBengine:
             else:
                 id_fks[id].append(fk)
             
-            if id not in constraints:
-                constraints[id]= {  
+            if id not in constraints_:
+                constraints_[id]= {  
                         "to_tab": to_table, 
                         "to_col_list": [to_col]
                     }
             else:
-                constraints[id]["to_col_list"].append(to_col)
-        for id, _ in constraints.items():
+                constraints_[id]["to_col_list"].append(to_col)
+        constraints = {}
+        for id, _ in constraints_.items():
             if id in id_fks:
-                constraints[','.join(id_fks[id])]=constraints.pop(id)
+                constraints[','.join(id_fks[id])]=constraints_[id]
 
         if bool(constraints):
             return constraints
@@ -186,50 +187,39 @@ class RelDBDataset(DBengine):
             for fk_, constraint in fks.items():
                 to_col_list = constraint['to_col_list']
                 to_tb_name = constraint['to_tab']
-
                 fks = [fk.strip() for fk in fk_.split(',')]
-                for i, to_col in enumerate(to_col_list):
-                    fk = fks[i]
-                    assert type(fk)==type(to_col), 'FIX ME'
-                    if tb_name in db_tbs and to_tb_name in db_tbs:
-                        to_col_type  = tbs_data_type[to_tb_name][to_col]
-                        tbs_data_type[tb_name].update({fk: to_col_type}) #update each table's dataype dictionary, aka each fk's data type to allign with its reference's datatype. 
 
-                        # update the actual value type of each fk to allign with updated fk's data type.
-                        for i, row_dict in enumerate(db_tbs[tb_name].rows): 
-                            if db_tbs[to_tb_name].cols[to_col]:
-                                to_col_value_type = db_tbs[to_tb_name].cols[to_col][0]
-                                stripped_value = str(row_dict[fk]).strip('\'').strip('\"')
-                                if isinstance(to_col_value_type, int) and not isinstance(row_dict[fk], int):
-                                    if isinstance(row_dict[fk], float) and not math.isnan(row_dict[fk]):
-                                        db_tbs[tb_name].rows[i].update({fk: int(row_dict[fk])})
-                                    elif stripped_value:
-                                        db_tbs[tb_name].rows[i].update({fk: int(stripped_value)})
-                                elif isinstance(to_col_value_type, str) and  not isinstance(row_dict[fk], str):
-                                    db_tbs[tb_name].rows[i].update({fk: "'{}'".format(stripped_value)}) 
-                                elif isinstance(to_col_value_type, float) and not isinstance(row_dict[fk], float):
-                                    db_tbs[tb_name].rows[i].update({fk: float(stripped_value)})
+                to_col_types = [tbs_data_type[to_tb_name][col] for col in to_col_list]
+                fk_data_type_mapping = dict(zip(fks, to_col_types))
 
-                        
-                        # update tb_object.cols
-                        for col, col_val_list in db_tbs[tb_name].cols.items(): 
-                            if col==fk and db_tbs[to_tb_name].cols[to_col] and row_dict[fk]:
-                                to_col_value_type = db_tbs[to_tb_name].cols[to_col][0]
-                                stripped_value = str(row_dict[fk]).strip('\'').strip('\"')
-                                if isinstance(to_col_value_type, int) and not isinstance(col_val_list[0], int):
-                                    if isinstance(row_dict[fk], float) and not math.isnan(row_dict[fk]):
-                                        col_val_list = [int(val) for val in col_val_list]
-                                    elif stripped_value:
-                                        col_val_list = [int(str(val).strip('\'').strip('\"')) for val in col_val_list if val]
-                                    db_tbs[tb_name].cols.update({fk: col_val_list})
-                                elif isinstance(to_col_value_type, str) and  not isinstance(col_val_list[0], str):
-                                    col_val_list = ["'{}'".format(str(val).strip('\'').strip('\"')) for val in col_val_list if val]
-                                    db_tbs[tb_name].cols.update({fk: col_val_list}) 
-                                
-                                elif isinstance(to_col_value_type, float) and not isinstance(row_dict[fk], float):
-                                    # print('tb_name', tb_name)
-                                    db_tbs[tb_name].rows[i].update({fk: float(stripped_value)})
-                        
+                for i, row_dict in enumerate(db_tbs[tb_name].rows):
+                    for fk in fks:
+                        if fk in row_dict:
+                            row_value = row_dict[fk]
+                            to_col_value_type = fk_data_type_mapping[fk]
+
+                            if isinstance(to_col_value_type, int) and not isinstance(row_value, int):
+                                row_dict[fk] = int(row_value) if not math.isnan(row_value) else None
+                            elif isinstance(to_col_value_type, str) and not isinstance(row_value, str):
+                                row_dict[fk] = str(row_value).strip('\'').strip('\"') if row_value else None
+                            elif isinstance(to_col_value_type, float) and not isinstance(row_value, float):
+                                row_dict[fk] = float(row_value) if not math.isnan(row_value) else None
+
+                for col, col_val_list in db_tbs[tb_name].cols.items():
+                    if col in fks and db_tbs[to_tb_name].cols[to_col_list[0]]:
+                        to_col_value_type = fk_data_type_mapping[col]
+                        col_values = col_val_list
+
+                        if isinstance(to_col_value_type, int) and not isinstance(col_values[0], int):
+                            col_values = [int(val) if val and not math.isnan(val) else None for val in col_values]
+                            db_tbs[tb_name].cols[col] = col_values
+                        elif isinstance(to_col_value_type, str) and not isinstance(col_values[0], str):
+                            col_values = ["'{}'".format(str(val).strip('\'').strip('\"')) if val else None for val in col_values]
+                            db_tbs[tb_name].cols[col] = col_values
+                        elif isinstance(to_col_value_type, float) and not isinstance(col_values[0], float):
+                            col_values = [float(val) if val and not math.isnan(val) else None for val in col_values]
+                            db_tbs[tb_name].cols[col] = col_values
+                
 
     def read_dataset(self, paths):
         rel_dbs = {}
@@ -337,16 +327,16 @@ class RelDB2KGraphBuilder(RelDBDataset):
         self.dataset = RelDBDataset(self.paths, self.logger)
 
 
-    def get_matched_node(self, db_name, tb_name, to_col_list, fks, row_dict, tbs_dict):
-        alias = tb_name.lower()
+    def get_matched_node(self, db_name, to_tab, to_col_list, fks, row_dict, tbs_dict):
+        alias = to_tab.lower()
         # assert   isinstance(val, val_type), 'FIX ME'
-        match_ =  "match ({}:`{}.{}`) ".format(alias, db_name, tb_name)
+        match_ =  "match ({}:`{}.{}`) ".format(alias, db_name, to_tab)
         condi = []
         for i, col in enumerate(to_col_list):
             val = row_dict[fks[i]]
-            if not tbs_dict[tb_name].cols[col]:
+            if not tbs_dict[to_tab].cols[col]:
                 continue
-            val_type = type(tbs_dict[tb_name].cols[col][0])
+            val_type = type(tbs_dict[to_tab].cols[col][0])
             if val and isinstance(val, val_type):
                 if type(val)==str:
                     val = '"{}"'.format(str(val).strip('\'').strip('\"'))
@@ -474,7 +464,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             to_col_list = constraint['to_col_list']            
                             fks = [fk.strip() for fk in concated_fk.split(',')]     
                             assert tb_name!=to_tab, 'FIX ME'
-                            for this in self.get_matched_node(db_name, tb_name, to_col_list, fks, row_dict, tbs_dict):    
+                            for this in self.get_matched_node(db_name, tb_name, fks, fks, row_dict, tbs_dict):    
                                 for s_label, this_node in this.items():
                                     start_node_label='{}.{}'.format(db_name, s_label)
                                 for ref in self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict):
