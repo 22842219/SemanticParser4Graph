@@ -126,7 +126,7 @@ def data_complexity(spider_dbs):
         conn = sqlite3.connect(db_path)
         db_name = db_path.split(os.sep)[-1].split('.')[0] 
         # ['concert_singer', 'department_management', 'musical']
-        if db_name :
+        if db_name in ['concert_singer', 'department_management', 'musical']:
             print(db_name)
             for_plot[db_name] = calculate_metrics(conn)
 
@@ -160,31 +160,31 @@ def plot(for_plot):
     data = pd.DataFrame(data, columns=['db_name', 'natt', 'nfk', 'cos', 'ss', 'drt'])
 
     # Normalize the metrics
-    data['natt'] = data['natt']*100 / sum(data['natt'])
-    data['nfk'] = data['nfk'] *100 / sum(data['nfk'])
-    data['cos'] = data['cos'] *100 / sum(data['cos'])
-    data['ss'] = data['ss'] *100 / sum(data['ss'])
-    data['drt'] = data['drt'] *100 / sum(data['drt'])
+    data['NA'] = data['natt']*100 / sum(data['natt'])
+    data['NFK'] = data['nfk'] *100 / sum(data['nfk'])
+    data['COS'] = data['cos'] *100 / sum(data['cos'])
+    data['SS'] = data['ss'] *100 / sum(data['ss'])
+    data['DRT'] = data['drt'] *100 / sum(data['drt'])
 
     # Create subplots
     fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(15, 10))
 
     # Plot histograms of the metrics
-    axs[0].hist(data[['natt', 'nfk', 'cos', 'ss', 'drt']].values, bins=6, label=['Number of Attributes', 'Number of Foreign Keys', 'Cohesion of the Schema (COS)', 'Schema Size', 'Depth Referential Tree'], color=['red', 'green', 'yellow',  'black', 'blue'])
+    axs[0].hist(data[['NA', 'NFK', 'COS', 'SS', 'DRT']].values, bins=6, label=['Number of Attributes (NA)', 'Number of Foreign Keys (NFK)', 'Cohesion of the Schema (COS)', 'Schema Size (SS)', 'Depth Referential Tree (DRT)'], color=['red', 'green', 'yellow',  'black', 'blue'])
     axs[0].legend()
     axs[0].set_xlabel('Data Complexity')
     axs[0].set_ylabel('Frequency')
     axs[0].set_title('Histogram of Data Complexity')
 
     # Plot scatter diagram of the metrics
-    tick_labels = data['db_name'][::2]
+    tick_labels = data['db_name'][::1]
     colors = ['red', 'green', 'yellow',  'black', 'blue']
-    metrics = ['natt', 'nfk', 'cos', 'ss', 'drt']
+    metrics = ['NA', 'NFK', 'COS', 'SS', 'DRT']
     for i, metric in enumerate(metrics):
-        axs[1].scatter(np.arange(len(data))[::2], data[metric][::2], color=colors[i], label=metric)
+        axs[1].scatter(np.arange(len(data))[::1], data[metric][::1], color=colors[i], label=metric)
     axs[1].set_xlabel('Relational Database Name')
-    axs[1].set_xticks(np.arange(len(data))[::2])
-    axs[1].set_xticklabels(tick_labels, rotation=90)
+    axs[1].set_xticks(np.arange(len(data))[::1])
+    axs[1].set_xticklabels(tick_labels, rotation=0)
     axs[1].set_ylabel('Normalized Data Complexity')
     axs[1].set_title('Scatter Diagram of Normalized Data Complexity')
     axs[1].legend()
@@ -193,7 +193,7 @@ def plot(for_plot):
     fig.show()
 
     # Save the figure
-    fig.savefig('spider_plot.png', dpi=300)
+    fig.savefig('my_plot.png', dpi=300)
 
 
 def main():
