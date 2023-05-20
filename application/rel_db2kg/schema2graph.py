@@ -196,23 +196,23 @@ class RelDBDataset(DBengine):
                         row_value = row_dict[fk]
                         to_col_value_type = fk_data_type_mapping[fk]
                         if row_value:
-                            if to_col_value_type== 'int' and not isinstance(row_value, int):
+                            if (to_col_value_type== 'int' or to_col_value_type==int) and not isinstance(row_value, int):
                                 row_dict[fk] = int(row_value) if not math.isnan(int(row_value)) else None
-                            elif to_col_value_type == 'str' and not isinstance(row_value, str):
+                            elif (to_col_value_type == 'str' or to_col_value_type==str) and not isinstance(row_value, str):
                                 row_dict[fk] = "'{}'".format(str(row_value).strip('\'').strip('\"')) if row_value else None
-                            elif to_col_value_type == 'float' and not isinstance(row_value, float):
+                            elif (to_col_value_type == 'float' or to_col_value_type==float) and not isinstance(row_value, float):
                                 row_dict[fk] = float(row_value) if not math.isnan(float(row_value)) else None
                 for col, col_val_list in db_tbs[tb_name].cols.items():
                     if col in fks and db_tbs[to_tb_name].cols[to_col_list[0]]:
                         to_col_value_type = fk_data_type_mapping[col]
                         col_values = col_val_list
-                        if to_col_value_type == 'int' and not isinstance(col_values[0], int):
+                        if (to_col_value_type== 'int' or to_col_value_type==int) and not isinstance(col_values[0], int):
                             col_values = [int(val) if val and not math.isnan(int(val)) else None for val in col_values]
                             db_tbs[tb_name].cols[col] = col_values
-                        elif to_col_value_type == 'str' and not isinstance(col_values[0], str):
+                        elif (to_col_value_type == 'str' or to_col_value_type==str)and not isinstance(col_values[0], str):
                             col_values = ["'{}'".format(str(val).strip('\'').strip('\"')) if val else None for val in col_values]
                             db_tbs[tb_name].cols[col] = col_values
-                        elif to_col_value_type == 'float' and not isinstance(col_values[0], float):
+                        elif (to_col_value_type == 'float' or to_col_value_type==float) and not isinstance(col_values[0], float):
                             col_values = [float(val) if val and not math.isnan(float(val)) else None for val in col_values]
                             db_tbs[tb_name].cols[col] = col_values
                 
@@ -241,7 +241,7 @@ class RelDBDataset(DBengine):
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
-           # in [ 'car_1',  'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', 'department_management', 'musical']
+           # in [ 'car_1',  'department_management', 'musical', 'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', ]
             if db_name in ['csu_1']:
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
@@ -276,6 +276,7 @@ class RelDBDataset(DBengine):
                     if len(data)>4000 or tb_object.headers == None:  # we set a threshold for the experiment
                         drop_flag =True
                         break
+
 
                     rows = data or [ {k: '' for k in tb_object.headers} ]
                     list(map(lambda row: tb_object.add_row(row), rows))
@@ -352,17 +353,13 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 condi.append('{}.{}={}'.format( alias, col, val))
             else:
                 print(f"Value '{val}' is not an instance of {val_type}")
+
         if bool(condi):
             where_ = ' where ' + ' and '.join(condi) 
-        else:
-            where_ = ''
-        cypher = match_ + where_ + ' return {}'.format(alias)
-        print(f'cypher: {cypher}')
-        self.logger.warning(f'cypher_query: {cypher}')
-        results = self.graph.run(cypher).data()
-        for result in results:
-            yield result
-
+            cypher = match_ + where_ + ' return {}'.format(alias)
+            print(f'cypher: {cypher}')
+            self.logger.warning(f'cypher_query: {cypher}')
+            return self.graph.run(cypher).data()
 
 
     def build_schema_nodes(self, tx):
@@ -420,20 +417,18 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         # update_row_dict = {k: row_dict[k] for k in row_dict if k not in fks}  
                         # self.logger.warning(f'update_row_dict: {update_row_dict}')
                         matched = []
-                        print('fk_contraints:', tab.fks)
                         for concated_fk, constraint in tab.fks.items():
                             to_tab = constraint['to_tab']
                             to_col_list = constraint['to_col_list']       
                             fks = [fk.strip() for fk in concated_fk.split(',')]     
                             assert tb_name!=to_tab, 'FIX ME'  
-                            matched_res = [res for res in self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict) if res is not None]
+                            matched_res = self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict) 
                             self.logger.warning(f"matched_res : {matched_res}, {len(matched_res)}")   
-                            print('matched_res: ', matched_res)
-                            # try:
-                            matched.extend(matched_res)         
-                            # except:
-                            #     self.logger.warning(f'there is no matched nodes for {tb_name} in {db_name}.')
-                        print('matched: ', len(matched), matched)
+                            try:
+                                matched.extend(matched_res)         
+                            except:
+                                self.logger.warning(f'there is no matched nodes for {tb_name} in {db_name}.')
+                      
                         if len(matched)==2:
                             first_node_label, first_node = next(iter(matched[0].items()))
                             second_node_label, second_node = next(iter(matched[1].items()))
@@ -442,7 +437,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         elif len(matched)>2:
                             self.logger.warning("Hyper edge exist in {db_name}: {tb_name}")
                         else:
-                            print("Error: Insufficient matched_labels. Cannot create relationship.")
+                            self.logger.warning("Error: Insufficient matched_labels. Cannot create relationship for {tb_name} in {db_name}.")
 
 
 
@@ -464,16 +459,22 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             to_col_list = constraint['to_col_list']            
                             fks = [fk.strip() for fk in concated_fk.split(',')]     
                             assert tb_name!=to_tab, 'FIX ME'
-                            for this in self.get_matched_node(db_name, tb_name, fks, fks, row_dict, tbs_dict):    
-                                for s_label, this_node in this.items():
-                                    start_node_label='{}.{}'.format(db_name, s_label)
-                                for ref in self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict):
-                                    for ref_label, ref_node in ref.items():
-                                        end_node_label='{}.{}'.format(db_name, ref_label)
-                                    rel = Relationship(this_node, '{}_HAS_{}'.format( start_node_label, end_node_label ), ref_node) 
-                                    tx.create(rel)
+                            print(f'tb_name: {tb_name}, fks:{fks}, to_tab: {to_tab}, to_col_list: {to_col_list}')
+                            if tb_name=='faculty':
+                                for this in self.get_matched_node(db_name, tb_name, fks, fks, row_dict, tbs_dict):    
+                                    print(f'this node: {this}')
+                                    for s_label, this_node in this.items():
+                                        start_node_label='{}.{}'.format(db_name, s_label)
+                                    for ref in self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict):
+                                        print(f'end node: {ref}')
+                                        for ref_label, ref_node in ref.items():
+                                            end_node_label='{}.{}'.format(db_name, ref_label)
+                                        print(f'start_node_labe:{start_node_label}, end_node_label: {end_node_label}')
 
+                                        rel = Relationship(this_node, '{}_HAS_{}'.format( start_node_label, end_node_label ), ref_node) 
+                                        tx.create(rel)
         self.graph.commit(tx)
+
 
     def build_graph(self, index):
         self.tx = self.graph.begin()
