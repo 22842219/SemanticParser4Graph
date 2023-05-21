@@ -242,7 +242,7 @@ class RelDBDataset(DBengine):
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
            # in [ 'car_1',  'department_management', 'musical', 'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', ]
-            if db_name :
+            if db_name:
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
                 db_data_type[db_name]={}
@@ -422,11 +422,12 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             fks = [fk.strip() for fk in concated_fk.split(',')]     
                             assert tb_name!=to_tab, 'FIX ME'  
                             matched_res = self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict) 
-                            self.logger.warning(f"matched_res : {matched_res}, {len(matched_res)}")   
-                            try:
-                                matched.extend(matched_res)         
-                            except:
-                                self.logger.warning(f'there is no matched nodes for {tb_name} in {db_name}.')
+                            self.logger.warning(f"matched_res : {matched_res}")   
+                            if matched_res:
+                                try:
+                                    matched.extend(matched_res)         
+                                except:
+                                    self.logger.warning(f'there is no matched nodes for {tb_name} in {db_name}.')
                       
                         if len(matched)==2:
                             first_node_label, first_node = next(iter(matched[0].items()))
@@ -459,19 +460,19 @@ class RelDB2KGraphBuilder(RelDBDataset):
                             fks = [fk.strip() for fk in concated_fk.split(',')]     
                             assert tb_name!=to_tab, 'FIX ME'
                             print(f'tb_name: {tb_name}, fks:{fks}, to_tab: {to_tab}, to_col_list: {to_col_list}')
-             
-                            for this in self.get_matched_node(db_name, tb_name, fks, fks, row_dict, tbs_dict):    
-                                print(f'this node: {this}')
-                                for s_label, this_node in this.items():
-                                    start_node_label='{}.{}'.format(db_name, s_label)
-                                for ref in self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict):
-                                    print(f'end node: {ref}')
-                                    for ref_label, ref_node in ref.items():
-                                        end_node_label='{}.{}'.format(db_name, ref_label)
-                                    print(f'start_node_labe:{start_node_label}, end_node_label: {end_node_label}')
+                            these = self.get_matched_node(db_name, tb_name, fks, fks, row_dict, tbs_dict)  
+                            refs = self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict)
+                            if these and refs:
+                                for this in these:
+                                    for s_label, this_node in this.items():
+                                        start_node_label='{}.{}'.format(db_name, s_label)
+                                    for ref in refs:
+                                        for ref_label, ref_node in ref.items():
+                                            end_node_label='{}.{}'.format(db_name, ref_label)
+                                        print(f'start_node_labe:{start_node_label}, end_node_label: {end_node_label}')
 
-                                    rel = Relationship(this_node, '{}_HAS_{}'.format( start_node_label, end_node_label ), ref_node) 
-                                    tx.create(rel)
+                                        rel = Relationship(this_node, '{}_HAS_{}'.format( start_node_label, end_node_label ), ref_node) 
+                                        tx.create(rel)
         self.graph.commit(tx)
 
 
