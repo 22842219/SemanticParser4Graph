@@ -94,8 +94,15 @@ class DBengine:
             fk_idx = [h.lower() for h in headers].index(fk.lower())
             fk = headers[fk_idx]
             to_tab_headers = [desc[0] for desc in self.get_table_values(to_table).description]
-            to_col_idx = [h.lower() for h in to_tab_headers].index(to_col.lower())
+
+            to_ = [h.lower() for h in to_tab_headers]
+            if to_col.lower() not in to_: # amend mismatch reference foreign key
+                to_pks = self.get_primay_keys(to_table) 
+                if len(to_pks)==1:
+                    to_col= to_pks[0]
+            to_col_idx = to_.index(to_col.lower())
             to_col = to_tab_headers[to_col_idx]
+
             if id not in id_fks:
                 id_fks[id]=[fk]
             else:
@@ -260,8 +267,7 @@ class RelDBDataset(DBengine):
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
            # in [ 'car_1',  'department_management', 'musical', 'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', ]
-            if db_name in ['loan_1']:
-                print('db:', db_name)
+            if db_name in ['imdb']:
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
                 db_data_type[db_name]={}
