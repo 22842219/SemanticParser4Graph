@@ -40,7 +40,7 @@ class DBengine:
     
     def get_table_values(self, table_name):
         cursor = self.conn.cursor()  
-        return cursor.execute('SELECT * from {}'.format(table_name))  
+        return cursor.execute('SELECT * from {}'.format(table_name)) 
 
     def get_schema(self, table_name):
         cursor = self.conn.cursor()  
@@ -49,7 +49,8 @@ class DBengine:
         if result is None:
             raise ValueError("Table %s does not exist" % table_name)
         return result[0].strip()  
-    def get_data_type(self, table_name):
+   
+    def get_data_type(self, table_name, headers):
         cursor = self.conn.cursor() 
         infos = cursor.execute("PRAGMA table_info({})".format(table_name))
         data_types = {}
@@ -64,6 +65,7 @@ class DBengine:
         '''
         for info in infos:
             cid, col_name, dtype, notnull, dflt_value, pk = info
+            col_name = headers[cid]
             if dtype.lower() in ['text', 'varchar', 'varchar(20)']:
                 dtype=str
             if dtype in ['INTEGER', 'INT']:
@@ -71,13 +73,29 @@ class DBengine:
             data_types[col_name] = dtype
         return data_types
 
-    def get_outbound_foreign_keys(self, table_name):
+    def get_outbound_foreign_keys(self, table_name, headers):
         cursor = self.conn.cursor() 
         infos = cursor.execute("PRAGMA foreign_key_list({})".format(table_name)).fetchall()
         constraints_ = {}
         id_fks = {}
+        '''
+        Parameters:
+            id: A unique identifier for the foreign key constraint.
+            seq: The sequence number of the column in the foreign key constraint.
+            table: The name of the table that contains the foreign key constraint.
+            from: The name of the column in the current table that is part of the foreign key relationship.
+            to: The name of the column in the referenced table that is being referenced by the foreign key.
+            on_update: The action to be performed when the referenced column is updated.
+            on_delete: The action to be performed when the referenced column is deleted.
+            match: The match type for the foreign key constraint. 
+        '''
         for info in infos:
-            id, seq, to_table, fk, to_col, on_update, on_delete, match = info
+            id, seq, to_table, fk, to_col, on_update, on_delete, match = info 
+            fk_idx = [h.lower() for h in headers].index(fk.lower())
+            fk = headers[fk_idx]
+            to_tab_headers = [desc[0] for desc in self.get_table_values(to_table).description]
+            to_col_idx = [h.lower() for h in to_tab_headers].index(to_col.lower())
+            to_col = to_tab_headers[to_col_idx]
             if id not in id_fks:
                 id_fks[id]=[fk]
             else:
@@ -188,7 +206,7 @@ class RelDBDataset(DBengine):
                 to_col_list = constraint['to_col_list']
                 to_tb_name = constraint['to_tab']
                 fks = [fk.strip() for fk in fk_.split(',')]
-
+                print(f'table_name: {tb_name}, fks: {fks}, to_tb_name: {to_tb_name}, to_col_list: {to_col_list}')
                 to_col_types = [tbs_data_type[to_tb_name][col] for col in to_col_list]
                 fk_data_type_mapping = dict(zip(fks, to_col_types))
                 for i, row_dict in enumerate(db_tbs[tb_name].rows):
@@ -242,7 +260,8 @@ class RelDBDataset(DBengine):
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
            # in [ 'car_1',  'department_management', 'musical', 'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', ]
-            if db_name:
+            if db_name in ['loan_1']:
+                print('db:', db_name)
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
                 db_data_type[db_name]={}
@@ -255,8 +274,8 @@ class RelDBDataset(DBengine):
                     tb_object = RelTable(db_name, table_name)                         
                     table_records = engine.get_table_values(table_name)
                     tb_object.headers = [desc[0] for desc in table_records.description]     
-                    tb_object.data_type= engine.get_data_type(table_name)
-                    tb_object.fks =  engine.get_outbound_foreign_keys(table_name) 
+                    tb_object.data_type= engine.get_data_type(table_name, tb_object.headers)
+                    tb_object.fks =  engine.get_outbound_foreign_keys(table_name, tb_object.headers) 
                     tb_object.pks = engine.get_primay_keys(table_name) 
                     tb_object.is_compound_pk =  engine.check_compound_pk(tb_object.pks)
 
