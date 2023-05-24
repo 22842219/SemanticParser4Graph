@@ -222,25 +222,19 @@ class RelDBDataset(DBengine):
                         to_col_value_type = fk_data_type_mapping[fk]
                         if row_value:
                             if (to_col_value_type== 'int' or to_col_value_type==int) and not isinstance(row_value, int):
-                                row_dict[fk] = int(row_value) if not math.isnan(int(row_value)) else None
+                                if type(row_value)==str:
+                                    row_value=int(row_value)
+                                row_dict[fk] = int(row_value) if not math.isnan(row_value) else None
+                            elif (to_col_value_type == 'float' or to_col_value_type==float) and not isinstance(row_value, float):
+                                if type(row_value)==str:
+                                    row_value=float(row_value)
+                                row_dict[fk] = float(row_value) if not math.isnan(row_value) else None
                             elif (to_col_value_type == 'str' or to_col_value_type==str) and not isinstance(row_value, str):
                                 row_dict[fk] = "'{}'".format(str(row_value).strip('\'').strip('\"')) if row_value else None
-                            elif (to_col_value_type == 'float' or to_col_value_type==float) and not isinstance(row_value, float):
-                                row_dict[fk] = float(row_value) if not math.isnan(float(row_value)) else None
-                for col, col_val_list in db_tbs[tb_name].cols.items():
-                    if col in fks and db_tbs[to_tb_name].cols[to_col_list[0]]:
-                        to_col_value_type = fk_data_type_mapping[col]
-                        col_values = col_val_list
-                        if (to_col_value_type== 'int' or to_col_value_type==int) and not isinstance(col_values[0], int):
-                            col_values = [int(val) if val and not math.isnan(int(val)) else None for val in col_values]
-                            db_tbs[tb_name].cols[col] = col_values
-                        elif (to_col_value_type == 'str' or to_col_value_type==str)and not isinstance(col_values[0], str):
-                            col_values = ["'{}'".format(str(val).strip('\'').strip('\"')) if val else None for val in col_values]
-                            db_tbs[tb_name].cols[col] = col_values
-                        elif (to_col_value_type == 'float' or to_col_value_type==float) and not isinstance(col_values[0], float):
-                            col_values = [float(val) if val and not math.isnan(float(val)) else None for val in col_values]
-                            db_tbs[tb_name].cols[col] = col_values
-                
+                #update corresponding 'cols'
+                db_tbs[tb_name].cols = pd.DataFrame(db_tbs[tb_name].rows).to_dict( orient='list')
+
+            
 
     def read_dataset(self, paths):
         rel_dbs = {}
@@ -262,12 +256,13 @@ class RelDBDataset(DBengine):
             #             if '.' in missing:
             #                 missing_db, missing_table = missing.split('.')
             #                 if missing_db not in check_dbs:
-            #                     check_dbs.append(missing_db)
+            #                      check_dbs.append(missing_db)
             #     if db_name not in check_dbs:
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
            # in [ 'car_1',  'department_management', 'musical', 'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', ]
-            if db_name in ['imdb']:
+            if db_name:
+                print('db_name:', db_name)
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
                 db_data_type[db_name]={}
