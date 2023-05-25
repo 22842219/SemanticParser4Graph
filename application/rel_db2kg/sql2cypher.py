@@ -264,61 +264,74 @@ class Formatter(SchemaGroundedTraverser):
 										cypher['outer'][clause]=norm_fm
 								part = part[1]
 
-							logic_op = next((op for op in self.bool_ops + self.list_ops if op in part), None)
-							comp_op  = next((op for op in self.comparision_ops if op in part), None)
-	
-							if logic_op == 'NOT':
-								cypher['neg'] = 'NOT'
-								cypher['op']=''
-								op = logic_op
-								cypher['in']='IN'
-							elif comp_op:
-								cypher['neg'] = ''
-								op = comp_op
-								cypher['op']=op
-								cypher['in']=''
-							else:
-								cypher['neg']=''
-								cypher['op']=''
-								cypher['in']= ''
-								op = None
-								
+							logic_op = next((op for op in self.bool_ops if op in part), '')
+							list_op = next((op for op in self.list_ops if op in part), '')
+							comp_op  = next((op for op in self.comparision_ops if op in part), '')
+							print('2', part, logic_op, comp_op)
+							cypher['logic_op'] = logic_op
+							cypher['comp_op'] = comp_op
+							cypher['list_op'] = list_op
+							op = logic_op or list_op or comp_op
+							print('3', op, part)
 							if op:
-								part_ = part.split(op)
-								for each in part_:
-									if '\n' in each:
-										each_ = each.strip('() ').split('\n')
-										for item in each_:
-											c_ = next(( c_  for c_ in cypher_clauses if c_.upper() in item), None)
-											if c_:
-												cypher['nested'][c_] = item
-									else:
-										if '.' in each:
-											tb_alias, fm = each.split('.')
-											with_alias = fm.lower()
+								part1, part2 = part.split(op)
+								nested = part2.strip() if '\n' in part2 else part1.strip()
+								alias = part1.strip() if '\n' in part2 else part2.strip()
 
-										elif next(( agg for agg in self.agg if agg in each), None):
-											with_alias = next(( agg for agg in self.agg if agg in each), None)
+								cypher['outer'][clause]= alias
+								if '.' in alias:
+									tb_alias, fm = alias.split('.')
+									alias = fm.lower()
+
+								if nested.startswith('('):
+									nested = nested[1:-1]
+								
+								
+								print('5', nested)
+								print(alias)
+								print(cypher)
+								for item in nested.strip().split('\n'):
+									c_ = next(( c_  for c_ in cypher_clauses if c_.upper() in item), None)
+									print('6,', c_, item)
+									if c_ and c_!='RETURN':
+										cypher['nested'][c_] = item
+									if c_=='RETURN':
+										print(item)
+										cypher['nested']['WITH'] = 'WITH {} AS {}'.format(item.split('RETURN')[-1].strip(), alias)
+								
+								cypher['alias']=alias
+
+								
+									
+									# 	if '.' in each:
+									# 		tb_alias, fm = each.split('.')
+									# 		with_alias = fm.lower()
+
+									# 	elif next(( agg for agg in self.agg if agg in each), None):
+									# 		with_alias = next(( agg for agg in self.agg if agg in each), None)
 										
-										else:
-											with_alias= each.lower()
+									# 	else:
+									# 		with_alias= each.lower()
 
-										cypher['nested']['WITH'] = 'WITH collect({}) AS {}'.format(each, with_alias)
-										cypher['with_alias']=with_alias
+									# 	cypher['nested']['WITH'] = 'WITH ({}) AS {}'.format(each, with_alias)
+									# 	cypher['with_alias']=with_alias
+									# print('6', cypher['nested'])
+									# print('7', cypher['with_alias'])
 
 
 						else:
 							cypher['outer'][clause]=part
-			print(cypher)
+			print('8', cypher)
 			seq_parts=[]
 			for k, v in cypher.items():
+				print('k, v', k, v)
 				if k=='nested':
 					seq_parts.extend(list(v.values()))
-				elif k=='outer':
+				if k=='outer':
 					for kk, vv in v.items():
-						
+						print('kk, vv', kk, vv)
 						if kk=='where':
-							outer_where = 'WHERE {} {} {} {} {}'.format(cypher['neg'], vv,cypher['op'], cypher['in'], with_alias)
+							outer_where = 'WHERE {} {} {} {} {} '.format(cypher['logic_op'], vv, cypher['comp_op'], cypher['list_op'], cypher['alias'])
 							seq_parts.append(outer_where)
 						else:
 							seq_parts.append(vv)
@@ -872,8 +885,6 @@ class Formatter(SchemaGroundedTraverser):
 			|   SQL   | Mapping |  CYPHER 
 			---------------------------------------------------------------------------------------------- 
 			|'in' |   -->   | 1) MATCH ()-[]-(); (NOTE: see example1)
-								or 
-							  2) TODO
 			
 			For example1:
 				- relational database: musical.db
@@ -1053,7 +1064,8 @@ def main():
 	lexer = get_lexer_by_name("py2neo.cypher")
 	import configparser
 	import shutil
-	from schema2graph import RelDBDataset
+	# from schema2graph import RelDBDataset
+	import dill
 
 	config = configparser.ConfigParser()
 	config.read('../config.ini')
@@ -1061,17 +1073,20 @@ def main():
 
 	raw_data_folder = filenames['raw_folder']
 	root = filenames['root']
+	benchmark = filenames['benchmark']
 
 	neo4j_uri = filenames['neo4j_uri']
 	neo4j_user = filenames['neo4j_user']
 	neo4j_password = filenames['neo4j_password']
 	graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
-	raw_spider_folder = os.path.join(raw_data_folder, 'spider')
-	db_folder = os.path.join(raw_spider_folder,  'database')
-	db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+	raw_data_folder = os.path.join(raw_data_folder, benchmark)
+	db_folder = os.path.join(raw_data_folder,  'database')
+
 	logger =Logger('/sql2cypher.log')
-	rel_db_dataset = RelDBDataset(db_paths, logger)
+	
+	with open('data/{}.pkl'.format(benchmark), 'rb') as pickle_file:
+		rel_db_dataset=dill.load(pickle_file)
 
 	sp_out_folder = os.path.join(root, 'sp_data_folder')
 	if not os.path.exists(sp_out_folder):
@@ -1079,14 +1094,11 @@ def main():
 
 	for split in ['dev']:
    
-		json_file = os.path.join(raw_spider_folder, '{}.json'.format(split))
+		json_file = os.path.join(raw_data_folder, '{}.json'.format(split))
 		f = open(json_file)
 		data = json.load(f)
 
-		spider_sub_gold_sql = []
-		spider_sub_tables = []
-
-		qa_pairs = {'correct_': [], 'incorrect_':[], 'spider_sub_pairs':[], 'spider_sub_gold_sql':[]}
+		qa_pairs = {'correct_': [], 'incorrect_':[], 'pairs':[]}
 		incorrect = {}
 		invalid_parsed_sql = {}
 		intersect_sql = {}
@@ -1127,6 +1139,7 @@ def main():
 
 
 					# try:
+	
 				formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
 				sql2cypher = formatter.format(parsed_sql)
 				print("**************Cypher Query***************")
@@ -1145,12 +1158,11 @@ def main():
 							{
 								'db_id':db_name, 
 								'sql': sql_query, 
-								'cypher_query':sql2cypher,
+								'cypher':sql2cypher,
 								'question':question,
 								'answers':cypher_ans
 							})
-						qa_pairs['spider_sub_pairs'].append(data[i])
-						qa_pairs['spider_sub_gold_sql'].append(data[i]['query'])
+						qa_pairs['pairs'].append(data[i])
 					else:
 						print(f'incorrect_ans: {cypher_ans}')
 						incorrect[db_name].append(i)
@@ -1158,10 +1170,10 @@ def main():
 							{
 								'db_id':db_name, 
 								'query':question,
-								'sql_query':sql_query, 
+								'sql':sql_query, 
 								'parsed_sql':parsed_sql, 
 								'sql_ans':sql_result,
-								'sql2cypher':sql2cypher, 
+								'cypher':sql2cypher, 
 								'cypher_ans':cypher_ans
 							})
 				# 	except:
@@ -1189,31 +1201,6 @@ def main():
 		with open(incorrect_output_file, 'a')  as f2:
 			json.dump(qa_pairs['incorrect_'], f2, indent = 4)
 
-		sub_spider = os.path.join(sp_out_folder, '{}_spider_sub.json'.format(split))
-		with open(sub_spider, 'a')  as f3:
-			json.dump(qa_pairs['spider_sub_pairs'], f3, indent = 4)
-		
-		sub_gold = os.path.join(sp_out_folder, '{}_gold.sql'.format(split))
-		with open(sub_gold, 'a')  as f4:
-			for item in qa_pairs['spider_sub_gold_sql']:
-				# write each item on a new line
-				f4.write("%s\n" % item)
-
-
-		sub_tables = os.path.join(sp_out_folder, 'tables.json')     
-		with open(sub_tables, 'a')  as f5:
-			json.dump(spider_sub_tables, f5, indent = 4)
-		
-		# Output selected relational dbs folder path
-		sub_rel_dbs_folder = os.path.join(sp_out_folder, 'database')  
-		if not os.path.exists(sub_rel_dbs_folder):
-			os.makedirs(sub_rel_dbs_folder) 
-	
-		# for db_name in seleted_rel_dbs:
-		# 	source_dir = os.path.join(db_folder, db_name)
-		# 	destination_dir = os.path.join(sub_rel_dbs_folder, db_name)
-		# 	if not os.path.exists(destination_dir):
-		# 		shutil.copytree(source_dir, destination_dir)
 
 	all_db_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))]))
 	filtered_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))  if every['num_of_rows']>4000]))
