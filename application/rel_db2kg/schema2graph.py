@@ -523,6 +523,7 @@ def main():
 
     raw_folder = filenames['raw_folder']
     env_file = filenames['env_file']
+    benchmark = filenames['benchmark']
 
     parser = argparse.ArgumentParser(description='relational database to graph database.')
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
@@ -530,30 +531,27 @@ def main():
     parser.add_argument('--wikisql', help='build graph from wikisql.', action='store_true')
     parser.add_argument('--uncased', help='build graph from spider and lowercasing all properties.', action='store_true')
     args = parser.parse_args()
+    raw_spider_folder = os.path.join(raw_folder, benchmark)
+    db_folder = os.path.join(raw_spider_folder,  'database')
+    benchmark_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+
+    if not os.path.exists(os.path.dirname('/data')):
+        try:
+            os.makedirs(os.path.dirname('/data'))
+        except:
+            raise NotImplementedError
+    with open('data/{}.pkl'.format(benchmark), 'wb') as pickle_file:
+        dill.dump(RelDBDataset(benchmark_dbs, Logger('/{}.log'.format(benchmark))), pickle_file)
 
     if args.spider:
-        raw_spider_folder = os.path.join(raw_folder, 'spider')
-        db_folder = os.path.join(raw_spider_folder,  'database')
-        spider_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+        if args.uncased:
+            for i, db_path in enumerate(benchmark_dbs):
+                RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=False).build_graph(index = i)
+        else:
+            for i, db_path in enumerate(benchmark_dbs):
 
-        with open('spider.pkl', 'wb') as pickle_file:
-            dill.dump(RelDBDataset(spider_dbs, Logger('/spider.log')), pickle_file)
+                RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=True).build_graph(index = i)
 
-        # if args.uncased:
-        #     for i, db_path in enumerate(spider_dbs):
-        #         RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=False).build_graph(index = i)
-        # else:
-        #     for i, db_path in enumerate(spider_dbs):
-
-        #         RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=True).build_graph(index = i)
-
-    
-    if args.wikisql:
-        raw_wikisql_folder = os.path.join(raw_folder, 'wikisql1.1')
-        wikisql_dbs = glob.glob(raw_wikisql_folder + '/*.db', recursive = True) 
-        # self.logger.warning(f'wikisql db files: {wikisql_dbs}')
-
-        # RelDB2KGraphBuilder(wikisql_dbs,  Logger(), env_file).build_graph()
 
 if __name__ == "__main__":
     main()
