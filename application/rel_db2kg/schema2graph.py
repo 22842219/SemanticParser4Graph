@@ -15,7 +15,6 @@ import numpy as np
 import sqlite3
 import pandas as pd
 
-
 class DBengine:
     
     """
@@ -348,7 +347,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         env.read_env(self.env_file)
         self.graph = Graph(password=env("GRAPH_PASSWORD"))
         self.dataset = RelDBDataset(self.paths, self.logger)
-
+    
 
     def get_matched_node(self, db_name, to_tab, to_col_list, fks, row_dict, tbs_dict):
         alias = to_tab.lower()
@@ -518,6 +517,7 @@ def main():
     import configparser
     from utils import Logger
     config = configparser.ConfigParser()
+    import dill
     config.read('../config.ini')
     filenames = config["FILENAMES"]
 
@@ -535,13 +535,17 @@ def main():
         raw_spider_folder = os.path.join(raw_folder, 'spider')
         db_folder = os.path.join(raw_spider_folder,  'database')
         spider_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
-       
-        if args.uncased:
-            for i, db_path in enumerate(spider_dbs):
-                RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=False).build_graph(index = i)
-        else:
-            for i, db_path in enumerate(spider_dbs):
-                RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=True).build_graph(index = i)
+
+        with open('spider.pkl', 'wb') as pickle_file:
+            dill.dump(RelDBDataset(spider_dbs, Logger('/spider.log')), pickle_file)
+
+        # if args.uncased:
+        #     for i, db_path in enumerate(spider_dbs):
+        #         RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=False).build_graph(index = i)
+        # else:
+        #     for i, db_path in enumerate(spider_dbs):
+
+        #         RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=True).build_graph(index = i)
 
     
     if args.wikisql:
