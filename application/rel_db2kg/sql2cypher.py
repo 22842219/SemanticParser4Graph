@@ -42,9 +42,6 @@ agg_pattern = re.compile(r'^\bAvg\b|\bAVG\b|\bavg\b|\bmax\b|\bMAX\b|\bMax\b|\bmi
 # both graph node and edge pattern. 
 # Note: when we re-tokenize nested query, we split sub-graph-path-pattern using '-', 
 # hence, it might start with '>'. Please refer to nested query example. 
-graph_node_regx = re.compile(r'\(([a-z]|T[1-9]|t[1-9])\:[a-zA-Z].*\)') 
-graph_edge_regx = re.compile(r'\[([a-z]|T[1-9]|t[1-9])\:[a-zA-Z].*\]') 
-
 
 operators = ['||', '*', '/', '+', '-', '<>', '>', '<', '>=', '<=', '=', 'OR', 'AND']
 
@@ -254,45 +251,47 @@ class Formatter(SchemaGroundedTraverser):
 					if part:
 						print('1', clause, part)
 						if clause=='where':
+							node_alias = re.search(r'\((\w+)', cypher['outer']['from_']).group().strip('(')
 							if isinstance(part, list):
 								assert len(part)==2, 'FIX ME'
-								if '.' not in part[0]:
-									match_ = re.search(r'\.[^`]+`', cypher['outer']['from_'])
-									if match_:
-										tb = match_.group().strip('.`')
-										norm_fm = self.norm_query_fm(part[0], tb)
-										cypher['outer'][clause]=norm_fm
 								part = part[1]
-
+								if '.' not in part[0]:
+									norm_fm = self.norm_query_fm(part[0], node_alias)
+									cypher['outer'][clause]=norm_fm
+							
 							logic_op = next((op for op in self.bool_ops if op in part), '')
 							list_op = next((op for op in self.list_ops if op in part), '')
-							comp_op  = next((op for op in self.comparision_ops if op in part), '')
-							print('2', part, logic_op, comp_op)
+							comp_op  = next((op for op in self.comparision_ops if op in part), '')	
 							cypher['logic_op'] = logic_op
 							cypher['comp_op'] = comp_op
 							cypher['list_op'] = list_op
 							op = logic_op or list_op or comp_op
-							print('3', op, part)
+							# nested_node = re.search(r'\([^)]+\)', part).group()
+							nested_node = re.search(r'(:`[^`]+`)',part ).group()
+							nested_node_alias = re.search(r'\((\w+:)', part).group().strip('(:')
+							print('aprt', part)
+							print(f'node_alias: {node_alias}, nested_node:{nested_node}, nested_node_alias: {nested_node_alias}')
+							if node_alias!= nested_node_alias:
+								pattern = '({})-[]-({})'.format(node_alias, nested_node)
+								cypher['outer'][clause]=pattern
+								cypher['alias']=''
+								continue
 							if op:
 								part1, part2 = part.split(op)
 								nested = part2.strip() if '\n' in part2 else part1.strip()
 								alias = part1.strip() if '\n' in part2 else part2.strip()
-
+								print('nested:', nested)
+								print('alias:', alias)
 								cypher['outer'][clause]= alias
+								print('2', part, logic_op, comp_op, list_op, op, cypher['outer'])
+								if nested.startswith('('):
+									nested = nested[1:-1]
 								if '.' in alias:
 									tb_alias, fm = alias.split('.')
 									alias = fm.lower()
 
-								if nested.startswith('('):
-									nested = nested[1:-1]
-								
-								
-								print('5', nested)
-								print(alias)
-								print(cypher)
 								for item in nested.strip().split('\n'):
 									c_ = next(( c_  for c_ in cypher_clauses if c_.upper() in item), None)
-									print('6,', c_, item)
 									if c_ and c_!='RETURN':
 										cypher['nested'][c_] = item
 									if c_=='RETURN':
@@ -300,36 +299,15 @@ class Formatter(SchemaGroundedTraverser):
 										cypher['nested']['WITH'] = 'WITH {} AS {}'.format(item.split('RETURN')[-1].strip(), alias)
 								
 								cypher['alias']=alias
-
-								
-									
-									# 	if '.' in each:
-									# 		tb_alias, fm = each.split('.')
-									# 		with_alias = fm.lower()
-
-									# 	elif next(( agg for agg in self.agg if agg in each), None):
-									# 		with_alias = next(( agg for agg in self.agg if agg in each), None)
-										
-									# 	else:
-									# 		with_alias= each.lower()
-
-									# 	cypher['nested']['WITH'] = 'WITH ({}) AS {}'.format(each, with_alias)
-									# 	cypher['with_alias']=with_alias
-									# print('6', cypher['nested'])
-									# print('7', cypher['with_alias'])
-
-
 						else:
 							cypher['outer'][clause]=part
 			print('8', cypher)
 			seq_parts=[]
 			for k, v in cypher.items():
-				print('k, v', k, v)
 				if k=='nested':
 					seq_parts.extend(list(v.values()))
 				if k=='outer':
 					for kk, vv in v.items():
-						print('kk, vv', kk, vv)
 						if kk=='where':
 							outer_where = 'WHERE {} {} {} {} {} '.format(cypher['logic_op'], vv, cypher['comp_op'], cypher['list_op'], cypher['alias'])
 							seq_parts.append(outer_where)
@@ -660,6 +638,13 @@ class Formatter(SchemaGroundedTraverser):
 		for select in ['select', 'select_distinct']:
 			if select  in json:  
 
+				if 'from' in json and isinstance(json['from'], string_types):
+					tb_name = self.norm_tb(self.dispatch(json['from'])	)
+					tb_alias = next((k for k, v in self.table_alias_lookup.items() if v == tb_name), None)
+				
+				if self.dispatch(json[select]) =='*':
+					return 'RETURN properties({})'.format(tb_alias)
+				
 				select_fields = self.dispatch(json[select]).split(',')
 
 				return_nodes = []
@@ -669,13 +654,9 @@ class Formatter(SchemaGroundedTraverser):
 				is_where = False
 				is_distinct = False
 
-				if 'from' in json and isinstance(json['from'], string_types):
-					tb_name = self.norm_tb(self.dispatch(json['from'])	)
-					tb_alias = next((k for k, v in self.table_alias_lookup.items() if v == tb_name), None)
-
 				
 				for select_field in select_fields:
-					print(f'select_field: {select_field}, is_agg: {re.match(agg_pattern, select_field)}')
+					# print(f'select_field: {select_field}, is_agg: {re.match(agg_pattern, select_field)}')
 					
 					if select_field.startswith('distinct'):
 						select_field = select_field.split('distinct')[1]
@@ -1022,39 +1003,41 @@ class Formatter(SchemaGroundedTraverser):
 
 			return field, lower_bound, upper_bound
 
-def execution_accuracy(metrics_file, split, correct, incorrect, invalid_parsed_sql, intersect_sql, except_sql, data=[]):
-	incorrect_num = 0
-	total =correct
-	for every in [incorrect]:
-		for x in list(every.values()):
-			incorrect_num +=len(x)
-		total += incorrect_num
-
-	invalid_report = []
-	for every in [invalid_parsed_sql, intersect_sql, except_sql]:
-		counter = 0
-		for x in list(every.values()):
-			counter +=len(x)
-		if total!=0:
-			invalid_report.append(round(counter/(total+counter), 2))
-		
-	if total !=0:
+def execution_accuracy(metrics_file, split, qa_pairs, not_ready_sql):
+	incorrect_report = {}
+	f_report = {}
+	fd_report={}
+	metrics=[]
+	valid_parsed_total = len(qa_pairs['correct_'])+len(qa_pairs['incorrect_'])
+	for each in qa_pairs['incorrect_']:
+		if each['db_id'] not in incorrect_report:
+			incorrect_report[each['db_id']]=[]
+		incorrect_report[each['db_id']].append(each['index'])	
+			
+	if valid_parsed_total!=0:	
+		for key, item in not_ready_sql.items():
+			f_report[key] = round(len(item)/(valid_parsed_total+len(item)), 2)
+			fd_report[key]={}
+			for each in item:
+				if each['db_id'] not in fd_report[key]:
+					fd_report[key][each['db_id']]=[]
+				fd_report[key][each['db_id']].append(each['index'])	
+				
 		every_metric =  {'split': split,
-					'total': total, 
-					'execution_accuracy': round(correct/total, 2),
-					'correct_num': correct,
-					'incorrect': incorrect,
-					'invalid_parsed_sql':invalid_parsed_sql,
-					'intersect_sql': intersect_sql,
-					'except_sql': except_sql, 
-					'report of `invalid_parsed`, `intersect`, `except queries`' : invalid_report
+						'valid_parsed_report': {'total': valid_parsed_total, 
+			     							'execution_accuracy': round(len(qa_pairs['correct_'])/valid_parsed_total, 2),
+											'correct': len(qa_pairs['correct_']),
+											'incorrect': len(qa_pairs['incorrect_'])}, 
+						'incorrect_sql2cypher_report':incorrect_report, 
+						'failure_report': f_report,					
+						'failure_detail_report': fd_report
 				}
-		data.append(every_metric)
+		metrics.append(every_metric)
 		
 		with open(metrics_file, 'w')  as out:
-			json.dump(data, out, indent = 4)
+			json.dump(metrics, out, indent = 4)
 		
-		return data
+		return metrics
 
 
 def main():
@@ -1063,9 +1046,9 @@ def main():
 	from py2neo import Graph
 	lexer = get_lexer_by_name("py2neo.cypher")
 	import configparser
-	import shutil
 	# from schema2graph import RelDBDataset
 	import dill
+	from deepdiff import DeepDiff
 
 	config = configparser.ConfigParser()
 	config.read('../config.ini')
@@ -1092,27 +1075,20 @@ def main():
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
 
-	for split in ['dev']:
+	for split in ['train']:
    
 		json_file = os.path.join(raw_data_folder, '{}.json'.format(split))
 		f = open(json_file)
 		data = json.load(f)
 
 		qa_pairs = {'correct_': [], 'incorrect_':[], 'pairs':[]}
-		incorrect = {}
-		invalid_parsed_sql = {}
-		intersect_sql = {}
-		except_sql =  {}
-		
+		f_sql = {'invalid_parsed':[], 'intersect': [], 'except':[]}
+
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			# ['car_1',  ['department_management', 'concert_singer', 'musical'] 'pets_1', , 'real_estate_properties']:in  [61, 62, 65, 66, 77, 78, 85, 86] 
-			if db_name:
+			# in ['museum_visit'] and i in [421,424]
+			if db_name :
 				
-				for evaluate in [incorrect, invalid_parsed_sql, intersect_sql, except_sql]:
-					if db_name not in evaluate:
-						evaluate[db_name]=[]
-
 				# - Access database, execute SQL query and get result.              
 				db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))  
 				engine = DBengine(db_path)
@@ -1121,85 +1097,87 @@ def main():
 				question = every['question']
 				sql_query = every['query']
 
-
 				try:
 					sql_result = engine.execute(sql_query).fetchall()
 				except:
 					logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_query))
 					continue
 
-				# try:
+				try:
 					#- Convert SQL query to Cypher query.	
-				parsed_sql = parse(sql_query)					
-				print("------------------------")
-				print(i)
-				print(f'databse: {db_name}, question: {question}')
-				print(f'sql: {sql_query}, sql_ans: {sql_result}')
-				print(f'parsed_sql: {parsed_sql}')	
+					parsed_sql = parse(sql_query)					
+					print("------------------------")
+					print(i)
+					print(f'databse: {db_name}, question: {question}')
+					print(f'sql: {sql_query}, sql_ans: {sql_result}')
+					print(f'parsed_sql: {parsed_sql}')	
 
 
 					# try:
-	
-				formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
-				sql2cypher = formatter.format(parsed_sql)
-				print("**************Cypher Query***************")
-				print(sql2cypher)
+		
+					formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
+					sql2cypher = formatter.format(parsed_sql)
+					print("**************Cypher Query***************")
+					print(sql2cypher)
 
-				# - Execute cypher query.
-				if sql2cypher:
-					cypher_res = graph.run(sql2cypher).data()
-					cypher_ans = []
-					for dict_ in cypher_res:
-						cypher_ans.append(tuple(dict_.values()))	
-
-					if set(cypher_ans)==set(sql_result):
-						print(f'correct_ans: {cypher_ans}') 
-						qa_pairs['correct_'].append(
-							{
-								'db_id':db_name, 
-								'sql': sql_query, 
-								'cypher':sql2cypher,
-								'question':question,
-								'answers':cypher_ans
-							})
-						qa_pairs['pairs'].append(data[i])
-					else:
-						print(f'incorrect_ans: {cypher_ans}')
-						incorrect[db_name].append(i)
-						qa_pairs['incorrect_'].append(
-							{
-								'db_id':db_name, 
-								'query':question,
-								'sql':sql_query, 
-								'parsed_sql':parsed_sql, 
-								'sql_ans':sql_result,
-								'cypher':sql2cypher, 
-								'cypher_ans':cypher_ans
-							})
+					# - Execute cypher query.
+					if sql2cypher:
+						cypher_res = graph.run(sql2cypher).data()
+						cypher_ans = []
+						for dict_ in cypher_res:
+							cypher_ans.append(tuple(dict_.values()))	
+						if set( cypher_ans) == set(sql_result):
+						
+							print(f'correct_ans: {cypher_ans}') 
+							qa_pairs['correct_'].append(
+								{
+									'db_id':db_name, 
+									'sql': sql_query, 
+									'cypher':sql2cypher,
+									'question':question,
+									'answers':cypher_ans
+								})
+							qa_pairs['pairs'].append(every)
+						else:
+							print(f'incorrect_ans: {cypher_ans}')
+							qa_pairs['incorrect_'].append(
+								{
+									'db_id':db_name, 
+									'index': i,
+									'query':question,
+									'sql':sql_query, 
+									'parsed_sql':parsed_sql, 
+									'sql_ans':sql_result,
+									'cypher':sql2cypher, 
+									'cypher_ans':cypher_ans
+								})
 				# 	except:
 				# 		incorrect[db_name].append(i)
 					
-				# except:
-				# 	if 'intersect' in sql_query.lower():
-				# 		intersect_sql[db_name].append(i)
-				# 	if 'except' in sql_query.lower():
-				# 		except_sql[db_name].append(i)	
-
-				# 	invalid_parsed_sql[db_name].append(i)
-				# 	logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
+				except:
+					every.update({'index':i})
+					if 'intersect' in sql_query.lower():
+						f_sql['intersect'].append(every)
+					if 'except' in sql_query.lower():
+						f_sql['except'].append(every)
+					else:
+						f_sql['invalid_parsed'].append(every)
+					logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, sql_query))
+					print(sql_query)
+				
 
 		metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'metrics.json')
-		metrics = execution_accuracy(metrics_file, split, len(qa_pairs['correct_']), incorrect, invalid_parsed_sql,
-			intersect_sql, except_sql)
+		metrics = execution_accuracy(metrics_file, split, qa_pairs, f_sql)
 		print(f'metrics: {metrics}')
+		
+		for key, item in qa_pairs.items():
+			with open(os.path.join(sp_out_folder, '{}_{}.json'.format(split, key)) , 'a')  as f:
+				json.dump(qa_pairs[key], f, indent = 4)
+		for key, item in f_sql.items():
+			with open(os.path.join(sp_out_folder, '{}.json'.format(key)) , 'a')  as f:
+				json.dump(item, f, indent = 4)
 
-		correct_output_file = os.path.join(sp_out_folder, '{}.json'.format(split))   
-		with open(correct_output_file, 'a')  as f1:
-			json.dump(qa_pairs['correct_'], f1, indent = 4)
 
-		incorrect_output_file = os.path.join(sp_out_folder, '{}_incorrect.json'.format(split))     
-		with open(incorrect_output_file, 'a')  as f2:
-			json.dump(qa_pairs['incorrect_'], f2, indent = 4)
 
 
 	all_db_list = tuple(set([every['db_name'] for every in read_json(os.path.join(root, 'application', 'rel_db2kg', 'consistency_check', 'data_stat.json'))]))
