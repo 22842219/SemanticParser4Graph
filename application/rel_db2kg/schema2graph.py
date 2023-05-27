@@ -14,6 +14,7 @@ from environs import Env
 import numpy as np
 import sqlite3
 import pandas as pd
+import dill
 
 class DBengine:
     
@@ -39,7 +40,7 @@ class DBengine:
     
     def get_table_values(self, table_name):
         cursor = self.conn.cursor()  
-        return cursor.execute('SELECT * from {}'.format(table_name)) 
+        return cursor.execute('SELECT * from "{}"'.format(table_name)) 
 
     def get_schema(self, table_name):
         cursor = self.conn.cursor()  
@@ -51,7 +52,7 @@ class DBengine:
    
     def get_data_type(self, table_name, headers):
         cursor = self.conn.cursor() 
-        infos = cursor.execute("PRAGMA table_info({})".format(table_name))
+        infos = cursor.execute("PRAGMA table_info('{}')".format(table_name))
         data_types = {}
         '''
         Parameters:  
@@ -72,9 +73,9 @@ class DBengine:
             data_types[col_name] = dtype
         return data_types
 
-    def get_outbound_foreign_keys(self, table_name, headers):
+    def get_outbound_foreign_keys(self, table_name, headers, db_tabs):
         cursor = self.conn.cursor() 
-        infos = cursor.execute("PRAGMA foreign_key_list({})".format(table_name)).fetchall()
+        infos = cursor.execute("PRAGMA foreign_key_list('{}')".format(table_name)).fetchall()
         constraints_ = {}
         id_fks = {}
         '''
@@ -90,30 +91,37 @@ class DBengine:
         '''
         for info in infos:
             id, seq, to_table, fk, to_col, on_update, on_delete, match = info 
+            print(f'table: {table_name}, fk: {fk}, ref_table: {to_table}, to_col:{to_col}')
             fk_idx = [h.lower() for h in headers].index(fk.lower())
             fk = headers[fk_idx]
-            to_tab_headers = [desc[0] for desc in self.get_table_values(to_table).description]
+            if to_col:
+                if to_table and to_table not in db_tabs:
+                    db_ = [tab.lower() for tab in db_tabs]
+                    if to_table.lower() in db_:
+                        to_table = db_tabs[db_.index(to_table.lower())]  
+                    else:
+                        continue
+                to_tab_headers = [desc[0] for desc in self.get_table_values(to_table).description]
+                to_ = [h.lower() for h in to_tab_headers]
+                if to_col.lower() not in to_: # amend mismatch reference foreign key
+                    to_pks = self.get_primay_keys(to_table) 
+                    if len(to_pks)==1:
+                        to_col= to_pks[0]
+                to_col_idx = to_.index(to_col.lower())
+                to_col = to_tab_headers[to_col_idx]
 
-            to_ = [h.lower() for h in to_tab_headers]
-            if to_col.lower() not in to_: # amend mismatch reference foreign key
-                to_pks = self.get_primay_keys(to_table) 
-                if len(to_pks)==1:
-                    to_col= to_pks[0]
-            to_col_idx = to_.index(to_col.lower())
-            to_col = to_tab_headers[to_col_idx]
-
-            if id not in id_fks:
-                id_fks[id]=[fk]
-            else:
-                id_fks[id].append(fk)
-            
-            if id not in constraints_:
-                constraints_[id]= {  
-                        "to_tab": to_table, 
-                        "to_col_list": [to_col]
-                    }
-            else:
-                constraints_[id]["to_col_list"].append(to_col)
+                if id not in id_fks:
+                    id_fks[id]=[fk]
+                else:
+                    id_fks[id].append(fk)
+                
+                if id not in constraints_:
+                    constraints_[id]= {  
+                            "to_tab": to_table, 
+                            "to_col_list": [to_col]
+                        }
+                else:
+                    constraints_[id]["to_col_list"].append(to_col)
         constraints = {}
         for id, _ in constraints_.items():
             if id in id_fks:
@@ -209,10 +217,10 @@ class RelDBDataset(DBengine):
     def fix_fk(self, tbs_fk_constraints, tbs_data_type, db_tbs):
         for tb_name, fks in tbs_fk_constraints.items():
             for fk_, constraint in fks.items():
+                print('heyy', fk_, constraint)
                 to_col_list = constraint['to_col_list']
                 to_tb_name = constraint['to_tab']
                 fks = [fk.strip() for fk in fk_.split(',')]
-                print(f'table_name: {tb_name}, fks: {fks}, to_tb_name: {to_tb_name}, to_col_list: {to_col_list}')
                 to_col_types = [tbs_data_type[to_tb_name][col] for col in to_col_list]
                 fk_data_type_mapping = dict(zip(fks, to_col_types))
                 for i, row_dict in enumerate(db_tbs[tb_name].rows):
@@ -260,8 +268,7 @@ class RelDBDataset(DBengine):
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
            # in [ 'car_1',  'department_management', 'musical', 'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', ]
-            if db_name:
-                print('db_name:', db_name)
+            if db_name in ['student_club']:
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
                 db_data_type[db_name]={}
@@ -269,18 +276,20 @@ class RelDBDataset(DBengine):
                 engine = DBengine(db_path)
                 tab_names = [tab_info[0] for tab_info in engine.get_table_names()]
                 drop_flag = False
+                print(f'db:{db_name}, tab_names: {tab_names}')
             
-                for i, table_name in enumerate(tab_names):
-                    tb_object = RelTable(db_name, table_name)                         
+                for table_name in tab_names:
+                    tb_object = RelTable(db_name, table_name)                     
                     table_records = engine.get_table_values(table_name)
                     tb_object.headers = [desc[0] for desc in table_records.description]     
                     tb_object.data_type= engine.get_data_type(table_name, tb_object.headers)
-                    tb_object.fks =  engine.get_outbound_foreign_keys(table_name, tb_object.headers) 
+                    tb_object.fks =  engine.get_outbound_foreign_keys(table_name, tb_object.headers, tab_names) 
                     tb_object.pks = engine.get_primay_keys(table_name) 
                     tb_object.is_compound_pk =  engine.check_compound_pk(tb_object.pks)
 
                     db_data_type[db_name][table_name] = tb_object.data_type 
                     db_pks[db_name][table_name] = tb_object.pks
+        
                     if bool(tb_object.fks):
                         db_fk_constraints[db_name][table_name]=tb_object.fks
 
@@ -292,9 +301,10 @@ class RelDBDataset(DBengine):
 
                     tb_object.cols = df.to_dict(orient='list')
                     
-                    if len(data)>4000 or tb_object.headers == None:  # we set a threshold for the experiment
-                        drop_flag =True
-                        break
+                    
+                    # if len(data)>4000 or tb_object.headers == None:  # we set a threshold for the experiment
+                    #     drop_flag =True
+                    #     break
 
 
                     rows = data or [ {k: '' for k in tb_object.headers} ]
@@ -330,6 +340,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
     """
 
     def __init__( self, paths, 
+                        benchmark,
                         logger, 
                         env_file, 
                         if_cased, 
@@ -337,6 +348,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         defined_fields=None):
         super().__init__(paths, logger )
         self.paths = paths
+        self.benchmark = benchmark
         self.logger = logger
         self.node_normaliser = node_normaliser
         self.defined_fields = defined_fields
@@ -347,7 +359,9 @@ class RelDB2KGraphBuilder(RelDBDataset):
         env.read_env(self.env_file)
         self.graph = Graph(password=env("GRAPH_PASSWORD"))
         self.dataset = RelDBDataset(self.paths, self.logger)
-    
+
+        with open('data/{}.pkl'.format(self.benchmark), 'wb') as pickle_file:
+            dill.dump(self.dataset, pickle_file)
 
     def get_matched_node(self, db_name, to_tab, to_col_list, fks, row_dict, tbs_dict):
         alias = to_tab.lower()
@@ -381,7 +395,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
 
 
     def build_schema_nodes(self, tx):
-        self.logger.info("**********TOTEST: Graph Schema  Builder********")
+        print("**********TOTEST: Graph Schema  Builder********")
         self.domain_base_node = Node("Domain", name="Schema_Node:Domain")
         tx.create(self.domain_base_node)
 
@@ -392,9 +406,7 @@ class RelDB2KGraphBuilder(RelDBDataset):
         tx.create(rel)
 
     def table2nodes(self, db_name, tbs_dict, tx): 
-        self.logger.info("************START BUILDING GRAPH NODES****************")
-        self.tx = self.graph.begin()
-        tx = self.tx
+        print("************START BUILDING GRAPH NODES****************")
         for tb_name, tab in tbs_dict.items():
             if  not tab.fks or  len(tab.fks)!=2 \
                 or (len(tab.fks)==2 and bool(tab.pks) and not tab.is_compound_pk):
@@ -406,20 +418,20 @@ class RelDB2KGraphBuilder(RelDBDataset):
                 2) the examples, that exist compound primary keys, but no foreign keys. 
                 e.g., in musical.db, the table `musical` is the case.
                 '''
-           
+                print(f'Total rows {len(tab.rows)} of entity table: {tb_name} in {db_name}.')
                 for i, row_dict in enumerate(tab.rows):
                     graph_row_dict = dict((k.lower(), v) for k, v in row_dict.items()) if not self.if_cased else row_dict
                     graph_db_name = db_name if self.if_cased else db_name.lower()
                     graph_node_label = tb_name if self.if_cased else tb_name.lower()
+
+                    self.tx = self.graph.begin()
                     r = Node('{}.{}'.format(graph_db_name, graph_node_label), **graph_row_dict)
-                    tx.create(r)
-        self.graph.commit(tx)
+                    self.tx.create(r)
+                    self.graph.commit(self.tx)
 
     def table2edges(self, db_name, tbs_dict):
         # Note: Open graph transaction again.
         self.logger.warning("************Start Building Graph Edges****************")
-        self.tx = self.graph.begin()
-        tx = self.tx
         for tb_name, tab in tbs_dict.items():
             if tab.fks:
                 if len(tab.fks)==2 and (tab.is_compound_pk or not tab.pks):
@@ -451,23 +463,19 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         if len(matched)==2:
                             first_node_label, first_node = next(iter(matched[0].items()))
                             second_node_label, second_node = next(iter(matched[1].items()))
+                            self.tx = self.graph.begin()
                             rel = Relationship(first_node, '{}.{}'.format(db_name, tb_name), second_node, **row_dict) 
-                            tx.create(rel)
+                            self.tx.create(rel)
+                            self.graph.commit(self.tx)
                         elif len(matched)>2:
                             self.logger.warning("Hyper edge exist in {db_name}: {tb_name}")
                         else:
                             self.logger.warning("Error: Insufficient matched_labels. Cannot create relationship for {tb_name} in {db_name}.")
 
 
-
-     
-        self.graph.commit(tx)
-
     def build_edges(self, db_name, tbs_dict):
         # Note: Open graph transaction again.
-        self.logger.warning("************Start Building Graph Edges****************")
-        self.tx = self.graph.begin()
-        tx = self.tx
+        print("************Start Building Curated Graph Edges****************")
         for tb_name, tab in tbs_dict.items():   
             if tab.fks:
                 if not (len(tab.fks)==2 and tab.is_compound_pk):
@@ -489,23 +497,21 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                         for ref_label, ref_node in ref.items():
                                             end_node_label='{}.{}'.format(db_name, ref_label)
                                         print(f'start_node_labe:{start_node_label}, end_node_label: {end_node_label}')
-
+                                        self.tx = self.graph.begin()
                                         rel = Relationship(this_node, '{}_HAS_{}'.format( start_node_label, end_node_label ), ref_node) 
-                                        tx.create(rel)
-        self.graph.commit(tx)
+                                        self.tx.create(rel)
+                                        self.graph.commit(self.tx)
 
 
-    def build_graph(self, index):
+    def build_graph(self, restart_flag):
         self.tx = self.graph.begin()
         tx = self.tx
-       
-        for db_name, tbs_dict in self.dataset.rel_dbs.items():          
-            if index==0:
-                # Note: i is the index of relational database. 
-                self.graph.delete_all()
-                # self.build_schema_nodes(tx)
-            
-            self.logger.warning("************Start building graph directly from relational table schema****************")
+        print('restart?', restart_flag)
+        if restart_flag:
+            self.graph.delete_all()
+            # self.build_schema_nodes(tx)
+        for db_name, tbs_dict in self.dataset.rel_dbs.items():      
+            print("************Start building graph directly from relational table schema****************")
             self.table2nodes(db_name, tbs_dict, tx)
             self.table2edges(db_name, tbs_dict)
             self.build_edges(db_name, tbs_dict) # this process should run based on table2node process
@@ -517,22 +523,24 @@ def main():
     import configparser
     from utils import Logger
     config = configparser.ConfigParser()
-    import dill
+
     config.read('../config.ini')
     filenames = config["FILENAMES"]
 
-    raw_folder = filenames['raw_folder']
+    root = filenames['root']
     env_file = filenames['env_file']
     benchmark = filenames['benchmark']
 
     parser = argparse.ArgumentParser(description='relational database to graph database.')
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
     parser.add_argument('--spider', help='build graph from spider.', action='store_true')
+    parser.add_argument('--bird', help='build graph from bird.', action='store_true')
     parser.add_argument('--wikisql', help='build graph from wikisql.', action='store_true')
-    parser.add_argument('--uncased', help='build graph from spider and lowercasing all properties.', action='store_true')
+    parser.add_argument('--restart', help='build graph from spider and lowercasing all properties.', action='store_true')
+    parser.add_argument('--cased', help='build graph from spider and lowercasing all properties.', action='store_true')
     args = parser.parse_args()
-    raw_spider_folder = os.path.join(raw_folder, benchmark)
-    db_folder = os.path.join(raw_spider_folder,  'database')
+    db_folder = os.path.join(root, 'application','rel_db2kg', 'data', benchmark, 'database')
+
     benchmark_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 
     if not os.path.exists(os.path.dirname('/data')):
@@ -540,17 +548,14 @@ def main():
             os.makedirs(os.path.dirname('/data'))
         except:
             raise NotImplementedError
-    with open('data/{}.pkl'.format(benchmark), 'wb') as pickle_file:
-        dill.dump(RelDBDataset(benchmark_dbs, Logger('/{}.log'.format(benchmark))), pickle_file)
+        
 
-    if args.spider:
-        if args.uncased:
-            for i, db_path in enumerate(benchmark_dbs):
-                RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=False).build_graph(index = i)
-        else:
-            for i, db_path in enumerate(benchmark_dbs):
+    if args.bird or args.spider:
+        RelDB2KGraphBuilder(benchmark_dbs,  benchmark, Logger('/{}_rel_schema2graph.log'.format(benchmark)), env_file, if_cased=args.cased).build_graph(restart_flag = args.restart)
 
-                RelDB2KGraphBuilder([db_path],  Logger('/rel_schema2graph.log'), env_file, if_cased=True).build_graph(index = i)
+    if args.wikisql:
+        raise NotImplementedError
+
 
 
 if __name__ == "__main__":
