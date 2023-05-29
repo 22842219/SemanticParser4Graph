@@ -105,8 +105,11 @@ class DBengine:
                 to_ = [h.lower() for h in to_tab_headers]
                 if to_col.lower() not in to_: # amend mismatch reference foreign key
                     to_pks = self.get_primay_keys(to_table) 
-                    if len(to_pks)==1:
+                    if to_pks and len(to_pks)==1:
                         to_col= to_pks[0]
+                    else:
+                        continue
+                    
                 to_col_idx = to_.index(to_col.lower())
                 to_col = to_tab_headers[to_col_idx]
 
@@ -217,7 +220,6 @@ class RelDBDataset(DBengine):
     def fix_fk(self, tbs_fk_constraints, tbs_data_type, db_tbs):
         for tb_name, fks in tbs_fk_constraints.items():
             for fk_, constraint in fks.items():
-                print('heyy', fk_, constraint)
                 to_col_list = constraint['to_col_list']
                 to_tb_name = constraint['to_tab']
                 fks = [fk.strip() for fk in fk_.split(',')]
@@ -268,7 +270,7 @@ class RelDBDataset(DBengine):
             #         pass
             ###########################################to make sure the acutal data is the same as expected data#######################
            # in [ 'car_1',  'department_management', 'musical', 'pets_1', 'real_estate_properties', "local_govt_and_lot", 'concert_singer', ]
-            if db_name in ['student_club']:
+            if db_name:
                 rel_dbs[db_name]={}               
                 db_fk_constraints[db_name] = {}
                 db_data_type[db_name]={}
@@ -531,6 +533,15 @@ def main():
     env_file = filenames['env_file']
     benchmark = filenames['benchmark']
 
+    # if not os.path.exists(os.path.dirname('/data')):
+    #     try:
+    #         os.makedirs(os.path.dirname('/data'))
+    #     except:
+    #         raise NotImplementedError
+        
+    db_folder = os.path.join(root, 'application','rel_db2kg', 'data', benchmark, 'database')
+    benchmark_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+
     parser = argparse.ArgumentParser(description='relational database to graph database.')
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
     parser.add_argument('--spider', help='build graph from spider.', action='store_true')
@@ -539,16 +550,7 @@ def main():
     parser.add_argument('--restart', help='build graph from spider and lowercasing all properties.', action='store_true')
     parser.add_argument('--cased', help='build graph from spider and lowercasing all properties.', action='store_true')
     args = parser.parse_args()
-    db_folder = os.path.join(root, 'application','rel_db2kg', 'data', benchmark, 'database')
 
-    benchmark_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
-
-    if not os.path.exists(os.path.dirname('/data')):
-        try:
-            os.makedirs(os.path.dirname('/data'))
-        except:
-            raise NotImplementedError
-        
 
     if args.bird or args.spider:
         RelDB2KGraphBuilder(benchmark_dbs,  benchmark, Logger('/{}_rel_schema2graph.log'.format(benchmark)), env_file, if_cased=args.cased).build_graph(restart_flag = args.restart)
