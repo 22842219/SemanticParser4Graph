@@ -55,6 +55,7 @@ def text2cypher_add_serialized_schema(ex: dict, args) -> dict:
         serialized_schema = serialize_schema_natural_language(
             question=ex["question"],
             db_id=ex["db_id"],
+            # rels = ex['rels'], 
             db_property_names=ex["db_property_names"],
             db_tag_names=ex["db_tag_names"],
             schema_path=ex["schema_path"],
@@ -65,6 +66,7 @@ def text2cypher_add_serialized_schema(ex: dict, args) -> dict:
         serialized_schema = serialize_schema(
             question=ex["question"],
             db_id=ex["db_id"],
+            # rels = ex['rels'], 
             db_property_names=ex["db_property_names"],
             db_tag_names=ex["db_tag_names"],
             schema_path=ex["schema_path"],
@@ -129,26 +131,30 @@ def normalize(query: str) -> str:
         # Remove double and triple spaces
         return " ".join(s.split())
 
-    def lower(s):
-        # Convert everything except text between (single or double) quotation marks to lower case
-        return re.sub(
-            r"\b(?<!['\"])(\w+)(?!['\"])\b", lambda match: match.group(1).lower(), s
-        )
+    ## ZZY
+    # def lower(s):
+    #     # Convert everything except text between (single or double) quotation marks to lower case
+    #     return re.sub(
+    #         r"\b(?<!['\"])(\w+)(?!['\"])\b", lambda match: match.group(1).lower(), s
+    #     )
 
-    return newline_fix(comma_fix(white_space_fix(lower(query))))
+    # return newline_fix(comma_fix(white_space_fix(lower(query))))
+    return newline_fix(comma_fix(white_space_fix(query)))
 
 
 def serialize_schema_natural_language(
         question: str,
         db_id: str,
+        # rels, 
         db_property_names: Dict[str, str],
         db_tag_names: List[str],
         schema_path: str,
         schema_serialization_with_db_content: bool = False,
-        normalize_query: bool = True,
+        normalize_query: bool = True
 ) -> str:
     overall_description = f'{db_id} contains tags (node labels/edge types) such as ' \
-                          f'{", ".join([tag_name.lower() if normalize_query else tag_name for tag_name in db_tag_names])}.'
+                          f'{", ".join([tag_name for tag_name in db_tag_names])}.'
+                        #   f'{", ".join([tag_name.lower() if normalize_query else tag_name for tag_name in db_tag_names])}.'
     property_description = lambda tag_name, property_names: \
         f'Tag {tag_name} has properties such as {", ".join(property_names)}.'
     value_description = lambda property_value_pairs: \
@@ -159,14 +165,16 @@ def serialize_schema_natural_language(
     db_property_name_strs = []
     value_sep = ", "
     for tag_id, tag_name in enumerate(db_tag_names):
-        tag_name_str = tag_name.lower() if normalize_query else tag_name
+        # tag_name_str = tag_name.lower() if normalize_query else tag_name
+        tag_name_str = tag_name
         db_tag_name_strs.append(tag_name_str)
         propertys = []
         property_value_pairs = []
         for property_id, (x, y) in enumerate(zip(db_property_names["tag_id"], db_property_names["property_name"])):
             if property_id == 0:
                 continue
-            property_str = y.lower() if normalize_query else y
+            # property_str = y.lower() if normalize_query else y
+            property_str = y
             db_property_name_strs.append(property_str)
             if x == tag_id:
                 propertys.append(property_str)
@@ -192,6 +200,7 @@ def serialize_schema_natural_language(
 def serialize_schema(
         question: str,
         db_id: str,
+        # rels: List[List[str, str, str]],
         db_property_names: Dict[str, str],
         db_tag_names: List[str],
         schema_path: str,
@@ -212,6 +221,8 @@ def serialize_schema(
     elif schema_serialization_type == "peteshaw":
         # see https://github.com/google-research/language/blob/master/language/nqg/tasks/text2cypher/append_schema.py#L42
         db_id_str = " | {db_id}"
+        rel_sep = ''
+        rel_str = '| {rel}'
         tag_sep = ""
         tag_str = " | {tag} : {propertys}"
         property_sep = " , "
@@ -223,10 +234,10 @@ def serialize_schema(
 
     def get_property_str(tag_name: str, property_name: str) -> str:
         print(property_name)
-        if bool(property_name):
-            property_name_str = property_name.lower() if normalize_query else property_name
-        else:
-            property_name_str = property_name
+        # if bool(property_name):
+            # property_name_str = property_name.lower() if normalize_query else property_name
+        # else:
+        property_name_str = property_name
         if schema_serialization_with_db_content:
             matches = get_database_matches(
                 db_id=db_id,
@@ -244,9 +255,11 @@ def serialize_schema(
         else:
             return property_str_without_values.format(property=property_name_str)
 
+    # rels = [rel_str.format(','.join(rel)) for rel in rels]
     tags = [
         tag_str.format(
-            tag=tag_name.lower() if normalize_query else tag_name,
+            tag=tag_name,
+            # tag=tag_name.lower() if normalize_query else tag_name,
             propertys=property_sep.join(
                 map(
                     lambda y: get_property_str(tag_name=tag_name, property_name=y[1]),
@@ -265,6 +278,7 @@ def serialize_schema(
     if schema_serialization_randomized:
         random.shuffle(tags)
     if schema_serialization_with_db_id:
+        # serialized_schema = db_id_str.format(db_id=db_id) + rel_sep.join(rels) + tag_sep.join(tags)
         serialized_schema = db_id_str.format(db_id=db_id) + tag_sep.join(tags)
     else:
         serialized_schema = tag_sep.join(tags)
@@ -276,6 +290,7 @@ def _get_schemas(examples: Dataset) -> Dict[str, dict]:
     for ex in examples:
         if ex["db_id"] not in schemas:
             schemas[ex["db_id"]] = {
+                # 'rels': ex['rels'],
                 "db_tag_names": ex["db_tag_names"],
                 "db_property_names": ex["db_property_names"],
                 "db_property_types": ex["db_property_types"],

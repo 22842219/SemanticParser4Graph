@@ -76,6 +76,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 "query": datasets.Value("string"), 
                 "question": datasets.Value("string"),
                 # "answers": datasets.features.Sequence(datasets.Value("string")),
+                # 'rels': datasets.features.Sequence([datasets.Value("string")]), 
                 "schema_path": datasets.Value("string"),
                 "db_id": datasets.Value("string"),
                 "db_tag_names": datasets.features.Sequence(datasets.Value("string")),
@@ -131,7 +132,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 if db_id not in self.schema_cache:
                     self.schema_cache[db_id] = schema_data[db_id]
                 schema = self.schema_cache[db_id]   
-
+                
                 yield idx, {
                 "db_id": db_id,
                 "query": sample["query"],
@@ -139,7 +140,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 # "answers": sample["answers"],
                 "schema_path": schema_path,
                 "db_tag_names": schema['tag_names'], 
-
+                # 'rels': schema['rels'],
                 "db_property_names": 
                     [
                         {
