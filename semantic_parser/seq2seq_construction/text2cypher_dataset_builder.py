@@ -16,10 +16,9 @@
 
 
 
-import json
+import json, os
 import datasets
 from preprocess.process_cypher import get_schema_from_json
-
 logger = datasets.logging.get_logger(__name__)
 
 
@@ -52,7 +51,8 @@ _HOMEPAGE = ""
 
 _LICENSE = "CC BY-SA 4.0"
 
-_URL = "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/data/text2cypher"
+
+_URL =  os.path.join(os.getcwd(), "data/text2cypher")
 
 
 class Text2Cypher(datasets.GeneratorBasedBuilder):
