@@ -32,7 +32,7 @@ class EvaluateTool(object):
             evaluator = utils.tool.get_evaluator(args.evaluate.tool)(args)
             # print("metrics/meta_tuning/evaluator.py, preds_golds['preds']", preds_golds['preds'])
             # print("metrics/meta_tuning/evaluator.py, preds_golds['golds']", preds_golds['golds'])
-            summary_tmp = evaluator.evaluate(preds_golds['preds'], preds_golds['golds'], section)
+            summary_tmp = evaluator.evaluate(preds_golds['preds'], preds_golds['golds'], section, if_cased= True)
             for key, metric in summary_tmp.items():  # TODO
                 summary[os.path.join(arg_path, key)] = metric
             # summary[os.path.join(arg_path, args.train.stop)] = summary_tmp[args.train.stop]
