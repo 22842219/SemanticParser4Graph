@@ -68,16 +68,12 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    [FILENAMES]
    raw_folder = <path-to->/SemanticParser4Graph/application/data/
 
-   sp_folder = <path-to->/SemanticParser4Graph/semantic_parser/data
-
    spider_parsed_json = <path-to->/SemanticParser4Graph/application/data/spider/spider.parsed.json
 
    neo4j_import_folder  = <path-to->/neo4j-community-4.4.11/import>
    neo4j_uri = http://localhost:7474/browser/
    neo4j_user = neo4j
    neo4j_password = <your-neo4j-password>
-
-   env_file = <path-to->/SemanticParser4Graph/application/.env
    ```
 
    - Meanwhile, please config Neo4j export path.
@@ -111,7 +107,7 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 
    ```shell
    cd application/rel_db2kg
-   python schema2graph.py --spider
+   python schema2graph.py --<benchmark_dataset-name> --cased
 
    ```
 
