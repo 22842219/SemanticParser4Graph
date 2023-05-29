@@ -1,0 +1,5003 @@
+﻿[
+  {
+    "relType": ":`flight_company.flight_HAS_flight_company.operate_company`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`flight_company.flight_HAS_flight_company.airport`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`employee_hire_evaluation.hiring_HAS_employee_hire_evaluation.employee`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`employee_hire_evaluation.hiring_HAS_employee_hire_evaluation.shop`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`employee_hire_evaluation.evaluation_HAS_employee_hire_evaluation.employee`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`train_station.train_station`",
+    "propertyName": "Train_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`train_station.train_station`",
+    "propertyName": "Station_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`company_office.Office_locations`",
+    "propertyName": "company_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`company_office.Office_locations`",
+    "propertyName": "move_in_year",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`company_office.Office_locations`",
+    "propertyName": "building_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`county_public_safety.city_HAS_county_public_safety.county_public_safety`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`dog_kennels.dogs_HAS_dog_kennels.owners`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`dog_kennels.dogs_HAS_dog_kennels.sizes`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`dog_kennels.dogs_HAS_dog_kennels.breeds`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`dog_kennels.treatments_HAS_dog_kennels.dogs`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`dog_kennels.treatments_HAS_dog_kennels.professionals`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`dog_kennels.treatments_HAS_dog_kennels.treatment_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`network_1.Friend`",
+    "propertyName": "friend_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`network_1.Friend`",
+    "propertyName": "student_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`network_1.Likes`",
+    "propertyName": "liked_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`network_1.Likes`",
+    "propertyName": "student_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`entertainment_awards.nomination`",
+    "propertyName": "Festival_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`entertainment_awards.nomination`",
+    "propertyName": "Artwork_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`entertainment_awards.nomination`",
+    "propertyName": "Result",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Regular_Order_Products`",
+    "propertyName": "regular_order_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Regular_Order_Products`",
+    "propertyName": "product_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Actual_Order_Products`",
+    "propertyName": "actual_order_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Actual_Order_Products`",
+    "propertyName": "product_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Customer_Addresses`",
+    "propertyName": "date_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Customer_Addresses`",
+    "propertyName": "address_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Customer_Addresses`",
+    "propertyName": "date_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Customer_Addresses`",
+    "propertyName": "customer_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.Customer_Addresses`",
+    "propertyName": "address_type",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customer_deliveries.regular_orders_HAS_customer_deliveries.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_deliveries.actual_orders_HAS_customer_deliveries.regular_orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_deliveries.delivery_route_locations_HAS_customer_deliveries.delivery_routes`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_deliveries.delivery_route_locations_HAS_customer_deliveries.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_deliveries.employees_HAS_customer_deliveries.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_deliveries.order_deliveries_HAS_customer_deliveries.employees`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_deliveries.order_deliveries_HAS_customer_deliveries.delivery_route_locations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_deliveries.order_deliveries_HAS_customer_deliveries.actual_orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_deliveries.order_deliveries_HAS_customer_deliveries.trucks`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`flight_2.flights`",
+    "propertyName": "DestAirport",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`flight_2.flights`",
+    "propertyName": "Airline",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`flight_2.flights`",
+    "propertyName": "SourceAirport",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`flight_2.flights`",
+    "propertyName": "FlightNo",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`csu_1.csu_fees_HAS_csu_1.campuses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`csu_1.degrees_HAS_csu_1.campuses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`csu_1.discipline_enrollments_HAS_csu_1.campuses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`csu_1.enrollments_HAS_csu_1.campuses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`csu_1.faculty_HAS_csu_1.campuses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`voter_2.voting_record_HAS_voter_2.student`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`flight_1.certificate`",
+    "propertyName": "aid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`flight_1.certificate`",
+    "propertyName": "eid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`flight_1.flight_HAS_flight_1.aircraft`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`battle_death.ship_HAS_battle_death.battle`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`battle_death.death_HAS_battle_death.ship`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`match_season.match_season_HAS_match_season.team`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`match_season.match_season_HAS_match_season.country`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`match_season.player_HAS_match_season.team`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`real_estate_properties.Other_Property_Features`",
+    "propertyName": "property_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`real_estate_properties.Other_Property_Features`",
+    "propertyName": "property_feature_description",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`real_estate_properties.Other_Property_Features`",
+    "propertyName": "feature_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`real_estate_properties.other_available_features_HAS_real_estate_properties.ref_feature_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`real_estate_properties.properties_HAS_real_estate_properties.ref_property_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_and_eClaims.Claims_Documents`",
+    "propertyName": "Document_Type_Code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`insurance_and_eClaims.Claims_Documents`",
+    "propertyName": "Created_Date",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`insurance_and_eClaims.Claims_Documents`",
+    "propertyName": "Created_by_Staff_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`insurance_and_eClaims.Claims_Documents`",
+    "propertyName": "Claim_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`insurance_and_eClaims.policies_HAS_insurance_and_eClaims.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_and_eClaims.claim_headers_HAS_insurance_and_eClaims.policies`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_and_eClaims.claims_processing_HAS_insurance_and_eClaims.staff`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_and_eClaims.claims_processing_HAS_insurance_and_eClaims.claim_headers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`manufacturer.furniture_manufacte`",
+    "propertyName": "Price_in_Dollar",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`manufacturer.furniture_manufacte`",
+    "propertyName": "Manufacturer_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`manufacturer.furniture_manufacte`",
+    "propertyName": "Furniture_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Asset_Parts`",
+    "propertyName": "part_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Asset_Parts`",
+    "propertyName": "asset_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Engineer_Skills`",
+    "propertyName": "engineer_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Engineer_Skills`",
+    "propertyName": "skill_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Fault_Log_Parts`",
+    "propertyName": "fault_status",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Fault_Log_Parts`",
+    "propertyName": "fault_log_entry_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Fault_Log_Parts`",
+    "propertyName": "part_fault_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Skills_Required_To_Fix`",
+    "propertyName": "skill_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.Skills_Required_To_Fix`",
+    "propertyName": "part_fault_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`assets_maintenance.maintenance_contracts_HAS_assets_maintenance.third_party_companies`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.assets_HAS_assets_maintenance.third_party_companies`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.assets_HAS_assets_maintenance.maintenance_contracts`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.maintenance_engineers_HAS_assets_maintenance.third_party_companies`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.fault_log_HAS_assets_maintenance.staff`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.fault_log_HAS_assets_maintenance.assets`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.engineer_visits_HAS_assets_maintenance.staff`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.engineer_visits_HAS_assets_maintenance.maintenance_engineers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.engineer_visits_HAS_assets_maintenance.fault_log`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`assets_maintenance.part_faults_HAS_assets_maintenance.parts`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`twitter_1.follows`",
+    "propertyName": "f2",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`twitter_1.follows`",
+    "propertyName": "f1",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`twitter_1.tweets_HAS_twitter_1.user_profiles`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.Residents_Services`",
+    "propertyName": "property_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_and_lot.Residents_Services`",
+    "propertyName": "service_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_and_lot.Residents_Services`",
+    "propertyName": "resident_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_and_lot.Residents_Services`",
+    "propertyName": "date_requested",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_and_lot.Residents_Services`",
+    "propertyName": "other_details",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_and_lot.Residents_Services`",
+    "propertyName": "date_provided",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_and_lot.Residents_Services`",
+    "propertyName": "date_moved_in",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_and_lot.residents_HAS_local_govt_and_lot.properties`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.services_HAS_local_govt_and_lot.organizations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.things_HAS_local_govt_and_lot.organizations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.customer_events_HAS_local_govt_and_lot.residents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.customer_events_HAS_local_govt_and_lot.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.customer_events_HAS_local_govt_and_lot.things`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.customer_event_notes_HAS_local_govt_and_lot.customer_events`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.timed_status_of_things_HAS_local_govt_and_lot.things`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_and_lot.timed_locations_of_things_HAS_local_govt_and_lot.things`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_card_transactions.Financial_Transactions`",
+    "propertyName": "transaction_amount",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_card_transactions.Financial_Transactions`",
+    "propertyName": "previous_transaction_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_card_transactions.Financial_Transactions`",
+    "propertyName": "account_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_card_transactions.Financial_Transactions`",
+    "propertyName": "transaction_type",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_card_transactions.Financial_Transactions`",
+    "propertyName": "transaction_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_card_transactions.Financial_Transactions`",
+    "propertyName": "transaction_date",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_card_transactions.Financial_Transactions`",
+    "propertyName": "card_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`concert_singer.singer_in_concert`",
+    "propertyName": "concert_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`concert_singer.singer_in_concert`",
+    "propertyName": "Singer_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`concert_singer.concert_HAS_concert_singer.stadium`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_transcripts_tracking.Transcript_Contents`",
+    "propertyName": "student_course_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`student_transcripts_tracking.Transcript_Contents`",
+    "propertyName": "transcript_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.semesters`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.degree_programs`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.courses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`e_government.Organization_Contact_Individuals`",
+    "propertyName": "date_contact_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Organization_Contact_Individuals`",
+    "propertyName": "organization_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Organization_Contact_Individuals`",
+    "propertyName": "date_contact_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Organization_Contact_Individuals`",
+    "propertyName": "individual_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Addresses`",
+    "propertyName": "address_type_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Addresses`",
+    "propertyName": "date_address_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Addresses`",
+    "propertyName": "party_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Addresses`",
+    "propertyName": "address_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Addresses`",
+    "propertyName": "date_address_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Forms`",
+    "propertyName": "party_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Forms`",
+    "propertyName": "date_completion_started",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Forms`",
+    "propertyName": "form_status_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Forms`",
+    "propertyName": "date_fully_completed",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Forms`",
+    "propertyName": "form_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Services`",
+    "propertyName": "booking_made_date",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Services`",
+    "propertyName": "service_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Services`",
+    "propertyName": "service_datetime",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Services`",
+    "propertyName": "customer_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.Party_Services`",
+    "propertyName": "booking_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`e_government.forms_HAS_e_government.services`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.Assessment_Notes`",
+    "propertyName": "notes_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Assessment_Notes`",
+    "propertyName": "teacher_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Assessment_Notes`",
+    "propertyName": "date_of_notes",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Assessment_Notes`",
+    "propertyName": "student_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Student_Addresses`",
+    "propertyName": "date_address_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Student_Addresses`",
+    "propertyName": "monthly_rental",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Student_Addresses`",
+    "propertyName": "address_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Student_Addresses`",
+    "propertyName": "student_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Student_Addresses`",
+    "propertyName": "date_address_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.Student_Addresses`",
+    "propertyName": "other_details",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`behavior_monitoring.students_HAS_behavior_monitoring.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.teachers_HAS_behavior_monitoring.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.behavior_incident_HAS_behavior_monitoring.students`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.behavior_incident_HAS_behavior_monitoring.ref_incident_type`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.detention_HAS_behavior_monitoring.teachers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.detention_HAS_behavior_monitoring.ref_detention_type`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.students_in_detention_HAS_behavior_monitoring.students`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.students_in_detention_HAS_behavior_monitoring.detention`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`behavior_monitoring.students_in_detention_HAS_behavior_monitoring.behavior_incident`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Template_Mgt.templates_HAS_cre_Doc_Template_Mgt.ref_template_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Template_Mgt.documents_HAS_cre_Doc_Template_Mgt.templates`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Template_Mgt.paragraphs_HAS_cre_Doc_Template_Mgt.documents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.Performers_in_Bookings`",
+    "propertyName": "Performer_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.Performers_in_Bookings`",
+    "propertyName": "Order_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.Bookings_Services`",
+    "propertyName": "Order_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.Bookings_Services`",
+    "propertyName": "Product_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.stores_HAS_cre_Drama_Workshop_Groups.marketing_regions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.bookings_HAS_cre_Drama_Workshop_Groups.drama_workshop_groups`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.bookings_HAS_cre_Drama_Workshop_Groups.clients`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.order_items_HAS_cre_Drama_Workshop_Groups.customer_orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.invoices_HAS_cre_Drama_Workshop_Groups.ref_payment_methods`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.invoices_HAS_cre_Drama_Workshop_Groups.customer_orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.services_HAS_cre_Drama_Workshop_Groups.ref_service_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.services_HAS_cre_Drama_Workshop_Groups.drama_workshop_groups`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.invoice_items_HAS_cre_Drama_Workshop_Groups.invoices`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Drama_Workshop_Groups.invoice_items_HAS_cre_Drama_Workshop_Groups.order_items`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`aircraft.airport_aircraft`",
+    "propertyName": "Airport_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`aircraft.airport_aircraft`",
+    "propertyName": "ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`aircraft.airport_aircraft`",
+    "propertyName": "Aircraft_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.Customer_Address_History`",
+    "propertyName": "date_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.Customer_Address_History`",
+    "propertyName": "address_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.Customer_Address_History`",
+    "propertyName": "date_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.Customer_Address_History`",
+    "propertyName": "customer_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.Order_Items`",
+    "propertyName": "order_quantity",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.Order_Items`",
+    "propertyName": "order_item_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.Order_Items`",
+    "propertyName": "product_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.Order_Items`",
+    "propertyName": "order_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_products_contacts.customer_orders_HAS_customers_and_products_contacts.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_mdm.cmi_cross_references_HAS_local_govt_mdm.customer_master_index`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_mdm.council_tax_HAS_local_govt_mdm.cmi_cross_references`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_mdm.business_rates_HAS_local_govt_mdm.cmi_cross_references`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_mdm.benefits_overpayments_HAS_local_govt_mdm.cmi_cross_references`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_mdm.parking_fines_HAS_local_govt_mdm.cmi_cross_references`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_mdm.rent_arrears_HAS_local_govt_mdm.cmi_cross_references`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_mdm.electoral_register_HAS_local_govt_mdm.cmi_cross_references`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`manufactory_1.products_HAS_manufactory_1.manufacturers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`restaurant_1.Type_Of_Restaurant`",
+    "propertyName": "ResID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`restaurant_1.Type_Of_Restaurant`",
+    "propertyName": "ResTypeID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`restaurant_1.Visits_Restaurant`",
+    "propertyName": "Time",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`restaurant_1.Visits_Restaurant`",
+    "propertyName": "ResID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`restaurant_1.Visits_Restaurant`",
+    "propertyName": "Spent",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`restaurant_1.Visits_Restaurant`",
+    "propertyName": "StuID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`election.election_HAS_election.county`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`election.election_HAS_election.party`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_assessment.students_HAS_student_assessment.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_assessment.people_addresses_HAS_student_assessment.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_assessment.people_addresses_HAS_student_assessment.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_assessment.candidates_HAS_student_assessment.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`student_assessment.candidate_assessments_HAS_student_assessment.candidates`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Name",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Year",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "State",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "No",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Winery",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Cases",
+    "propertyTypes": [
+      "Long",
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Price",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Drink",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Appelation",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Score",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wine_1.wine`",
+    "propertyName": "Grape",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`party_people.party_HAS_party_people.region`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`party_people.member_HAS_party_people.party`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`party_people.party_events_HAS_party_people.member`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`party_people.party_events_HAS_party_people.party`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.all_documents_HAS_cre_Doc_Tracking_DB.ref_calendar`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.all_documents_HAS_cre_Doc_Tracking_DB.ref_document_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.employees_HAS_cre_Doc_Tracking_DB.roles`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.document_locations_HAS_cre_Doc_Tracking_DB.all_documents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.document_locations_HAS_cre_Doc_Tracking_DB.ref_calendar`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.document_locations_HAS_cre_Doc_Tracking_DB.ref_locations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.documents_to_be_destroyed_HAS_cre_Doc_Tracking_DB.all_documents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.documents_to_be_destroyed_HAS_cre_Doc_Tracking_DB.ref_calendar`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Tracking_DB.documents_to_be_destroyed_HAS_cre_Doc_Tracking_DB.employees`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`swimming.record`",
+    "propertyName": "Event_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`swimming.record`",
+    "propertyName": "ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`swimming.record`",
+    "propertyName": "Swimmer_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`swimming.record`",
+    "propertyName": "Result",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`swimming.event_HAS_swimming.stadium`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`music_4.volume_HAS_music_4.artist`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`music_4.music_festival_HAS_music_4.volume`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`document_management.Document_Functional_Areas`",
+    "propertyName": "document_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`document_management.Document_Functional_Areas`",
+    "propertyName": "functional_area_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`document_management.Document_Sections_Images`",
+    "propertyName": "section_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`document_management.Document_Sections_Images`",
+    "propertyName": "image_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`document_management.users_HAS_document_management.roles`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`document_management.documents_HAS_document_management.document_structures`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`document_management.document_sections_HAS_document_management.documents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`program_share.broadcast`",
+    "propertyName": "Channel_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`program_share.broadcast`",
+    "propertyName": "Program_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`program_share.broadcast`",
+    "propertyName": "Time_of_day",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`program_share.broadcast_share`",
+    "propertyName": "Date",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`program_share.broadcast_share`",
+    "propertyName": "Channel_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`program_share.broadcast_share`",
+    "propertyName": "Share_in_percent",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`program_share.broadcast_share`",
+    "propertyName": "Program_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Theme_park.Tourist_Attraction_Features`",
+    "propertyName": "Tourist_Attraction_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Theme_park.Tourist_Attraction_Features`",
+    "propertyName": "Feature_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Theme_park.hotels_HAS_cre_Theme_park.ref_hotel_star_ratings`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.tourist_attractions_HAS_cre_Theme_park.ref_attraction_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.tourist_attractions_HAS_cre_Theme_park.locations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.street_markets_HAS_cre_Theme_park.tourist_attractions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.shops_HAS_cre_Theme_park.tourist_attractions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.museums_HAS_cre_Theme_park.tourist_attractions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.royal_family_HAS_cre_Theme_park.tourist_attractions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.theme_parks_HAS_cre_Theme_park.tourist_attractions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.visits_HAS_cre_Theme_park.visitors`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.visits_HAS_cre_Theme_park.tourist_attractions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.photos_HAS_cre_Theme_park.tourist_attractions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Theme_park.staff_HAS_cre_Theme_park.tourist_attractions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_addresses.Customer_Addresses`",
+    "propertyName": "date_address_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_addresses.Customer_Addresses`",
+    "propertyName": "address_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_addresses.Customer_Addresses`",
+    "propertyName": "customer_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_addresses.Customer_Addresses`",
+    "propertyName": "date_address_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_addresses.Customer_Addresses`",
+    "propertyName": "address_type",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_addresses.Order_Items`",
+    "propertyName": "order_quantity",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_addresses.Order_Items`",
+    "propertyName": "product_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_addresses.Order_Items`",
+    "propertyName": "order_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_addresses.customer_contact_channels_HAS_customers_and_addresses.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_addresses.customer_orders_HAS_customers_and_addresses.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`workshop_paper.Acceptance`",
+    "propertyName": "Submission_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`workshop_paper.Acceptance`",
+    "propertyName": "Workshop_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`workshop_paper.Acceptance`",
+    "propertyName": "Result",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`university_basketball.basketball_match_HAS_university_basketball.university`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hr_1.countries_HAS_hr_1.regions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hr_1.employees_HAS_hr_1.jobs`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hr_1.employees_HAS_hr_1.departments`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hr_1.job_history_HAS_hr_1.jobs`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hr_1.job_history_HAS_hr_1.departments`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hr_1.job_history_HAS_hr_1.employees`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hr_1.locations_HAS_hr_1.countries`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`theme_gallery.exhibition_HAS_theme_gallery.artist`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`theme_gallery.exhibition_record_HAS_theme_gallery.exhibition`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`entrepreneur.entrepreneur_HAS_entrepreneur.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`roller_coaster.roller_coaster_HAS_roller_coaster.country`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`activity_1.Participates_in`",
+    "propertyName": "stuid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`activity_1.Participates_in`",
+    "propertyName": "actid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`activity_1.Faculty_Participates_in`",
+    "propertyName": "FacID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`activity_1.Faculty_Participates_in`",
+    "propertyName": "actid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`journal_committee.journal_committee`",
+    "propertyName": "Editor_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`journal_committee.journal_committee`",
+    "propertyName": "Work_Type",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`journal_committee.journal_committee`",
+    "propertyName": "Journal_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`allergy_1.Has_Allergy`",
+    "propertyName": "Allergy",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`allergy_1.Has_Allergy`",
+    "propertyName": "StuID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`museum_visit.visit`",
+    "propertyName": "Total_spent",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`museum_visit.visit`",
+    "propertyName": "Museum_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`museum_visit.visit`",
+    "propertyName": "Num_of_Ticket",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`museum_visit.visit`",
+    "propertyName": "visitor_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`race_track.race_HAS_race_track.track`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`ship_1.captain_HAS_ship_1.ship`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`movie_1.Rating`",
+    "propertyName": "stars",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`movie_1.Rating`",
+    "propertyName": "mID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`movie_1.Rating`",
+    "propertyName": "ratingDate",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": false
+  },
+  {
+    "relType": ":`movie_1.Rating`",
+    "propertyName": "rID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`wedding.wedding_HAS_wedding.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`wedding.wedding_HAS_wedding.church`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`machine_repair.repair_assignment_HAS_machine_repair.machine`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`machine_repair.repair_assignment_HAS_machine_repair.repair`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`music_1.artist_HAS_music_1.genre`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`music_1.files_HAS_music_1.artist`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`music_1.song_HAS_music_1.genre`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`music_1.song_HAS_music_1.files`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`music_1.song_HAS_music_1.artist`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`candidate_poll.candidate_HAS_candidate_poll.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`network_2.PersonFriend`",
+    "propertyName": "name",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`network_2.PersonFriend`",
+    "propertyName": "year",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`network_2.PersonFriend`",
+    "propertyName": "friend",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`book_2.publication_HAS_book_2.book`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`department_management.management`",
+    "propertyName": "head_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_management.management`",
+    "propertyName": "department_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_management.management`",
+    "propertyName": "temporary_acting",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`apartment_rentals.apartments_HAS_apartment_rentals.apartment_buildings`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`apartment_rentals.apartment_facilities_HAS_apartment_rentals.apartments`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`apartment_rentals.apartment_bookings_HAS_apartment_rentals.guests`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`apartment_rentals.apartment_bookings_HAS_apartment_rentals.apartments`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`apartment_rentals.view_unit_status_HAS_apartment_rentals.apartment_bookings`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`apartment_rentals.view_unit_status_HAS_apartment_rentals.apartments`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`poker_player.poker_player_HAS_poker_player.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_1.ENROLL`",
+    "propertyName": "ENROLL_GRADE",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_1.ENROLL`",
+    "propertyName": "CLASS_CODE",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_1.ENROLL`",
+    "propertyName": "STU_NUM",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_1.PROFESSOR`",
+    "propertyName": "DEPT_CODE",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_1.PROFESSOR`",
+    "propertyName": "PROF_OFFICE",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_1.PROFESSOR`",
+    "propertyName": "EMP_NUM",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_1.PROFESSOR`",
+    "propertyName": "PROF_HIGH_DEGREE",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_1.PROFESSOR`",
+    "propertyName": "PROF_EXTENSION",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_1.class_HAS_college_1.employee`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_1.class_HAS_college_1.course`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_1.course_HAS_college_1.department`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_1.department_HAS_college_1.employee`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_1.student_HAS_college_1.department`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`wrestler.elimination_HAS_wrestler.wrestler`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`city_record.temperature_HAS_city_record.city`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`city_record.hosting_city_HAS_city_record.match`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`city_record.hosting_city_HAS_city_record.city`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`shop_membership.purchase`",
+    "propertyName": "Year",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`shop_membership.purchase`",
+    "propertyName": "Total_pounds",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`shop_membership.purchase`",
+    "propertyName": "Branch_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`shop_membership.purchase`",
+    "propertyName": "Member_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`shop_membership.membership_register_branch_HAS_shop_membership.branch`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`shop_membership.membership_register_branch_HAS_shop_membership.member`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`musical.actor_HAS_musical.musical`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`e_learning.courses_HAS_e_learning.subjects`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`e_learning.courses_HAS_e_learning.course_authors_and_tutors`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`e_learning.student_course_enrolment_HAS_e_learning.students`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`e_learning.student_course_enrolment_HAS_e_learning.courses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`e_learning.student_tests_taken_HAS_e_learning.student_course_enrolment`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`election_representative.election_HAS_election_representative.representative`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`body_builder.body_builder_HAS_body_builder.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_orders.Shipment_Items`",
+    "propertyName": "order_item_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`tracking_orders.Shipment_Items`",
+    "propertyName": "shipment_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`tracking_orders.orders_HAS_tracking_orders.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_orders.order_items_HAS_tracking_orders.products`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_orders.order_items_HAS_tracking_orders.orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_orders.shipments_HAS_tracking_orders.invoices`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_orders.shipments_HAS_tracking_orders.orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`game_1.Plays_Games`",
+    "propertyName": "Hours_Played",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`game_1.Plays_Games`",
+    "propertyName": "StuID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`game_1.Plays_Games`",
+    "propertyName": "GameID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`game_1.sportsinfo_HAS_game_1.student`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`driving_school.staff_HAS_driving_school.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`driving_school.customers_HAS_driving_school.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`driving_school.customer_payments_HAS_driving_school.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`driving_school.lessons_HAS_driving_school.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`driving_school.lessons_HAS_driving_school.staff`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`driving_school.lessons_HAS_driving_school.vehicles`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`ship_mission.mission_HAS_ship_mission.ship`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`film_rank.film_market_estimation_HAS_film_rank.market`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`film_rank.film_market_estimation_HAS_film_rank.film`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`epinions_1.trust`",
+    "propertyName": "target_u_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`epinions_1.trust`",
+    "propertyName": "source_u_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`epinions_1.trust`",
+    "propertyName": "trust",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`epinions_1.review_HAS_epinions_1.item`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`epinions_1.review_HAS_epinions_1.useracct`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_for_hire.Products_Booked`",
+    "propertyName": "booking_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_for_hire.Products_Booked`",
+    "propertyName": "booked_count",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_for_hire.Products_Booked`",
+    "propertyName": "returned_yn",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_for_hire.Products_Booked`",
+    "propertyName": "booked_amount",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_for_hire.Products_Booked`",
+    "propertyName": "product_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_for_hire.Products_Booked`",
+    "propertyName": "returned_late_yn",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_for_hire.customers_HAS_products_for_hire.discount_coupons`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_for_hire.bookings_HAS_products_for_hire.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_for_hire.payments_HAS_products_for_hire.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_for_hire.payments_HAS_products_for_hire.bookings`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_for_hire.view_product_availability_HAS_products_for_hire.products_for_hire`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_for_hire.view_product_availability_HAS_products_for_hire.bookings`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`pets_1.Has_Pet`",
+    "propertyName": "StuID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`pets_1.Has_Pet`",
+    "propertyName": "PetID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`device.stock`",
+    "propertyName": "Device_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`device.stock`",
+    "propertyName": "Shop_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`device.stock`",
+    "propertyName": "Quantity",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_invoices.Financial_Transactions`",
+    "propertyName": "transaction_amount",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_invoices.Financial_Transactions`",
+    "propertyName": "account_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_invoices.Financial_Transactions`",
+    "propertyName": "invoice_number",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_invoices.Financial_Transactions`",
+    "propertyName": "transaction_type",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_invoices.Financial_Transactions`",
+    "propertyName": "transaction_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_invoices.Financial_Transactions`",
+    "propertyName": "transaction_date",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_and_invoices.orders_HAS_customers_and_invoices.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_invoices.invoices_HAS_customers_and_invoices.orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_invoices.accounts_HAS_customers_and_invoices.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_invoices.products_HAS_customers_and_invoices.product_categories`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_invoices.order_items_HAS_customers_and_invoices.orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_invoices.order_items_HAS_customers_and_invoices.products`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_invoices.invoice_line_items_HAS_customers_and_invoices.products`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_invoices.invoice_line_items_HAS_customers_and_invoices.invoices`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_and_invoices.invoice_line_items_HAS_customers_and_invoices.order_items`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`loan_1.customer_HAS_loan_1.bank`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`loan_1.loan_HAS_loan_1.customer`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`loan_1.loan_HAS_loan_1.bank`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`store_product.store_product`",
+    "propertyName": "Store_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`store_product.store_product`",
+    "propertyName": "Product_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`store_product.store_district_HAS_store_product.district`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`store_product.store_district_HAS_store_product.store`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`school_bus.school_bus`",
+    "propertyName": "Driver_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`school_bus.school_bus`",
+    "propertyName": "If_full_time",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`school_bus.school_bus`",
+    "propertyName": "School_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`school_bus.school_bus`",
+    "propertyName": "Years_Working",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`browser_web.accelerator_compatible_browser`",
+    "propertyName": "compatible_since_year",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`browser_web.accelerator_compatible_browser`",
+    "propertyName": "browser_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`browser_web.accelerator_compatible_browser`",
+    "propertyName": "accelerator_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`pilot_record.pilot_record`",
+    "propertyName": "Date",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`pilot_record.pilot_record`",
+    "propertyName": "Pilot_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`pilot_record.pilot_record`",
+    "propertyName": "Record_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`pilot_record.pilot_record`",
+    "propertyName": "Aircraft_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`gas_company.station_company`",
+    "propertyName": "Rank_of_the_Year",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`gas_company.station_company`",
+    "propertyName": "Company_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`gas_company.station_company`",
+    "propertyName": "Station_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Docs_and_Epenses.documents_HAS_cre_Docs_and_Epenses.projects`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Docs_and_Epenses.documents_HAS_cre_Docs_and_Epenses.ref_document_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Docs_and_Epenses.statements_HAS_cre_Docs_and_Epenses.documents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Docs_and_Epenses.documents_with_expenses_HAS_cre_Docs_and_Epenses.documents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Docs_and_Epenses.documents_with_expenses_HAS_cre_Docs_and_Epenses.ref_budget_codes`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Docs_and_Epenses.accounts_HAS_cre_Docs_and_Epenses.statements`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`culture_company.culture_company_HAS_culture_company.movie`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`culture_company.culture_company_HAS_culture_company.book_club`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`climbing.climber_HAS_climbing.mountain`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`perpetrator.perpetrator_HAS_perpetrator.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_fnol.Customers_Policies`",
+    "propertyName": "Date_Closed",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`insurance_fnol.Customers_Policies`",
+    "propertyName": "Date_Opened",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`insurance_fnol.Customers_Policies`",
+    "propertyName": "Policy_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`insurance_fnol.Customers_Policies`",
+    "propertyName": "Customer_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`insurance_fnol.first_notification_of_loss_HAS_insurance_fnol.services`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_fnol.claims_HAS_insurance_fnol.first_notification_of_loss`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_fnol.settlements_HAS_insurance_fnol.claims`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.Circulation_History`",
+    "propertyName": "document_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.Circulation_History`",
+    "propertyName": "draft_number",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.Circulation_History`",
+    "propertyName": "employee_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.Circulation_History`",
+    "propertyName": "copy_number",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.Documents_Mailed`",
+    "propertyName": "document_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.Documents_Mailed`",
+    "propertyName": "mailed_to_address_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.Documents_Mailed`",
+    "propertyName": "mailing_date",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.documents_HAS_cre_Doc_Control_Systems.ref_shipping_agents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.documents_HAS_cre_Doc_Control_Systems.ref_document_status`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.documents_HAS_cre_Doc_Control_Systems.ref_document_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.employees_HAS_cre_Doc_Control_Systems.roles`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.document_drafts_HAS_cre_Doc_Control_Systems.documents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cre_Doc_Control_Systems.draft_copies_HAS_cre_Doc_Control_Systems.document_drafts`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`decoration_competition.member_HAS_decoration_competition.college`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`decoration_competition.round_HAS_decoration_competition.member`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`cinema.schedule`",
+    "propertyName": "Date",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cinema.schedule`",
+    "propertyName": "Film_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cinema.schedule`",
+    "propertyName": "Cinema_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cinema.schedule`",
+    "propertyName": "Show_times_per_day",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`cinema.schedule`",
+    "propertyName": "Price",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`mountain_photos.photos_HAS_mountain_photos.mountain`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`mountain_photos.photos_HAS_mountain_photos.camera_lens`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`icfp_1.authorship_HAS_icfp_1.papers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`icfp_1.authorship_HAS_icfp_1.inst`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`icfp_1.authorship_HAS_icfp_1.authors`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`storm_record.affected_region`",
+    "propertyName": "Region_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`storm_record.affected_region`",
+    "propertyName": "Storm_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`storm_record.affected_region`",
+    "propertyName": "Number_city_affected",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`protein_institute.institution_HAS_protein_institute.building`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`protein_institute.protein_HAS_protein_institute.institution`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_complaints.complaints_HAS_customer_complaints.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_complaints.complaints_HAS_customer_complaints.products`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customer_complaints.complaints_HAS_customer_complaints.staff`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_3.Member_of`",
+    "propertyName": "DNO",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_3.Member_of`",
+    "propertyName": "FacID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_3.Member_of`",
+    "propertyName": "Appt_Type",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_3.Minor_in`",
+    "propertyName": "DNO",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_3.Minor_in`",
+    "propertyName": "StuID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`college_3.course_HAS_college_3.department`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_3.course_HAS_college_3.faculty`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_3.enrolled_in_HAS_college_3.gradeconversion`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_3.enrolled_in_HAS_college_3.course`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`college_3.enrolled_in_HAS_college_3.student`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_gen_characteristics.Product_Characteristics`",
+    "propertyName": "characteristic_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_gen_characteristics.Product_Characteristics`",
+    "propertyName": "product_characteristic_value",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_gen_characteristics.Product_Characteristics`",
+    "propertyName": "product_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`products_gen_characteristics.characteristics_HAS_products_gen_characteristics.ref_characteristic_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_gen_characteristics.products_HAS_products_gen_characteristics.ref_colors`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`products_gen_characteristics.products_HAS_products_gen_characteristics.ref_product_categories`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`station_weather.route`",
+    "propertyName": "train_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`station_weather.route`",
+    "propertyName": "station_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`station_weather.weekly_weather_HAS_station_weather.station`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`car_1.countries_HAS_car_1.continents`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`car_1.car_makers_HAS_car_1.countries`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`car_1.model_list_HAS_car_1.car_makers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`car_1.car_names_HAS_car_1.model_list`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`car_1.cars_data_HAS_car_1.car_names`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`gymnast.gymnast_HAS_gymnast.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`soccer_2.Tryout`",
+    "propertyName": "pID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`soccer_2.Tryout`",
+    "propertyName": "pPos",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`soccer_2.Tryout`",
+    "propertyName": "cName",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`soccer_2.Tryout`",
+    "propertyName": "decision",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`railway.railway_manage`",
+    "propertyName": "From_Year",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`railway.railway_manage`",
+    "propertyName": "Railway_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`railway.railway_manage`",
+    "propertyName": "Manager_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`railway.train_HAS_railway.railway`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`scientist_1.AssignedTo`",
+    "propertyName": "Scientist",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`scientist_1.AssignedTo`",
+    "propertyName": "Project",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`sports_competition.club_rank_HAS_sports_competition.club`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`sports_competition.player_HAS_sports_competition.club`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`sports_competition.competition_result_HAS_sports_competition.competition`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`sports_competition.competition_result_HAS_sports_competition.club`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`product_catalog.Catalog_Contents_Additional_Attributes`",
+    "propertyName": "attribute_value",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`product_catalog.Catalog_Contents_Additional_Attributes`",
+    "propertyName": "catalog_entry_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`product_catalog.Catalog_Contents_Additional_Attributes`",
+    "propertyName": "attribute_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`product_catalog.Catalog_Contents_Additional_Attributes`",
+    "propertyName": "catalog_level_number",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`product_catalog.catalog_structure_HAS_product_catalog.catalogs`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`product_catalog.catalog_contents_HAS_product_catalog.catalog_structure`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`phone_1.phone_HAS_phone_1.chip_model`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`voter_1.votes_HAS_voter_1.contestants`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`voter_1.votes_HAS_voter_1.area_code_state`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_share_transactions.Transactions_Lots`",
+    "propertyName": "transaction_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`tracking_share_transactions.Transactions_Lots`",
+    "propertyName": "lot_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`tracking_share_transactions.lots_HAS_tracking_share_transactions.investors`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_share_transactions.transactions_HAS_tracking_share_transactions.ref_transaction_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_share_transactions.transactions_HAS_tracking_share_transactions.investors`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_share_transactions.sales_HAS_tracking_share_transactions.transactions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_share_transactions.purchases_HAS_tracking_share_transactions.transactions`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`inn_1.reservations_HAS_inn_1.rooms`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`phone_market.phone_market`",
+    "propertyName": "Phone_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`phone_market.phone_market`",
+    "propertyName": "Num_of_stock",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`phone_market.phone_market`",
+    "propertyName": "Market_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`debate.debate_people_HAS_debate.people`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`debate.debate_people_HAS_debate.debate`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Customer_Addresses`",
+    "propertyName": "address_type_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Customer_Addresses`",
+    "propertyName": "date_address_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Customer_Addresses`",
+    "propertyName": "premise_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Customer_Addresses`",
+    "propertyName": "customer_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Customer_Addresses`",
+    "propertyName": "date_address_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Mailshot_Customers`",
+    "propertyName": "mailshot_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Mailshot_Customers`",
+    "propertyName": "customer_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Mailshot_Customers`",
+    "propertyName": "outcome_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Mailshot_Customers`",
+    "propertyName": "mailshot_customer_date",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Order_Items`",
+    "propertyName": "item_status_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Order_Items`",
+    "propertyName": "item_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Order_Items`",
+    "propertyName": "order_item_status_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Order_Items`",
+    "propertyName": "product_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Order_Items`",
+    "propertyName": "item_order_quantity",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Order_Items`",
+    "propertyName": "order_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.Order_Items`",
+    "propertyName": "item_delivered_datetime",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`customers_campaigns_ecommerce.customer_orders_HAS_customers_campaigns_ecommerce.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tvshow.tv_series_HAS_tvshow.tv_channel`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tvshow.cartoon_HAS_tvshow.tv_channel`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`orchestra.orchestra_HAS_orchestra.conductor`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`orchestra.performance_HAS_orchestra.orchestra`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`orchestra.show_HAS_orchestra.performance`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`local_govt_in_alabama.Participants_in_Events`",
+    "propertyName": "Event_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_in_alabama.Participants_in_Events`",
+    "propertyName": "Participant_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`local_govt_in_alabama.events_HAS_local_govt_in_alabama.services`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`riding_club.player_coach`",
+    "propertyName": "Player_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`riding_club.player_coach`",
+    "propertyName": "Starting_year",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`riding_club.player_coach`",
+    "propertyName": "Coach_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`riding_club.coach_HAS_riding_club.club`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`riding_club.match_result_HAS_riding_club.club`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`school_player.school_details_HAS_school_player.school`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`school_player.school_performance_HAS_school_player.school`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`school_player.player_HAS_school_player.school`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`farm.competition_record`",
+    "propertyName": "Farm_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`farm.competition_record`",
+    "propertyName": "Rank",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`farm.competition_record`",
+    "propertyName": "Competition_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`farm.farm_competition_HAS_farm.city`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`solvency_ii.Parties_in_Events`",
+    "propertyName": "Party_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`solvency_ii.Parties_in_Events`",
+    "propertyName": "Event_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`solvency_ii.Parties_in_Events`",
+    "propertyName": "Role_Code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`solvency_ii.events_HAS_solvency_ii.finances`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`solvency_ii.events_HAS_solvency_ii.addresses`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`solvency_ii.events_HAS_solvency_ii.locations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`solvency_ii.products_in_events_HAS_solvency_ii.products`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`solvency_ii.products_in_events_HAS_solvency_ii.events`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`solvency_ii.agreements_HAS_solvency_ii.events`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`solvency_ii.assets_in_events_HAS_solvency_ii.events`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`party_host.party_host`",
+    "propertyName": "Party_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`party_host.party_host`",
+    "propertyName": "Is_Main_in_Charge",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`party_host.party_host`",
+    "propertyName": "Host_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`singer.song_HAS_singer.singer`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`coffee_shop.happy_hour_HAS_coffee_shop.shop`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`coffee_shop.happy_hour_member_HAS_coffee_shop.member`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`course_teach.course_arrange`",
+    "propertyName": "Teacher_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`course_teach.course_arrange`",
+    "propertyName": "Course_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`course_teach.course_arrange`",
+    "propertyName": "Grade",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`tracking_software_problems.problem_log_HAS_tracking_software_problems.problem_status_codes`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_software_problems.problem_log_HAS_tracking_software_problems.problems`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_software_problems.problem_log_HAS_tracking_software_problems.staff`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_software_problems.problem_log_HAS_tracking_software_problems.problem_category_codes`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_software_problems.problems_HAS_tracking_software_problems.staff`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_software_problems.problems_HAS_tracking_software_problems.product`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`news_report.news_report`",
+    "propertyName": "Event_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`news_report.news_report`",
+    "propertyName": "Work_Type",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`news_report.news_report`",
+    "propertyName": "journalist_ID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`game_injury.game_HAS_game_injury.stadium`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`game_injury.injury_accident_HAS_game_injury.game`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_policies.customer_policies_HAS_insurance_policies.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_policies.claims_HAS_insurance_policies.customer_policies`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_policies.settlements_HAS_insurance_policies.claims`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`insurance_policies.payments_HAS_insurance_policies.settlements`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`department_store.Supplier_Addresses`",
+    "propertyName": "supplier_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Supplier_Addresses`",
+    "propertyName": "date_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Supplier_Addresses`",
+    "propertyName": "address_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Supplier_Addresses`",
+    "propertyName": "date_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Customer_Addresses`",
+    "propertyName": "date_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Customer_Addresses`",
+    "propertyName": "address_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Customer_Addresses`",
+    "propertyName": "date_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Customer_Addresses`",
+    "propertyName": "customer_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Product_Suppliers`",
+    "propertyName": "total_value_purchased",
+    "propertyTypes": [
+      "Double"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Product_Suppliers`",
+    "propertyName": "supplier_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Product_Suppliers`",
+    "propertyName": "product_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Product_Suppliers`",
+    "propertyName": "total_amount_purchased",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Product_Suppliers`",
+    "propertyName": "date_supplied_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Product_Suppliers`",
+    "propertyName": "date_supplied_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Staff_Department_Assignments`",
+    "propertyName": "staff_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Staff_Department_Assignments`",
+    "propertyName": "department_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Staff_Department_Assignments`",
+    "propertyName": "date_assigned_from",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Staff_Department_Assignments`",
+    "propertyName": "job_title_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.Staff_Department_Assignments`",
+    "propertyName": "date_assigned_to",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`department_store.customer_orders_HAS_department_store.customers`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`department_store.department_stores_HAS_department_store.department_store_chain`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`department_store.departments_HAS_department_store.department_stores`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`department_store.order_items_HAS_department_store.products`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`department_store.order_items_HAS_department_store.customer_orders`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.Project_Outcomes`",
+    "propertyName": "project_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`tracking_grants_for_research.Project_Outcomes`",
+    "propertyName": "outcome_code",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`tracking_grants_for_research.documents_HAS_tracking_grants_for_research.grants`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.documents_HAS_tracking_grants_for_research.document_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.grants_HAS_tracking_grants_for_research.organisations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.organisations_HAS_tracking_grants_for_research.organisation_types`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.project_staff_HAS_tracking_grants_for_research.staff_roles`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.project_staff_HAS_tracking_grants_for_research.projects`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.projects_HAS_tracking_grants_for_research.organisations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.research_staff_HAS_tracking_grants_for_research.organisations`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`tracking_grants_for_research.tasks_HAS_tracking_grants_for_research.projects`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.Affiliated_With`",
+    "propertyName": "PrimaryAffiliation",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.Affiliated_With`",
+    "propertyName": "Department",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.Affiliated_With`",
+    "propertyName": "Physician",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.Trained_In`",
+    "propertyName": "CertificationDate",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.Trained_In`",
+    "propertyName": "Treatment",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.Trained_In`",
+    "propertyName": "Physician",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.Trained_In`",
+    "propertyName": "CertificationExpires",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.On_Call`",
+    "propertyName": "BlockFloor",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.On_Call`",
+    "propertyName": "OnCallEnd",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.On_Call`",
+    "propertyName": "Nurse",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.On_Call`",
+    "propertyName": "BlockCode",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.On_Call`",
+    "propertyName": "OnCallStart",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`hospital_1.department_HAS_hospital_1.physician`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.patient_HAS_hospital_1.physician`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.appointment_HAS_hospital_1.physician`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.appointment_HAS_hospital_1.patient`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.prescribes_HAS_hospital_1.medication`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.prescribes_HAS_hospital_1.patient`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.prescribes_HAS_hospital_1.physician`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.room_HAS_hospital_1.block`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.stay_HAS_hospital_1.room`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.stay_HAS_hospital_1.patient`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.undergoes_HAS_hospital_1.nurse`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.undergoes_HAS_hospital_1.physician`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.undergoes_HAS_hospital_1.stay`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.undergoes_HAS_hospital_1.procedures`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`hospital_1.undergoes_HAS_hospital_1.patient`",
+    "propertyName": null,
+    "propertyTypes": null,
+    "mandatory": false
+  },
+  {
+    "relType": ":`medicine_enzyme_interaction.medicine_enzyme_interaction`",
+    "propertyName": "interaction_type",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`medicine_enzyme_interaction.medicine_enzyme_interaction`",
+    "propertyName": "medicine_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`medicine_enzyme_interaction.medicine_enzyme_interaction`",
+    "propertyName": "enzyme_id",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`dorm_1.Has_amenity`",
+    "propertyName": "dormid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`dorm_1.Has_amenity`",
+    "propertyName": "amenid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`dorm_1.Lives_in`",
+    "propertyName": "dormid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`dorm_1.Lives_in`",
+    "propertyName": "stuid",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`dorm_1.Lives_in`",
+    "propertyName": "room_number",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`club_1.Member_of_club`",
+    "propertyName": "Position",
+    "propertyTypes": [
+      "String"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`club_1.Member_of_club`",
+    "propertyName": "StuID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  },
+  {
+    "relType": ":`club_1.Member_of_club`",
+    "propertyName": "ClubID",
+    "propertyTypes": [
+      "Long"
+    ],
+    "mandatory": true
+  }
+]

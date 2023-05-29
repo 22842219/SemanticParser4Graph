@@ -1,0 +1,267 @@
+[
+    {
+        "question": "How many singers do we have?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nRETURN count(*)",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                6
+            ]
+        ]
+    },
+    {
+        "question": "What is the total number of singers?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nRETURN count(*)",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                6
+            ]
+        ]
+    },
+    {
+        "question": "Show name, country, age for all singers ordered by age from the oldest to the youngest.",
+        "query": "MATCH (singer:`concert_singer.singer`)\nRETURN singer.Name,singer.Country,singer.Age\nORDER BY singer.Age DESC",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Joe Sharp",
+                "Netherlands",
+                52
+            ],
+            [
+                "John Nizinik",
+                "France",
+                43
+            ],
+            [
+                "Rose White",
+                "France",
+                41
+            ],
+            [
+                "Timbaland",
+                "United States",
+                32
+            ],
+            [
+                "Justin Brown",
+                "France",
+                29
+            ],
+            [
+                "Tribal King",
+                "France",
+                25
+            ]
+        ]
+    },
+    {
+        "question": "What are the names, countries, and ages for every singer in descending order of age?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nRETURN singer.Name,singer.Country,singer.Age\nORDER BY singer.Age DESC",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Joe Sharp",
+                "Netherlands",
+                52
+            ],
+            [
+                "John Nizinik",
+                "France",
+                43
+            ],
+            [
+                "Rose White",
+                "France",
+                41
+            ],
+            [
+                "Timbaland",
+                "United States",
+                32
+            ],
+            [
+                "Justin Brown",
+                "France",
+                29
+            ],
+            [
+                "Tribal King",
+                "France",
+                25
+            ]
+        ]
+    },
+    {
+        "question": "What is the average, minimum, and maximum age of all singers from France?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Country = 'France'\nRETURN avg(singer.Age),min(singer.Age),max(singer.Age)",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                34.5,
+                25,
+                43
+            ]
+        ]
+    },
+    {
+        "question": "What is the average, minimum, and maximum age for all French singers?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Country = 'France'\nRETURN avg(singer.Age),min(singer.Age),max(singer.Age)",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                34.5,
+                25,
+                43
+            ]
+        ]
+    },
+    {
+        "question": "Show the name and the release year of the song by the youngest singer.",
+        "query": "MATCH (singer:`concert_singer.singer`)\nRETURN singer.Song_Name,singer.Song_release_year\nORDER BY singer.Age\nLIMIT 1",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Love",
+                "2016"
+            ]
+        ]
+    },
+    {
+        "question": "What are the names and release years for all the songs of the youngest singer?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nRETURN singer.Song_Name,singer.Song_release_year\nORDER BY singer.Age\nLIMIT 1",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Love",
+                "2016"
+            ]
+        ]
+    },
+    {
+        "question": "What are all distinct countries where singers above age 20 are from?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Age > 20\nRETURN DISTINCT singer.Country",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Netherlands"
+            ],
+            [
+                "United States"
+            ],
+            [
+                "France"
+            ]
+        ]
+    },
+    {
+        "question": "What are  the different countries with singers above age 20?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Age > 20\nRETURN DISTINCT singer.Country",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Netherlands"
+            ],
+            [
+                "United States"
+            ],
+            [
+                "France"
+            ]
+        ]
+    },
+    {
+        "question": "Show all countries and the number of singers in each country.",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWITH count(singer.Country) AS count, singer.Country AS Country\nRETURN Country,count",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Netherlands",
+                1
+            ],
+            [
+                "United States",
+                1
+            ],
+            [
+                "France",
+                4
+            ]
+        ]
+    },
+    {
+        "question": "How many singers are from each country?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWITH count(singer.Country) AS count, singer.Country AS Country\nRETURN Country,count",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Netherlands",
+                1
+            ],
+            [
+                "United States",
+                1
+            ],
+            [
+                "France",
+                4
+            ]
+        ]
+    },
+    {
+        "question": "What is the average and maximum capacities for all stadiums ?",
+        "query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN avg(stadium.Capacity),max(stadium.Capacity)",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                10621.666666666666,
+                52500
+            ]
+        ]
+    },
+    {
+        "question": "What is the name and capacity for the stadium with highest average attendance?",
+        "query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN stadium.Name,stadium.Capacity\nORDER BY stadium.Average DESC\nLIMIT 1",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Stark's Park",
+                10104
+            ]
+        ]
+    },
+    {
+        "question": "What is the name and capacity for the stadium with the highest average attendance?",
+        "query": "MATCH (stadium:`concert_singer.stadium`)\nRETURN stadium.Name,stadium.Capacity\nORDER BY stadium.Average DESC\nLIMIT 1",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Stark's Park",
+                10104
+            ]
+        ]
+    },
+    {
+        "question": "what is the name and nation of the singer who have a song having 'Hey' in its name?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Song_Name =~'.*[H|h]ey.*'\nRETURN singer.Name,singer.Country",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Justin Brown",
+                "France"
+            ]
+        ]
+    },
+    {
+        "question": "What is the name and country of origin of every singer who has a song with the word 'Hey' in its title?",
+        "query": "MATCH (singer:`concert_singer.singer`)\nWHERE singer.Song_Name =~'.*[H|h]ey.*'\nRETURN singer.Name,singer.Country",
+        "db_id": "concert_singer",
+        "answers": [
+            [
+                "Justin Brown",
+                "France"
+            ]
+        ]
+    }
+]

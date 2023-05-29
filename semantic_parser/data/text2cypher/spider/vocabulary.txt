@@ -1,0 +1,13 @@
+count
+avg
+min
+max
+sum
+MATCH
+WHERE
+WITH AS
+ORDER BY
+LIMIT
+RETURN
+-[
+]-
