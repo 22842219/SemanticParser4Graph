@@ -530,9 +530,8 @@ def main():
     filenames = config["FILENAMES"]
 
     root = filenames['root']
-    env_file = filenames['env_file']
     benchmark = filenames['benchmark']
-
+    env_file = os.path.join(root, 'application', '.env')
     # if not os.path.exists(os.path.dirname('/data')):
     #     try:
     #         os.makedirs(os.path.dirname('/data'))

@@ -1034,7 +1034,7 @@ def execution_accuracy(metrics_file, split, qa_pairs, not_ready_sql):
 				}
 		metrics.append(every_metric)
 		
-		with open(metrics_file, 'w')  as out:
+		with open(metrics_file, 'a')  as out:
 			json.dump(metrics, out, indent = 4)
 		
 		return metrics
@@ -1048,13 +1048,12 @@ def main():
 	import configparser
 	# from schema2graph import RelDBDataset
 	import dill
-	from deepdiff import DeepDiff
+
 
 	config = configparser.ConfigParser()
 	config.read('../config.ini')
 	filenames = config["FILENAMES"]
 
-	raw_data_folder = filenames['raw_folder']
 	root = filenames['root']
 	benchmark = filenames['benchmark']
 
@@ -1063,8 +1062,8 @@ def main():
 	neo4j_password = filenames['neo4j_password']
 	graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
-	raw_data_folder = os.path.join(raw_data_folder, benchmark)
-	db_folder = os.path.join(raw_data_folder,  'database')
+	data_folder = os.path.join(root, 'application', 'rel_db2kg', 'data', benchmark)
+	db_folder = os.path.join(data_folder, 'database')
 
 	logger =Logger('/sql2cypher.log')
 	
@@ -1075,9 +1074,9 @@ def main():
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
 
-	for split in ['train']:
+	for split in ['train', 'dev']:
    
-		json_file = os.path.join(raw_data_folder, '{}.json'.format(split))
+		json_file = os.path.join(data_folder, '{}.json'.format(split))
 		f = open(json_file)
 		data = json.load(f)
 
@@ -1132,8 +1131,8 @@ def main():
 							qa_pairs['correct_'].append(
 								{
 									'db_id':db_name, 
-									'sql': sql_query, 
-									'cypher':sql2cypher,
+									# 'sql': sql_query, 
+									'query':sql2cypher,
 									'question':question,
 									'answers':cypher_ans
 								})
@@ -1155,6 +1154,7 @@ def main():
 				# 		incorrect[db_name].append(i)
 					
 				except:
+					
 					every.update({'index':i})
 					if 'intersect' in sql_query.lower():
 						f_sql['intersect'].append(every)
