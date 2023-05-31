@@ -87,16 +87,32 @@ for i, every in enumerate(data):
             pred_sql2cypher = formatter.format(pred_parsed_sql)
             gold_sql2cypher = formatter.format(gold_parsed_sql)
             print("**************Cypher Query***************")
-            print("pred_sql2cypher:", pred_sql2cypher)
-            print("gold_sql_2cypher:", gold_sql2cypher)
+            print("pred_sql2cypher:")
+            print(pred_sql2cypher)
+            print("gold_sql_2cypher:")
+            print(gold_sql2cypher)
             print("**************Cypher Query***************")
 
             if pred_sql2cypher and gold_sql2cypher:
-                cypher_pred_res = graph.run(pred_sql2cypher).data()
+                try:
+                    cypher_pred_res = graph.run(pred_sql2cypher).data()
+                except:
+                    qa_pairs['incorrect_'].append(
+                        {
+                            'db_id':db_name, 
+                            'index': i,
+                            'gold_sql': sql_gold,
+                            'gold_sql2cypher': gold_sql2cypher,
+                            'pre_sql':sql_prediction,
+                            'pred_sql2cypher': pred_sql2cypher,
+                            'question':question,
+                        })
+                    break
                 cypher_pred_ans = []
                 for dict_ in cypher_pred_res:
                     cypher_pred_ans.append(tuple(dict_.values()))
 
+            
                 cypher_gold_res = graph.run(gold_sql2cypher).data()
                 cypher_gold_ans = []
                 for dict_ in cypher_gold_res:
@@ -122,6 +138,7 @@ for i, every in enumerate(data):
                     qa_pairs['incorrect_'].append(
                         {
                             'db_id':db_name, 
+                            'index': i,
                             'gold_sql': sql_gold,
                             'gold_sql2cypher': gold_sql2cypher,
                             'gold_ans': cypher_gold_ans,
