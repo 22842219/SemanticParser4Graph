@@ -49,7 +49,7 @@ text2sql_pres_folds = os.path.join(root, 'application', 'rel_db2kg', 'text2sql',
 
 for model in ['CodeT5_base_prefix_spider_with_cell_value']:
     json_file = os.path.join(text2sql_pres_folds, model, '/predictions_predict.json')
-    text2sql_model = json_file.split('/')[-2]
+
 
     with open(json_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -165,11 +165,11 @@ for model in ['CodeT5_base_prefix_spider_with_cell_value']:
 
 
     metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'text2sql2cypher_metrics.json')
-    metrics = execution_accuracy(metrics_file, 'text2sql2cypher_{}'.format(text2sql_model), qa_pairs, f_sql)
+    metrics = execution_accuracy(metrics_file, 'text2sql2cypher_{}'.format(model), qa_pairs, f_sql)
     print(f'metrics: {metrics}')
 
     for key, item in qa_pairs.items():
-        with open(os.path.join(sp_out_folder, '{}_{}_{}.json'.format('text2sql2cypher', text2sql_model, key)) , 'a')  as f:
+        with open(os.path.join(sp_out_folder, '{}_{}_{}.json'.format('text2sql2cypher', model, key)) , 'a')  as f:
             json.dump(qa_pairs[key], f, indent = 4)
     for key, item in f_sql.items():
         with open(os.path.join(sp_out_folder, '{}.json'.format(key)) , 'a')  as f:
