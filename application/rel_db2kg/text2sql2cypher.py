@@ -45,129 +45,132 @@ args = parser.parse_args()
 db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
 
 
-json_file ='/home/22842219/Desktop/openSource/UnifiedSKGG-subSpider/output/CodeT5_base_prefix_spider_with_cell_value/predictions_predict.json'
-text2sql_model = json_file.split('/')[-2]
+text2sql_pres_folds = os.path.join(root, 'application', 'rel_db2kg', 'text2sql', 'pricai')
 
-with open(json_file, 'r', encoding='utf-8') as f:
-    data = json.load(f)
+for model in ['CodeT5_base_prefix_spider_with_cell_value']:
+    json_file = os.path.join(text2sql_pres_folds, model, '/predictions_predict.json')
+    text2sql_model = json_file.split('/')[-2]
 
-
-qa_pairs = {'correct_': [], 'incorrect_':[], 'pairs':[]}
-f_sql = {'invalid_parsed':[], 'intersect': [], 'except':[]}
-
+    with open(json_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
 
 
-for i, every in enumerate(data):
-    db_name = every['db_id']
-    print(f'db: {db_name}')
-    if db_name:       
-        question = every['question']
-        sql_prediction = every['prediction']
-        sql_gold= every['query']
-             
-        db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))  
-        engine = DBengine(db_path)
-        sql_gold_result = []
-        sql_preds_result = []
-        try:
-
-            sql_gold_result = engine.execute(sql_gold).fetchall()
-            sql_preds_result = engine.execute(sql_prediction).fetchall()
-        except:
-            logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_gold))
-            continue
+    qa_pairs = {'correct_': [], 'incorrect_':[], 'pairs':[]}
+    f_sql = {'invalid_parsed':[], 'intersect': [], 'except':[]}
 
 
-        try:
-            # 3. Convert SQL prediction to Cypher query.	
-            pred_parsed_sql = parse(sql_prediction)	
-            gold_parsed_sql = parse(sql_gold)
-            print(f'pred_parsed_sql: {pred_parsed_sql}')
 
-      
-            formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
-            pred_sql2cypher = formatter.format(pred_parsed_sql)
-            gold_sql2cypher = formatter.format(gold_parsed_sql)
-            print("**************Cypher Query***************")
-            print("pred_sql2cypher:")
-            print(pred_sql2cypher)
-            print("gold_sql_2cypher:")
-            print(gold_sql2cypher)
-            print("**************Cypher Query***************")
+    for i, every in enumerate(data):
+        db_name = every['db_id']
+        print(f'db: {db_name}')
+        if db_name:       
+            question = every['question']
+            sql_prediction = every['prediction']
+            sql_gold= every['query']
+                
+            db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))  
+            engine = DBengine(db_path)
+            sql_gold_result = []
+            sql_preds_result = []
+            try:
 
-            if pred_sql2cypher and gold_sql2cypher:
-                try:
-                    cypher_pred_res = graph.run(pred_sql2cypher).data()
-                except:
-                    qa_pairs['incorrect_'].append(
-                        {
-                            'db_id':db_name, 
-                            'index': i,
-                            'gold_sql': sql_gold,
-                            'gold_sql2cypher': gold_sql2cypher,
-                            'pre_sql':sql_prediction,
-                            'pred_sql2cypher': pred_sql2cypher,
-                            'question':question,
-                        })
-                    break
-                cypher_pred_ans = []
-                for dict_ in cypher_pred_res:
-                    cypher_pred_ans.append(tuple(dict_.values()))
+                sql_gold_result = engine.execute(sql_gold).fetchall()
+                sql_preds_result = engine.execute(sql_prediction).fetchall()
+            except:
+                logger.error('Attention in {}, exist Invalid sql query:{}'.format(db_name, sql_gold))
+                continue
 
-            
-                cypher_gold_res = graph.run(gold_sql2cypher).data()
-                cypher_gold_ans = []
-                for dict_ in cypher_gold_res:
-                    cypher_gold_ans.append(tuple(dict_.values()))
+
+            try:
+                # 3. Convert SQL prediction to Cypher query.	
+                pred_parsed_sql = parse(sql_prediction)	
+                gold_parsed_sql = parse(sql_gold)
+                print(f'pred_parsed_sql: {pred_parsed_sql}')
+
+        
+                formatter  = Formatter( logger, db_name, rel_db_dataset.rel_dbs[db_name], graph)
+                pred_sql2cypher = formatter.format(pred_parsed_sql)
+                gold_sql2cypher = formatter.format(gold_parsed_sql)
+                print("**************Cypher Query***************")
+                print("pred_sql2cypher:")
+                print(pred_sql2cypher)
+                print("gold_sql_2cypher:")
+                print(gold_sql2cypher)
+                print("**************Cypher Query***************")
+
+                if pred_sql2cypher and gold_sql2cypher:
+                    try:
+                        cypher_pred_res = graph.run(pred_sql2cypher).data()
+                    except:
+                        qa_pairs['incorrect_'].append(
+                            {
+                                'db_id':db_name, 
+                                'index': i,
+                                'gold_sql': sql_gold,
+                                'gold_sql2cypher': gold_sql2cypher,
+                                'pre_sql':sql_prediction,
+                                'pred_sql2cypher': pred_sql2cypher,
+                                'question':question,
+                            })
+                        break
+                    cypher_pred_ans = []
+                    for dict_ in cypher_pred_res:
+                        cypher_pred_ans.append(tuple(dict_.values()))
 
                 
-                if set(cypher_pred_ans)==set(cypher_gold_ans):
-                    print(f'correct_ans: {cypher_pred_ans}') 
-                    qa_pairs['correct_'].append(
-                        {
-                            'db_id':db_name, 
-                            'gold_sql': sql_gold,
-                            'gold_sql2cypher': gold_sql2cypher,
-                            'pre_sql':sql_prediction,
-                            'pred_sql2cypher': pred_sql2cypher,
-                            'question':question,
-                            'answers':cypher_pred_ans
-                        })
-                    qa_pairs['pairs'].append(every)
+                    cypher_gold_res = graph.run(gold_sql2cypher).data()
+                    cypher_gold_ans = []
+                    for dict_ in cypher_gold_res:
+                        cypher_gold_ans.append(tuple(dict_.values()))
+
                     
+                    if set(cypher_pred_ans)==set(cypher_gold_ans):
+                        print(f'correct_ans: {cypher_pred_ans}') 
+                        qa_pairs['correct_'].append(
+                            {
+                                'db_id':db_name, 
+                                'gold_sql': sql_gold,
+                                'gold_sql2cypher': gold_sql2cypher,
+                                'pre_sql':sql_prediction,
+                                'pred_sql2cypher': pred_sql2cypher,
+                                'question':question,
+                                'answers':cypher_pred_ans
+                            })
+                        qa_pairs['pairs'].append(every)
+                        
+                    else:
+                        print(f'incorrect_ans: {cypher_pred_ans}')
+                        qa_pairs['incorrect_'].append(
+                            {
+                                'db_id':db_name, 
+                                'index': i,
+                                'gold_sql': sql_gold,
+                                'gold_sql2cypher': gold_sql2cypher,
+                                'gold_ans': cypher_gold_ans,
+                                'pre_sql':sql_prediction,
+                                'pred_sql2cypher': pred_sql2cypher,
+                                'pred_ans': cypher_pred_ans,
+                                'question':question,
+                            })
+            except:
+                every.update({'index':i})
+                if 'intersect' in pred_parsed_sql.lower():
+                    f_sql['intersect'].append(every)
+                if 'except' in pred_parsed_sql.lower():
+                    f_sql['except'].append(every)
                 else:
-                    print(f'incorrect_ans: {cypher_pred_ans}')
-                    qa_pairs['incorrect_'].append(
-                        {
-                            'db_id':db_name, 
-                            'index': i,
-                            'gold_sql': sql_gold,
-                            'gold_sql2cypher': gold_sql2cypher,
-                            'gold_ans': cypher_gold_ans,
-                            'pre_sql':sql_prediction,
-                            'pred_sql2cypher': pred_sql2cypher,
-                            'pred_ans': cypher_pred_ans,
-                            'question':question,
-                        })
-        except:
-            every.update({'index':i})
-            if 'intersect' in pred_parsed_sql.lower():
-                f_sql['intersect'].append(every)
-            if 'except' in pred_parsed_sql.lower():
-                f_sql['except'].append(every)
-            else:
-                f_sql['invalid_parsed'].append(every)
-            logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, pred_parsed_sql))
-            print(pred_parsed_sql)
+                    f_sql['invalid_parsed'].append(every)
+                logger.error('Attention in {}.db. Can not parse sql query:{}'.format(db_name, pred_parsed_sql))
+                print(pred_parsed_sql)
 
 
-metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'text2sql2cypher_metrics.json')
-metrics = execution_accuracy(metrics_file, 'text2sql2cypher_{}'.format(text2sql_model), qa_pairs, f_sql)
-print(f'metrics: {metrics}')
+    metrics_file = os.path.join(root, 'application', 'rel_db2kg', 'text2sql2cypher_metrics.json')
+    metrics = execution_accuracy(metrics_file, 'text2sql2cypher_{}'.format(text2sql_model), qa_pairs, f_sql)
+    print(f'metrics: {metrics}')
 
-for key, item in qa_pairs.items():
-    with open(os.path.join(sp_out_folder, '{}_{}_{}.json'.format('text2sql2cypher', text2sql_model, key)) , 'a')  as f:
-        json.dump(qa_pairs[key], f, indent = 4)
-for key, item in f_sql.items():
-    with open(os.path.join(sp_out_folder, '{}.json'.format(key)) , 'a')  as f:
-        json.dump(item, f, indent = 4)
+    for key, item in qa_pairs.items():
+        with open(os.path.join(sp_out_folder, '{}_{}_{}.json'.format('text2sql2cypher', text2sql_model, key)) , 'a')  as f:
+            json.dump(qa_pairs[key], f, indent = 4)
+    for key, item in f_sql.items():
+        with open(os.path.join(sp_out_folder, '{}.json'.format(key)) , 'a')  as f:
+            json.dump(item, f, indent = 4)
