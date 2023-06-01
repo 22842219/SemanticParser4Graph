@@ -29,9 +29,6 @@ logger =Logger('/sql2cypher.log')
 with open('data/{}.pkl'.format(benchmark), 'rb') as pickle_file:
     rel_db_dataset=dill.load(pickle_file)
 
-sp_out_folder = os.path.join(root, 'sp_data_folder','text2sql2cypher')
-if not os.path.exists(sp_out_folder):
-    os.makedirs(sp_out_folder) 
 
 
 parser = argparse.ArgumentParser(description='text2sql2cypher.')
@@ -47,9 +44,15 @@ db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True)
 
 text2sql_pres_folds = os.path.join(root, 'application', 'rel_db2kg', 'text2sql', 'pricai')
 
-for model in ['CodeT5_base_prefix_spider_with_cell_value']:
-    json_file = os.path.join(text2sql_pres_folds, model, '/predictions_predict.json')
+for model in ['CodeT5_base_prefix_spider_with_cell_value', 'CodeT5_base_finetune_spider_with_cell_value', ]:
 
+
+    sp_out_folder = os.path.join(root, 'sp_data_folder','text2sql2cypher', model)
+    if not os.path.exists(sp_out_folder):
+        os.makedirs(sp_out_folder) 
+
+    json_file = os.path.join(text2sql_pres_folds, model, 'predictions_predict.json')
+    print(json_file)
 
     with open(json_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
