@@ -44,7 +44,7 @@ db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True)
 
 text2sql_pres_folds = os.path.join(root, 'application', 'rel_db2kg', 'text2sql', 'pricai')
 
-for model in ['CodeT5_base_prefix_spider_with_cell_value', 'CodeT5_base_finetune_spider_with_cell_value', ]:
+for model in ['CodeT5_base_prefix_spider_with_cell_value', 'CodeT5_base_finetune_spider_with_cell_value', 'T5_base_prefix_spider_with_cell_value']:
 
 
     sp_out_folder = os.path.join(root, 'sp_data_folder','text2sql2cypher', model)
@@ -115,7 +115,7 @@ for model in ['CodeT5_base_prefix_spider_with_cell_value', 'CodeT5_base_finetune
                                 'pred_sql2cypher': pred_sql2cypher,
                                 'question':question,
                             })
-                        break
+                        continue
                     cypher_pred_ans = []
                     for dict_ in cypher_pred_res:
                         cypher_pred_ans.append(tuple(dict_.values()))
@@ -157,9 +157,9 @@ for model in ['CodeT5_base_prefix_spider_with_cell_value', 'CodeT5_base_finetune
                             })
             except:
                 every.update({'index':i})
-                if 'intersect' in pred_parsed_sql.lower():
+                if 'intersect' in sql_gold.lower():
                     f_sql['intersect'].append(every)
-                if 'except' in pred_parsed_sql.lower():
+                if 'except' in sql_gold.lower():
                     f_sql['except'].append(every)
                 else:
                     f_sql['invalid_parsed'].append(every)
