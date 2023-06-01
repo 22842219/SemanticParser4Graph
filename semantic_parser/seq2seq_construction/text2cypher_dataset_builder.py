@@ -16,9 +16,10 @@
 
 
 
-import json, os
+import json
 import datasets
 from preprocess.process_cypher import get_schema_from_json
+
 logger = datasets.logging.get_logger(__name__)
 
 
@@ -51,8 +52,7 @@ _HOMEPAGE = ""
 
 _LICENSE = "CC BY-SA 4.0"
 
-
-_URL =  os.path.join(os.getcwd(), "data/text2cypher")
+_URL = "/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/data/text2cypher"
 
 
 class Text2Cypher(datasets.GeneratorBasedBuilder):
@@ -76,7 +76,6 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 "query": datasets.Value("string"), 
                 "question": datasets.Value("string"),
                 # "answers": datasets.features.Sequence(datasets.Value("string")),
-                # 'rels': datasets.features.Sequence([datasets.Value("string")]), 
                 "schema_path": datasets.Value("string"),
                 "db_id": datasets.Value("string"),
                 "db_tag_names": datasets.features.Sequence(datasets.Value("string")),
@@ -132,7 +131,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 if db_id not in self.schema_cache:
                     self.schema_cache[db_id] = schema_data[db_id]
                 schema = self.schema_cache[db_id]   
-                
+
                 yield idx, {
                 "db_id": db_id,
                 "query": sample["query"],
@@ -140,7 +139,7 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 # "answers": sample["answers"],
                 "schema_path": schema_path,
                 "db_tag_names": schema['tag_names'], 
-                # 'rels': schema['rels'],
+
                 "db_property_names": 
                     [
                         {
