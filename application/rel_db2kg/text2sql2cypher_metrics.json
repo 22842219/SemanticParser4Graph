@@ -1,0 +1,389 @@
+[
+    {
+        "split": "text2sql2cypher_CodeT5_base_prefix_spider_with_cell_value",
+        "valid_parsed_report": {
+            "total": 466,
+            "execution_accuracy": 0.8176,
+            "correct": 381,
+            "incorrect": 85
+        },
+        "incorrect_sql2cypher_report": {
+            "concert_singer": [
+                5,
+                16
+            ],
+            "pets_1": [
+                40,
+                44,
+                45,
+                46,
+                52,
+                64
+            ],
+            "car_1": [
+                76,
+                81,
+                83,
+                84,
+                87,
+                88,
+                89,
+                91,
+                92,
+                103,
+                110,
+                113,
+                114,
+                115,
+                121,
+                122
+            ],
+            "flight_2": [
+                124
+            ],
+            "employee_hire_evaluation": [
+                189,
+                190,
+                193,
+                194,
+                203,
+                204,
+                212,
+                213,
+                215,
+                216
+            ],
+            "cre_Doc_Template_Mgt": [
+                249
+            ],
+            "course_teach": [
+                282,
+                286,
+                288
+            ],
+            "museum_visit": [
+                301,
+                305
+            ],
+            "battle_death": [
+                311,
+                316
+            ],
+            "student_transcripts_tracking": [
+                322,
+                323,
+                335,
+                340,
+                346,
+                349,
+                352,
+                353,
+                354,
+                355,
+                356,
+                357,
+                358,
+                359,
+                364,
+                372,
+                373
+            ],
+            "tvshow": [
+                396,
+                397,
+                403,
+                404,
+                406,
+                407,
+                408,
+                409,
+                414,
+                415,
+                419,
+                420
+            ],
+            "poker_player": [
+                444
+            ],
+            "voter_1": [
+                462
+            ],
+            "dog_kennels": [
+                545,
+                546,
+                557,
+                558,
+                559,
+                561,
+                562,
+                565
+            ],
+            "singer": [
+                580,
+                590
+            ],
+            "real_estate_properties": [
+                601
+            ]
+        },
+        "failure_report": {
+            "invalid_parsed": 0.0043,
+            "intersect": 0.0,
+            "except": 0.0
+        },
+        "failure_detail_report": {
+            "invalid_parsed": {
+                "pets_1": [
+                    59
+                ],
+                "student_transcripts_tracking": [
+                    330
+                ]
+            },
+            "intersect": {},
+            "except": {}
+        }
+    }
+][
+    {
+        "split": "text2sql2cypher_CodeT5_base_finetune_spider_with_cell_value",
+        "valid_parsed_report": {
+            "total": 465,
+            "execution_accuracy": 0.8602,
+            "correct": 400,
+            "incorrect": 65
+        },
+        "incorrect_sql2cypher_report": {
+            "concert_singer": [
+                5,
+                24
+            ],
+            "pets_1": [
+                37,
+                40,
+                42,
+                52,
+                55,
+                56,
+                57,
+                58,
+                59
+            ],
+            "car_1": [
+                83,
+                84,
+                91,
+                95,
+                103,
+                121
+            ],
+            "flight_2": [
+                139,
+                140,
+                162
+            ],
+            "employee_hire_evaluation": [
+                193,
+                194,
+                203,
+                204,
+                213,
+                214,
+                215,
+                216
+            ],
+            "cre_Doc_Template_Mgt": [
+                258
+            ],
+            "course_teach": [
+                277,
+                278
+            ],
+            "museum_visit": [
+                301,
+                305
+            ],
+            "battle_death": [
+                311,
+                316
+            ],
+            "student_transcripts_tracking": [
+                318,
+                322,
+                323,
+                330,
+                331,
+                335,
+                338,
+                343,
+                353,
+                354,
+                355,
+                358,
+                372,
+                373
+            ],
+            "tvshow": [
+                396,
+                397,
+                404,
+                414,
+                415,
+                417
+            ],
+            "poker_player": [
+                428,
+                444
+            ],
+            "dog_kennels": [
+                543,
+                545,
+                557,
+                559,
+                565
+            ],
+            "singer": [
+                580,
+                590
+            ],
+            "real_estate_properties": [
+                601
+            ]
+        },
+        "failure_report": {
+            "invalid_parsed": 0.0021,
+            "intersect": 0.0,
+            "except": 0.0
+        },
+        "failure_detail_report": {
+            "invalid_parsed": {
+                "cre_Doc_Template_Mgt": [
+                    270
+                ]
+            },
+            "intersect": {},
+            "except": {}
+        }
+    }
+][
+    {
+        "split": "text2sql2cypher_T5_base_prefix_spider_with_cell_value",
+        "valid_parsed_report": {
+            "total": 444,
+            "execution_accuracy": 0.8491,
+            "correct": 377,
+            "incorrect": 67
+        },
+        "incorrect_sql2cypher_report": {
+            "concert_singer": [
+                22,
+                29
+            ],
+            "pets_1": [
+                40,
+                42,
+                52,
+                55,
+                56,
+                57,
+                58,
+                64
+            ],
+            "car_1": [
+                71,
+                75,
+                76,
+                89,
+                112,
+                115,
+                121,
+                122
+            ],
+            "flight_2": [
+                148,
+                162,
+                164,
+                165,
+                166,
+                167
+            ],
+            "employee_hire_evaluation": [
+                189,
+                194,
+                212,
+                213,
+                215,
+                216
+            ],
+            "cre_Doc_Template_Mgt": [
+                253
+            ],
+            "museum_visit": [
+                305
+            ],
+            "battle_death": [
+                311,
+                316,
+                317
+            ],
+            "student_transcripts_tracking": [
+                318,
+                322,
+                329,
+                330,
+                335,
+                340,
+                341,
+                346,
+                353,
+                361,
+                366,
+                367,
+                372,
+                373,
+                375
+            ],
+            "tvshow": [
+                403,
+                404,
+                406,
+                407,
+                408,
+                409,
+                414,
+                415
+            ],
+            "orchestra": [
+                490
+            ],
+            "network_1": [
+                519
+            ],
+            "dog_kennels": [
+                545,
+                551,
+                555,
+                556,
+                557,
+                558
+            ],
+            "real_estate_properties": [
+                601
+            ]
+        },
+        "failure_report": {
+            "invalid_parsed": 0.0022,
+            "intersect": 0.0,
+            "except": 0.0
+        },
+        "failure_detail_report": {
+            "invalid_parsed": {
+                "pets_1": [
+                    45
+                ]
+            },
+            "intersect": {},
+            "except": {}
+        }
+    }
+]
