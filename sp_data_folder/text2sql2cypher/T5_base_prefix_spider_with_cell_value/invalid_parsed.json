@@ -1,0 +1,91 @@
+[
+    {
+        "prediction": "select count(distinct petid) from has_pet as t1 join student as t2 on t1.stuid = t2.stuid where t2.sex = 'F'",
+        "query": "SELECT count(*) FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T2.petid  =  T3.petid WHERE T1.sex  =  'F' AND T3.pettype  =  'dog'",
+        "question": "Find the number of dog pets that are raised by female students (with sex F).",
+        "db_id": "pets_1",
+        "db_path": "/group/pmc003/zzhao/UnifiedSKGG-subSpider/data/downloads/spider/database",
+        "db_table_names": [
+            "Student",
+            "Has_Pet",
+            "Pets"
+        ],
+        "db_column_names": {
+            "table_id": [
+                -1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                2,
+                2,
+                2,
+                2
+            ],
+            "column_name": [
+                "*",
+                "StuID",
+                "LName",
+                "Fname",
+                "Age",
+                "Sex",
+                "Major",
+                "Advisor",
+                "city_code",
+                "StuID",
+                "PetID",
+                "PetID",
+                "PetType",
+                "pet_age",
+                "weight"
+            ]
+        },
+        "db_column_types": [
+            "text",
+            "number",
+            "text",
+            "text",
+            "number",
+            "text",
+            "number",
+            "number",
+            "text",
+            "number",
+            "number",
+            "number",
+            "text",
+            "number",
+            "number"
+        ],
+        "db_primary_keys": {
+            "column_id": [
+                1,
+                11
+            ]
+        },
+        "db_foreign_keys": {
+            "column_id": [
+                9,
+                10
+            ],
+            "other_column_id": [
+                1,
+                11
+            ]
+        },
+        "serialized_schema": " | pets_1 | student : stuid , lname , fname , age , sex , major , advisor , city_code | has_pet : stuid , petid | pets : petid , pettype ( dog ) , pet_age , weight",
+        "struct_in": "| pets_1 | student : stuid , lname , fname , age , sex , major , advisor , city_code | has_pet : stuid , petid | pets : petid , pettype ( dog ) , pet_age , weight",
+        "text_in": "Find the number of dog pets that are raised by female students (with sex F).",
+        "seq_out": "select count(*) from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t2.petid = t3.petid where t1.sex = 'F' and t3.pettype = 'dog'",
+        "description": "task: spider",
+        "section": "test",
+        "arg_path": "META_TUNING/spider_with_cell.cfg",
+        "index": 45
+    }
+]

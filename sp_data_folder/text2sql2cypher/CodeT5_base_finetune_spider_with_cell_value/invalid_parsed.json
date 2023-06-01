@@ -1,0 +1,104 @@
+[
+    {
+        "prediction": "select t1.document_id from documents as t1 join paragraphs as t2 on t1.document_id = t2.document_id group by t1.document_id order by count(*) limit 1",
+        "query": "SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count(*) ASC LIMIT 1",
+        "question": "Return the id of the document with the fewest paragraphs.",
+        "db_id": "cre_Doc_Template_Mgt",
+        "db_path": "/home/22842219/Desktop/openSource/UnifiedSKGG-subSpider/data/downloads/spider/database",
+        "db_table_names": [
+            "Ref_Template_Types",
+            "Templates",
+            "Documents",
+            "Paragraphs"
+        ],
+        "db_column_names": {
+            "table_id": [
+                -1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                2,
+                2,
+                2,
+                2,
+                2,
+                3,
+                3,
+                3,
+                3
+            ],
+            "column_name": [
+                "*",
+                "Template_Type_Code",
+                "Template_Type_Description",
+                "Template_ID",
+                "Version_Number",
+                "Template_Type_Code",
+                "Date_Effective_From",
+                "Date_Effective_To",
+                "Template_Details",
+                "Document_ID",
+                "Template_ID",
+                "Document_Name",
+                "Document_Description",
+                "Other_Details",
+                "Paragraph_ID",
+                "Document_ID",
+                "Paragraph_Text",
+                "Other_Details"
+            ]
+        },
+        "db_column_types": [
+            "text",
+            "text",
+            "text",
+            "number",
+            "number",
+            "text",
+            "time",
+            "time",
+            "text",
+            "number",
+            "number",
+            "text",
+            "text",
+            "text",
+            "number",
+            "number",
+            "text",
+            "text"
+        ],
+        "db_primary_keys": {
+            "column_id": [
+                1,
+                3,
+                9,
+                14
+            ]
+        },
+        "db_foreign_keys": {
+            "column_id": [
+                5,
+                10,
+                15
+            ],
+            "other_column_id": [
+                1,
+                3,
+                9
+            ]
+        },
+        "serialized_schema": " | cre_Doc_Template_Mgt | ref_template_types : template_type_code , template_type_description | templates : template_id , version_number , template_type_code , date_effective_from , date_effective_to , template_details | documents : document_id , template_id , document_name , document_description , other_details | paragraphs : paragraph_id , document_id , paragraph_text , other_details",
+        "struct_in": "| cre_Doc_Template_Mgt | ref_template_types : template_type_code , template_type_description | templates : template_id , version_number , template_type_code , date_effective_from , date_effective_to , template_details | documents : document_id , template_id , document_name , document_description , other_details | paragraphs : paragraph_id , document_id , paragraph_text , other_details",
+        "text_in": "Return the id of the document with the fewest paragraphs.",
+        "seq_out": "select document_id from paragraphs group by document_id order by count(*) asc limit 1",
+        "section": "test",
+        "arg_path": "META_TUNING/spider_with_cell.cfg",
+        "index": 270
+    }
+]

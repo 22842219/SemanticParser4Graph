@@ -1,0 +1,2421 @@
+[
+    {
+        "db_id": "concert_singer",
+        "index": 22,
+        "gold_sql": "SELECT T2.name ,  count(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id GROUP BY T1.stadium_id",
+        "gold_sql2cypher": "MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nRETURN T2.Name,count(*)",
+        "gold_ans": [
+            [
+                "Stark's Park",
+                1
+            ],
+            [
+                "Somerset Park",
+                2
+            ],
+            [
+                "Recreation Park",
+                1
+            ],
+            [
+                "Balmoor",
+                1
+            ],
+            [
+                "Glebe Park",
+                1
+            ]
+        ],
+        "pre_sql": "select t2.stadium_id, count(*) from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id group by t2.stadium_id",
+        "pred_sql2cypher": "MATCH (t1:`concert_singer.concert`)-[]-(t2:`concert_singer.stadium`)\nRETURN t2.Stadium_ID,count(*)",
+        "pred_ans": [
+            [
+                1,
+                1
+            ],
+            [
+                2,
+                2
+            ],
+            [
+                7,
+                1
+            ],
+            [
+                9,
+                1
+            ],
+            [
+                10,
+                1
+            ]
+        ],
+        "question": "For each stadium, how many concerts play there?"
+    },
+    {
+        "db_id": "concert_singer",
+        "index": 29,
+        "gold_sql": "SELECT T2.concert_name ,  T2.theme ,  count(*) FROM singer_in_concert AS T1 JOIN concert AS T2 ON T1.concert_id  =  T2.concert_id GROUP BY T2.concert_id",
+        "gold_sql2cypher": "MATCH (T2:`concert_singer.concert`)-[T1:`concert_singer.singer_in_concert`]-()\nRETURN T2.concert_Name,T2.Theme,count(*)",
+        "gold_ans": [
+            [
+                "Auditions",
+                "Free choice",
+                3
+            ],
+            [
+                "Super bootcamp",
+                "Free choice 2",
+                2
+            ],
+            [
+                "Home Visits",
+                "Bleeding Love",
+                1
+            ],
+            [
+                "Week 1",
+                "Wide Awake",
+                1
+            ],
+            [
+                "Week 1",
+                "Happy Tonight",
+                2
+            ],
+            [
+                "Week 2",
+                "Party All Night",
+                1
+            ]
+        ],
+        "pre_sql": "select concert_name, theme, count(*) from concert group by theme",
+        "pred_sql2cypher": "MATCH (concert:`concert_singer.concert`)\nRETURN concert.concert_Name,concert.Theme,count(*)",
+        "pred_ans": [
+            [
+                "Auditions",
+                "Free choice",
+                1
+            ],
+            [
+                "Super bootcamp",
+                "Free choice 2",
+                1
+            ],
+            [
+                "Home Visits",
+                "Bleeding Love",
+                1
+            ],
+            [
+                "Week 1",
+                "Wide Awake",
+                1
+            ],
+            [
+                "Week 1",
+                "Happy Tonight",
+                1
+            ],
+            [
+                "Week 2",
+                "Party All Night",
+                1
+            ]
+        ],
+        "question": "Show the name and theme for all concerts and the number of singers in each concert."
+    },
+    {
+        "db_id": "pets_1",
+        "index": 40,
+        "gold_sql": "SELECT weight FROM pets ORDER BY pet_age LIMIT 1",
+        "gold_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN pets.weight\nORDER BY pets.pet_age\nLIMIT 1",
+        "gold_ans": [
+            [
+                9.3
+            ]
+        ],
+        "pre_sql": "select max(weight) from pets where pettype = 'dog'",
+        "pred_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nWHERE pets.PetType = 'dog'\nRETURN max(pets.weight)",
+        "pred_ans": [
+            [
+                13.4
+            ]
+        ],
+        "question": "How much does the youngest dog weigh?"
+    },
+    {
+        "db_id": "pets_1",
+        "index": 42,
+        "gold_sql": "SELECT max(weight) ,  petType FROM pets GROUP BY petType",
+        "gold_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN max(pets.weight),pets.PetType",
+        "pre_sql": "select pettype, max(weight), pettype from pets group by pettype",
+        "pred_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN pets.PetType,max(pets.weight),pets.PetType",
+        "question": "List the maximum weight and type for each type of pet."
+    },
+    {
+        "db_id": "pets_1",
+        "index": 52,
+        "gold_sql": "SELECT pettype ,  weight FROM pets ORDER BY pet_age LIMIT 1",
+        "gold_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN pets.PetType,pets.weight\nORDER BY pets.pet_age\nLIMIT 1",
+        "gold_ans": [
+            [
+                "dog",
+                9.3
+            ]
+        ],
+        "pre_sql": "select pettype, pet_age, weight from pets order by pet_age asc limit 1",
+        "pred_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN pets.PetType,pets.pet_age,pets.weight\nORDER BY pets.pet_age ASC\nLIMIT 1",
+        "pred_ans": [
+            [
+                "dog",
+                1,
+                9.3
+            ]
+        ],
+        "question": "What type of pet is the youngest animal, and how much does it weigh?"
+    },
+    {
+        "db_id": "pets_1",
+        "index": 55,
+        "gold_sql": "SELECT avg(pet_age) ,  max(pet_age) ,  pettype FROM pets GROUP BY pettype",
+        "gold_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN avg(pets.pet_age),max(pets.pet_age),pets.PetType",
+        "gold_ans": [
+            [
+                3.0,
+                3,
+                "cat"
+            ],
+            [
+                1.5,
+                2,
+                "dog"
+            ]
+        ],
+        "pre_sql": "select pettype, avg(pet_age), max(pet_age) from pets group by pettype",
+        "pred_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN pets.PetType,avg(pets.pet_age),max(pets.pet_age)",
+        "pred_ans": [
+            [
+                "cat",
+                3.0,
+                3
+            ],
+            [
+                "dog",
+                1.5,
+                2
+            ]
+        ],
+        "question": "Find the average and maximum age for each type of pet."
+    },
+    {
+        "db_id": "pets_1",
+        "index": 56,
+        "gold_sql": "SELECT avg(pet_age) ,  max(pet_age) ,  pettype FROM pets GROUP BY pettype",
+        "gold_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN avg(pets.pet_age),max(pets.pet_age),pets.PetType",
+        "gold_ans": [
+            [
+                3.0,
+                3,
+                "cat"
+            ],
+            [
+                1.5,
+                2,
+                "dog"
+            ]
+        ],
+        "pre_sql": "select pettype, avg(pet_age), max(pet_age) from pets group by pettype",
+        "pred_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN pets.PetType,avg(pets.pet_age),max(pets.pet_age)",
+        "pred_ans": [
+            [
+                "cat",
+                3.0,
+                3
+            ],
+            [
+                "dog",
+                1.5,
+                2
+            ]
+        ],
+        "question": "What is the average and maximum age for each pet type?"
+    },
+    {
+        "db_id": "pets_1",
+        "index": 57,
+        "gold_sql": "SELECT avg(weight) ,  pettype FROM pets GROUP BY pettype",
+        "gold_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN avg(pets.weight),pets.PetType",
+        "gold_ans": [
+            [
+                12.0,
+                "cat"
+            ],
+            [
+                11.350000000000001,
+                "dog"
+            ]
+        ],
+        "pre_sql": "select pettype, avg(weight) from pets group by pettype",
+        "pred_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN pets.PetType,avg(pets.weight)",
+        "pred_ans": [
+            [
+                "cat",
+                12.0
+            ],
+            [
+                "dog",
+                11.350000000000001
+            ]
+        ],
+        "question": "Find the average weight for each pet type."
+    },
+    {
+        "db_id": "pets_1",
+        "index": 58,
+        "gold_sql": "SELECT avg(weight) ,  pettype FROM pets GROUP BY pettype",
+        "gold_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN avg(pets.weight),pets.PetType",
+        "gold_ans": [
+            [
+                12.0,
+                "cat"
+            ],
+            [
+                11.350000000000001,
+                "dog"
+            ]
+        ],
+        "pre_sql": "select pettype, avg(weight) from pets group by pettype",
+        "pred_sql2cypher": "MATCH (pets:`pets_1.Pets`)\nRETURN pets.PetType,avg(pets.weight)",
+        "pred_ans": [
+            [
+                "cat",
+                12.0
+            ],
+            [
+                "dog",
+                11.350000000000001
+            ]
+        ],
+        "question": "What is the average weight for each type of pet?"
+    },
+    {
+        "db_id": "pets_1",
+        "index": 64,
+        "gold_sql": "select count(*) ,  t1.stuid from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid group by t1.stuid",
+        "gold_sql2cypher": "MATCH (t1:`pets_1.Student`)-[t2:`pets_1.Has_Pet`]-()\nRETURN count(*),t1.StuID",
+        "gold_ans": [
+            [
+                1,
+                1001
+            ],
+            [
+                2,
+                1002
+            ]
+        ],
+        "pre_sql": "select stuid, count(*) from has_pet group by stuid",
+        "pred_sql2cypher": "MATCH ()-[has_pet:`pets_1.Has_Pet`]-()\nRETURN has_pet.StuID,count(*)",
+        "pred_ans": [
+            [
+                1001,
+                2
+            ],
+            [
+                1002,
+                4
+            ]
+        ],
+        "question": "For students who have pets , how many pets does each student have ? list their ids instead of names ."
+    },
+    {
+        "db_id": "car_1",
+        "index": 71,
+        "gold_sql": "SELECT T1.ContId ,  T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.Continent GROUP BY T1.ContId;",
+        "gold_sql2cypher": "MATCH (T1:`car_1.continents`)-[]-(T2:`car_1.countries`)\nRETURN T1.ContId,T1.Continent,count(*)",
+        "pre_sql": "select continent, continent, count(*) from countries group by continent",
+        "pred_sql2cypher": "MATCH (countries:`car_1.countries`)\nRETURN countries.Continent,countries.Continent,count(*)",
+        "question": "How many countries does each continent have? List the continent id, continent name and the number of countries."
+    },
+    {
+        "db_id": "car_1",
+        "index": 75,
+        "gold_sql": "SELECT T1.FullName ,  T1.Id ,  count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id;",
+        "gold_sql2cypher": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nRETURN T1.FullName,T1.Id,count(*)",
+        "gold_ans": [
+            [
+                "American Motor Company",
+                1,
+                1
+            ],
+            [
+                "Volkswagen",
+                2,
+                2
+            ],
+            [
+                "BMW",
+                3,
+                1
+            ],
+            [
+                "General Motors",
+                4,
+                5
+            ],
+            [
+                "Ford Motor Company",
+                5,
+                3
+            ],
+            [
+                "Chrysler",
+                6,
+                4
+            ],
+            [
+                "Citroen",
+                7,
+                1
+            ],
+            [
+                "Nissan Motors",
+                8,
+                2
+            ],
+            [
+                "Fiat",
+                9,
+                1
+            ],
+            [
+                "Honda",
+                11,
+                1
+            ],
+            [
+                "Mazda",
+                12,
+                1
+            ],
+            [
+                "Daimler Benz",
+                13,
+                2
+            ],
+            [
+                "Opel",
+                14,
+                1
+            ],
+            [
+                "Peugeaut",
+                15,
+                1
+            ],
+            [
+                "Renault",
+                16,
+                1
+            ],
+            [
+                "Saab",
+                17,
+                1
+            ],
+            [
+                "Subaru",
+                18,
+                1
+            ],
+            [
+                "Toyota",
+                19,
+                2
+            ],
+            [
+                "Triumph",
+                20,
+                1
+            ],
+            [
+                "Volvo",
+                21,
+                1
+            ],
+            [
+                "Kia Motors",
+                22,
+                1
+            ],
+            [
+                "Hyundai",
+                23,
+                1
+            ]
+        ],
+        "pre_sql": "select maker, fullname, count(*) from car_makers group by maker",
+        "pred_sql2cypher": "MATCH (car_makers:`car_1.car_makers`)\nRETURN car_makers.Maker,car_makers.FullName,count(*)",
+        "pred_ans": [
+            [
+                "amc",
+                "American Motor Company",
+                1
+            ],
+            [
+                "volkswagen",
+                "Volkswagen",
+                1
+            ],
+            [
+                "bmw",
+                "BMW",
+                1
+            ],
+            [
+                "gm",
+                "General Motors",
+                1
+            ],
+            [
+                "ford",
+                "Ford Motor Company",
+                1
+            ],
+            [
+                "chrysler",
+                "Chrysler",
+                1
+            ],
+            [
+                "citroen",
+                "Citroen",
+                1
+            ],
+            [
+                "nissan",
+                "Nissan Motors",
+                1
+            ],
+            [
+                "fiat",
+                "Fiat",
+                1
+            ],
+            [
+                "honda",
+                "Honda",
+                1
+            ],
+            [
+                "mazda",
+                "Mazda",
+                1
+            ],
+            [
+                "daimler benz",
+                "Daimler Benz",
+                1
+            ],
+            [
+                "opel",
+                "Opel",
+                1
+            ],
+            [
+                "peugeaut",
+                "Peugeaut",
+                1
+            ],
+            [
+                "renault",
+                "Renault",
+                1
+            ],
+            [
+                "saab",
+                "Saab",
+                1
+            ],
+            [
+                "subaru",
+                "Subaru",
+                1
+            ],
+            [
+                "toyota",
+                "Toyota",
+                1
+            ],
+            [
+                "triumph",
+                "Triumph",
+                1
+            ],
+            [
+                "volvo",
+                "Volvo",
+                1
+            ],
+            [
+                "kia",
+                "Kia Motors",
+                1
+            ],
+            [
+                "hyundai",
+                "Hyundai",
+                1
+            ]
+        ],
+        "question": "How many models does each car maker produce? List maker full name, id and the number."
+    },
+    {
+        "db_id": "car_1",
+        "index": 76,
+        "gold_sql": "SELECT T1.FullName ,  T1.Id ,  count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id;",
+        "gold_sql2cypher": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nRETURN T1.FullName,T1.Id,count(*)",
+        "gold_ans": [
+            [
+                "American Motor Company",
+                1,
+                1
+            ],
+            [
+                "Volkswagen",
+                2,
+                2
+            ],
+            [
+                "BMW",
+                3,
+                1
+            ],
+            [
+                "General Motors",
+                4,
+                5
+            ],
+            [
+                "Ford Motor Company",
+                5,
+                3
+            ],
+            [
+                "Chrysler",
+                6,
+                4
+            ],
+            [
+                "Citroen",
+                7,
+                1
+            ],
+            [
+                "Nissan Motors",
+                8,
+                2
+            ],
+            [
+                "Fiat",
+                9,
+                1
+            ],
+            [
+                "Honda",
+                11,
+                1
+            ],
+            [
+                "Mazda",
+                12,
+                1
+            ],
+            [
+                "Daimler Benz",
+                13,
+                2
+            ],
+            [
+                "Opel",
+                14,
+                1
+            ],
+            [
+                "Peugeaut",
+                15,
+                1
+            ],
+            [
+                "Renault",
+                16,
+                1
+            ],
+            [
+                "Saab",
+                17,
+                1
+            ],
+            [
+                "Subaru",
+                18,
+                1
+            ],
+            [
+                "Toyota",
+                19,
+                2
+            ],
+            [
+                "Triumph",
+                20,
+                1
+            ],
+            [
+                "Volvo",
+                21,
+                1
+            ],
+            [
+                "Kia Motors",
+                22,
+                1
+            ],
+            [
+                "Hyundai",
+                23,
+                1
+            ]
+        ],
+        "pre_sql": "select maker, fullname, count(*) from car_makers group by maker",
+        "pred_sql2cypher": "MATCH (car_makers:`car_1.car_makers`)\nRETURN car_makers.Maker,car_makers.FullName,count(*)",
+        "pred_ans": [
+            [
+                "amc",
+                "American Motor Company",
+                1
+            ],
+            [
+                "volkswagen",
+                "Volkswagen",
+                1
+            ],
+            [
+                "bmw",
+                "BMW",
+                1
+            ],
+            [
+                "gm",
+                "General Motors",
+                1
+            ],
+            [
+                "ford",
+                "Ford Motor Company",
+                1
+            ],
+            [
+                "chrysler",
+                "Chrysler",
+                1
+            ],
+            [
+                "citroen",
+                "Citroen",
+                1
+            ],
+            [
+                "nissan",
+                "Nissan Motors",
+                1
+            ],
+            [
+                "fiat",
+                "Fiat",
+                1
+            ],
+            [
+                "honda",
+                "Honda",
+                1
+            ],
+            [
+                "mazda",
+                "Mazda",
+                1
+            ],
+            [
+                "daimler benz",
+                "Daimler Benz",
+                1
+            ],
+            [
+                "opel",
+                "Opel",
+                1
+            ],
+            [
+                "peugeaut",
+                "Peugeaut",
+                1
+            ],
+            [
+                "renault",
+                "Renault",
+                1
+            ],
+            [
+                "saab",
+                "Saab",
+                1
+            ],
+            [
+                "subaru",
+                "Subaru",
+                1
+            ],
+            [
+                "toyota",
+                "Toyota",
+                1
+            ],
+            [
+                "triumph",
+                "Triumph",
+                1
+            ],
+            [
+                "volvo",
+                "Volvo",
+                1
+            ],
+            [
+                "kia",
+                "Kia Motors",
+                1
+            ],
+            [
+                "hyundai",
+                "Hyundai",
+                1
+            ]
+        ],
+        "question": "What is the full name of each car maker, along with its id and how many models it produces?"
+    },
+    {
+        "db_id": "car_1",
+        "index": 89,
+        "gold_sql": "SELECT count(*) FROM MODEL_LIST AS T1 JOIN CAR_MAKERS AS T2 ON T1.Maker  =  T2.Id JOIN COUNTRIES AS T3 ON T2.Country  =  T3.CountryId WHERE T3.CountryName  =  'usa';",
+        "gold_sql2cypher": "MATCH (T1:`car_1.model_list`)-[]-(T2:`car_1.car_makers`)-[]-(T3:`car_1.countries`)\nWHERE T3.CountryName = 'usa'\nRETURN count(*)",
+        "gold_ans": [
+            [
+                13
+            ]
+        ],
+        "pre_sql": "select count(*) from countries where countryname = 'usa'",
+        "pred_sql2cypher": "MATCH (countries:`car_1.countries`)\nWHERE countries.CountryName = 'usa'\nRETURN count(*)",
+        "pred_ans": [
+            [
+                1
+            ]
+        ],
+        "question": "How many car models are produced in the usa?"
+    },
+    {
+        "db_id": "car_1",
+        "index": 112,
+        "gold_sql": "SELECT T1.FullName ,  T1.Id FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id HAVING count(*)  >  3;",
+        "gold_sql2cypher": "MATCH (T1:`car_1.car_makers`)-[]-(T2:`car_1.model_list`)\nWITH T1.FullName AS FullName, count(*) AS count, T1.Id AS Id\nWHERE count  > 3\nRETURN FullName,Id",
+        "gold_ans": [
+            [
+                "General Motors",
+                4
+            ],
+            [
+                "Chrysler",
+                6
+            ]
+        ],
+        "pre_sql": "select maker, id from car_makers group by maker having count(*) > 3",
+        "pred_sql2cypher": "MATCH (car_makers:`car_1.car_makers`)\nWITH car_makers.Maker AS Maker, count(*) AS count, car_makers.Id AS Id\nWHERE count  > 3\nRETURN Maker,Id",
+        "pred_ans": [],
+        "question": "What are the names and ids of all makers with more than 3 models?"
+    },
+    {
+        "db_id": "car_1",
+        "index": 115,
+        "gold_sql": "SELECT T1.cylinders FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Model  =  'volvo' ORDER BY T1.accelerate ASC LIMIT 1;",
+        "gold_sql2cypher": "MATCH (T1:`car_1.cars_data`)-[]-(T2:`car_1.car_names`)\nWHERE T2.Model = 'volvo'\nRETURN T1.Cylinders\nORDER BY T1.Accelerate ASC\nLIMIT 1",
+        "gold_ans": [
+            [
+                6
+            ]
+        ],
+        "pre_sql": "select cylinders from cars_data order by accelerate asc limit 1",
+        "pred_sql2cypher": "MATCH (cars_data:`car_1.cars_data`)\nRETURN cars_data.Cylinders\nORDER BY cars_data.Accelerate ASC\nLIMIT 1",
+        "pred_ans": [
+            [
+                8
+            ]
+        ],
+        "question": "For model volvo, how many cylinders does the car with the least accelerate have?"
+    },
+    {
+        "db_id": "car_1",
+        "index": 121,
+        "gold_sql": "select max(mpg) from cars_data where cylinders  =  8 or year  <  1980",
+        "gold_sql2cypher": "MATCH (cars_data:`car_1.cars_data`)\nWHERE cars_data.Cylinders = 8 OR cars_data.Year < 1980\nRETURN max(cars_data.MPG)",
+        "gold_ans": [
+            [
+                "null"
+            ]
+        ],
+        "pre_sql": "select max(mpg) from cars_data where cylinders > 1980",
+        "pred_sql2cypher": "MATCH (cars_data:`car_1.cars_data`)\nWHERE cars_data.Cylinders > 1980\nRETURN max(cars_data.MPG)",
+        "pred_ans": [
+            [
+                null
+            ]
+        ],
+        "question": "What is the maximum miles per gallon of the car with 8 cylinders or produced before 1980 ?"
+    },
+    {
+        "db_id": "car_1",
+        "index": 122,
+        "gold_sql": "select max(mpg) from cars_data where cylinders  =  8 or year  <  1980",
+        "gold_sql2cypher": "MATCH (cars_data:`car_1.cars_data`)\nWHERE cars_data.Cylinders = 8 OR cars_data.Year < 1980\nRETURN max(cars_data.MPG)",
+        "gold_ans": [
+            [
+                "null"
+            ]
+        ],
+        "pre_sql": "select max(mpg) from cars_data where cylinders > 1980",
+        "pred_sql2cypher": "MATCH (cars_data:`car_1.cars_data`)\nWHERE cars_data.Cylinders > 1980\nRETURN max(cars_data.MPG)",
+        "pred_ans": [
+            [
+                null
+            ]
+        ],
+        "question": "What is the maximum mpg of the cars that had 8 cylinders or that were produced before 1980 ?"
+    },
+    {
+        "db_id": "flight_2",
+        "index": 148,
+        "gold_sql": "SELECT count(*) FROM FLIGHTS WHERE DestAirport  =  \"ATO\"",
+        "gold_sql2cypher": "MATCH (flights:`flight_2.flights`)\nWHERE flights.DestAirport = 'ATO'\nRETURN count(*)",
+        "gold_ans": [
+            [
+                0
+            ]
+        ],
+        "pre_sql": "select count(*) from airports where airportcode = 'ATO'",
+        "pred_sql2cypher": "MATCH (airports:`flight_2.airports`)\nWHERE airports.AirportCode = 'ATO'\nRETURN count(*)",
+        "pred_ans": [
+            [
+                1
+            ]
+        ],
+        "question": "Count the number of flights into ATO."
+    },
+    {
+        "db_id": "flight_2",
+        "index": 162,
+        "gold_sql": "SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`)\nWITH T1, count(T1.City) AS cnt\nRETURN T1.City\nORDER BY cnt DESC\nLIMIT 1",
+        "gold_ans": [],
+        "pre_sql": "select city from airports group by city order by count(*) desc limit 1",
+        "pred_sql2cypher": "MATCH (airports:`flight_2.airports`)\nRETURN airports.City\nORDER BY airports.City DESC\nLIMIT 1",
+        "pred_ans": [
+            [
+                "Athens "
+            ]
+        ],
+        "question": "Which city has the most frequent destination airport?"
+    },
+    {
+        "db_id": "flight_2",
+        "index": 164,
+        "gold_sql": "SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.SourceAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`)\nWITH T1, count(T1.City) AS cnt\nRETURN T1.City\nORDER BY cnt DESC\nLIMIT 1",
+        "gold_ans": [],
+        "pre_sql": "select city from airports group by city order by count(*) desc limit 1",
+        "pred_sql2cypher": "MATCH (airports:`flight_2.airports`)\nRETURN airports.City\nORDER BY airports.City DESC\nLIMIT 1",
+        "pred_ans": [
+            [
+                "Athens "
+            ]
+        ],
+        "question": "Which city is the most frequent source airport?"
+    },
+    {
+        "db_id": "flight_2",
+        "index": 165,
+        "gold_sql": "SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`)\nWITH T1, count(T1.AirportCode) AS cnt\nRETURN T1.AirportCode\nORDER BY cnt DESC\nLIMIT 1",
+        "gold_ans": [],
+        "pre_sql": "select airportcode from airports group by airportcode order by count(*) desc limit 1",
+        "pred_sql2cypher": "MATCH (airports:`flight_2.airports`)\nRETURN airports.AirportCode\nORDER BY airports.AirportCode DESC\nLIMIT 1",
+        "pred_ans": [
+            [
+                "WKK"
+            ]
+        ],
+        "question": "What is the code of airport that has the highest number of flights?"
+    },
+    {
+        "db_id": "flight_2",
+        "index": 166,
+        "gold_sql": "SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`)\nWITH T1, count(T1.AirportCode) AS cnt\nRETURN T1.AirportCode\nORDER BY cnt DESC\nLIMIT 1",
+        "gold_ans": [],
+        "pre_sql": "select airportcode from airports group by airportcode order by count(*) desc limit 1",
+        "pred_sql2cypher": "MATCH (airports:`flight_2.airports`)\nRETURN airports.AirportCode\nORDER BY airports.AirportCode DESC\nLIMIT 1",
+        "pred_ans": [
+            [
+                "WKK"
+            ]
+        ],
+        "question": "What is the airport code of the airport with the most flights?"
+    },
+    {
+        "db_id": "flight_2",
+        "index": 167,
+        "gold_sql": "SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) LIMIT 1",
+        "gold_sql2cypher": "MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`)\nWITH T1, count(T1.AirportCode) AS cnt\nRETURN T1.AirportCode\nORDER BY cnt\nLIMIT 1",
+        "gold_ans": [],
+        "pre_sql": "select airportcode from airports group by airportcode order by count(*) asc limit 1",
+        "pred_sql2cypher": "MATCH (airports:`flight_2.airports`)\nRETURN airports.AirportCode\nORDER BY airports.AirportCode ASC\nLIMIT 1",
+        "pred_ans": [
+            [
+                "AAF"
+            ]
+        ],
+        "question": "What is the code of airport that has fewest number of flights?"
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "index": 189,
+        "gold_sql": "SELECT count(*) ,  city FROM employee GROUP BY city",
+        "gold_sql2cypher": "MATCH (employee:`employee_hire_evaluation.employee`)\nRETURN count(*),employee.City",
+        "gold_ans": [
+            [
+                3,
+                "Bristol"
+            ],
+            [
+                3,
+                "Bath"
+            ],
+            [
+                2,
+                "Wasps"
+            ],
+            [
+                1,
+                "Sale"
+            ],
+            [
+                1,
+                "Leicester"
+            ]
+        ],
+        "pre_sql": "select city, count(*) from employee group by city",
+        "pred_sql2cypher": "MATCH (employee:`employee_hire_evaluation.employee`)\nRETURN employee.City,count(*)",
+        "pred_ans": [
+            [
+                "Bristol",
+                3
+            ],
+            [
+                "Bath",
+                3
+            ],
+            [
+                "Wasps",
+                2
+            ],
+            [
+                "Sale",
+                1
+            ],
+            [
+                "Leicester",
+                1
+            ]
+        ],
+        "question": "What is the number of employees from each city?"
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "index": 194,
+        "gold_sql": "SELECT count(*) ,  LOCATION FROM shop GROUP BY LOCATION",
+        "gold_sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nRETURN count(*),shop.Location",
+        "gold_ans": [
+            [
+                1,
+                "Valkeakoski"
+            ],
+            [
+                1,
+                "Helsinki"
+            ],
+            [
+                1,
+                "Espoo"
+            ],
+            [
+                1,
+                "Turku"
+            ],
+            [
+                1,
+                "Jakobstad"
+            ],
+            [
+                1,
+                "Kotka"
+            ],
+            [
+                1,
+                "Kuopio"
+            ],
+            [
+                1,
+                "Lahti"
+            ],
+            [
+                1,
+                "Mariehamn"
+            ]
+        ],
+        "pre_sql": "select location, count(*) from shop group by location",
+        "pred_sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nRETURN shop.Location,count(*)",
+        "pred_ans": [
+            [
+                "Valkeakoski",
+                1
+            ],
+            [
+                "Helsinki",
+                1
+            ],
+            [
+                "Espoo",
+                1
+            ],
+            [
+                "Turku",
+                1
+            ],
+            [
+                "Jakobstad",
+                1
+            ],
+            [
+                "Kotka",
+                1
+            ],
+            [
+                "Kuopio",
+                1
+            ],
+            [
+                "Lahti",
+                1
+            ],
+            [
+                "Mariehamn",
+                1
+            ]
+        ],
+        "question": "How many shops are there in each location?"
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "index": 212,
+        "gold_sql": "SELECT name FROM shop WHERE shop_id NOT IN (SELECT shop_id FROM hiring)",
+        "gold_sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nWHERE NOT (shop)-[]-(:`employee_hire_evaluation.hiring`)    \nRETURN shop.Name",
+        "gold_ans": [
+            [
+                "FC Honka"
+            ],
+            [
+                "KuPS"
+            ],
+            [
+                "IFK Mariehamn"
+            ]
+        ],
+        "pre_sql": "select name from shop where shop_id not in (select shop_id from employee)",
+        "pred_sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nWHERE NOT (shop)-[]-(:`employee_hire_evaluation.employee`)    \nRETURN shop.Name",
+        "pred_ans": [
+            [
+                "FC Haka"
+            ],
+            [
+                "HJK"
+            ],
+            [
+                "FC Honka"
+            ],
+            [
+                "FC Inter"
+            ],
+            [
+                "FF Jaro"
+            ],
+            [
+                "FC KooTeePee"
+            ],
+            [
+                "KuPS"
+            ],
+            [
+                "FC Lahti"
+            ],
+            [
+                "IFK Mariehamn"
+            ]
+        ],
+        "question": "Which shops run with no employees? Find the shop names"
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "index": 213,
+        "gold_sql": "SELECT count(*) ,  t2.name FROM hiring AS t1 JOIN shop AS t2 ON t1.shop_id  =  t2.shop_id GROUP BY t2.name",
+        "gold_sql2cypher": "MATCH (t1:`employee_hire_evaluation.hiring`)-[]-(t2:`employee_hire_evaluation.shop`)\nRETURN count(*),t2.Name",
+        "gold_ans": [
+            [
+                2,
+                "FC Haka"
+            ],
+            [
+                1,
+                "HJK"
+            ],
+            [
+                1,
+                "FC Inter"
+            ],
+            [
+                1,
+                "FF Jaro"
+            ],
+            [
+                1,
+                "FC KooTeePee"
+            ],
+            [
+                1,
+                "FC Lahti"
+            ]
+        ],
+        "pre_sql": "select count(*), t2.name from hiring as t1 join shop as t2 on t1.shop_id = t2.shop_id join employee as t3 on t1.employee_id = t3.employee_id group by t2.shop_id",
+        "pred_sql2cypher": "MATCH (t1:`employee_hire_evaluation.hiring`)-[]-(t2:`employee_hire_evaluation.shop`)-[]-(t3:`employee_hire_evaluation.employee`)\nRETURN count(*),t2.Name",
+        "pred_ans": [],
+        "question": "Find the number of employees hired in each shop; show the shop name as well."
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "index": 215,
+        "gold_sql": "SELECT count(DISTINCT LOCATION) FROM shop",
+        "gold_sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nRETURN count(DISTINCT shop.Location)",
+        "gold_ans": [
+            [
+                9
+            ]
+        ],
+        "pre_sql": "select count(distinct location) from shop",
+        "pred_sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nRETURN count(DISTINCT shop.None)",
+        "pred_ans": [
+            [
+                0
+            ]
+        ],
+        "question": "How many different store locations are there?"
+    },
+    {
+        "db_id": "employee_hire_evaluation",
+        "index": 216,
+        "gold_sql": "SELECT count(DISTINCT LOCATION) FROM shop",
+        "gold_sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nRETURN count(DISTINCT shop.Location)",
+        "gold_ans": [
+            [
+                9
+            ]
+        ],
+        "pre_sql": "select count(distinct location) from shop",
+        "pred_sql2cypher": "MATCH (shop:`employee_hire_evaluation.shop`)\nRETURN count(DISTINCT shop.None)",
+        "pred_ans": [
+            [
+                0
+            ]
+        ],
+        "question": "Count the number of distinct store locations."
+    },
+    {
+        "db_id": "cre_Doc_Template_Mgt",
+        "index": 253,
+        "gold_sql": "SELECT count(*) FROM Paragraphs AS T1 JOIN Documents AS T2 ON T1.document_ID  =  T2.document_ID WHERE T2.document_name  =  'Summer Show'",
+        "gold_sql2cypher": "MATCH (T1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(T2:`cre_Doc_Template_Mgt.Documents`)\nWHERE T2.Document_Name = 'Summer Show'\nRETURN count(*)",
+        "gold_ans": [
+            [
+                1
+            ]
+        ],
+        "pre_sql": "select count(distinct t1.paragraph_text) from paragraphs as t1 join documents as t2 on t1.document_id = t2.document_id where t2.document_name = 'Summer Show'",
+        "pred_sql2cypher": "MATCH (t1:`cre_Doc_Template_Mgt.Paragraphs`)-[]-(t2:`cre_Doc_Template_Mgt.Documents`)\nWHERE t2.Document_Name = 'Summer Show'\nRETURN count(DISTINCT t1.None)",
+        "pred_ans": [
+            [
+                0
+            ]
+        ],
+        "question": "How many paragraphs for the document with name 'Summer Show'?"
+    },
+    {
+        "db_id": "museum_visit",
+        "index": 305,
+        "gold_sql": "SELECT Num_of_Staff ,  Open_Year FROM museum WHERE name  =  'Plaza Museum'",
+        "gold_sql2cypher": "MATCH (museum:`museum_visit.museum`)\nWHERE museum.Name = 'Plaza Museum'\nRETURN museum.Num_of_Staff,museum.Open_Year",
+        "gold_ans": [
+            [
+                62,
+                "2000"
+            ]
+        ],
+        "pre_sql": "select open_year, num_of_staff from museum where name = \"Plaza Museum\"",
+        "pred_sql2cypher": "MATCH (museum:`museum_visit.museum`)\nWHERE museum.Name = 'Plaza Museum'\nRETURN museum.Open_Year,museum.Num_of_Staff",
+        "pred_ans": [
+            [
+                "2000",
+                62
+            ]
+        ],
+        "question": "What are the opening year and staff number of the museum named Plaza Museum?"
+    },
+    {
+        "db_id": "battle_death",
+        "index": 311,
+        "gold_sql": "SELECT name ,  date FROM battle",
+        "gold_sql2cypher": "MATCH (battle:`battle_death.battle`)\nRETURN battle.name,battle.date",
+        "gold_ans": [
+            [
+                "Battle of Adrianople",
+                "14 April 1205"
+            ],
+            [
+                "Battle of Serres",
+                "June 1205"
+            ],
+            [
+                "Battle of Rusion",
+                "31 January 1206"
+            ],
+            [
+                "Battle of Rodosto",
+                "February 1206"
+            ],
+            [
+                "Battle of Messinopolis",
+                "4 September 1207"
+            ],
+            [
+                "Battle of Boruy",
+                "June 1205"
+            ],
+            [
+                "Battle of Philippopolis",
+                "31 June 1208"
+            ],
+            [
+                "Siege of Constantinople",
+                "1235"
+            ]
+        ],
+        "pre_sql": "select name, date, result from battle",
+        "pred_sql2cypher": "MATCH (battle:`battle_death.battle`)\nRETURN battle.name,battle.date,battle.result",
+        "pred_ans": [
+            [
+                "Battle of Adrianople",
+                "14 April 1205",
+                "Bulgarian victory"
+            ],
+            [
+                "Battle of Serres",
+                "June 1205",
+                "Bulgarian victory"
+            ],
+            [
+                "Battle of Rusion",
+                "31 January 1206",
+                "Bulgarian victory"
+            ],
+            [
+                "Battle of Rodosto",
+                "February 1206",
+                "Bulgarian victory"
+            ],
+            [
+                "Battle of Messinopolis",
+                "4 September 1207",
+                "Bulgarian victory"
+            ],
+            [
+                "Battle of Boruy",
+                "June 1205",
+                "Bulgarian victory"
+            ],
+            [
+                "Battle of Philippopolis",
+                "31 June 1208",
+                "Latin victory"
+            ],
+            [
+                "Siege of Constantinople",
+                "1235",
+                "Two Year Truce"
+            ]
+        ],
+        "question": "List the name, date and result of each battle."
+    },
+    {
+        "db_id": "battle_death",
+        "index": 316,
+        "gold_sql": "SELECT count(DISTINCT RESULT) FROM battle",
+        "gold_sql2cypher": "MATCH (battle:`battle_death.battle`)\nRETURN count(DISTINCT battle.result)",
+        "gold_ans": [
+            [
+                3
+            ]
+        ],
+        "pre_sql": "select count(distinct result) from battle",
+        "pred_sql2cypher": "MATCH (battle:`battle_death.battle`)\nRETURN count(DISTINCT battle.None)",
+        "pred_ans": [
+            [
+                0
+            ]
+        ],
+        "question": "How many different results are there for the battles?"
+    },
+    {
+        "db_id": "battle_death",
+        "index": 317,
+        "gold_sql": "SELECT note FROM death WHERE note LIKE '%East%'",
+        "gold_sql2cypher": "MATCH (death:`battle_death.death`)\nWHERE death.note =~'.*[E|e]ast.*'\nRETURN death.note",
+        "gold_ans": [
+            [
+                "East Champaran, Bihar"
+            ]
+        ],
+        "pre_sql": "select note from death where killed = 'East'",
+        "pred_sql2cypher": "MATCH (death:`battle_death.death`)\nWHERE death.killed = 'East'\nRETURN death.note",
+        "pred_ans": [],
+        "question": "What are the notes of the death events which has substring 'East'?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 318,
+        "gold_sql": "SELECT line_1 ,  line_2 FROM addresses",
+        "gold_sql2cypher": "MATCH (addresses:`student_transcripts_tracking.Addresses`)\nRETURN addresses.line_1,addresses.line_2",
+        "pre_sql": "select address_id from addresses where line_1 and line_2",
+        "pred_sql2cypher": "MATCH (addresses:`student_transcripts_tracking.Addresses`)\nWHERE addresses.line_1 AND addresses.line_2\nRETURN addresses.address_id",
+        "question": "what are all the addresses including line 1 and line 2?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 322,
+        "gold_sql": "SELECT course_description FROM Courses WHERE course_name  =  'math'",
+        "gold_sql2cypher": "MATCH (courses:`student_transcripts_tracking.Courses`)\nWHERE courses.course_name = 'math'\nRETURN courses.course_description",
+        "pre_sql": "select t1.course_description from courses as t1 join student_enrolment_courses as t2 on t1.course_id = t2.course_id where t1.course_name = \"math\"",
+        "pred_sql2cypher": "MATCH (t1:`student_transcripts_tracking.Courses`)-[]-(t2:`student_transcripts_tracking.Student_Enrolment_Courses`)\nWHERE t1.course_name = math\nRETURN t1.course_description",
+        "question": "How is the math course described?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 329,
+        "gold_sql": "SELECT count(DISTINCT degree_summary_name) FROM Degree_Programs",
+        "gold_sql2cypher": "MATCH (degree_programs:`student_transcripts_tracking.Degree_Programs`)\nRETURN count(DISTINCT degree_programs.degree_summary_name)",
+        "gold_ans": [
+            [
+                3
+            ]
+        ],
+        "pre_sql": "select count(distinct degree_program_id) from degree_programs",
+        "pred_sql2cypher": "MATCH (degree_programs:`student_transcripts_tracking.Degree_Programs`)\nRETURN count(DISTINCT degree_programs.degree_program_id)",
+        "pred_ans": [
+            [
+                15
+            ]
+        ],
+        "question": "How many different degrees are offered?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 330,
+        "gold_sql": "SELECT count(*) FROM Departments AS T1 JOIN Degree_Programs AS T2 ON T1.department_id  =  T2.department_id WHERE T1.department_name  =  'engineer'",
+        "gold_sql2cypher": "MATCH (T1:`student_transcripts_tracking.Departments`)-[]-(T2:`student_transcripts_tracking.Degree_Programs`)\nWHERE T1.department_name = 'engineer'\nRETURN count(*)",
+        "gold_ans": [
+            [
+                0
+            ]
+        ],
+        "pre_sql": "select count(distinct degree_program_id) from degree_programs",
+        "pred_sql2cypher": "MATCH (degree_programs:`student_transcripts_tracking.Degree_Programs`)\nRETURN count(DISTINCT degree_programs.degree_program_id)",
+        "pred_ans": [
+            [
+                15
+            ]
+        ],
+        "question": "How many degrees does the engineering department offer?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 335,
+        "gold_sql": "SELECT T1.course_name ,  T1.course_id FROM Courses AS T1 JOIN Sections AS T2 ON T1.course_id  =  T2.course_id GROUP BY T1.course_id HAVING count(*)  <=  2",
+        "gold_sql2cypher": "MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Sections`)\nWITH T1.course_name AS course_name, count(*) AS count, T1.course_id AS course_id\nWHERE count  <= 2\nRETURN course_name,course_id",
+        "gold_ans": [
+            [
+                "dl",
+                9
+            ],
+            [
+                "math",
+                2
+            ],
+            [
+                "nlp",
+                8
+            ],
+            [
+                "ds",
+                1
+            ],
+            [
+                "fr",
+                5
+            ],
+            [
+                "cal",
+                7
+            ],
+            [
+                "db",
+                12
+            ],
+            [
+                "pl",
+                14
+            ],
+            [
+                "en",
+                4
+            ],
+            [
+                "la",
+                6
+            ],
+            [
+                "ml",
+                10
+            ]
+        ],
+        "pre_sql": "select t1.course_name, t1.course_id from courses as t1 join sections as t2 on t1.course_id = t2.course_id group by t1.course_id having count(*)  < 2",
+        "pred_sql2cypher": "MATCH (t1:`student_transcripts_tracking.Courses`)-[]-(t2:`student_transcripts_tracking.Sections`)\nWITH t1.course_name AS course_name, t1.course_id AS course_id, count(*) AS count\nWHERE count  < 2\nRETURN course_name,course_id",
+        "pred_ans": [
+            [
+                "dl",
+                9
+            ],
+            [
+                "math",
+                2
+            ],
+            [
+                "cal",
+                7
+            ],
+            [
+                "db",
+                12
+            ],
+            [
+                "en",
+                4
+            ],
+            [
+                "la",
+                6
+            ],
+            [
+                "ml",
+                10
+            ]
+        ],
+        "question": "What are the names and ids of every course with less than 2 sections?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 340,
+        "gold_sql": "SELECT department_description FROM Departments WHERE department_name LIKE '%computer%'",
+        "gold_sql2cypher": "MATCH (departments:`student_transcripts_tracking.Departments`)\nWHERE departments.department_name =~'.*[C|c]omputer.*'\nRETURN departments.department_description",
+        "gold_ans": [
+            [
+                "error"
+            ]
+        ],
+        "pre_sql": "select distinct t1.department_description from departments as t1 join departments as t2 on t1.department_id = t2.department_id where t1.department_name like '%computer%'",
+        "pred_sql2cypher": "MATCH (t1:`student_transcripts_tracking.Departments`)-[]-(t2:`student_transcripts_tracking.Departments`)\nWHERE t1.department_name =~'.*[C|c]omputer.*'\nRETURN DISTINCT t1.department_description",
+        "pred_ans": [],
+        "question": "What is the description of the department whose name has the substring the computer?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 341,
+        "gold_sql": "SELECT department_description FROM Departments WHERE department_name LIKE '%computer%'",
+        "gold_sql2cypher": "MATCH (departments:`student_transcripts_tracking.Departments`)\nWHERE departments.department_name =~'.*[C|c]omputer.*'\nRETURN departments.department_description",
+        "gold_ans": [
+            [
+                "error"
+            ]
+        ],
+        "pre_sql": "select distinct t1.department_description from departments as t1 join departments as t2 on t1.department_id = t2.department_id where t1.department_name like '%computer%'",
+        "pred_sql2cypher": "MATCH (t1:`student_transcripts_tracking.Departments`)-[]-(t2:`student_transcripts_tracking.Departments`)\nWHERE t1.department_name =~'.*[C|c]omputer.*'\nRETURN DISTINCT t1.department_description",
+        "pred_ans": [],
+        "question": "What is the department description for the one whose name has the word computer?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 346,
+        "gold_sql": "SELECT T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id GROUP BY T1.degree_summary_name ORDER BY count(*) DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`)\nWITH T1, count(T1.degree_summary_name) AS cnt\nRETURN T1.degree_summary_name\nORDER BY cnt DESC\nLIMIT 1",
+        "gold_ans": [
+            [
+                "Bachelor"
+            ]
+        ],
+        "pre_sql": "select degree_program_id from student_enrolment group by degree_program_id order by count(*) desc limit 1",
+        "pred_sql2cypher": "MATCH (student_enrolment:`student_transcripts_tracking.Student_Enrolment`)\nRETURN student_enrolment.degree_program_id\nORDER BY student_enrolment.degree_program_id DESC\nLIMIT 1",
+        "pred_ans": [
+            [
+                12
+            ]
+        ],
+        "question": "Find the kind of program which most number of students are enrolled in?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 353,
+        "gold_sql": "select cell_mobile_number from students where first_name  =  'timmothy' and last_name  =  'ward'",
+        "gold_sql2cypher": "MATCH (students:`student_transcripts_tracking.Students`)\nWHERE students.first_name = 'timmothy' AND students.last_name = 'ward'\nRETURN students.cell_mobile_number",
+        "pre_sql": "select cell_mobile_number from students where first_name = \"Timmothy\" and last_name = \"Ward\"",
+        "pred_sql2cypher": "MATCH (students:`student_transcripts_tracking.Students`)\nWHERE students.first_name = Timmothy AND students.last_name = Ward\nRETURN students.cell_mobile_number",
+        "question": "What is the mobile phone number of the student named Timmothy Ward ?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 361,
+        "gold_sql": "SELECT T1.address_id ,  T1.line_1 ,  T1.line_2 FROM Addresses AS T1 JOIN Students AS T2 ON T1.address_id  =  T2.current_address_id GROUP BY T1.address_id ORDER BY count(*) DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (T1:`student_transcripts_tracking.Addresses`)-[]-(T2:`student_transcripts_tracking.Students`)\nWITH T1, count(T1.address_id) AS cnt\nRETURN T1.address_id,T1.line_1,T1.line_2\nORDER BY cnt DESC\nLIMIT 1",
+        "gold_ans": [
+            [
+                9,
+                "0643 Muller Vista",
+                "Suite 383"
+            ]
+        ],
+        "pre_sql": "select address_id, line_1, line_2 from addresses group by address_id order by count(*) desc limit 1",
+        "pred_sql2cypher": "MATCH (addresses:`student_transcripts_tracking.Addresses`)\nRETURN addresses.address_id,addresses.line_1,addresses.line_2\nORDER BY addresses.address_id DESC\nLIMIT 1",
+        "pred_ans": [
+            [
+                15,
+                "74046 Metz Walk Apt. 113",
+                "Suite 674"
+            ]
+        ],
+        "question": "What is the id, line 1, and line 2 of the address with the most students?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 366,
+        "gold_sql": "SELECT transcript_date FROM Transcripts ORDER BY transcript_date DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (transcripts:`student_transcripts_tracking.Transcripts`)\nRETURN transcripts.transcript_date\nORDER BY transcripts.transcript_date DESC\nLIMIT 1",
+        "gold_ans": [
+            [
+                "2013-06-30 13:01:40"
+            ]
+        ],
+        "pre_sql": "select t1.transcript_date from transcripts as t1 join transcripts as t2 on t1.transcript_id = t2.transcript_id order by t2.transcript_date desc limit 1",
+        "pred_sql2cypher": "MATCH (t1:`student_transcripts_tracking.Transcripts`)-[]-(t2:`student_transcripts_tracking.Transcripts`)\nRETURN t1.transcript_date\nORDER BY t2.transcript_date DESC\nLIMIT 1",
+        "pred_ans": [],
+        "question": "What is the last transcript release date?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 367,
+        "gold_sql": "SELECT transcript_date FROM Transcripts ORDER BY transcript_date DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (transcripts:`student_transcripts_tracking.Transcripts`)\nRETURN transcripts.transcript_date\nORDER BY transcripts.transcript_date DESC\nLIMIT 1",
+        "gold_ans": [
+            [
+                "2013-06-30 13:01:40"
+            ]
+        ],
+        "pre_sql": "select t1.transcript_date from transcripts as t1 join transcripts as t2 on t1.transcript_id = t2.transcript_id order by t2.transcript_date desc limit 1",
+        "pred_sql2cypher": "MATCH (t1:`student_transcripts_tracking.Transcripts`)-[]-(t2:`student_transcripts_tracking.Transcripts`)\nRETURN t1.transcript_date\nORDER BY t2.transcript_date DESC\nLIMIT 1",
+        "pred_ans": [],
+        "question": "When was the last transcript released?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 372,
+        "gold_sql": "SELECT section_description FROM Sections WHERE section_name  =  'h'",
+        "gold_sql2cypher": "MATCH (sections:`student_transcripts_tracking.Sections`)\nWHERE sections.section_name = 'h'\nRETURN sections.section_description",
+        "gold_ans": [
+            [
+                "et"
+            ]
+        ],
+        "pre_sql": "select section_name from sections order by section_name",
+        "pred_sql2cypher": "MATCH (sections:`student_transcripts_tracking.Sections`)\nRETURN sections.section_name\nORDER BY sections.section_name",
+        "pred_ans": [
+            [
+                "a"
+            ],
+            [
+                "b"
+            ],
+            [
+                "c"
+            ],
+            [
+                "d"
+            ],
+            [
+                "e"
+            ],
+            [
+                "f"
+            ],
+            [
+                "g"
+            ],
+            [
+                "h"
+            ],
+            [
+                "j"
+            ],
+            [
+                "k"
+            ],
+            [
+                "l"
+            ],
+            [
+                "o"
+            ],
+            [
+                "p"
+            ],
+            [
+                "u"
+            ],
+            [
+                "y"
+            ]
+        ],
+        "question": "Describe the section h."
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 373,
+        "gold_sql": "SELECT section_description FROM Sections WHERE section_name  =  'h'",
+        "gold_sql2cypher": "MATCH (sections:`student_transcripts_tracking.Sections`)\nWHERE sections.section_name = 'h'\nRETURN sections.section_description",
+        "pre_sql": "select section_description from sections where section_name = \"h\"",
+        "pred_sql2cypher": "MATCH (sections:`student_transcripts_tracking.Sections`)\nWHERE sections.section_name = h\nRETURN sections.section_description",
+        "question": "What is the description for the section named h?"
+    },
+    {
+        "db_id": "student_transcripts_tracking",
+        "index": 375,
+        "gold_sql": "select t1.first_name from students as t1 join addresses as t2 on t1.permanent_address_id  =  t2.address_id where t2.country  =  'haiti' or t1.cell_mobile_number  =  '09700166582'",
+        "gold_sql2cypher": "MATCH (t1:`student_transcripts_tracking.Students`)-[]-(t2:`student_transcripts_tracking.Addresses`)\nWHERE t2.country = 'haiti' OR t1.cell_mobile_number = '09700166582'\nRETURN t1.first_name",
+        "gold_ans": [
+            [
+                "Jarvis"
+            ],
+            [
+                "Jarvis"
+            ]
+        ],
+        "pre_sql": "select first_name from students where permanent_address_id = 'Haiti' or cell_mobile_number = 09700166582",
+        "pred_sql2cypher": "MATCH (students:`student_transcripts_tracking.Students`)\nWHERE students.permanent_address_id = 'Haiti' OR students.cell_mobile_number = 9700166582\nRETURN students.first_name",
+        "pred_ans": [],
+        "question": "What are the first names of the students who live in Haiti permanently or have the cell phone number 09700166582 ?"
+    },
+    {
+        "db_id": "tvshow",
+        "index": 403,
+        "gold_sql": "SELECT Episode ,  Rating FROM TV_series ORDER BY Rating DESC LIMIT 3;",
+        "gold_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nRETURN tv_series.Episode,tv_series.Rating\nORDER BY tv_series.Rating DESC\nLIMIT 3",
+        "gold_ans": [
+            [
+                "A Love of a Lifetime",
+                "5.8"
+            ],
+            [
+                "Friendly Skies",
+                "5.3"
+            ],
+            [
+                "Game Three",
+                "4.4"
+            ]
+        ],
+        "pre_sql": "select episode, rating from tv_series group by episode order by count(*) desc limit 3",
+        "pred_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nRETURN tv_series.Episode,tv_series.Rating\nORDER BY tv_series.Episode DESC\nLIMIT 3",
+        "pred_ans": [
+            [
+                "Winterland",
+                "4.0"
+            ],
+            [
+                "The Year of the Rabbit",
+                "4.3"
+            ],
+            [
+                "The Legend of Dylan McCleen",
+                "3.8"
+            ]
+        ],
+        "question": "What are 3 most highly rated episodes in the TV series table and what were those ratings?"
+    },
+    {
+        "db_id": "tvshow",
+        "index": 404,
+        "gold_sql": "SELECT max(SHARE) , min(SHARE) FROM TV_series;",
+        "gold_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nRETURN max(tv_series.Share),min(tv_series.Share)",
+        "gold_ans": [
+            [
+                9.0,
+                5.0
+            ]
+        ],
+        "pre_sql": "select min(share), max(share) from tv_series",
+        "pred_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nRETURN min(tv_series.Share),max(tv_series.Share)",
+        "pred_ans": [
+            [
+                5.0,
+                9.0
+            ]
+        ],
+        "question": "What is minimum and maximum share of TV series?"
+    },
+    {
+        "db_id": "tvshow",
+        "index": 406,
+        "gold_sql": "SELECT Air_Date FROM TV_series WHERE Episode = \"A Love of a Lifetime\";",
+        "gold_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nWHERE tv_series.Episode = 'A Love of a Lifetime'\nRETURN tv_series.Air_Date",
+        "gold_ans": [
+            [
+                "September 24, 2007"
+            ]
+        ],
+        "pre_sql": "select air_date from tv_series where episode = \"A love of a Lifetime\"",
+        "pred_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nWHERE tv_series.Episode = 'A love of a Lifetime'\nRETURN tv_series.Air_Date",
+        "pred_ans": [],
+        "question": "What is the air date of TV series with Episode \"A Love of a Lifetime\"?"
+    },
+    {
+        "db_id": "tvshow",
+        "index": 407,
+        "gold_sql": "SELECT Air_Date FROM TV_series WHERE Episode = \"A Love of a Lifetime\";",
+        "gold_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nWHERE tv_series.Episode = 'A Love of a Lifetime'\nRETURN tv_series.Air_Date",
+        "gold_ans": [
+            [
+                "September 24, 2007"
+            ]
+        ],
+        "pre_sql": "select air_date from tv_series where episode = \"A love of a Lifetime\"",
+        "pred_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nWHERE tv_series.Episode = 'A love of a Lifetime'\nRETURN tv_series.Air_Date",
+        "pred_ans": [],
+        "question": "When did the episode \"A Love of a Lifetime\" air?"
+    },
+    {
+        "db_id": "tvshow",
+        "index": 408,
+        "gold_sql": "SELECT Weekly_Rank FROM TV_series WHERE Episode = \"A Love of a Lifetime\";",
+        "gold_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nWHERE tv_series.Episode = 'A Love of a Lifetime'\nRETURN tv_series.Weekly_Rank",
+        "gold_ans": [
+            [
+                43.0
+            ]
+        ],
+        "pre_sql": "select weekly_rank from tv_series where episode = \"A love of a Lifetime\"",
+        "pred_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nWHERE tv_series.Episode = 'A love of a Lifetime'\nRETURN tv_series.Weekly_Rank",
+        "pred_ans": [],
+        "question": "What is Weekly Rank of TV series with Episode \"A Love of a Lifetime\"?"
+    },
+    {
+        "db_id": "tvshow",
+        "index": 409,
+        "gold_sql": "SELECT Weekly_Rank FROM TV_series WHERE Episode = \"A Love of a Lifetime\";",
+        "gold_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nWHERE tv_series.Episode = 'A Love of a Lifetime'\nRETURN tv_series.Weekly_Rank",
+        "gold_ans": [
+            [
+                43.0
+            ]
+        ],
+        "pre_sql": "select weekly_rank from tv_series where episode = \"A love of a Lifetime\"",
+        "pred_sql2cypher": "MATCH (tv_series:`tvshow.TV_series`)\nWHERE tv_series.Episode = 'A love of a Lifetime'\nRETURN tv_series.Weekly_Rank",
+        "pred_ans": [],
+        "question": "What is the weekly rank for the episode \"A Love of a Lifetime\"?"
+    },
+    {
+        "db_id": "tvshow",
+        "index": 414,
+        "gold_sql": "SELECT count(*) ,  Directed_by FROM cartoon GROUP BY Directed_by",
+        "gold_sql2cypher": "MATCH (cartoon:`tvshow.Cartoon`)\nRETURN count(*),cartoon.Directed_by",
+        "gold_ans": [
+            [
+                4,
+                "Ben Jones"
+            ],
+            [
+                4,
+                "Brandon Vietti"
+            ],
+            [
+                4,
+                "Michael Chang"
+            ]
+        ],
+        "pre_sql": "select directed_by, count(*) from cartoon group by directed_by",
+        "pred_sql2cypher": "MATCH (cartoon:`tvshow.Cartoon`)\nRETURN cartoon.Directed_by,count(*)",
+        "pred_ans": [
+            [
+                "Ben Jones",
+                4
+            ],
+            [
+                "Brandon Vietti",
+                4
+            ],
+            [
+                "Michael Chang",
+                4
+            ]
+        ],
+        "question": "Find the number of cartoons directed by each of the listed directors."
+    },
+    {
+        "db_id": "tvshow",
+        "index": 415,
+        "gold_sql": "SELECT count(*) ,  Directed_by FROM cartoon GROUP BY Directed_by",
+        "gold_sql2cypher": "MATCH (cartoon:`tvshow.Cartoon`)\nRETURN count(*),cartoon.Directed_by",
+        "gold_ans": [
+            [
+                4,
+                "Ben Jones"
+            ],
+            [
+                4,
+                "Brandon Vietti"
+            ],
+            [
+                4,
+                "Michael Chang"
+            ]
+        ],
+        "pre_sql": "select directed_by, count(*) from cartoon group by directed_by",
+        "pred_sql2cypher": "MATCH (cartoon:`tvshow.Cartoon`)\nRETURN cartoon.Directed_by,count(*)",
+        "pred_ans": [
+            [
+                "Ben Jones",
+                4
+            ],
+            [
+                "Brandon Vietti",
+                4
+            ],
+            [
+                "Michael Chang",
+                4
+            ]
+        ],
+        "question": "How many cartoons did each director create?"
+    },
+    {
+        "db_id": "orchestra",
+        "index": 490,
+        "gold_sql": "SELECT Name FROM conductor ORDER BY Year_of_Work DESC LIMIT 1",
+        "gold_sql2cypher": "MATCH (conductor:`orchestra.conductor`)\nRETURN conductor.Name\nORDER BY conductor.Year_of_Work DESC\nLIMIT 1",
+        "gold_ans": [
+            [
+                "Robert Craft"
+            ]
+        ],
+        "pre_sql": "select t1.name from conductor as t1 join orchestra as t2 on t1.conductor_id = t2.conductor_id group by t1.conductor_id order by count(*) desc limit 1",
+        "pred_sql2cypher": "MATCH (t1:`orchestra.conductor`)-[]-(t2:`orchestra.orchestra`)\nWITH t1, count(t1.Conductor_ID) AS cnt\nRETURN t1.Name\nORDER BY cnt DESC\nLIMIT 1",
+        "pred_ans": [
+            [
+                "Antal Dor\u00e1ti"
+            ]
+        ],
+        "question": "What is the name of the conductor who has worked the greatest number of years?"
+    },
+    {
+        "db_id": "network_1",
+        "index": 519,
+        "gold_sql": "SELECT grade ,  count(*) FROM Highschooler GROUP BY grade",
+        "gold_sql2cypher": "MATCH (highschooler:`network_1.Highschooler`)\nRETURN highschooler.grade,count(*)",
+        "gold_ans": [
+            [
+                9,
+                4
+            ],
+            [
+                10,
+                4
+            ],
+            [
+                11,
+                4
+            ],
+            [
+                12,
+                4
+            ]
+        ],
+        "pre_sql": "select count(*), grade from highschooler group by grade",
+        "pred_sql2cypher": "MATCH (highschooler:`network_1.Highschooler`)\nRETURN count(*),highschooler.grade",
+        "pred_ans": [
+            [
+                4,
+                9
+            ],
+            [
+                4,
+                10
+            ],
+            [
+                4,
+                11
+            ],
+            [
+                4,
+                12
+            ]
+        ],
+        "question": "Show the number of high schoolers for each grade."
+    },
+    {
+        "db_id": "dog_kennels",
+        "index": 545,
+        "gold_sql": "SELECT DISTINCT T1.date_arrived ,  T1.date_departed FROM Dogs AS T1 JOIN Treatments AS T2 ON T1.dog_id  =  T2.dog_id",
+        "gold_sql2cypher": "MATCH (T1:`dog_kennels.Dogs`)-[]-(T2:`dog_kennels.Treatments`)\nRETURN DISTINCT T1.date_arrived,T1.date_departed",
+        "gold_ans": [
+            [
+                "2017-06-18 19:45:38",
+                "2018-03-24 23:48:59"
+            ],
+            [
+                "2017-04-20 00:58:55",
+                "2018-03-24 19:12:22"
+            ],
+            [
+                "2017-12-22 05:02:02",
+                "2018-03-25 02:11:32"
+            ],
+            [
+                "2017-10-24 04:45:13",
+                "2018-03-25 14:15:41"
+            ],
+            [
+                "2017-12-29 06:08:26",
+                "2018-03-25 04:42:14"
+            ],
+            [
+                "2017-12-29 23:24:13",
+                "2018-03-24 19:36:59"
+            ],
+            [
+                "2018-01-02 03:15:29",
+                "2018-03-25 05:07:47"
+            ],
+            [
+                "2017-05-06 08:03:52",
+                "2018-03-25 06:29:10"
+            ],
+            [
+                "2017-09-08 20:10:13",
+                "2018-03-25 06:58:44"
+            ]
+        ],
+        "pre_sql": "select date_arrived, date_departed from dogs;",
+        "pred_sql2cypher": "MATCH (dogs:`dog_kennels.Dogs`)\nRETURN dogs.date_arrived,dogs.date_departed",
+        "pred_ans": [
+            [
+                "2017-09-08 20:10:13",
+                "2018-03-25 06:58:44"
+            ],
+            [
+                "2017-12-22 05:02:02",
+                "2018-03-25 02:11:32"
+            ],
+            [
+                "2017-06-25 10:14:05",
+                "2018-03-25 10:25:46"
+            ],
+            [
+                "2017-04-20 00:58:55",
+                "2018-03-24 19:12:22"
+            ],
+            [
+                "2017-10-25 00:55:34",
+                "2018-03-25 04:50:22"
+            ],
+            [
+                "2017-04-15 09:25:31",
+                "2018-03-25 13:07:04"
+            ],
+            [
+                "2017-05-06 08:03:52",
+                "2018-03-25 06:29:10"
+            ],
+            [
+                "2017-10-16 20:06:21",
+                "2018-03-25 02:47:40"
+            ],
+            [
+                "2018-01-17 11:44:16",
+                "2018-03-25 06:46:07"
+            ],
+            [
+                "2017-12-29 06:08:26",
+                "2018-03-25 04:42:14"
+            ],
+            [
+                "2017-07-25 15:19:07",
+                "2018-03-25 15:05:16"
+            ],
+            [
+                "2017-10-24 04:45:13",
+                "2018-03-25 14:15:41"
+            ],
+            [
+                "2018-01-02 03:15:29",
+                "2018-03-25 05:07:47"
+            ],
+            [
+                "2017-06-18 19:45:38",
+                "2018-03-24 23:48:59"
+            ],
+            [
+                "2017-12-29 23:24:13",
+                "2018-03-24 19:36:59"
+            ]
+        ],
+        "question": "What are the arriving date and the departing date of the dogs who have gone through a treatment?"
+    },
+    {
+        "db_id": "dog_kennels",
+        "index": 551,
+        "gold_sql": "SELECT count(DISTINCT dog_id) FROM Treatments",
+        "gold_sql2cypher": "MATCH (treatments:`dog_kennels.Treatments`)\nRETURN count(DISTINCT treatments.dog_id)",
+        "gold_ans": [
+            [
+                9
+            ]
+        ],
+        "pre_sql": "select count(*) from treatments",
+        "pred_sql2cypher": "MATCH (treatments:`dog_kennels.Treatments`)\nRETURN count(*)",
+        "pred_ans": [
+            [
+                15
+            ]
+        ],
+        "question": "How many dogs went through any treatments?"
+    },
+    {
+        "db_id": "dog_kennels",
+        "index": 555,
+        "gold_sql": "SELECT role_code ,  street ,  city ,  state FROM professionals WHERE city LIKE '%West%'",
+        "gold_sql2cypher": "MATCH (professionals:`dog_kennels.Professionals`)\nWHERE professionals.city =~'.*[W|w]est.*'\nRETURN professionals.role_code,professionals.street,professionals.city,professionals.state",
+        "gold_ans": [
+            [
+                "Employee",
+                "6915 Oberbrunner Point Suite 491\nGleasonville, LA ",
+                "West Heidi",
+                "Indiana"
+            ]
+        ],
+        "pre_sql": "select role_code, street, city, state from professionals where street like '%west%'",
+        "pred_sql2cypher": "MATCH (professionals:`dog_kennels.Professionals`)\nWHERE professionals.street =~'.*[W|w]est.*'\nRETURN professionals.role_code,professionals.street,professionals.city,professionals.state",
+        "pred_ans": [],
+        "question": "Which professionals live in a city containing the substring 'West'? List his or her role, street, city and state."
+    },
+    {
+        "db_id": "dog_kennels",
+        "index": 556,
+        "gold_sql": "SELECT role_code ,  street ,  city ,  state FROM professionals WHERE city LIKE '%West%'",
+        "gold_sql2cypher": "MATCH (professionals:`dog_kennels.Professionals`)\nWHERE professionals.city =~'.*[W|w]est.*'\nRETURN professionals.role_code,professionals.street,professionals.city,professionals.state",
+        "gold_ans": [
+            [
+                "Employee",
+                "6915 Oberbrunner Point Suite 491\nGleasonville, LA ",
+                "West Heidi",
+                "Indiana"
+            ]
+        ],
+        "pre_sql": "select role_code, street, city, state from professionals where street like '%west%'",
+        "pred_sql2cypher": "MATCH (professionals:`dog_kennels.Professionals`)\nWHERE professionals.street =~'.*[W|w]est.*'\nRETURN professionals.role_code,professionals.street,professionals.city,professionals.state",
+        "pred_ans": [],
+        "question": "Find the role, street, city and state of the professionals living in a city that contains the substring 'West'."
+    },
+    {
+        "db_id": "dog_kennels",
+        "index": 557,
+        "gold_sql": "SELECT first_name ,  last_name ,  email_address FROM Owners WHERE state LIKE '%North%'",
+        "gold_sql2cypher": "MATCH (owners:`dog_kennels.Owners`)\nWHERE owners.state =~'.*[N|n]orth.*'\nRETURN owners.first_name,owners.last_name,owners.email_address",
+        "gold_ans": [
+            [
+                "Johann",
+                "Fisher",
+                "zboncak.madonna@example.net"
+            ],
+            [
+                "Cindy",
+                "Schmitt",
+                "wpfeffer@example.net"
+            ]
+        ],
+        "pre_sql": "select first_name, last_name, email_address from owners where state like '%n%'",
+        "pred_sql2cypher": "MATCH (owners:`dog_kennels.Owners`)\nWHERE owners.state =~'.*[N|n].*'\nRETURN owners.first_name,owners.last_name,owners.email_address",
+        "pred_ans": [
+            [
+                "Nora",
+                "Haley",
+                "lynn81@example.org"
+            ],
+            [
+                "Melisa",
+                "DuBuque",
+                "ykris@example.com"
+            ],
+            [
+                "Jaclyn",
+                "Stoltenberg",
+                "hudson.favian@example.com"
+            ],
+            [
+                "Johann",
+                "Fisher",
+                "zboncak.madonna@example.net"
+            ],
+            [
+                "Kade",
+                "Rippin",
+                "margaretta.runte@example.net"
+            ],
+            [
+                "Emelie",
+                "Mertz",
+                "angeline99@example.com"
+            ],
+            [
+                "Rolando",
+                "Prohaska",
+                "kturner@example.net"
+            ],
+            [
+                "Adelle",
+                "Ondricka",
+                "fschoen@example.net"
+            ],
+            [
+                "Gay",
+                "Feil",
+                "pearlie18@example.com"
+            ],
+            [
+                "Cindy",
+                "Schmitt",
+                "wpfeffer@example.net"
+            ],
+            [
+                "Rachelle",
+                "Funk",
+                "edythe62@example.org"
+            ],
+            [
+                "Heather",
+                "Hauck",
+                "ybergstrom@example.com"
+            ]
+        ],
+        "question": "Which owners live in the state whose name contains the substring 'North'? List his first name, last name and email."
+    },
+    {
+        "db_id": "dog_kennels",
+        "index": 558,
+        "gold_sql": "SELECT first_name ,  last_name ,  email_address FROM Owners WHERE state LIKE '%North%'",
+        "gold_sql2cypher": "MATCH (owners:`dog_kennels.Owners`)\nWHERE owners.state =~'.*[N|n]orth.*'\nRETURN owners.first_name,owners.last_name,owners.email_address",
+        "gold_ans": [
+            [
+                "Johann",
+                "Fisher",
+                "zboncak.madonna@example.net"
+            ],
+            [
+                "Cindy",
+                "Schmitt",
+                "wpfeffer@example.net"
+            ]
+        ],
+        "pre_sql": "select first_name, last_name, email_address from owners where state like '%n%'",
+        "pred_sql2cypher": "MATCH (owners:`dog_kennels.Owners`)\nWHERE owners.state =~'.*[N|n].*'\nRETURN owners.first_name,owners.last_name,owners.email_address",
+        "pred_ans": [
+            [
+                "Nora",
+                "Haley",
+                "lynn81@example.org"
+            ],
+            [
+                "Melisa",
+                "DuBuque",
+                "ykris@example.com"
+            ],
+            [
+                "Jaclyn",
+                "Stoltenberg",
+                "hudson.favian@example.com"
+            ],
+            [
+                "Johann",
+                "Fisher",
+                "zboncak.madonna@example.net"
+            ],
+            [
+                "Kade",
+                "Rippin",
+                "margaretta.runte@example.net"
+            ],
+            [
+                "Emelie",
+                "Mertz",
+                "angeline99@example.com"
+            ],
+            [
+                "Rolando",
+                "Prohaska",
+                "kturner@example.net"
+            ],
+            [
+                "Adelle",
+                "Ondricka",
+                "fschoen@example.net"
+            ],
+            [
+                "Gay",
+                "Feil",
+                "pearlie18@example.com"
+            ],
+            [
+                "Cindy",
+                "Schmitt",
+                "wpfeffer@example.net"
+            ],
+            [
+                "Rachelle",
+                "Funk",
+                "edythe62@example.org"
+            ],
+            [
+                "Heather",
+                "Hauck",
+                "ybergstrom@example.com"
+            ]
+        ],
+        "question": "Return the first name, last name and email of the owners living in a state whose name contains the substring 'North'."
+    },
+    {
+        "db_id": "real_estate_properties",
+        "index": 601,
+        "gold_sql": "SELECT property_name FROM Properties WHERE property_type_code  =  \"House\" UNION SELECT property_name FROM Properties WHERE property_type_code  =  \"Apartment\" AND room_count  >  1",
+        "gold_sql2cypher": "MATCH (properties:`real_estate_properties.Properties`)\nWHERE properties.property_type_code = 'House'\nRETURN properties.property_name  AS property_name \nUNION\nMATCH (properties:`real_estate_properties.Properties`)\nWHERE properties.property_type_code = 'Apartment' AND properties.room_count > 1\nRETURN properties.property_name  AS property_name",
+        "gold_ans": [
+            [
+                "park"
+            ],
+            [
+                "the cole"
+            ],
+            [
+                "parc east"
+            ],
+            [
+                "vogue"
+            ],
+            [
+                "longacre"
+            ],
+            [
+                "renoir"
+            ],
+            [
+                "ten tower"
+            ],
+            [
+                "parc coliseum"
+            ]
+        ],
+        "pre_sql": "select property_name from properties where property_type_code = 'Appartement' or room_count > 1",
+        "pred_sql2cypher": "MATCH (properties:`real_estate_properties.Properties`)\nWHERE properties.property_type_code = 'Appartement' OR properties.room_count > 1\nRETURN properties.property_name",
+        "pred_ans": [
+            [
+                "park"
+            ],
+            [
+                "prism"
+            ],
+            [
+                "riverside"
+            ],
+            [
+                "parc east"
+            ],
+            [
+                "high line"
+            ],
+            [
+                "avalon"
+            ],
+            [
+                "vogue"
+            ],
+            [
+                "longacre"
+            ],
+            [
+                "renoir"
+            ],
+            [
+                "murray hill"
+            ],
+            [
+                "ten tower"
+            ],
+            [
+                "chelsea"
+            ],
+            [
+                "wall street"
+            ],
+            [
+                "parc coliseum"
+            ]
+        ],
+        "question": "What are the names of properties that are either houses or apartments with more than 1 room?"
+    }
+]
