@@ -44,7 +44,7 @@ db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True)
 
 text2sql_pres_folds = os.path.join(root, 'application', 'rel_db2kg', 'text2sql', 'pricai')
 
-for model in ['CodeT5_base_prefix_spider_with_cell_value', 'CodeT5_base_finetune_spider_with_cell_value', 'T5_base_prefix_spider_with_cell_value']:
+for model in ['CodeT5_base_prefix_spider_with_cell_value', 'CodeT5_base_finetune_spider_with_cell_value', 'T5_base_prefix_spider_with_cell_value','T5_base_finetune_spider_with_cell_value']:
 
 
     sp_out_folder = os.path.join(root, 'sp_data_folder','text2sql2cypher', model)
