@@ -1,0 +1,15 @@
+Root
+├── select
+│   └── value
+│       └── count
+│           └── *
+├── from
+│   └── department
+└── where
+    └── nin
+        ├── department_id
+        ├── select
+        │   └── value
+        │       └── department_id
+        └── from
+            └── management
