@@ -1015,17 +1015,20 @@ def execution_accuracy(metrics_file, split, qa_pairs, not_ready_sql):
 		incorrect_report[each['db_id']].append(each['index'])	
 			
 	if valid_parsed_total!=0:	
+		sub_total = 0
 		for key, item in not_ready_sql.items():
 			f_report[key] = round(len(item)/(valid_parsed_total+len(item)), 4)
 			fd_report[key]={}
+			sub_total+=len(item)
 			for each in item:
 				if each['db_id'] not in fd_report[key]:
 					fd_report[key][each['db_id']]=[]
 				fd_report[key][each['db_id']].append(each['index'])	
-				
+		total = valid_parsed_total+sub_total	
 		every_metric =  {'split': split,
-						'valid_parsed_report': {'total': valid_parsed_total, 
-			     							'execution_accuracy': round(len(qa_pairs['correct_'])/valid_parsed_total, 4),
+						'valid_parsed_report': {'total_parsed': valid_parsed_total,
+											'total': total, 
+			     							'execution_accuracy': round(len(qa_pairs['correct_'])/total, 4),
 											'correct': len(qa_pairs['correct_']),
 											'incorrect': len(qa_pairs['incorrect_'])}, 
 						'incorrect_sql2cypher_report':incorrect_report, 
