@@ -17,7 +17,7 @@ class TokenizedDataset(Dataset):
         #ZZHAO: get the maximum number of properties in a db for the tensor padding. 
         db_tag_props_num = []
         for idx in range(len(self.seq2seq_dataset)):
-             db_tag_props_num.append(len(self.seq2seq_dataset[idx]['db_property_embs']['property_embedding'] ))
+             db_tag_props_num.append(len(self.seq2seq_dataset[idx]['db_property_embs']['property_embeddings'] ))
         self.max_ent_length = max(db_tag_props_num)
 
     def __getitem__(self, index):
@@ -127,8 +127,8 @@ class TokenizedDataset(Dataset):
         
         #TODO: Use pretrained compositional gcn embedding. BY ZZHAO
         if self.args.model.use_pretrained_gcn:
-            tag_embeddings= torch.tensor(raw_item['db_property_embs']['tag_embdding']) #torch.Size([13, 200]) 
-            property_embeddings = torch.tensor(raw_item['db_property_embs']['property_embedding'] ) #torch.Size([13, 200]) 
+            tag_embeddings= torch.tensor(raw_item['db_property_embs']['tag_embeddings']) #torch.Size([13, 200]) 
+            property_embeddings = torch.tensor(raw_item['db_property_embs']['property_embeddings'] ) #torch.Size([13, 200]) 
    
 
             # Pad tag_embeddings and property_embeddings to match max_ent_length
