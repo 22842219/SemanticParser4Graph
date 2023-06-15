@@ -1,6 +1,7 @@
 import os
 import torch
 from torch.utils.data import Dataset
+import torch.nn.functional as F
 
 
 class TokenizedDataset(Dataset):
@@ -13,9 +14,15 @@ class TokenizedDataset(Dataset):
 
         self.conv_sep = " || "
 
-    def __getitem__(self, index):
-        raw_item = self.seq2seq_dataset[index]
+        #ZZHAO: get the maximum number of properties in a db for the tensor padding. 
+        db_tag_props_num = []
+        for idx in range(len(self.seq2seq_dataset)):
+             db_tag_props_num.append(len(self.seq2seq_dataset[idx]['db_property_embs']['property_embedding'] ))
+        self.max_ent_length = max(db_tag_props_num)
 
+    def __getitem__(self, index):
+        
+        raw_item = self.seq2seq_dataset[index]
         if raw_item["text_in"]:
             ###################
             # With text input #
@@ -90,9 +97,9 @@ class TokenizedDataset(Dataset):
         tokenized_inferred_input_ids[tokenized_inferred_input_ids == self.tokenizer.pad_token_id] = -100
 
         item = {
-            'input_ids': torch.LongTensor(tokenized_question_and_schemas.data["input_ids"]),
-            'attention_mask': torch.LongTensor(tokenized_question_and_schemas.data["attention_mask"]),
-            'labels': tokenized_inferred_input_ids,
+            'input_ids': torch.LongTensor(tokenized_question_and_schemas.data["input_ids"]), #torch.Size([512])
+            'attention_mask': torch.LongTensor(tokenized_question_and_schemas.data["attention_mask"]), #torch.Size([512])
+            'labels': tokenized_inferred_input_ids, #torch.Size([512])
         }
         # Add task name.
         if 'task_id' in raw_item:
@@ -117,7 +124,25 @@ class TokenizedDataset(Dataset):
                                                  )
             item['knowledge_input_ids'] = torch.LongTensor(tokenized_knowledge.data["input_ids"])
             item['knowledge_attention_mask'] = torch.LongTensor(tokenized_knowledge.data["attention_mask"])
+        
+        #TODO: Use pretrained compositional gcn embedding. BY ZZHAO
+        if self.args.model.use_pretrained_gcn:
+            tag_embeddings= torch.tensor(raw_item['db_property_embs']['tag_embdding']) #torch.Size([13, 200]) 
+            property_embeddings = torch.tensor(raw_item['db_property_embs']['property_embedding'] ) #torch.Size([13, 200]) 
+   
 
+            # Pad tag_embeddings and property_embeddings to match max_ent_length
+            num_entities = len(tag_embeddings)
+            padding_length = self.max_ent_length - num_entities
+            padded_tag_embeddings = F.pad(tag_embeddings, (0, 0, 0, padding_length))
+            padded_property_embeddings = F.pad(property_embeddings, (0, 0, 0, padding_length))
+
+            item['tag_embeddings'] = padded_tag_embeddings
+            item['property_embeddings'] = padded_property_embeddings
+            # print(self.max_ent_length)
+            # print(item['tag_embeddings'].shape, item['property_embeddings'].shape)
+            # print(item['tag_embeddings'])
+            # assert 1>2
         return item
 
     def __len__(self):
