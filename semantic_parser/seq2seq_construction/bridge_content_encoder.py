@@ -205,8 +205,9 @@ def get_property_picklist(db_id: str, tag_name: str, property_name: str, schema_
     with codecs.open(schema_path, 'r') as f:
         schema = json.load(f)
         every_schema=schema[db_id]
-        if tag_name.startswith(":`"):
-            tag_name = tag_name.strip(":").strip("`").split(".")[1]
+        print('tag_name:', tag_name)
+        if tag_name.startswith("`"):
+            tag_name = tag_name.strip("`").split(".")[1]
         property_name_value_pairs = every_schema[tag_name]
         if bool(property_name):
             return property_name_value_pairs[property_name]
