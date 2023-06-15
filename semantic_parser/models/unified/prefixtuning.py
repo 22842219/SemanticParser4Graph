@@ -8,6 +8,7 @@ from .base import PushToHubFriendlyModel
 from ..prompt.modeling_auto import AutoModelForSeq2SeqLM
 
 
+
 class Model(PushToHubFriendlyModel):
     def __init__(self, args):
         super().__init__()
@@ -18,6 +19,7 @@ class Model(PushToHubFriendlyModel):
         self.preseqlen = args.prefix_tuning.prefix_sequence_length
         self.mid_dim = args.prefix_tuning.mid_dim
 
+
         # Load tokenizer and model.
         self.tokenizer = AutoTokenizer.from_pretrained(args.bert.location, use_fast=False)
         self.pretrain_model = AutoModelForSeq2SeqLM.from_pretrained(
@@ -26,6 +28,7 @@ class Model(PushToHubFriendlyModel):
         self.config = self.pretrain_model.config
         from ..prompt.modeling_bart import BartForConditionalGeneration
         from ..prompt.modeling_t5 import T5ForConditionalGeneration
+
         if isinstance(self.pretrain_model, BartForConditionalGeneration):
             self.match_n_layer = self.config.decoder_layers
             self.match_n_head = self.config.decoder_attention_heads
@@ -47,6 +50,7 @@ class Model(PushToHubFriendlyModel):
         # Prefix related.
         self.register_buffer('input_tokens', torch.arange(self.preseqlen).long())
         print(f'match_n_layer: {self.match_n_layer}, match_n_head: {self.match_n_head}, n_embd: {self.n_embd}, match_n_embd:{self.match_n_embd}' )
+        # match_n_layer: 12, match_n_head: 12, n_embd: 768, match_n_embd:64
 
         self.wte = nn.Embedding(self.preseqlen, self.n_embd)
         self.control_trans = nn.Sequential(
@@ -89,7 +93,24 @@ class Model(PushToHubFriendlyModel):
                 nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.match_n_head * self.match_n_embd),
             )
 
+        # ZZHAO: Comp_GCN leverage
+        if self.args.model.use_pretrained_gcn:
+            self.gcn_emb_trans = nn.Sequential(
+                nn.Linear(self.args.model.gcn_dim, self.mid_dim//2),
+                nn.Tanh(),
+                nn.Linear(self.mid_dim//2, self.mid_dim),
+            )
+            self.combined = nn.Sequential(
+                nn.Linear(self.n_embd, self.mid_dim//2),
+                nn.Tanh(),
+                nn.Linear(self.mid_dim//2, self.mid_dim),
+            )
+            self.lstm = nn.LSTM(self.n_embd, self.n_embd, 1,bidirectional=True)
+            self.layer_1 = nn.Linear(self.n_embd*6, self.n_embd)
+
         self.dropout = nn.Dropout(args.prefix_tuning.prefix_dropout)
+
+        self.mse_loss = nn.MSELoss()
 
         if self.args.model.freeze_plm:
             for param in self.pretrain_model.parameters():
@@ -111,20 +132,25 @@ class Model(PushToHubFriendlyModel):
     def get_prompt(self, bsz=None, sample_size=1, description=None, knowledge=None):
         old_bsz = bsz
         bsz = bsz * sample_size
-        input_tokens = self.input_tokens.unsqueeze(0).expand(bsz, -1)
-        temp_control = self.wte(input_tokens)
+        input_tokens = self.input_tokens.unsqueeze(0).expand(bsz, -1) #[2, 10]
+        temp_control = self.wte(input_tokens) # [2, 10, 768])
+
         if description is not None:
             temp_control = temp_control + description.repeat_interleave(sample_size, dim=0).unsqueeze(1)
-        past_key_values = self.control_trans(temp_control)  # bsz, seqlen, layer*emb
+        past_key_values = self.control_trans(temp_control)  # bsz, seqlen, layer*emb : [2, 10, 18432]
+    
         if knowledge is not None:
             past_key_values = torch.cat([past_key_values, self.knowledge_trans(knowledge.repeat_interleave(sample_size, dim=0))], dim=1)
+            #[2, 522, 18432])
+
 
         bsz, seqlen, _ = past_key_values.shape
         past_key_values = past_key_values.view(
             bsz, seqlen, self.match_n_layer * 2, self.match_n_head, self.match_n_embd
-        )
+        ) #[2, 522, 24, 12, 64])
         past_key_values = self.dropout(past_key_values)
-        past_key_values = past_key_values.permute([2, 0, 3, 1, 4]).split(2)
+        past_key_values = past_key_values.permute([2, 0, 3, 1, 4]).split(2) # 12*[2, 2, 12, 522, 64]
+
 
         # Cross prefix
         temp_control_dec = self.wte_dec(input_tokens)
@@ -171,13 +197,13 @@ class Model(PushToHubFriendlyModel):
         for i, key_val in enumerate(past_key_values):
             temp = dict()
             temp["decoder_prompt"] = {
-                "prev_key": key_val[0].contiguous(),
-                "prev_value": key_val[1].contiguous(),
-                "prev_key_padding_mask": torch.zeros(bsz, seqlen)
+                "prev_key": key_val[0].contiguous(),# [2, 12, 10, 64]
+                "prev_value": key_val[1].contiguous(),# [2, 12, 10, 64]
+                "prev_key_padding_mask": torch.zeros(bsz, seqlen) #[2, 10]
                     .to(key_val.device)
                     .bool()
-                # bsz, preseqlen
-            }
+                # bsz, preseqlen 
+            } 
             key_val_dec = past_key_values_dec[i]
             temp["cross_attention_prompt"] = {
                 "prev_key": key_val_dec[0].contiguous(),
@@ -185,7 +211,7 @@ class Model(PushToHubFriendlyModel):
                 "prev_key_padding_mask": torch.zeros(bsz, seqlen)
                     .to(key_val_dec.device)
                     .bool(),
-            }
+            } 
             key_val_enc = past_key_values_enc[i]
             temp["encoder_prompt"] = {
                 "prev_key": key_val_enc[0].contiguous(),
@@ -193,7 +219,7 @@ class Model(PushToHubFriendlyModel):
                 "prev_key_padding_mask": torch.zeros(bsz_enc, seqlen)
                     .to(key_val_enc.device)
                     .bool(),
-            }
+            } 
             result.append(temp)
 
         return result
@@ -225,7 +251,7 @@ class Model(PushToHubFriendlyModel):
         if self.args.model.knowledge_usage == 'separate':
             knowledge_input_ids = kwargs.pop("knowledge_input_ids", None)
             knowledge_attention_mask = kwargs.pop("knowledge_attention_mask", None)
-            if self.args.bert.location in ["t5-small", "t5-base", "t5-large", "t5-3b", "t5-11b"]:
+            if self.args.bert.location in ["t5-small", "t5-base", "t5-large", "t5-3b", "t5-11b", "Salesforce/codet5-base"]:
                 knowledge_outputs = self.pretrain_model.encoder(
                     input_ids=knowledge_input_ids,
                     attention_mask=knowledge_attention_mask,
@@ -236,7 +262,8 @@ class Model(PushToHubFriendlyModel):
                     input_ids=knowledge_input_ids,
                     attention_mask=knowledge_attention_mask,
                 )
-                knowledge = knowledge_outputs.last_hidden_state
+                print(f'knowledge_outputs:', knowledge_outputs)
+                knowledge = knowledge_outputs.last_hidden_state # [2, 512, 768]
             else:
                 raise ValueError()
         elif self.args.model.knowledge_usage == 'concatenate':
@@ -246,35 +273,59 @@ class Model(PushToHubFriendlyModel):
 
         return knowledge
 
+
+
     def forward(self,
                 input_ids,
                 attention_mask,
                 labels,
-                **kwargs,
+                **kwargs, # extra data inputs, e.g., tag_embeddings and property_embddings
                 ):
+        
+        for key, value in kwargs.items():
+            print(f'{key}:{value.shape}') #[2, 90, 200]
+
         bsz = input_ids.shape[0]
-        print(f'batch size: {bsz}')
 
         # Encode description.
         description_representation = self.get_description_representation(kwargs)
-        print(f' description_representation: {description_representation} ')
+
 
         # Encode knowledge.
-        knowledge_representation = self.get_knowledge_representation(kwargs)
+        knowledge_representation = self.get_knowledge_representation(kwargs) #[2, 512]
 
         past_prompt = self.get_prompt(
             bsz=bsz, description=description_representation, knowledge=knowledge_representation,
-        )
+        )#12 
 
-        print(f'knowledge_representation: {knowledge_representation}')
-        print(f' labels: {labels.size()}')
+        out = self.pretrain_model(
+                        input_ids=input_ids,
+                        attention_mask=attention_mask,
+                        labels=labels, #[2, 512]
+                        past_prompt=past_prompt,
+                    )
+        if self.args.model.use_pretrained_gcn:
+            tag_gcn_emb = self.gcn_emb_trans(kwargs['tag_embeddings']) #[2, 90, 512]
+            prop_gcn_emb = self.gcn_emb_trans(kwargs['property_embeddings'])
+            ent_gcn_emb = torch.einsum('ijk, ijk->ik', tag_gcn_emb, prop_gcn_emb) #[2, 512]
+
+            input_emb = out.encoder_last_hidden_state  #[2, 512, 768]
+            # input_logits = out.logits #[2, 512, 32103]
+
+            # entity_gcn_emb= torch.unsqueeze(ent_gcn_emb, -1)  #[2, 512, 1]
+            # aligned_entity_gcn_emb= nn.functional.interpolate(
+            #     entity_gcn_emb, size=input_emb.size()[2:], mode='linear', align_corners=False
+            # )#[2, 512, 768])
         
-        loss = self.pretrain_model(
-            input_ids=input_ids,
-            attention_mask=attention_mask,
-            labels=labels,
-            past_prompt=past_prompt,
-        ).loss
+            combined_features = torch.einsum('ijk, ij->ik', input_emb, ent_gcn_emb) #[2, 768]
+            combined_out = self.combined(combined_features)
+            mse = self.mse_loss(combined_out, labels)
+            print(input_emb)
+            print(out.loss, out.loss.dtype)
+            print(mse, mse.dtype)
+            print(out.loss+0.0000001*mse.to(torch.float))
+            return {'loss': out.loss+0.0000001*mse.to(torch.float)}
+        loss = out.loss
         return {'loss': loss}
 
     def generate(self,
@@ -293,6 +344,7 @@ class Model(PushToHubFriendlyModel):
         past_prompt = self.get_prompt(
             bsz=bsz, sample_size=kwargs['num_beams'], description=description_representation, knowledge=knowledge_representation,
         )
+
         generated_ids = self.pretrain_model.generate(
             input_ids=input_ids,
             attention_mask=attention_mask,
@@ -302,3 +354,6 @@ class Model(PushToHubFriendlyModel):
         )
 
         return generated_ids
+
+
+
