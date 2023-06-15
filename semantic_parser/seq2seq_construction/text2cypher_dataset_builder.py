@@ -18,6 +18,7 @@
 
 import json
 import datasets
+import dill
 from preprocess.process_cypher import get_schema_from_json
 
 logger = datasets.logging.get_logger(__name__)
@@ -85,6 +86,11 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                         "property_name": datasets.Value("string")
                     }),
                 "db_property_types": datasets.features.Sequence(datasets.Value("string")),
+                "db_property_embs": datasets.features.Sequence(
+                    {
+                        "tag_embeddings": datasets.features.Sequence(datasets.Value("float")),
+                        "property_embeddings": datasets.features.Sequence(datasets.Value("float"))
+                    }),
  
             }
         )
@@ -107,6 +113,8 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 gen_kwargs={
                     "data_filepath": downloaded_filepath + "/train.json",
                     "schema_path": downloaded_filepath + "/schema.json", 
+                    "ent2id_vocab_path": downloaded_filepath + "/ent2id_vocabulary.txt",
+                    "ent_embs_path": downloaded_filepath + "/ent_embs.pickle", 
                 },
             ),
             datasets.SplitGenerator(
@@ -114,14 +122,22 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                 gen_kwargs={
                     "data_filepath": downloaded_filepath + "/dev.json",
                     "schema_path": downloaded_filepath + "/schema.json", 
+                    "ent2id_vocab_path": downloaded_filepath + "/ent2id_vocabulary.txt",
+                    "ent_embs_path": downloaded_filepath + "/ent_embs.pickle", 
                 },
             ),
         ]
 
-    def _generate_examples(self, data_filepath, schema_path):
+    def _generate_examples(self, data_filepath, schema_path, ent2id_vocab_path, ent_embs_path):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", data_filepath)
         schema_data= get_schema_from_json(schema_path)
+
+        with open(ent_embs_path, 'rb') as pickle_file:
+            ent_embs=dill.load(pickle_file)
+
+        with open(ent2id_vocab_path, 'r') as f:
+            ent2id_vocabulary=[line.strip('\n') for line in f.readlines()]
 
         with open(data_filepath, 'r', encoding="utf-8") as f:
             data = json.load(f)
@@ -147,6 +163,16 @@ class Text2Cypher(datasets.GeneratorBasedBuilder):
                         }
                         for tag_id, property_name in schema['property_names']
                     ],
-                "db_property_types": schema['property_types']
+                "db_property_types": schema['property_types'], 
+                "db_property_embs": 
+                    [
+                        {
+                            'tag_embeddings': ent_embs[ent2id_vocabulary.index('{}.{}'.format(db_id, schema['tag_names_original'][tag_id]).lower())] if tag_id!=-1 else ent_embs[ent2id_vocabulary.index('*')],
+                            'property_embeddings': ent_embs[ent2id_vocabulary.index('{}.{}.{}'.format(db_id, schema['tag_names_original'][tag_id], property_name).lower())] if tag_id!=-1 else ent_embs[ent2id_vocabulary.index('*')],
+           
+                        }
+                        for tag_id, property_name in schema['property_names']
+                    ],
+                
                 }
 
