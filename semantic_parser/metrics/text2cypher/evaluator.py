@@ -40,7 +40,7 @@ neo4j_user = filenames['neo4j_user']
 neo4j_password = filenames['neo4j_password']
 graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
-schema_fpath = '/home/22842219/Desktop/phd/SemanticParser4Graph/semantic_parser/data/text2cypher/cased/schema.json'
+schema_fpath = os.path.join(filenames['root'], '/semantic_parser/data/text2cypher/schema.json')
 
 
 def get_uncased_schema(schema):
@@ -68,14 +68,11 @@ def get_uncased_schema(schema):
     return uncased_schema
 
 def prediction_normalisation(preds, if_cased):
-    # tag_pattern = re.compile(r'(`*.*`')	
     preds = preds.replace(" ` ", "`").replace(' -[', '-[').replace(']- ', ']-')
-    # print(f'preds: {preds}')
     mentioned_tag_prop_pairs = {}
     tag_span_start_id=tag_span_end_id = 0
     with open(schema_fpath, 'r', encoding="utf-8") as f:
         schema = json.load(f)
-        # print(len(schema))
     schema = get_uncased_schema(schema) if not if_cased else schema
     for id, c in enumerate(preds):
         if c == '`': 
@@ -86,19 +83,16 @@ def prediction_normalisation(preds, if_cased):
                 splits = preds[tag_span_start_id+1: tag_span_end_id].split('.')
                 if len(splits)>=2:
                     db, tag = splits[:2]
-                    # print("heyyy", splits[:2])
+               
                     dbs = [db.lower() for db in schema.keys()]
                     if db.lower() in dbs:
                         db = list(schema.keys())[dbs.index(db.lower())]
                         lower_cased_tags = [original_tag.lower() for original_tag in schema[db]['tag_names_original']]
-                        # 1) check the case sensitivity of tag names
                         if tag.lower() in lower_cased_tags:
                             tag_idx = lower_cased_tags.index(tag.lower())
-                            # normalised the existing predicted tag names.
                             preds = preds.replace(preds[tag_span_start_id+1:tag_span_end_id], '{}.{}'.format(db, schema[db]['tag_names_original'][tag_idx]))
                             property_names = schema[db]['property_names']
                             mentioned_tag_prop_pairs[tag] = [ prop[1]  for prop in property_names if prop[0]==tag_idx]
-                            # 2) check if any targeted property name is predicted and its capitalization. 
                     tag_span_end_id=0
             else:
                 tag_span_start_id = id
@@ -138,19 +132,10 @@ class Evaluator:
         # 1) remove the space between the specify token "`" and node labels/type edges.
         # 2) normalise the 
         predicted = predicted.replace(" ` ", "`")
-        # print(f'post processed predicted by removing space: {predicted}')
-        # print(f'gold query: {gold}')
 
-
-        predicted = prediction_normalisation(predicted, self.if_cased)
-
-
-        # print(f'normalised_predicted: {predicted}')
+        # predicted = prediction_normalisation(predicted, self.if_cased)
         
         if isValidCypher(predicted, self.graph):
-            # print(f"self.scores[exec]: {self.scores['exec']}")
-            # print("hyyyyyyy check it out:", eval_exec_match(
-            #     self.graph, predicted, gold))
             if not self.if_cased:
                 predicted = predicted.lower()
                 gold = gold.lower()
@@ -191,10 +176,7 @@ class EvaluateTool(object):
     
         if self.args.seq2seq.target_with_db_id:
             # Remove database id from all predictions
-            # print(f'heyyyyyyyyyyy preds befor split: {preds}')
             preds = [pred.split("|", 1)[-1].strip() for pred in preds]
-            # print(f'heyyyyyyyyyyy preds in evaluator: {preds}')
-
         exact_match = compute_execuation_acc_metric(preds, golds, if_cased)
         # test_suite = compute_test_suite_metric(preds, golds, db_dir=self.args.test_suite_db_dir)
 
@@ -245,8 +227,7 @@ def evaluate(gold, predict, graph, etype, if_cased):
     with open(predict) as f:
         plist = [l.strip().split("\t") for l in f.readlines() if len(l.strip()) > 0]
     
-    # plist = [("MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count")]
-    # glist = [("MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count")]
+
     evaluator = Evaluator(graph, etype, if_cased)
     results = []
     for predicted, gold in zip(plist, glist):
@@ -275,9 +256,6 @@ def eval_exec_match(graph, p_str, g_str):
     q_res = []
     for dict_q in cypher_res:
         q_res.append(tuple(dict_q.values()))
-    # sort results for the comparision
-    # q_sorted = sorted(q_res, key=lambda x: x[0])
-
 
     p_res=[]
     for dict_p in prediction_res:
@@ -286,19 +264,7 @@ def eval_exec_match(graph, p_str, g_str):
                 continue
             else:
                 p_res.append(tuple(dict_p.values()))
-    # sort results for the comparision
 
-    # if not all(map(lambda x: all(x), p_res)): # check any of the element is None.
-    #     return False
-    # else:
-    #     p_sorted =  sorted(p_res, key=lambda x: x[0]) 
-
-
-    # print(f'q_res: {q_res}')
-    # print(f'p_res: {p_res}')
-    # print(f'sorted results. p_sorted: {p_sorted}, q_sorted: {q_sorted}')
-
-        
     if set(p_res)==set(q_res):
         print("==========================Allign Predictions======================")
         print('prediction:', p_str)
@@ -325,14 +291,6 @@ def main(gold, pred, graph, etype, output, if_cased):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--gold", dest="gold", type=str)
-    parser.add_argument("--pred", dest="pred", type=str)
-    parser.add_argument("--etype", dest="etype", type=str)
-    parser.add_argument("--if_cased", dest="etype", type=bool)
-    parser.add_argument("--output")
-    args = parser.parse_args()
-
     from py2neo import Graph
     import configparser
     config = configparser.ConfigParser()
@@ -344,7 +302,9 @@ if __name__ == "__main__":
     neo4j_password = filenames['neo4j_password']
     graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
 
+    plist = [("MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count")]
+    glist = [("MATCH (T1:`concert_singer.concert`)-[]-(T2:`concert_singer.stadium`)\nWITH T2.Name AS Name, count(T1.Stadium_ID) AS count\nRETURN Name,count")]
 
-    main(args.gold, args.pred, graph, args.etype, args.output, args.if_cased)
+    main(glist, plist, graph, 'exec', '', True)
 
 
