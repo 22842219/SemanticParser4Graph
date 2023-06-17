@@ -26,6 +26,7 @@ class Model(PushToHubFriendlyModel):
             args.bert.location
         )
         self.config = self.pretrain_model.config
+        print('self.confi:', self.config)
         from ..prompt.modeling_bart import BartForConditionalGeneration
         from ..prompt.modeling_t5 import T5ForConditionalGeneration
 
@@ -100,17 +101,15 @@ class Model(PushToHubFriendlyModel):
                 nn.Tanh(),
                 nn.Linear(self.mid_dim//2, self.mid_dim),
             )
-            self.combined = nn.Sequential(
-                nn.Linear(self.n_embd, self.mid_dim//2),
-                nn.Tanh(),
-                nn.Linear(self.mid_dim//2, self.mid_dim),
-            )
-            self.lstm = nn.LSTM(self.n_embd, self.n_embd, 1,bidirectional=True)
-            self.layer_1 = nn.Linear(self.n_embd*6, self.n_embd)
+            # self.combined = nn.Sequential(
+            #     nn.Linear(self.n_embd, self.mid_dim),
+            #     nn.Tanh(),
+            #     nn.Linear(self.mid_dim, self.n_embd),
+            # )
+            # self.lstm = nn.LSTM(self.n_embd, self.n_embd, 1,bidirectional=True)
+            # self.layer_1 = nn.Linear(self.n_embd*6, self.n_embd)
 
         self.dropout = nn.Dropout(args.prefix_tuning.prefix_dropout)
-
-        self.mse_loss = nn.MSELoss()
 
         if self.args.model.freeze_plm:
             for param in self.pretrain_model.parameters():
@@ -304,29 +303,42 @@ class Model(PushToHubFriendlyModel):
                         labels=labels, #[2, 512]
                         past_prompt=past_prompt,
                     )
+        
+        ##################################ZZHAO#############################################
+        # ZZHAO: illustrating the vanillar decoder output and encoder input in text
+        # for k, v in out.items():
+        #     print(k)
+        decoder_input_ids = self.pretrain_model._shift_right(labels) # [2, 512]. It represents the input to the decoder part of the model. 
+        output_ids = self.pretrain_model.generate(input_ids=decoder_input_ids, past_prompt=past_prompt)
+        for item in input_ids:
+            print('encoder padding input sequence:', self.tokenizer.decode(item))
+        for item in decoder_input_ids:
+            print('decoder padding target sequence:', self.tokenizer.decode(item))
+        for item in output_ids:
+            print('generated Cypher tokens:', self.tokenizer.decode(item)) 
+        ##################################ZZHAO#############################################
+
+        encoder_last_hidden_state = out.encoder_last_hidden_state  #[2, 512, 768]
         if self.args.model.use_pretrained_gcn:
             tag_gcn_emb = self.gcn_emb_trans(kwargs['tag_embeddings']) #[2, 90, 512]
             prop_gcn_emb = self.gcn_emb_trans(kwargs['property_embeddings'])
             ent_gcn_emb = torch.einsum('ijk, ijk->ik', tag_gcn_emb, prop_gcn_emb) #[2, 512]
 
-            input_emb = out.encoder_last_hidden_state  #[2, 512, 768]
-            # input_logits = out.logits #[2, 512, 32103]
+            entity_gcn_emb= torch.unsqueeze(ent_gcn_emb, -1)  #[2, 512, 1]
+            aligned_entity_gcn_emb= nn.functional.interpolate(
+                entity_gcn_emb, size=encoder_last_hidden_state.size()[2:], mode='linear', align_corners=False
+            )#[2, 512, 768])
 
-            # entity_gcn_emb= torch.unsqueeze(ent_gcn_emb, -1)  #[2, 512, 1]
-            # aligned_entity_gcn_emb= nn.functional.interpolate(
-            #     entity_gcn_emb, size=input_emb.size()[2:], mode='linear', align_corners=False
-            # )#[2, 512, 768])
-        
-            combined_features = torch.einsum('ijk, ij->ik', input_emb, ent_gcn_emb) #[2, 768]
-            combined_out = self.combined(combined_features)
-            mse = self.mse_loss(combined_out, labels)
-            print(input_emb)
-            print(out.loss, out.loss.dtype)
-            print(mse, mse.dtype)
-            print(out.loss+0.0000001*mse.to(torch.float))
-            return {'loss': out.loss+0.0000001*mse.to(torch.float)}
-        loss = out.loss
-        return {'loss': loss}
+            decoder_inputs_embeds= torch.einsum('ijk,ijk->ijk', encoder_last_hidden_state, aligned_entity_gcn_emb) 
+            out_ = self.pretrain_model(input_ids=input_ids, 
+                                        attention_mask=attention_mask,
+                                        decoder_inputs_embeds=decoder_inputs_embeds,
+                                        labels = labels,
+                                        past_prompt=past_prompt) # logits shape: [2, 521, 32103]
+            print(f'T5 loss: {out.loss}, leveraged_model loss output: {out_.loss}')
+            return {'loss': out_.loss}
+
+        return {'loss': out.loss}
 
     def generate(self,
                  input_ids,
@@ -344,6 +356,7 @@ class Model(PushToHubFriendlyModel):
         past_prompt = self.get_prompt(
             bsz=bsz, sample_size=kwargs['num_beams'], description=description_representation, knowledge=knowledge_representation,
         )
+
 
         generated_ids = self.pretrain_model.generate(
             input_ids=input_ids,
