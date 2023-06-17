@@ -303,7 +303,6 @@ class Model(PushToHubFriendlyModel):
                         labels=labels, #[2, 512]
                         past_prompt=past_prompt,
                     )
-        
         ##################################ZZHAO#############################################
         # ZZHAO: illustrating the vanillar decoder output and encoder input in text
         # for k, v in out.items():
@@ -329,13 +328,15 @@ class Model(PushToHubFriendlyModel):
                 entity_gcn_emb, size=encoder_last_hidden_state.size()[2:], mode='linear', align_corners=False
             )#[2, 512, 768])
 
-            decoder_inputs_embeds= torch.einsum('ijk,ijk->ijk', encoder_last_hidden_state, aligned_entity_gcn_emb) 
+            encoder_outputs= tuple([torch.einsum('ijk,ijk->ijk', encoder_last_hidden_state, aligned_entity_gcn_emb) for _ in range(self.match_n_layer)]) 
+
             out_ = self.pretrain_model(input_ids=input_ids, 
                                         attention_mask=attention_mask,
-                                        decoder_inputs_embeds=decoder_inputs_embeds,
+                                        encoder_outputs=encoder_outputs,
                                         labels = labels,
                                         past_prompt=past_prompt) # logits shape: [2, 521, 32103]
             print(f'T5 loss: {out.loss}, leveraged_model loss output: {out_.loss}')
+
             return {'loss': out_.loss}
 
         return {'loss': out.loss}
