@@ -127,18 +127,19 @@ class TokenizedDataset(Dataset):
         
         #TODO: Use pretrained compositional gcn embedding. BY ZZHAO
         if self.args.model.use_pretrained_gcn:
-            tag_embeddings= torch.tensor(raw_item['db_property_embs']['tag_embeddings']) #torch.Size([13, 200]) 
-            property_embeddings = torch.tensor(raw_item['db_property_embs']['property_embeddings'] ) #torch.Size([13, 200]) 
-   
+            if 'db_property_embs' in raw_item:
+                tag_embeddings= torch.tensor(raw_item['db_property_embs']['tag_embeddings']) #torch.Size([13, 200]) 
+                property_embeddings = torch.tensor(raw_item['db_property_embs']['property_embeddings'] ) #torch.Size([13, 200]) 
+    
 
-            # Pad tag_embeddings and property_embeddings to match max_ent_length
-            num_entities = len(tag_embeddings)
-            padding_length = self.max_ent_length - num_entities
-            padded_tag_embeddings = F.pad(tag_embeddings, (0, 0, 0, padding_length))
-            padded_property_embeddings = F.pad(property_embeddings, (0, 0, 0, padding_length))
+                # Pad tag_embeddings and property_embeddings to match max_ent_length
+                num_entities = len(tag_embeddings)
+                padding_length = self.max_ent_length - num_entities
+                padded_tag_embeddings = F.pad(tag_embeddings, (0, 0, 0, padding_length))
+                padded_property_embeddings = F.pad(property_embeddings, (0, 0, 0, padding_length))
 
-            item['tag_embeddings'] = padded_tag_embeddings
-            item['property_embeddings'] = padded_property_embeddings
+                item['tag_embeddings'] = padded_tag_embeddings
+                item['property_embeddings'] = padded_property_embeddings
             # print(self.max_ent_length)
             # print(item['tag_embeddings'].shape, item['property_embeddings'].shape)
             # print(item['tag_embeddings'])

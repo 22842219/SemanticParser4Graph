@@ -318,7 +318,7 @@ class Model(PushToHubFriendlyModel):
         ##################################ZZHAO#############################################
 
         encoder_last_hidden_state = out.encoder_last_hidden_state  #[2, 512, 768]
-        if self.args.model.use_pretrained_gcn and  'tag_embeddings' in kwargs:
+        if self.args.model.use_pretrained_gcn and 'tag_embeddings' in kwargs:
             tag_gcn_emb = self.gcn_emb_trans(kwargs['tag_embeddings']) #[2, 90, 512]
             prop_gcn_emb = self.gcn_emb_trans(kwargs['property_embeddings'])
             ent_gcn_emb = torch.einsum('ijk, ijk->ik', tag_gcn_emb, prop_gcn_emb) #[2, 512]

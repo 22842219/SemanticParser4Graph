@@ -336,14 +336,17 @@ class EvaluateFriendlySeq2SeqTrainer(transformers.trainer_seq2seq.Seq2SeqTrainer
         predictions = self.tokenizer.batch_decode(predictions, skip_special_tokens=True)
         print(predictions)
 
-        for example in examples:
-            del example['db_property_embs']
+        examples_cp = examples
+
+        for example in examples_cp:
+            if 'db_property_embs' in example:
+                del example['db_property_embs']
 
         # Save locally.
         if self.args.local_rank <= 0:
             with open(f"{self.args.output_dir}/predictions_{stage}.json", "w") as f:
                 json.dump(
-                    [dict(**{"prediction": predictions[idx]}, **examples[idx]) for idx in range(len(predictions))],
+                    [dict(**{"prediction": predictions[idx]}, **examples_cp[idx]) for idx in range(len(predictions))],
                     f,
                     indent=4,
                 )
@@ -352,7 +355,7 @@ class EvaluateFriendlySeq2SeqTrainer(transformers.trainer_seq2seq.Seq2SeqTrainer
         if self.wandb_run_dir and self.args.local_rank <= 0:
             with open(f"{self.wandb_run_dir}/predictions_{stage}.json", "w") as f:
                 json.dump(
-                    [dict(**{"prediction": predictions[idx]}, **examples[idx]) for idx in range(len(predictions))],
+                    [dict(**{"prediction": predictions[idx]}, **examples_cp[idx]) for idx in range(len(predictions))],
                     f,
                     indent=4,
                 )
