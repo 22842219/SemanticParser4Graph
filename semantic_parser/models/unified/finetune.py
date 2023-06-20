@@ -3,9 +3,7 @@
 import torch
 from torch import nn
 from .base import PushToHubFriendlyModel
-# from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-from transformers import AutoTokenizer
-from ..prompt.modeling_auto import AutoModelForSeq2SeqLM
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 class Model(PushToHubFriendlyModel):
     def __init__(self, args):
@@ -13,29 +11,14 @@ class Model(PushToHubFriendlyModel):
         self.args = args
         self.mid_dim = args.fine_tuning.mid_dim
 
+
         # Load tokenizer and model.
         self.tokenizer = AutoTokenizer.from_pretrained(args.bert.location, use_fast=False)
         self.pretrain_model = AutoModelForSeq2SeqLM.from_pretrained(
             args.bert.location,
         )
         self.config = self.pretrain_model.config
-
-        from ..prompt.modeling_bart import BartForConditionalGeneration
-        from ..prompt.modeling_t5 import T5ForConditionalGeneration
-
-        if isinstance(self.pretrain_model, BartForConditionalGeneration):
-            self.match_n_layer = self.config.decoder_layers
-            self.match_n_head = self.config.decoder_attention_heads
-            self.n_embd = self.config.d_model
-            assert self.n_embd % self.match_n_head == 0
-            self.match_n_embd = self.n_embd // self.match_n_head # huggingface BART's dim of kv need to be calculated
-        elif isinstance(self.pretrain_model, (T5ForConditionalGeneration)):
-            self.match_n_layer = self.config.num_decoder_layers
-            self.match_n_head = self.config.num_heads
-            self.n_embd = self.config.d_model
-            self.match_n_embd = self.config.d_kv
-        else:
-            raise ValueError("Other models are not supported yet!")
+        self.match_n_layer = self.config.num_decoder_layers
 
         if args.special_tokens:
             self.tokenizer.add_tokens([v for k, v in args.special_tokens])
