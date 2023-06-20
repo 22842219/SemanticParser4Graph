@@ -128,7 +128,7 @@ Schema      : | concert_singer | `concert_singer.stadium` : Name , Lowest , Stad
 
 index       : 30
 baseline pre: MATCH (T1:`concert_singer.singer`)-[]-(T2:`concert_singer.concert`) RETURN T1.Name,T1.Theme,count(*)
-model1 pred : MATCH ()-[singer_in_concert:`concert_singer.singer_in_concert ` ]-() RETURN singer_in_concert.Name,singer_in_concert.Theme,count(*)
+model1 pred : MATCH ()-[singer_in_concert:`concert_singer.singer_in_concert`]-() RETURN singer_in_concert.Name,singer_in_concert.Theme,count(*)
 ground query: MATCH (t2:`concert_singer.concert`)-[t1:`concert_singer.singer_in_concert`]-() RETURN t2.concert_Name,t2.Theme,count(*)
 NLQ         : What are the names , themes , and number of singers for every concert ?
 Schema      : | concert_singer | `concert_singer.stadium` : Name , Lowest , Stadium_ID , Capacity , Highest , Location , Average | `concert_singer.singer` : Country , Age , Name , Song_Name , Is_male , Singer_ID , Song_release_year | `concert_singer.concert` : Year , Theme , Stadium_ID , concert_Name , concert_ID | `concert_singer.singer_in_concert` : concert_ID , Singer_ID | `concert_singer.concert_HAS_concert_singer.stadium` :
@@ -207,24 +207,24 @@ Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , 
 
 
 index       : 43
-baseline pre: MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.Age > 20 RETURN count(*)
-model1 pred : MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T2.Age > 20 RETURN count(*)
+baseline pre: MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.Age > 20 RETURN count(*)
+model1 pred : MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet`]-() WHERE T2.Age > 20 RETURN count(*)
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.Age > 20 RETURN count(*)
 NLQ         : Find number of pets owned by students who are older than 20.
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 44
-baseline pre: MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.Age > 20 RETURN count(*)
-model1 pred : MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T2.Age > 20 RETURN count(*)
+baseline pre: MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.Age > 20 RETURN count(*)
+model1 pred : MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet`]-() WHERE T2.Age > 20 RETURN count(*)
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.Age > 20 RETURN count(*)
 NLQ         : How many pets are owned by students that have an age greater than 20?
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 45
-baseline pre: MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet ` ]-(T3:`pets_1.Student`) WHERE T3.Sex = 'F' AND T1.Sex = 'dog' RETURN count(*)
-model1 pred : MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T2.Sex = 'F' AND T1.Sex = 'dog' RETURN count(*)
+baseline pre: MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet`]-(T3:`pets_1.Student`) WHERE T3.Sex = 'F' AND T1.Sex = 'dog' RETURN count(*)
+model1 pred : MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet`]-() WHERE T2.Sex = 'F' AND T1.Sex = 'dog' RETURN count(*)
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-(T3:`pets_1.Pets`) WHERE T1.Sex = 'F' AND T3.PetType = 'dog' RETURN count(*)
 NLQ         : Find the number of dog pets that are raised by female students (with sex F).
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType ( dog ) , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
@@ -232,23 +232,23 @@ Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , 
 
 index       : 46
 baseline pre: MATCH (pets:`pets_1.Pets`) WHERE pets.Sex = 'F' RETURN count(*),pets.PetType
-model1 pred : MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T2.Sex = 'female' RETURN count(*)
+model1 pred : MATCH (T1:`pets_1.Pets`)-[T2:`pets_1.Has_Pet`]-() WHERE T2.Sex = 'female' RETURN count(*)
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-(T3:`pets_1.Pets`) WHERE T1.Sex = 'F' AND T3.PetType = 'dog' RETURN count(*)
 NLQ         : How many dog pets are raised by female students?
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType ( dog ) , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 49
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.PetType = 'cat' OR T1.PetType = 'dog' RETURN T1.Fname
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T2.PetType = 'cat' OR T1.PetType = 'dog' RETURN T1.Fname
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.PetType = 'cat' OR T1.PetType = 'dog' RETURN T1.Fname
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T2.PetType = 'cat' OR T1.PetType = 'dog' RETURN T1.Fname
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-(T3:`pets_1.Pets`) WHERE T3.PetType = 'cat' OR T3.PetType = 'dog' RETURN DISTINCT T1.Fname
 NLQ         : Find the first name of students who have cat or dog pet.
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType ( cat , dog ) , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 50
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.PetType = 'cat' OR T1.PetType = 'dog' RETURN T1.Fname
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T2.PetType = 'cat' OR T1.PetType = 'dog' RETURN T1.Fname
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.PetType = 'cat' OR T1.PetType = 'dog' RETURN T1.Fname
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T2.PetType = 'cat' OR T1.PetType = 'dog' RETURN T1.Fname
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-(T3:`pets_1.Pets`) WHERE T3.PetType = 'cat' OR T3.PetType = 'dog' RETURN DISTINCT T1.Fname
 NLQ         : What are the first names of every student who has a cat or dog as a pet?
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType ( cat , dog ) , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
@@ -295,80 +295,80 @@ Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , 
 
 
 index       : 59
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.Sex = 'M' RETURN T1.Fname,T1.Age
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() RETURN T1.Fname,T1.Age
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.Sex = 'M' RETURN T1.Fname,T1.Age
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() RETURN T1.Fname,T1.Age
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() RETURN DISTINCT T1.Fname,T1.Age
 NLQ         : Find the first name and age of students who have a pet.
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 60
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.Sex = 'M' AND T1.Sex = 'M' RETURN DISTINCT T1.Fname,T1.Age
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() RETURN DISTINCT T1.Fname,T1.Age
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.Sex = 'M' AND T1.Sex = 'M' RETURN DISTINCT T1.Fname,T1.Age
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() RETURN DISTINCT T1.Fname,T1.Age
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() RETURN DISTINCT T1.Fname,T1.Age
 NLQ         : What are the different first names and ages of the students who do have pets?
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 61
-baseline pre: MATCH (T1:`pets_1.Pet`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.Fname = 'Smith' RETURN T1.PetID
-model1 pred : MATCH (T1:`pets_1.Pet`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.LName ='.*[S|s]mith.*' RETURN T1.PetID
+baseline pre: MATCH (T1:`pets_1.Pet`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.Fname = 'Smith' RETURN T1.PetID
+model1 pred : MATCH (T1:`pets_1.Pet`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.LName ='.*[S|s]mith.*' RETURN T1.PetID
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.LName = 'Smith' RETURN T2.PetID
 NLQ         : Find the id of the pet owned by student whose last name is ‘Smith’.
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 62
-baseline pre: MATCH (T1:`pets_1.Pet`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.LName = 'Smith' RETURN T1.PetID
-model1 pred : MATCH (T1:`pets_1.Pet`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.LName = 'Smith' RETURN T1.PetID
+baseline pre: MATCH (T1:`pets_1.Pet`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.LName = 'Smith' RETURN T1.PetID
+model1 pred : MATCH (T1:`pets_1.Pet`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.LName = 'Smith' RETURN T1.PetID
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.LName = 'Smith' RETURN T2.PetID
 NLQ         : What is the id of the pet owned by the student whose last name is 'Smith'?
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName ( Smith ) | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 63
-baseline pre: MATCH (T1:`pets_1.Petствned`)-[T2:`pets_1.Has_Pet ` ]-() RETURN count(*),T1.StuID
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() RETURN count(*),T1.StuID
+baseline pre: MATCH (T1:`pets_1.Petствned`)-[T2:`pets_1.Has_Pet`]-() RETURN count(*),T1.StuID
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() RETURN count(*),T1.StuID
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() RETURN count(*),T1.StuID
 NLQ         : Find the number of pets for each student who has any pet and student id.
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 64
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.Sex = 'M' RETURN T1.StuID,count(*)
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WITH count(*) AS count, T1.StuID AS StuID, T1.LName AS LName WHERE count >= 1 RETURN count,StuID
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.Sex = 'M' RETURN T1.StuID,count(*)
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WITH count(*) AS count, T1.StuID AS StuID, T1.LName AS LName WHERE count >= 1 RETURN count,StuID
 ground query: MATCH (t1:`pets_1.Student`)-[t2:`pets_1.Has_Pet`]-() RETURN count(*),t1.StuID
 NLQ         : For students who have pets , how many pets does each student have ? list their ids instead of names .
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 65
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex WHERE count > 1 RETURN Fname,Sex
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WITH count(*) AS count, T1.Sex AS Sex, T1.Fname AS Fname, T1.Sex AS Sex WHERE count > 1 RETURN Fname,Sex
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex WHERE count > 1 RETURN Fname,Sex
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WITH count(*) AS count, T1.Sex AS Sex, T1.Fname AS Fname, T1.Sex AS Sex WHERE count > 1 RETURN Fname,Sex
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WITH count(*) AS count, T1.Sex AS Sex, T1.Fname AS Fname WHERE count  > 1 RETURN Fname,Sex
 NLQ         : Find the first name and gender of student who have more than one pet.
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 66
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex WHERE count > 1 RETURN Fname,Sex
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex WHERE count > 1 RETURN Fname,Sex
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex WHERE count > 1 RETURN Fname,Sex
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WITH count(*) AS count, T1.Fname AS Fname, T1.Sex AS Sex WHERE count > 1 RETURN Fname,Sex
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WITH count(*) AS count, T1.Sex AS Sex, T1.Fname AS Fname WHERE count  > 1 RETURN Fname,Sex
 NLQ         : What is the first name and gender of the all the students who have more than one pet?
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 67
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.PetType = 'cat' AND T1.Age = 3 RETURN T1.LName
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T2.PetType = 'cat' AND T1.Age = 3 RETURN T1.LName
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.PetType = 'cat' AND T1.Age = 3 RETURN T1.LName
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T2.PetType = 'cat' AND T1.Age = 3 RETURN T1.LName
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-(T3:`pets_1.Pets`) WHERE T3.pet_age = 3 AND T3.PetType = 'cat' RETURN T1.LName
 NLQ         : Find the last name of the student who has a cat that is age 3.
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType ( cat ) , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
 
 
 index       : 68
-baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T1.PetType = 'cat' AND T1.Age >= 3 RETURN T1.LName
-model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet ` ]-() WHERE T2.PetType = 'cat' AND T1.Age > 3 RETURN T1.LName
+baseline pre: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T1.PetType = 'cat' AND T1.Age >= 3 RETURN T1.LName
+model1 pred : MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-() WHERE T2.PetType = 'cat' AND T1.Age > 3 RETURN T1.LName
 ground query: MATCH (T1:`pets_1.Student`)-[T2:`pets_1.Has_Pet`]-(T3:`pets_1.Pets`) WHERE T3.pet_age = 3 AND T3.PetType = 'cat' RETURN T1.LName
 NLQ         : What is the last name of the student who has a cat that is 3 years old?
 Schema      : | pets_1 | `pets_1.Student` : Age , city_code , Advisor , Major , Sex , Fname , StuID , LName | `pets_1.Pets` : weight , PetType ( cat ) , pet_age , PetID | `pets_1.Has_Pet` : StuID , PetID
@@ -663,8 +663,8 @@ Schema      : | car_1 | `car_1.continents` : ContId , Continent | `car_1.countri
 
 
 index       : 113
-baseline pre: MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Weight  < 3000 AND cars_data.Weight ` 4000 RETURN cars_data.Year
-model1 pred : MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Weight ` 3000 AND cars_data.Weight ` 4000 RETURN cars_data.Year
+baseline pre: MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Weight  < 3000 AND cars_data.Weight`4000 RETURN cars_data.Year
+model1 pred : MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Weight`3000 AND cars_data.Weight`4000 RETURN cars_data.Year
 ground query: MATCH (cars_data:`car_1.cars_data`) WHERE 3000<=cars_data.Weight<=4000 RETURN DISTINCT cars_data.Year
 NLQ         : In which years cars were produced weighing no less than 3000 and no more than 4000 ?
 Schema      : | car_1 | `car_1.continents` : ContId , Continent | `car_1.countries` : CountryName , Continent , CountryId | `car_1.car_makers` : Country , FullName , Id , Maker | `car_1.model_list` : ModelId , Maker , Model | `car_1.car_names` : Make , MakeId , Model | `car_1.cars_data` : MPG , Year , Cylinders , Id , Weight , Accelerate , Edispl , Horsepower | `car_1.countries_HAS_car_1.continents` :  | `car_1.car_makers_HAS_car_1.countries` :  | `car_1.model_list_HAS_car_1.car_makers` :  | `car_1.car_names_HAS_car_1.model_list` :  | `car_1.cars_data_HAS_car_1.car_names` :
@@ -672,7 +672,7 @@ Schema      : | car_1 | `car_1.continents` : ContId , Continent | `car_1.countri
 
 index       : 114
 baseline pre: MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Weight  < 4000 AND cars_data.Weight > 3000 RETURN DISTINCT cars_data.Year
-model1 pred : MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Weight ` 4000 AND cars_data.Weight > 3000 RETURN DISTINCT cars_data.Year
+model1 pred : MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Weight`4000 AND cars_data.Weight > 3000 RETURN DISTINCT cars_data.Year
 ground query: MATCH (cars_data:`car_1.cars_data`) WHERE 3000<=cars_data.Weight<=4000 RETURN DISTINCT cars_data.Year
 NLQ         : What are the different years in which there were cars produced that weighed less than 4000 and also cars that weighted more than 3000 ?
 Schema      : | car_1 | `car_1.continents` : ContId , Continent | `car_1.countries` : CountryName , Continent , CountryId | `car_1.car_makers` : Country , FullName , Id , Maker | `car_1.model_list` : ModelId , Maker , Model | `car_1.car_names` : Make , MakeId , Model | `car_1.cars_data` : MPG , Year , Cylinders , Id , Weight , Accelerate , Edispl , Horsepower | `car_1.countries_HAS_car_1.continents` :  | `car_1.car_makers_HAS_car_1.countries` :  | `car_1.model_list_HAS_car_1.car_makers` :  | `car_1.car_names_HAS_car_1.model_list` :  | `car_1.cars_data_HAS_car_1.car_names` :
@@ -712,7 +712,7 @@ Schema      : | car_1 | `car_1.continents` : ContId , Continent | `car_1.countri
 
 index       : 121
 baseline pre: MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Cylinders = 8 OR cars_data.Year  < 1980 RETURN max(*)
-model1 pred : MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Cylinders = 8 OR cars_data.Year ` 1980 RETURN max(car_data.MPG)
+model1 pred : MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Cylinders = 8 OR cars_data.Year`1980 RETURN max(car_data.MPG)
 ground query: MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Cylinders = 8 OR cars_data.Year < 1980 RETURN max(cars_data.MPG)
 NLQ         : What is the maximum miles per gallon of the car with 8 cylinders or produced before 1980 ?
 Schema      : | car_1 | `car_1.continents` : ContId , Continent | `car_1.countries` : CountryName , Continent , CountryId | `car_1.car_makers` : Country , FullName , Id , Maker | `car_1.model_list` : ModelId , Maker , Model | `car_1.car_names` : Make , MakeId , Model | `car_1.cars_data` : MPG , Year , Cylinders , Id , Weight , Accelerate , Edispl , Horsepower | `car_1.countries_HAS_car_1.continents` :  | `car_1.car_makers_HAS_car_1.countries` :  | `car_1.model_list_HAS_car_1.car_makers` :  | `car_1.car_names_HAS_car_1.model_list` :  | `car_1.cars_data_HAS_car_1.car_names` :
@@ -720,7 +720,7 @@ Schema      : | car_1 | `car_1.continents` : ContId , Continent | `car_1.countri
 
 index       : 122
 baseline pre: MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Cylinders = 8 OR cars_data.Year  < 1980 RETURN max(*)
-model1 pred : MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Cylinders = 8 OR cars_data.Year ` 1980 RETURN max(cars_data.MPG)
+model1 pred : MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Cylinders = 8 OR cars_data.Year`1980 RETURN max(cars_data.MPG)
 ground query: MATCH (cars_data:`car_1.cars_data`) WHERE cars_data.Cylinders = 8 OR cars_data.Year < 1980 RETURN max(cars_data.MPG)
 NLQ         : What is the maximum mpg of the cars that had 8 cylinders or that were produced before 1980 ?
 Schema      : | car_1 | `car_1.continents` : ContId , Continent | `car_1.countries` : CountryName , Continent , CountryId | `car_1.car_makers` : Country , FullName , Id , Maker | `car_1.model_list` : ModelId , Maker , Model | `car_1.car_names` : Make , MakeId , Model | `car_1.cars_data` : MPG , Year , Cylinders , Id , Weight , Accelerate , Edispl , Horsepower | `car_1.countries_HAS_car_1.continents` :  | `car_1.car_makers_HAS_car_1.countries` :  | `car_1.model_list_HAS_car_1.car_makers` :  | `car_1.car_names_HAS_car_1.model_list` :  | `car_1.cars_data_HAS_car_1.car_names` :
@@ -791,7 +791,7 @@ Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , 
 
 
 index       : 152
-baseline pre: MATCH (T1:`flight_2.flights`)-[T2:`flight_2.airports ` ]-() WHERE T2.City = 'Aberdeen' RETURN count(*)
+baseline pre: MATCH (T1:`flight_2.flights`)-[T2:`flight_2.airports`]-() WHERE T2.City = 'Aberdeen' RETURN count(*)
 model1 pred : MATCH (flights:`flight_2.flights`) WHERE flights.City = 'Aberdeen' RETURN count(*)
 ground query: MATCH (T1:`flight_2.flights`)-[]-(T2:`flight_2.airports`) WHERE T2.City = 'Aberdeen' RETURN count(*)
 NLQ         : Return the number of flights arriving in Aberdeen.
@@ -864,7 +864,7 @@ Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , 
 
 index       : 161
 baseline pre: MATCH (flights:`flight_2.flights`) RETURN flights.City ORDER BY flights.City DESC LIMIT 1
-model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.City) AS cnt, T2 RETURN T2.City ORDER BY cnt DESC LIMIT 1
+model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.City) AS cnt, T2 RETURN T2.City ORDER BY cnt DESC LIMIT 1
 ground query: MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`) WITH count(T1.City) AS cnt, T1 RETURN T1.City ORDER BY cnt DESC LIMIT 1
 NLQ         : Which city has most number of arriving flights?
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode , CountryAbbrev | `flight_2.flights` : DestAirport , Airline , SourceAirport , FlightNo
@@ -880,7 +880,7 @@ Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , 
 
 index       : 163
 baseline pre: MATCH (flights:`flight_2.flights`) RETURN flights.City ORDER BY flights.City DESC LIMIT 1
-model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.City) AS cnt, T2 RETURN T2.City ORDER BY cnt DESC LIMIT 1
+model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.City) AS cnt, T2 RETURN T2.City ORDER BY cnt DESC LIMIT 1
 ground query: MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`) WITH count(T1.City) AS cnt, T1 RETURN T1.City ORDER BY cnt DESC LIMIT 1
 NLQ         : Which city has most number of departing flights?
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode , CountryAbbrev | `flight_2.flights` : DestAirport , Airline , SourceAirport , FlightNo
@@ -895,32 +895,32 @@ Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , 
 
 
 index       : 165
-baseline pre: MATCH (T2:`flight_2.flights`)-[T1:`flight_2.flights ` ]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt DESC LIMIT 1
-model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt DESC LIMIT 1
+baseline pre: MATCH (T2:`flight_2.flights`)-[T1:`flight_2.flights`]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt DESC LIMIT 1
+model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt DESC LIMIT 1
 ground query: MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`) WITH T1, count(T1.AirportCode) AS cnt RETURN T1.AirportCode ORDER BY cnt DESC LIMIT 1
 NLQ         : What is the code of airport that has the highest number of flights?
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode , CountryAbbrev | `flight_2.flights` : DestAirport , Airline , SourceAirport , FlightNo
 
 
 index       : 166
-baseline pre: MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt DESC LIMIT 1
-model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt DESC LIMIT 1
+baseline pre: MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt DESC LIMIT 1
+model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt DESC LIMIT 1
 ground query: MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`) WITH T1, count(T1.AirportCode) AS cnt RETURN T1.AirportCode ORDER BY cnt DESC LIMIT 1
 NLQ         : What is the airport code of the airport with the most flights?
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode , CountryAbbrev | `flight_2.flights` : DestAirport , Airline , SourceAirport , FlightNo
 
 
 index       : 167
-baseline pre: MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt LIMIT 1
-model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt ASC LIMIT 1
+baseline pre: MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt LIMIT 1
+model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt ASC LIMIT 1
 ground query: MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`) WITH T1, count(T1.AirportCode) AS cnt RETURN T1.AirportCode ORDER BY cnt LIMIT 1
 NLQ         : What is the code of airport that has fewest number of flights?
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode , CountryAbbrev | `flight_2.flights` : DestAirport , Airline , SourceAirport , FlightNo
 
 
 index       : 168
-baseline pre: MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt LIMIT 1
-model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt ASC LIMIT 1
+baseline pre: MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt LIMIT 1
+model1 pred : MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WITH count(T2.AirportCode) AS cnt, T2 RETURN T2.AirportCode ORDER BY cnt ASC LIMIT 1
 ground query: MATCH (T1:`flight_2.airports`)-[]-(T2:`flight_2.flights`) WITH T1, count(T1.AirportCode) AS cnt RETURN T1.AirportCode ORDER BY cnt LIMIT 1
 NLQ         : Give the code of the airport with the least flights.
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode , CountryAbbrev | `flight_2.flights` : DestAirport , Airline , SourceAirport , FlightNo
@@ -935,24 +935,24 @@ Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , 
 
 
 index       : 170
-baseline pre: MATCH (T2:`flight_2.flights`)-[T1:`flight_2.flights ` ]-() WHERE T2.SourceAirport = 'AHD' RETURN T2.Airline
-model1 pred : MATCH (T2:`flight_2.airlines`)-[T1:`flight_2.flights ` ]-() WHERE T2.SourceAirport = 'AHD' RETURN T2.Airline
+baseline pre: MATCH (T2:`flight_2.flights`)-[T1:`flight_2.flights`]-() WHERE T2.SourceAirport = 'AHD' RETURN T2.Airline
+model1 pred : MATCH (T2:`flight_2.airlines`)-[T1:`flight_2.flights`]-() WHERE T2.SourceAirport = 'AHD' RETURN T2.Airline
 ground query: MATCH (T1:`flight_2.airlines`)-[]-(T2:`flight_2.flights`) WHERE T2.SourceAirport = 'AHD' RETURN T1.Airline
 NLQ         : Which airlines have a flight with source airport AHD?
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode ( AHD ) , CountryAbbrev | `flight_2.flights` : DestAirport (  AHD ) , Airline , SourceAirport (  AHD ) , FlightNo
 
 
 index       : 171
-baseline pre: MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights ` ]-() WHERE T2.AirportCode = 'AHD' RETURN T1.Airline
-model1 pred : MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights ` ]-(T3:`flight_2.airlines`) WHERE T3.DestAirport = 'AHD' RETURN T1.Airline
+baseline pre: MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-() WHERE T2.AirportCode = 'AHD' RETURN T1.Airline
+model1 pred : MATCH (T1:`flight_2.airlines`)-[T2:`flight_2.flights`]-(T3:`flight_2.airlines`) WHERE T3.DestAirport = 'AHD' RETURN T1.Airline
 ground query: MATCH (T1:`flight_2.airlines`)-[]-(T2:`flight_2.flights`) WHERE T2.DestAirport = 'AHD' RETURN T1.Airline
 NLQ         : What are airlines that have flights arriving at airport 'AHD'?
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode ( AHD ) , CountryAbbrev | `flight_2.flights` : DestAirport (  AHD ) , Airline , SourceAirport (  AHD ) , FlightNo
 
 
 index       : 172
-baseline pre: MATCH (T2:`flight_2.flights`)-[T1:`flight_2.flights ` ]-() WHERE T2.DestAirport = 'AHD' RETURN T2.Airline
-model1 pred : MATCH (T2:`flight_2.airlines`)-[T1:`flight_2.flights ` ]-(T3:`flight_2.airlines`) WHERE T3.DestAirport = 'AHD' RETURN T3.Airline
+baseline pre: MATCH (T2:`flight_2.flights`)-[T1:`flight_2.flights`]-() WHERE T2.DestAirport = 'AHD' RETURN T2.Airline
+model1 pred : MATCH (T2:`flight_2.airlines`)-[T1:`flight_2.flights`]-(T3:`flight_2.airlines`) WHERE T3.DestAirport = 'AHD' RETURN T3.Airline
 ground query: MATCH (T1:`flight_2.airlines`)-[]-(T2:`flight_2.flights`) WHERE T2.DestAirport = 'AHD' RETURN T1.Airline
 NLQ         : Which airlines have a flight with destination airport AHD?
 Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , Airline | `flight_2.airports` : Country , City , AirportName , AirportCode ( AHD ) , CountryAbbrev | `flight_2.flights` : DestAirport (  AHD ) , Airline , SourceAirport (  AHD ) , FlightNo
@@ -1007,7 +1007,7 @@ Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , 
 
 
 index       : 179
-baseline pre: MATCH (T1:`flight_2.flights`)-[T2:`flight_2.flights ` ]-(T3:`flight_2.airports`) WHERE T3.City = 'Aberdeen' RETURN T1.FlightNo
+baseline pre: MATCH (T1:`flight_2.flights`)-[T2:`flight_2.flights`]-(T3:`flight_2.airports`) WHERE T3.City = 'Aberdeen' RETURN T1.FlightNo
 model1 pred : MATCH (flights:`flight_2.flights`) WHERE flights.City = 'Aberdeen' RETURN flights.FlightNo
 ground query: MATCH (T1:`flight_2.flights`)-[]-(T2:`flight_2.airports`) WHERE T2.City = 'Aberdeen' RETURN T1.FlightNo
 NLQ         : What are flight numbers of flights arriving at City "Aberdeen"?
@@ -1015,7 +1015,7 @@ Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , 
 
 
 index       : 180
-baseline pre: MATCH (T1:`flight_2.flights`)-[T2:`flight_2.airports ` ]-() WHERE T2.City = 'Aberdeen' RETURN T1.FlightNo
+baseline pre: MATCH (T1:`flight_2.flights`)-[T2:`flight_2.airports`]-() WHERE T2.City = 'Aberdeen' RETURN T1.FlightNo
 model1 pred : MATCH (flights:`flight_2.flights`) WHERE flights.City = 'Aberdeen' RETURN flights.FlightNo
 ground query: MATCH (T1:`flight_2.flights`)-[]-(T2:`flight_2.airports`) WHERE T2.City = 'Aberdeen' RETURN T1.FlightNo
 NLQ         : Give the flight numbers of flights arriving in Aberdeen.
@@ -1023,7 +1023,7 @@ Schema      : | flight_2 | `flight_2.airlines` : Country , Abbreviation , uid , 
 
 
 index       : 181
-baseline pre: MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights ` ]-() WHERE T2.City = 'Aberdeen' OR T2.City = 'Abilene' RETURN count(*)
+baseline pre: MATCH (T2:`flight_2.airports`)-[T1:`flight_2.flights`]-() WHERE T2.City = 'Aberdeen' OR T2.City = 'Abilene' RETURN count(*)
 model1 pred : MATCH (flights:`flight_2.flights`) WHERE flights.City = 'Aberdeen' OR flights.City = 'Abilene' RETURN count(*)
 ground query: MATCH (T1:`flight_2.flights`)-[]-(T2:`flight_2.airports`) WHERE T2.City = 'Aberdeen' OR T2.City = 'Abilene' RETURN count(*)
 NLQ         : Find the number of flights landing in the city of Aberdeen or Abilene.
@@ -1088,7 +1088,7 @@ Schema      : | employee_hire_evaluation | `employee_hire_evaluation.employee` :
 
 index       : 191
 baseline pre: MATCH (employee:`employee_hire_evaluation.employee`) WHERE employee.Age > 1 RETURN employee.City
-model1 pred : MATCH (employee:`employee_hire_evaluation.employee`) WHERE employee.Age ` 30 WITH count(*) AS count, employee.City AS City WHERE count > 1 RETURN City
+model1 pred : MATCH (employee:`employee_hire_evaluation.employee`) WHERE employee.Age`30 WITH count(*) AS count, employee.City AS City WHERE count > 1 RETURN City
 ground query: MATCH (employee:`employee_hire_evaluation.employee`) WHERE employee.Age < 30 WITH count(*) AS count, employee.City AS City WHERE count  > 1 RETURN City
 NLQ         : Which cities do more than one employee under age 30 come from?
 Schema      : | employee_hire_evaluation | `employee_hire_evaluation.employee` : City , Employee_ID , Age , Name | `employee_hire_evaluation.shop` : Name , Manager_name , Number_products , Shop_ID , Location , District | `employee_hire_evaluation.hiring` : Employee_ID , Start_from , Is_full_time , Shop_ID | `employee_hire_evaluation.evaluation` : Employee_ID , Year_awarded , Bonus | `employee_hire_evaluation.hiring_HAS_employee_hire_evaluation.employee` :  | `employee_hire_evaluation.evaluation_HAS_employee_hire_evaluation.employee` :
@@ -1096,7 +1096,7 @@ Schema      : | employee_hire_evaluation | `employee_hire_evaluation.employee` :
 
 index       : 192
 baseline pre: MATCH (employee:`employee_hire_evaluation.employee`) WHERE employee.Age > 1 RETURN employee.City
-model1 pred : MATCH (employee:`employee_hire_evaluation.employee`) WHERE employee.Age ` 30 WITH count(*) AS count, employee.City AS City WHERE count > 1 RETURN City
+model1 pred : MATCH (employee:`employee_hire_evaluation.employee`) WHERE employee.Age`30 WITH count(*) AS count, employee.City AS City WHERE count > 1 RETURN City
 ground query: MATCH (employee:`employee_hire_evaluation.employee`) WHERE employee.Age < 30 WITH count(*) AS count, employee.City AS City WHERE count  > 1 RETURN City
 NLQ         : Find the cities that have more than one employee under age 30.
 Schema      : | employee_hire_evaluation | `employee_hire_evaluation.employee` : City , Employee_ID , Age , Name | `employee_hire_evaluation.shop` : Name , Manager_name , Number_products , Shop_ID , Location , District | `employee_hire_evaluation.hiring` : Employee_ID , Start_from , Is_full_time , Shop_ID | `employee_hire_evaluation.evaluation` : Employee_ID , Year_awarded , Bonus | `employee_hire_evaluation.hiring_HAS_employee_hire_evaluation.employee` :  | `employee_hire_evaluation.evaluation_HAS_employee_hire_evaluation.employee` :
@@ -1344,7 +1344,7 @@ Schema      : | cre_Doc_Template_Mgt | `cre_Doc_Template_Mgt.Ref_Template_Types`
 
 index       : 241
 baseline pre: MATCH (T1:`cre_Doc_Template_Mgt.Ref_Template_Types`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`) WITH count(*) AS count, T2.Template_Type_Code AS Template_Type_Code WHERE count  < 3 RETURN Template_Type_Code
-model1 pred : MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Ref_Template_Types`) WITH count(*) AS count, T1.Template_Type_Code AS Template_Type_Code WHERE count ` 3 RETURN Template_Type_Code
+model1 pred : MATCH (T1:`cre_Doc_Template_Mgt.Templates`)-[]-(T2:`cre_Doc_Template_Mgt.Ref_Template_Types`) WITH count(*) AS count, T1.Template_Type_Code AS Template_Type_Code WHERE count`3 RETURN Template_Type_Code
 ground query: MATCH (templates:`cre_Doc_Template_Mgt.Templates`) WITH templates.Template_Type_Code AS Template_Type_Code, count(*) AS count WHERE count  < 3 RETURN Template_Type_Code
 NLQ         : Show all template type codes with less than three templates.
 Schema      : | cre_Doc_Template_Mgt | `cre_Doc_Template_Mgt.Ref_Template_Types` : Template_Type_Description , Template_Type_Code | `cre_Doc_Template_Mgt.Templates` : Template_Type_Code , Date_Effective_To , Version_Number , Template_Details , Template_ID , Date_Effective_From | `cre_Doc_Template_Mgt.Documents` : Document_Name , Document_Description , Template_ID , Document_ID | `cre_Doc_Template_Mgt.Paragraphs` : Paragraph_Text , Paragraph_ID , Document_ID | `cre_Doc_Template_Mgt.templates_HAS_cre_Doc_Template_Mgt.ref_template_types` :  | `cre_Doc_Template_Mgt.documents_HAS_cre_Doc_Template_Mgt.templates` :  | `cre_Doc_Template_Mgt.paragraphs_HAS_cre_Doc_Template_Mgt.documents` :
@@ -1352,7 +1352,7 @@ Schema      : | cre_Doc_Template_Mgt | `cre_Doc_Template_Mgt.Ref_Template_Types`
 
 index       : 242
 baseline pre: MATCH (T1:`cre_Doc_Template_Mgt.Ref_Template_Types`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`) WITH count(*) AS count, T1.Template_Type_Code AS Template_Type_Code WHERE count  < 3 RETURN Template_Type_Code
-model1 pred : MATCH (T1:`cre_Doc_Template_Mgt.Ref_Template_Types`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`) WITH count(*) AS count, T1.Template_Type_Code AS Template_Type_Code WHERE count ` 3 RETURN Template_Type_Code
+model1 pred : MATCH (T1:`cre_Doc_Template_Mgt.Ref_Template_Types`)-[]-(T2:`cre_Doc_Template_Mgt.Templates`) WITH count(*) AS count, T1.Template_Type_Code AS Template_Type_Code WHERE count`3 RETURN Template_Type_Code
 ground query: MATCH (templates:`cre_Doc_Template_Mgt.Templates`) WITH templates.Template_Type_Code AS Template_Type_Code, count(*) AS count WHERE count  < 3 RETURN Template_Type_Code
 NLQ         : What are the codes of template types that have fewer than 3 templates?
 Schema      : | cre_Doc_Template_Mgt | `cre_Doc_Template_Mgt.Ref_Template_Types` : Template_Type_Description , Template_Type_Code | `cre_Doc_Template_Mgt.Templates` : Template_Type_Code , Date_Effective_To , Version_Number , Template_Details , Template_ID , Date_Effective_From | `cre_Doc_Template_Mgt.Documents` : Document_Name , Document_Description , Template_ID , Document_ID | `cre_Doc_Template_Mgt.Paragraphs` : Paragraph_Text , Paragraph_ID , Document_ID | `cre_Doc_Template_Mgt.templates_HAS_cre_Doc_Template_Mgt.ref_template_types` :  | `cre_Doc_Template_Mgt.documents_HAS_cre_Doc_Template_Mgt.templates` :  | `cre_Doc_Template_Mgt.paragraphs_HAS_cre_Doc_Template_Mgt.documents` :
@@ -1488,7 +1488,7 @@ Schema      : | cre_Doc_Template_Mgt | `cre_Doc_Template_Mgt.Ref_Template_Types`
 
 index       : 277
 baseline pre: MATCH (teacher:`course_teach.teacher`) WHERE teacher.Hometown  < > 'Little Lever Urban District' RETURN teacher.Name
-model1 pred : MATCH (teacher:`course_teach.teacher`) WHERE teacher.Hometown ` > 'Little Lever Urban District' RETURN teacher.Name
+model1 pred : MATCH (teacher:`course_teach.teacher`) WHERE teacher.Hometown`> 'Little Lever Urban District' RETURN teacher.Name
 ground query: MATCH (teacher:`course_teach.teacher`) WHERE teacher.Hometown <> 'little lever urban district' RETURN teacher.Name
 NLQ         : List the name of teachers whose hometown is not `` Little Lever Urban District '' .
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown ( Little Lever Urban District ) | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
@@ -1496,7 +1496,7 @@ Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Star
 
 index       : 278
 baseline pre: MATCH (teacher:`course_teach.teacher`) WHERE teacher.Hometown  < > 'Little Lever Urban District' RETURN teacher.Name
-model1 pred : MATCH (teacher:`course_teach.teacher`) WHERE teacher.Hometown ` > 'Little Lever Urban District' RETURN teacher.Name
+model1 pred : MATCH (teacher:`course_teach.teacher`) WHERE teacher.Hometown`> 'Little Lever Urban District' RETURN teacher.Name
 ground query: MATCH (teacher:`course_teach.teacher`) WHERE teacher.Hometown <> 'little lever urban district' RETURN teacher.Name
 NLQ         : What are the names of the teachers whose hometown is not `` Little Lever Urban District '' ?
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown ( Little Lever Urban District ) | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
@@ -1535,80 +1535,80 @@ Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Star
 
 
 index       : 289
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,T2.Course
-model1 pred : MATCH (T2:`course_teach.course_arrange`)-[T1:`course_teach.course_arrange ` ]-() RETURN T2.Name,T2.Course_ID
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,T2.Course
+model1 pred : MATCH (T2:`course_teach.course_arrange`)-[T1:`course_teach.course_arrange`]-() RETURN T2.Name,T2.Course_ID
 ground query: MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange`]-(T3:`course_teach.teacher`) RETURN T3.Name,T2.Course
 NLQ         : Show names of teachers and the courses they are arranged to teach.
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 290
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,T2.Course
-model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,T1.Course_ID
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,T2.Course
+model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,T1.Course_ID
 ground query: MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange`]-(T3:`course_teach.teacher`) RETURN T3.Name,T2.Course
 NLQ         : What is the name of each teacher and what course they teach?
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 291
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,T2.Course ORDER BY T1.Name ASC
-model1 pred : MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange ` ]-() RETURN T2.Name,T2.Course ORDER BY T2.Name ASC
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,T2.Course ORDER BY T1.Name ASC
+model1 pred : MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange`]-() RETURN T2.Name,T2.Course ORDER BY T2.Name ASC
 ground query: MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange`]-(T3:`course_teach.teacher`) RETURN T3.Name,T2.Course ORDER BY T3.Name
 NLQ         : Show names of teachers and the courses they are arranged to teach in ascending alphabetical order of the teacher's name.
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 292
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,T2.Course ORDER BY T1.Name ASC
-model1 pred : MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange ` ]-() RETURN T2.Name,T2.Course ORDER BY T2.Name ASC
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,T2.Course ORDER BY T1.Name ASC
+model1 pred : MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange`]-() RETURN T2.Name,T2.Course ORDER BY T2.Name ASC
 ground query: MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange`]-(T3:`course_teach.teacher`) RETURN T3.Name,T2.Course ORDER BY T3.Name
 NLQ         : What are the names of the teachers and the courses they teach in ascending alphabetical order by the name of the teacher?
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 293
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() WHERE T2.Curriculum = 'Mathematic' RETURN T1.Name
-model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange ` ]-(T3:`course_teach.teacher`) WHERE T3.Course = 'Math' RETURN T3.Name
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() WHERE T2.Curriculum = 'Mathematic' RETURN T1.Name
+model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange`]-(T3:`course_teach.teacher`) WHERE T3.Course = 'Math' RETURN T3.Name
 ground query: MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange`]-(T3:`course_teach.teacher`) WHERE T2.Course = 'Math' RETURN T3.Name
 NLQ         : Show the name of the teacher for the math course.
 Schema      : | course_teach | `course_teach.course` : Course ( Math ) , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 294
-baseline pre: MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange ` ]-() WHERE T2.Curriculum = 'Mathematic' RETURN T1.Name
-model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange ` ]-(T3:`course_teach.teacher`) WHERE T3.Course = 'Math' RETURN T1.Name
+baseline pre: MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange`]-() WHERE T2.Curriculum = 'Mathematic' RETURN T1.Name
+model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange`]-(T3:`course_teach.teacher`) WHERE T3.Course = 'Math' RETURN T1.Name
 ground query: MATCH (T2:`course_teach.course`)-[T1:`course_teach.course_arrange`]-(T3:`course_teach.teacher`) WHERE T2.Course = 'Math' RETURN T3.Name
 NLQ         : What are the names of the people who teach math courses?
 Schema      : | course_teach | `course_teach.course` : Course ( Math ) , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 295
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,count(*)
-model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,count(*)
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,count(*)
+model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,count(*)
 ground query: MATCH (T2:`course_teach.teacher`)-[T1:`course_teach.course_arrange`]-() RETURN T2.Name,count(*)
 NLQ         : Show names of teachers and the number of courses they teach.
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 296
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,count(*)
-model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange ` ]-() RETURN T1.Name,count(*)
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,count(*)
+model1 pred : MATCH (T1:`course_teach.course`)-[T2:`course_teach.course_arrange`]-() RETURN T1.Name,count(*)
 ground query: MATCH (T2:`course_teach.teacher`)-[T1:`course_teach.course_arrange`]-() RETURN T2.Name,count(*)
 NLQ         : What are the names of the teachers and how many courses do they teach?
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 297
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() WITH T1.Name AS Name, count(*) AS count WHERE count >= 2 RETURN Name
-model1 pred : MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() WITH count(*) AS count, T1.Name AS Name WHERE count >= 2 RETURN Name
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() WITH T1.Name AS Name, count(*) AS count WHERE count >= 2 RETURN Name
+model1 pred : MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() WITH count(*) AS count, T1.Name AS Name WHERE count >= 2 RETURN Name
 ground query: MATCH (T2:`course_teach.teacher`)-[T1:`course_teach.course_arrange`]-() WITH T2.Name AS Name, count(*) AS count WHERE count  >= 2 RETURN Name
 NLQ         : Show names of teachers that teach at least two courses.
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
 
 
 index       : 298
-baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() WITH count(*) AS count, T1.Name AS Name WHERE count >= 2 RETURN Name
-model1 pred : MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange ` ]-() WITH count(*) AS count, T1.Name AS Name WHERE count >= 2 RETURN Name
+baseline pre: MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() WITH count(*) AS count, T1.Name AS Name WHERE count >= 2 RETURN Name
+model1 pred : MATCH (T1:`course_teach.teacher`)-[T2:`course_teach.course_arrange`]-() WITH count(*) AS count, T1.Name AS Name WHERE count >= 2 RETURN Name
 ground query: MATCH (T2:`course_teach.teacher`)-[T1:`course_teach.course_arrange`]-() WITH T2.Name AS Name, count(*) AS count WHERE count  >= 2 RETURN Name
 NLQ         : What are the names of the teachers who teach at least two courses?
 Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Staring_Date | `course_teach.teacher` : Age , Name , Teacher_ID , Hometown | `course_teach.course_arrange` : Teacher_ID , Course_ID , Grade
@@ -1616,7 +1616,7 @@ Schema      : | course_teach | `course_teach.course` : Course , Course_ID , Star
 
 index       : 299
 baseline pre: MATCH (visitor:`museum_visit.visitor`) WHERE visitor.Age  < 30 RETURN count(*)
-model1 pred : MATCH (visitor:`museum_visit.visitor`) WHERE visitor.Age ` 30 RETURN count(*)
+model1 pred : MATCH (visitor:`museum_visit.visitor`) WHERE visitor.Age`30 RETURN count(*)
 ground query: MATCH (visitor:`museum_visit.visitor`) WHERE visitor.Age < 30 RETURN count(*)
 NLQ         : How many visitors below age 30 are there?
 Schema      : | museum_visit | `museum_visit.museum` : Name , Museum_ID , Open_Year , Num_of_Staff | `museum_visit.visitor` : Age , Name , Level_of_membership , ID | `museum_visit.visit` : Total_spent , Museum_ID , Num_of_Ticket , visitor_ID
@@ -1632,7 +1632,7 @@ Schema      : | museum_visit | `museum_visit.museum` : Name , Museum_ID , Open_Y
 
 index       : 301
 baseline pre: MATCH (visitor:`museum_visit.visitor`) WHERE visitor.Level_of_membership  < 4 RETURN avg(visitor.Age)
-model1 pred : MATCH (visitor:`museum_visit.visitor`) WHERE visitor.Level_of_membership ` 4 RETURN avg(visitor.Age)
+model1 pred : MATCH (visitor:`museum_visit.visitor`) WHERE visitor.Level_of_membership`4 RETURN avg(visitor.Age)
 ground query: MATCH (visitor:`museum_visit.visitor`) WHERE visitor.Level_of_membership <= 4 RETURN avg(visitor.Age)
 NLQ         : What is the average age of the visitors whose membership level is not higher than 4?
 Schema      : | museum_visit | `museum_visit.museum` : Name , Museum_ID , Open_Year , Num_of_Staff | `museum_visit.visitor` : Age , Name , Level_of_membership , ID | `museum_visit.visit` : Total_spent , Museum_ID , Num_of_Ticket , visitor_ID
@@ -1640,7 +1640,7 @@ Schema      : | museum_visit | `museum_visit.museum` : Name , Museum_ID , Open_Y
 
 index       : 304
 baseline pre: MATCH (museum:`museum_visit.museum`) WHERE museum.Open_Year  < 2009 RETURN avg(museum.Num_of_Staff)
-model1 pred : MATCH (museum:`museum_visit.museum`) WHERE museum.Open_Year ` 2009 RETURN avg(museum.Num_of_Staff)
+model1 pred : MATCH (museum:`museum_visit.museum`) WHERE museum.Open_Year`2009 RETURN avg(museum.Num_of_Staff)
 ground query: MATCH (museum:`museum_visit.museum`) WHERE museum.Open_Year < '2009' RETURN avg(museum.Num_of_Staff)
 NLQ         : Find the average number of staff working for the museums that were open before 2009.
 Schema      : | museum_visit | `museum_visit.museum` : Name , Museum_ID , Open_Year , Num_of_Staff | `museum_visit.visitor` : Age , Name , Level_of_membership , ID | `museum_visit.visit` : Total_spent , Museum_ID , Num_of_Ticket , visitor_ID
@@ -1672,7 +1672,7 @@ Schema      : | museum_visit | `museum_visit.museum` : Name , Museum_ID , Open_Y
 
 index       : 308
 baseline pre: MATCH (museum:`museum_visit.museum`) WHERE museum.Open_Year > 2013 OR museum.Open_Year  < 2008 RETURN count(*)
-model1 pred : MATCH (museum:`museum_visit.museum`) WHERE museum.Open_Year > 2013 OR museum.Open_Year ` 2008 RETURN count(*)
+model1 pred : MATCH (museum:`museum_visit.museum`) WHERE museum.Open_Year > 2013 OR museum.Open_Year`2008 RETURN count(*)
 ground query: MATCH (museum:`museum_visit.museum`) WHERE museum.Open_Year > '2013' OR museum.Open_Year < '2008' RETURN count(*)
 NLQ         : How many museums were opened after 2013 or before 2008?
 Schema      : | museum_visit | `museum_visit.museum` : Name , Museum_ID , Open_Year , Num_of_Staff | `museum_visit.visitor` : Age , Name , Level_of_membership , ID | `museum_visit.visit` : Total_spent , Museum_ID , Num_of_Ticket , visitor_ID
@@ -1696,7 +1696,7 @@ Schema      : | battle_death | `battle_death.battle` : name , id , bulgarian_com
 
 index       : 313
 baseline pre: MATCH (battle:`battle_death.battle`) WHERE battle.bulgar_commander  < > 'Boril' RETURN battle.name,battle.result
-model1 pred : MATCH (battle:`battle_death.battle`) WHERE battle.bulgararian_commander ` > 'Boril' RETURN battle.name,battle.result
+model1 pred : MATCH (battle:`battle_death.battle`) WHERE battle.bulgararian_commander`> 'Boril' RETURN battle.name,battle.result
 ground query: MATCH (battle:`battle_death.battle`) WHERE battle.bulgarian_commander <> 'Boril' RETURN battle.name,battle.result
 NLQ         : What are the name and results of the battles when the bulgarian commander is not 'Boril'
 Schema      : | battle_death | `battle_death.battle` : name , id , bulgarian_commander ( Boril ) , result , latin_commander , date | `battle_death.ship` : name , id , disposition_of_ship , ship_type , location , lost_in_battle , tonnage | `battle_death.death` : id , caused_by_ship_id , injured , killed , note | `battle_death.ship_HAS_battle_death.battle` :  | `battle_death.death_HAS_battle_death.ship` :
@@ -1744,7 +1744,7 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 326
 baseline pre: MATCH (departments:`student_transcripts_tracking.Departments`) RETURN count(DISTINCT departments.department_id)
-model1 pred : MATCH (T1:`student_transcripts_tracking.Departments`)-[T2:`student_transcripts_tracking.Degree_Programs ` ]-() RETURN count(DISTINCT T1.department_name)
+model1 pred : MATCH (T1:`student_transcripts_tracking.Departments`)-[T2:`student_transcripts_tracking.Degree_Programs`]-() RETURN count(DISTINCT T1.department_name)
 ground query: MATCH (degree_programs:`student_transcripts_tracking.Degree_Programs`) RETURN count(DISTINCT degree_programs.department_id)
 NLQ         : How many departments offer any degree?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1752,7 +1752,7 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 327
 baseline pre: MATCH (departments:`student_transcripts_tracking.Departments`) RETURN count(DISTINCT departments.department_id)
-model1 pred : MATCH (T1:`student_transcripts_tracking.Departments`)-[T2:`student_transcripts_tracking.Degree_Programs ` ]-() RETURN count(DISTINCT T1.department_name)
+model1 pred : MATCH (T1:`student_transcripts_tracking.Departments`)-[T2:`student_transcripts_tracking.Degree_Programs`]-() RETURN count(DISTINCT T1.department_name)
 ground query: MATCH (degree_programs:`student_transcripts_tracking.Degree_Programs`) RETURN count(DISTINCT degree_programs.department_id)
 NLQ         : How many different departments offer degrees?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1784,7 +1784,7 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 334
 baseline pre: MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`) WITH count(*) AS count, T1.course_name AS course_name, T1.course_id AS course_id WHERE count  < = 2 RETURN course_name,course_id
-model1 pred : MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses ` ]-() WITH count(*) AS count, T1.course_name AS course_name, T1.course_id AS course_id WHERE count ` 2 RETURN course_name,course_id
+model1 pred : MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses`]-() WITH count(*) AS count, T1.course_name AS course_name, T1.course_id AS course_id WHERE count`2 RETURN course_name,course_id
 ground query: MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Sections`) WITH count(*) AS count, T1.course_id AS course_id, T1.course_name AS course_name WHERE count  <= 2 RETURN course_name,course_id
 NLQ         : What are the names and id of courses having at most 2 sections?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1792,7 +1792,7 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 335
 baseline pre: MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`) WITH count(*) AS count, T1.course_name AS course_name, T1.course_id AS course_id WHERE count  < 2 RETURN course_name,course_id
-model1 pred : MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses ` ]-() WITH count(*) AS count, T1.course_name AS course_name, T1.course_id AS course_id WHERE count ` 2 RETURN course_name,course_id
+model1 pred : MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses`]-() WITH count(*) AS count, T1.course_name AS course_name, T1.course_id AS course_id WHERE count`2 RETURN course_name,course_id
 ground query: MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Sections`) WITH count(*) AS count, T1.course_id AS course_id, T1.course_name AS course_name WHERE count  <= 2 RETURN course_name,course_id
 NLQ         : What are the names and ids of every course with less than 2 sections?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1816,7 +1816,7 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 338
 baseline pre: MATCH (student_enrolment:`student_transcripts_tracking.Student_Enrolment`) RETURN student_enrolment.semester_name,student_enrolment.student_id ORDER BY student_enrolment.date_first_registered DESC LIMIT 1
-model1 pred : MATCH (student_enrolment:`student_transcripts_tracking.Student_Enrolment`) WITH student_enrolment.semester_name AS semester_name, count(student_enrolment.student_id) AS count WHERE count ` = 1 RETURN semester_name,student_enrolment.semester_id
+model1 pred : MATCH (student_enrolment:`student_transcripts_tracking.Student_Enrolment`) WITH student_enrolment.semester_name AS semester_name, count(student_enrolment.student_id) AS count WHERE count`= 1 RETURN semester_name,student_enrolment.semester_id
 ground query: MATCH (T1:`student_transcripts_tracking.Semesters`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`) WITH T1, count(T1.semester_id) AS cnt RETURN T1.semester_name,T1.semester_id ORDER BY cnt DESC LIMIT 1
 NLQ         : What is the semester which most student registered in? Show both the name and the id.
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1887,8 +1887,8 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 
 index       : 347
-baseline pre: MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment ` ]-() WITH count(T1.degree_summary_description) AS cnt, T1 RETURN T1.degree_summary_name ORDER BY cnt DESC LIMIT 1
-model1 pred : MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment ` ]-() WITH count(T1.degree_summary_name) AS cnt, T1 RETURN T1.degree_summary_name ORDER BY cnt DESC LIMIT 1
+baseline pre: MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment`]-() WITH count(T1.degree_summary_description) AS cnt, T1 RETURN T1.degree_summary_name ORDER BY cnt DESC LIMIT 1
+model1 pred : MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment`]-() WITH count(T1.degree_summary_name) AS cnt, T1 RETURN T1.degree_summary_name ORDER BY cnt DESC LIMIT 1
 ground query: MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`) WITH T1, count(T1.degree_summary_name) AS cnt RETURN T1.degree_summary_name ORDER BY cnt DESC LIMIT 1
 NLQ         : What is the degree summary name that has the most number of students enrolled?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1896,15 +1896,15 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 348
 baseline pre: MATCH (student_enrolment:`student_transcripts_tracking.Student_Enrolment`) RETURN student_enrolment.degree_program_id,student_enrolment.degree_summary_name ORDER BY student_enrolment.degree_enrolment_id DESC LIMIT 1
-model1 pred : MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment ` ]-() WITH count(T1.degree_program_id) AS cnt, T1 RETURN T1.degree_program_id,T1.degree_summary_description ORDER BY cnt DESC LIMIT 1
+model1 pred : MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment`]-() WITH count(T1.degree_program_id) AS cnt, T1 RETURN T1.degree_program_id,T1.degree_summary_description ORDER BY cnt DESC LIMIT 1
 ground query: MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`) WITH count(T1.degree_program_id) AS cnt, T1 RETURN T1.degree_program_id,T1.degree_summary_name ORDER BY cnt DESC LIMIT 1
 NLQ         : Find the program which most number of students are enrolled in. List both the id and the summary.
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
 
 
 index       : 349
-baseline pre: MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment ` ]-() WITH count(T1.degree_program_id) AS cnt, T1 RETURN T1.degree_program_id,T1.degree_summary_description ORDER BY cnt DESC LIMIT 1
-model1 pred : MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment ` ]-() WITH count(T1.degree_program_id) AS cnt, T1 RETURN T1.degree_program_id,T1.degree_summary_description ORDER BY cnt DESC LIMIT 1
+baseline pre: MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment`]-() WITH count(T1.degree_program_id) AS cnt, T1 RETURN T1.degree_program_id,T1.degree_summary_description ORDER BY cnt DESC LIMIT 1
+model1 pred : MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[T2:`student_transcripts_tracking.Student_Enrolment`]-() WITH count(T1.degree_program_id) AS cnt, T1 RETURN T1.degree_program_id,T1.degree_summary_description ORDER BY cnt DESC LIMIT 1
 ground query: MATCH (T1:`student_transcripts_tracking.Degree_Programs`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment`) WITH count(T1.degree_program_id) AS cnt, T1 RETURN T1.degree_program_id,T1.degree_summary_name ORDER BY cnt DESC LIMIT 1
 NLQ         : What is the program id and the summary of the degree that has the most students enrolled?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1912,15 +1912,15 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 350
 baseline pre: MATCH (student_enrolment_courses:`student_transcripts_tracking.Student_Enrolment_Courses`) RETURN student_enrolment_courses.course_name
-model1 pred : MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses ` ]-() RETURN T1.course_name
+model1 pred : MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses`]-() RETURN T1.course_name
 ground query: MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`) RETURN DISTINCT T1.course_name
 NLQ         : What are all the course names of the courses which ever have students enrolled in?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
 
 
 index       : 351
-baseline pre: MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses ` ]-() RETURN T1.course_name
-model1 pred : MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses ` ]-() RETURN T1.course_name
+baseline pre: MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses`]-() RETURN T1.course_name
+model1 pred : MATCH (T1:`student_transcripts_tracking.Courses`)-[T2:`student_transcripts_tracking.Student_Enrolment_Courses`]-() RETURN T1.course_name
 ground query: MATCH (T1:`student_transcripts_tracking.Courses`)-[]-(T2:`student_transcripts_tracking.Student_Enrolment_Courses`) RETURN DISTINCT T1.course_name
 NLQ         : What are the names of all courses that have some students enrolled?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1968,7 +1968,7 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 358
 baseline pre: MATCH (addresses:`student_transcripts_tracking.Addresses`) WHERE addresses.permanent_address_id  < address_id RETURN addresses.first_name
-model1 pred : MATCH (addresses:`student_transcripts_tracking.Addresses`) WITH avg(addresses.permanent_address_id) AS permanent_address_id MATCH (addresses:`student_transcripts_tracking.Addresses`) WHERE addresses.permanent_address_id ` permanent_address_id RETURN addresses.first_name
+model1 pred : MATCH (addresses:`student_transcripts_tracking.Addresses`) WITH avg(addresses.permanent_address_id) AS permanent_address_id MATCH (addresses:`student_transcripts_tracking.Addresses`) WHERE addresses.permanent_address_id`permanent_address_id RETURN addresses.first_name
 ground query: MATCH (students:`student_transcripts_tracking.Students`) WHERE students.current_address_id <> students.permanent_address_id RETURN students.first_name
 NLQ         : Whose permanent address is different from his or her current address? List his or her first name.
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -1976,7 +1976,7 @@ Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Add
 
 index       : 359
 baseline pre: MATCH (students:`student_transcripts_tracking.Students`) WHERE students.permanent_address_id  < current_address_id RETURN students.first_name
-model1 pred : MATCH (students:`student_transcripts_tracking.Students`) WITH avg(students.permanent_address_id) AS permanent_address_id MATCH (students:`student_transcripts_tracking.Students`) WHERE students.permanent_address_id ` permanent_address_id RETURN students.first_name
+model1 pred : MATCH (students:`student_transcripts_tracking.Students`) WITH avg(students.permanent_address_id) AS permanent_address_id MATCH (students:`student_transcripts_tracking.Students`) WHERE students.permanent_address_id`permanent_address_id RETURN students.first_name
 ground query: MATCH (students:`student_transcripts_tracking.Students`) WHERE students.current_address_id <> students.permanent_address_id RETURN students.first_name
 NLQ         : What is the first name of the student whose permanent address is different from his or her current one?
 Schema      : | student_transcripts_tracking | `student_transcripts_tracking.Addresses` : city , line_2 , state_province_county , country , address_id , zip_postcode , line_1 | `student_transcripts_tracking.Courses` : course_description , course_id , course_name | `student_transcripts_tracking.Departments` : department_description , department_name , department_id | `student_transcripts_tracking.Degree_Programs` : degree_summary_name , degree_program_id , department_id , degree_summary_description | `student_transcripts_tracking.Sections` : section_id , course_id , section_name , section_description | `student_transcripts_tracking.Semesters` : semester_id , semester_description , semester_name | `student_transcripts_tracking.Students` : ssn , cell_mobile_number , last_name , first_name , date_first_registered , current_address_id , middle_name , email_address , date_left , student_id , other_student_details , permanent_address_id | `student_transcripts_tracking.Student_Enrolment` : semester_id , degree_program_id , student_enrolment_id , student_id | `student_transcripts_tracking.Student_Enrolment_Courses` : student_course_id , course_id , student_enrolment_id | `student_transcripts_tracking.Transcripts` : transcript_date , transcript_id | `student_transcripts_tracking.Transcript_Contents` : student_course_id , transcript_id | `student_transcripts_tracking.degree_programs_HAS_student_transcripts_tracking.departments` :  | `student_transcripts_tracking.sections_HAS_student_transcripts_tracking.courses` :  | `student_transcripts_tracking.students_HAS_student_transcripts_tracking.addresses` :  | `student_transcripts_tracking.student_enrolment_HAS_student_transcripts_tracking.students` :  | `student_transcripts_tracking.student_enrolment_courses_HAS_student_transcripts_tracking.student_enrolment` :
@@ -2368,7 +2368,7 @@ Schema      : | tvshow | `tvshow.TV_Channel` : Country , id , series_name , Pack
 
 index       : 422
 baseline pre: MATCH (tv_channel:`tvshow.TV_Channel`) WHERE tv_channel.Language  < > 'English' RETURN tv_channel.Pixel_aspect_ratio_PAR,tv_channel.Country
-model1 pred : MATCH (tv_channel:`tvshow.TV_Channel`) WHERE tv_channel.Language ` > 'English' RETURN tv_channel.Pixel_aspect_ratio_PAR,tv_channel.Country
+model1 pred : MATCH (tv_channel:`tvshow.TV_Channel`) WHERE tv_channel.Language`> 'English' RETURN tv_channel.Pixel_aspect_ratio_PAR,tv_channel.Country
 ground query: MATCH (tv_channel:`tvshow.TV_Channel`) WHERE tv_channel.Language <> 'English' RETURN tv_channel.Pixel_aspect_ratio_PAR,tv_channel.Country
 NLQ         : find the pixel aspect ratio and nation of the tv channels that do not use English.
 Schema      : | tvshow | `tvshow.TV_Channel` : Country , id , series_name , Package_Option , Hight_definition_TV , Language ( English ) , Pixel_aspect_ratio_PAR , Content , Pay_per_view_PPV | `tvshow.TV_series` : id , Share , Air_Date , 18_49_Rating_Share , Viewers_m , Rating , Weekly_Rank , Episode , Channel | `tvshow.Cartoon` : id , Written_by , Directed_by , Production_code , Title , Original_air_date , Channel | `tvshow.tv_series_HAS_tvshow.tv_channel` :  | `tvshow.cartoon_HAS_tvshow.tv_channel` :
@@ -2376,7 +2376,7 @@ Schema      : | tvshow | `tvshow.TV_Channel` : Country , id , series_name , Pack
 
 index       : 423
 baseline pre: MATCH (TV_channel:`tvshow.TV_Channel`) WHERE TV_channel.Language  < > 'English' RETURN TV_channel.Pixel_aspect_ratio_PAR,TV_channel.Country
-model1 pred : MATCH (TV_channel:`tvshow.TV_Channel`) WHERE TV_channel.Language ` > 'English' RETURN TV_channel.Pixel_aspect_ratio_PAR,tv_channel.Country
+model1 pred : MATCH (TV_channel:`tvshow.TV_Channel`) WHERE TV_channel.Language`> 'English' RETURN TV_channel.Pixel_aspect_ratio_PAR,tv_channel.Country
 ground query: MATCH (tv_channel:`tvshow.TV_Channel`) WHERE tv_channel.Language <> 'English' RETURN tv_channel.Pixel_aspect_ratio_PAR,tv_channel.Country
 NLQ         : What is the pixel aspect ratio and country of origin for all TV channels that do not use English?
 Schema      : | tvshow | `tvshow.TV_Channel` : Country , id , series_name , Package_Option , Hight_definition_TV , Language ( English ) , Pixel_aspect_ratio_PAR , Content , Pay_per_view_PPV | `tvshow.TV_series` : id , Share , Air_Date , 18_49_Rating_Share , Viewers_m , Rating , Weekly_Rank , Episode , Channel | `tvshow.Cartoon` : id , Written_by , Directed_by , Production_code , Title , Original_air_date , Channel | `tvshow.tv_series_HAS_tvshow.tv_channel` :  | `tvshow.cartoon_HAS_tvshow.tv_channel` :
@@ -2392,7 +2392,7 @@ Schema      : | poker_player | `poker_player.poker_player` : Money_Rank , People
 
 index       : 434
 baseline pre: MATCH (poker_player:`poker_player.poker_player`) WHERE poker_player.Earnings  < 200000 RETURN max(poker_player.Final_Table_Made)
-model1 pred : MATCH (poker_player:`poker_player.poker_player`) WHERE poker_player.Earnings ` 200000 RETURN max(poker_player.Final_Table_Made)
+model1 pred : MATCH (poker_player:`poker_player.poker_player`) WHERE poker_player.Earnings`200000 RETURN max(poker_player.Final_Table_Made)
 ground query: MATCH (poker_player:`poker_player.poker_player`) WHERE poker_player.Earnings < 200000 RETURN max(poker_player.Final_Table_Made)
 NLQ         : What is the maximum number of final tables made among poker players with earnings less than 200000?
 Schema      : | poker_player | `poker_player.poker_player` : Money_Rank , People_ID , Final_Table_Made , Best_Finish , Poker_Player_ID , Earnings | `poker_player.people` : Name , Birth_Date , People_ID , Nationality , Height | `poker_player.poker_player_HAS_poker_player.people` :
@@ -2400,7 +2400,7 @@ Schema      : | poker_player | `poker_player.poker_player` : Money_Rank , People
 
 index       : 435
 baseline pre: MATCH (poker_player:`poker_player.poker_player`) WHERE poker_player.Earnings  < 200000 RETURN max(poker_player.Final_Table_Made)
-model1 pred : MATCH (poker_player:`poker_player.poker_player`) WHERE poker_player.Earnings ` 200000 RETURN max(poker_player.Final_Table_Made)
+model1 pred : MATCH (poker_player:`poker_player.poker_player`) WHERE poker_player.Earnings`200000 RETURN max(poker_player.Final_Table_Made)
 ground query: MATCH (poker_player:`poker_player.poker_player`) WHERE poker_player.Earnings < 200000 RETURN max(poker_player.Final_Table_Made)
 NLQ         : Return the maximum final tables made across all poker players who have earnings below 200000.
 Schema      : | poker_player | `poker_player.poker_player` : Money_Rank , People_ID , Final_Table_Made , Best_Finish , Poker_Player_ID , Earnings | `poker_player.people` : Name , Birth_Date , People_ID , Nationality , Height | `poker_player.poker_player_HAS_poker_player.people` :
@@ -2480,7 +2480,7 @@ Schema      : | poker_player | `poker_player.poker_player` : Money_Rank , People
 
 index       : 456
 baseline pre: MATCH (people:`poker_player.people`) WHERE people.Nationality  < > 'Russia' RETURN people.Name
-model1 pred : MATCH (people:`poker_player.people`) WHERE people.Nationality ` > 'Russia' RETURN people.Name
+model1 pred : MATCH (people:`poker_player.people`) WHERE people.Nationality`> 'Russia' RETURN people.Name
 ground query: MATCH (people:`poker_player.people`) WHERE people.Nationality <> 'Russia' RETURN people.Name
 NLQ         : Show names of people whose nationality is not "Russia".
 Schema      : | poker_player | `poker_player.poker_player` : Money_Rank , People_ID , Final_Table_Made , Best_Finish , Poker_Player_ID , Earnings | `poker_player.people` : Name , Birth_Date , People_ID , Nationality ( Russia ) , Height | `poker_player.poker_player_HAS_poker_player.people` :
@@ -2488,7 +2488,7 @@ Schema      : | poker_player | `poker_player.poker_player` : Money_Rank , People
 
 index       : 457
 baseline pre: MATCH (people:`poker_player.people`) WHERE people.Nationality  < > 'Russia' RETURN people.Name
-model1 pred : MATCH (people:`poker_player.people`) WHERE people.Nationality ` > 'Russia' RETURN people.Name
+model1 pred : MATCH (people:`poker_player.people`) WHERE people.Nationality`> 'Russia' RETURN people.Name
 ground query: MATCH (people:`poker_player.people`) WHERE people.Nationality <> 'Russia' RETURN people.Name
 NLQ         : What are the names of people who are not from Russia?
 Schema      : | poker_player | `poker_player.poker_player` : Money_Rank , People_ID , Final_Table_Made , Best_Finish , Poker_Player_ID , Earnings | `poker_player.people` : Name , Birth_Date , People_ID , Nationality ( Russia ) , Height | `poker_player.poker_player_HAS_poker_player.people` :
@@ -2528,7 +2528,7 @@ Schema      : | voter_1 | `voter_1.AREA_CODE_STATE` : area_code , state ( CA ) |
 
 index       : 467
 baseline pre: MATCH (contestants:`voter_1.CONTESTANTS`) WHERE contestants.contestant_name  < > 'Jessie Alloway' RETURN contestants.contestant_name
-model1 pred : MATCH (contestants:`voter_1.CONTESTANTS`) WHERE contestants.contestant_name ` > 'Jessie Alloway' RETURN contestants.contestant_name
+model1 pred : MATCH (contestants:`voter_1.CONTESTANTS`) WHERE contestants.contestant_name`> 'Jessie Alloway' RETURN contestants.contestant_name
 ground query: MATCH (contestants:`voter_1.CONTESTANTS`) WHERE contestants.contestant_name <> 'Jessie Alloway' RETURN contestants.contestant_name
 NLQ         : What are the names of the contestants whose names are not 'Jessie Alloway'
 Schema      : | voter_1 | `voter_1.AREA_CODE_STATE` : area_code , state | `voter_1.CONTESTANTS` : contestant_number , contestant_name ( Jessie Alloway ) | `voter_1.VOTES` : contestant_number , created , state , vote_id , phone_number | `voter_1.votes_HAS_voter_1.contestants` :
@@ -2576,7 +2576,7 @@ Schema      : | orchestra | `orchestra.conductor` : Age , Name , Conductor_ID , 
 
 index       : 477
 baseline pre: MATCH (conductor:`orchestra.conductor`) WHERE conductor.Nationality  < > 'USA' RETURN conductor.Name
-model1 pred : MATCH (conductor:`orchestra.conductor`) WHERE conductor.Nationality ` > 'USA' RETURN conductor.Name
+model1 pred : MATCH (conductor:`orchestra.conductor`) WHERE conductor.Nationality`> 'USA' RETURN conductor.Name
 ground query: MATCH (conductor:`orchestra.conductor`) WHERE conductor.Nationality <> 'USA' RETURN conductor.Name
 NLQ         : What are the names of conductors whose nationalities are not "USA"?
 Schema      : | orchestra | `orchestra.conductor` : Age , Name , Conductor_ID , Nationality ( USA ) , Year_of_Work | `orchestra.orchestra` : Orchestra , Conductor_ID , Major_Record_Format , Record_Company , Year_of_Founded , Orchestra_ID | `orchestra.performance` : Type , Date , Share , Performance_ID , Weekly_rank , Official_ratings_(millions) , Orchestra_ID | `orchestra.show` : Performance_ID , Show_ID , If_first_show , Attendance , Result | `orchestra.orchestra_HAS_orchestra.conductor` :  | `orchestra.performance_HAS_orchestra.orchestra` :  | `orchestra.show_HAS_orchestra.performance` :
@@ -2584,7 +2584,7 @@ Schema      : | orchestra | `orchestra.conductor` : Age , Name , Conductor_ID , 
 
 index       : 478
 baseline pre: MATCH (conductor:`orchestra.conductor`) WHERE conductor.Nationality  < > 'USA' RETURN conductor.Name
-model1 pred : MATCH (conductor:`orchestra.conductor`) WHERE conductor.Nationality ` > 'USA' RETURN conductor.Name
+model1 pred : MATCH (conductor:`orchestra.conductor`) WHERE conductor.Nationality`> 'USA' RETURN conductor.Name
 ground query: MATCH (conductor:`orchestra.conductor`) WHERE conductor.Nationality <> 'USA' RETURN conductor.Name
 NLQ         : Return the names of conductors that do not have the nationality "USA".
 Schema      : | orchestra | `orchestra.conductor` : Age , Name , Conductor_ID , Nationality ( USA ) , Year_of_Work | `orchestra.orchestra` : Orchestra , Conductor_ID , Major_Record_Format , Record_Company , Year_of_Founded , Orchestra_ID | `orchestra.performance` : Type , Date , Share , Performance_ID , Weekly_rank , Official_ratings_(millions) , Orchestra_ID | `orchestra.show` : Performance_ID , Show_ID , If_first_show , Attendance , Result | `orchestra.orchestra_HAS_orchestra.conductor` :  | `orchestra.performance_HAS_orchestra.orchestra` :  | `orchestra.show_HAS_orchestra.performance` :
@@ -2592,7 +2592,7 @@ Schema      : | orchestra | `orchestra.conductor` : Age , Name , Conductor_ID , 
 
 index       : 483
 baseline pre: MATCH (performance:`orchestra.performance`) WHERE performance.Type  < > 'Live final' RETURN max(performance.Share),min(performance.Share)
-model1 pred : MATCH (performance:`orchestra.performance`) WHERE performance.Type ` > 'Live final' RETURN max(performance.Share),min(performance.Share)
+model1 pred : MATCH (performance:`orchestra.performance`) WHERE performance.Type`> 'Live final' RETURN max(performance.Share),min(performance.Share)
 ground query: MATCH (performance:`orchestra.performance`) WHERE performance.Type <> 'Live final' RETURN max(performance.Share),min(performance.Share)
 NLQ         : What are the maximum and minimum share of performances whose type is not "Live final".
 Schema      : | orchestra | `orchestra.conductor` : Age , Name , Conductor_ID , Nationality , Year_of_Work | `orchestra.orchestra` : Orchestra , Conductor_ID , Major_Record_Format , Record_Company , Year_of_Founded , Orchestra_ID | `orchestra.performance` : Type ( Live final ) , Date , Share , Performance_ID , Weekly_rank , Official_ratings_(millions) , Orchestra_ID | `orchestra.show` : Performance_ID , Show_ID , If_first_show , Attendance , Result | `orchestra.orchestra_HAS_orchestra.conductor` :  | `orchestra.performance_HAS_orchestra.orchestra` :  | `orchestra.show_HAS_orchestra.performance` :
@@ -2600,7 +2600,7 @@ Schema      : | orchestra | `orchestra.conductor` : Age , Name , Conductor_ID , 
 
 index       : 484
 baseline pre: MATCH (performance:`orchestra.performance`) WHERE performance.Type  < > 'Live final' RETURN max(performance.Share),min(performance.Share)
-model1 pred : MATCH (performance:`orchestra.performance`) WHERE performance.Type ` > 'Live final' RETURN max(performance.Share),min(performance.Share)
+model1 pred : MATCH (performance:`orchestra.performance`) WHERE performance.Type`> 'Live final' RETURN max(performance.Share),min(performance.Share)
 ground query: MATCH (performance:`orchestra.performance`) WHERE performance.Type <> 'Live final' RETURN max(performance.Share),min(performance.Share)
 NLQ         : Return the maximum and minimum shares for performances that do not have the type "Live final".
 Schema      : | orchestra | `orchestra.conductor` : Age , Name , Conductor_ID , Nationality , Year_of_Work | `orchestra.orchestra` : Orchestra , Conductor_ID , Major_Record_Format , Record_Company , Year_of_Founded , Orchestra_ID | `orchestra.performance` : Type ( Live final ) , Date , Share , Performance_ID , Weekly_rank , Official_ratings_(millions) , Orchestra_ID | `orchestra.show` : Performance_ID , Show_ID , If_first_show , Attendance , Result | `orchestra.orchestra_HAS_orchestra.conductor` :  | `orchestra.performance_HAS_orchestra.orchestra` :  | `orchestra.show_HAS_orchestra.performance` :
@@ -2743,16 +2743,16 @@ Schema      : | network_1 | `network_1.Highschooler` : name , ID , grade | `netw
 
 
 index       : 525
-baseline pre: MATCH (T1:`network_1.Highschooler`)-[T2:`network_1.Likes ` ]-() WITH count(*) AS count, T1.name AS name WHERE count >= 2 RETURN name
-model1 pred : MATCH (T1:`network_1.Highschooler`)-[T2:`network_1.Likes ` ]-() WITH count(*) AS count, T1.name AS name WHERE count >= 2 RETURN name
+baseline pre: MATCH (T1:`network_1.Highschooler`)-[T2:`network_1.Likes`]-() WITH count(*) AS count, T1.name AS name WHERE count >= 2 RETURN name
+model1 pred : MATCH (T1:`network_1.Highschooler`)-[T2:`network_1.Likes`]-() WITH count(*) AS count, T1.name AS name WHERE count >= 2 RETURN name
 ground query: MATCH (T1:`network_1.Likes`)-[]-(T2:`network_1.Highschooler`) WITH count(*) AS count, T2.name AS name WHERE count  >= 2 RETURN name
 NLQ         : Show the names of students who have at least 2 likes.
 Schema      : | network_1 | `network_1.Highschooler` : name , ID , grade | `network_1.Friend` : friend_id , student_id | `network_1.Likes` : liked_id , student_id
 
 
 index       : 526
-baseline pre: MATCH (T1:`network_1.Highschooler`)-[T2:`network_1.Likes ` ]-() WITH count(*) AS count, T1.name AS name WHERE count >= 2 RETURN name
-model1 pred : MATCH (T1:`network_1.Highschooler`)-[T2:`network_1.Likes ` ]-() WITH count(*) AS count, T1.name AS name WHERE count >= 2 RETURN name
+baseline pre: MATCH (T1:`network_1.Highschooler`)-[T2:`network_1.Likes`]-() WITH count(*) AS count, T1.name AS name WHERE count >= 2 RETURN name
+model1 pred : MATCH (T1:`network_1.Highschooler`)-[T2:`network_1.Likes`]-() WITH count(*) AS count, T1.name AS name WHERE count >= 2 RETURN name
 ground query: MATCH (T1:`network_1.Likes`)-[]-(T2:`network_1.Highschooler`) WITH count(*) AS count, T2.name AS name WHERE count  >= 2 RETURN name
 NLQ         : What are the names of students who have 2 or more likes?
 Schema      : | network_1 | `network_1.Highschooler` : name , ID , grade | `network_1.Friend` : friend_id , student_id | `network_1.Likes` : liked_id , student_id
@@ -3040,7 +3040,7 @@ Schema      : | dog_kennels | `dog_kennels.Breeds` : breed_code , breed_name | `
 
 index       : 579
 baseline pre: MATCH (singer:`singer.singer`) WHERE singer.Citizenship  < > 'France' RETURN singer.Name
-model1 pred : MATCH (singer:`singer.singer`) WHERE singer.Citizenship ` > 'France' RETURN singer.Name
+model1 pred : MATCH (singer:`singer.singer`) WHERE singer.Citizenship`> 'France' RETURN singer.Name
 ground query: MATCH (singer:`singer.singer`) WHERE singer.Citizenship <> 'France' RETURN singer.Name
 NLQ         : List the name of singers whose citizenship is not "France".
 Schema      : | singer | `singer.singer` : Name , Citizenship ( France ) , Net_Worth_Millions , Birth_Year , Singer_ID | `singer.song` : Highest_Position , Title , Sales , Song_ID , Singer_ID | `singer.song_HAS_singer.singer` :
@@ -3048,7 +3048,7 @@ Schema      : | singer | `singer.singer` : Name , Citizenship ( France ) , Net_W
 
 index       : 580
 baseline pre: MATCH (singer:`singer.singer`) WHERE singer.Citizenship  < > 'France' RETURN singer.Name
-model1 pred : MATCH (singer:`singer.singer`) WHERE singer.Citizenship ` > 'France' RETURN singer.Name
+model1 pred : MATCH (singer:`singer.singer`) WHERE singer.Citizenship`> 'France' RETURN singer.Name
 ground query: MATCH (singer:`singer.singer`) WHERE singer.Citizenship <> 'France' RETURN singer.Name
 NLQ         : What are the names of the singers who are not French citizens?
 Schema      : | singer | `singer.singer` : Name , Citizenship , Net_Worth_Millions , Birth_Year , Singer_ID | `singer.song` : Highest_Position , Title , Sales , Song_ID , Singer_ID | `singer.song_HAS_singer.singer` :
