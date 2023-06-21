@@ -125,24 +125,22 @@ class CrossTransformer(nn.Module):
             ]))
 
     def forward(self, kg_embs, nlq_embs): #nlq_embs = encoder_last_hidden_state
-
+        (kg_cls, kg_embs), (nlq_cls, nlq_embs) = map(lambda t: (t[:, :1], t[:, 1:]), (kg_embs, nlq_embs))
         for kg_attend_nlq, nlq_attend_kg in self.layers:
-            print(kg_attend_nlq)
-            print(nlq_attend_kg)
-            (kg_cls, kg_embs), (nlq_cls, nlq_embs) = map(lambda t: (t[:, :1], t[:, 1:]), (kg_embs, nlq_embs))
-
-
             kg_cls = kg_attend_nlq(kg_cls, context = nlq_embs, kv_include_self = True) + kg_cls
             nlq_cls = nlq_attend_kg(nlq_cls, context = kg_embs, kv_include_self = True) + nlq_cls
-
+  
         kg_embs = torch.cat((kg_cls, kg_embs), dim = 1)
         nlq_embs = torch.cat((nlq_cls, nlq_embs), dim = 1)
         return kg_embs, nlq_embs
 
 
 
-cross_att = CrossTransformer(kg_dim=200, nlq_dim=768, depth=2, heads=8, dim_head=64, dropout=0.1)
+cross_att = CrossTransformer(kg_dim=200, nlq_dim=768, depth=3, heads=12, dim_head=64, dropout=0.1)
 gcn_embds = torch.randn(2, 4590, 200)
 encoder_last_hidden_state = torch.randn(2, 512, 768)
 x, y = cross_att(gcn_embds, encoder_last_hidden_state)
-print(x.shape, y.shape)
+print('cross_attended gcn embeds shape:',x.shape, torch.equal(x, gcn_embds))
+print('cross_attended encoder embeds shape:', y.shape, torch.equal(y, encoder_last_hidden_state))
+
+
