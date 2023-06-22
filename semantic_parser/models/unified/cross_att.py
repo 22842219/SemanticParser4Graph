@@ -136,11 +136,10 @@ class CrossTransformer(nn.Module):
 
 
 
-cross_att = CrossTransformer(kg_dim=200, nlq_dim=768, depth=3, heads=12, dim_head=64, dropout=0.1)
-gcn_embds = torch.randn(2, 4590, 200)
-encoder_last_hidden_state = torch.randn(2, 512, 768)
+cross_att = CrossTransformer(kg_dim=768, nlq_dim=768, depth=3, heads=12, dim_head=64, dropout=0.1)
+gcn_embds = torch.randn(4, 512, 768)
+encoder_last_hidden_state = torch.randn(4, 512, 768)
 x, y = cross_att(gcn_embds, encoder_last_hidden_state)
 print('cross_attended gcn embeds shape:',x.shape, torch.equal(x, gcn_embds))
 print('cross_attended encoder embeds shape:', y.shape, torch.equal(y, encoder_last_hidden_state))
-
 
