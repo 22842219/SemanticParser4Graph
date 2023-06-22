@@ -6,7 +6,7 @@ from torch import nn
 from transformers import AutoTokenizer
 from .base import PushToHubFriendlyModel
 from ..prompt.modeling_auto import AutoModelForSeq2SeqLM
-
+from .cross_att import CrossTransformer
 
 
 class Model(PushToHubFriendlyModel):
@@ -101,13 +101,11 @@ class Model(PushToHubFriendlyModel):
                 nn.Tanh(),
                 nn.Linear(self.mid_dim//2, self.mid_dim),
             )
-            # self.combined = nn.Sequential(
-            #     nn.Linear(self.n_embd, self.mid_dim),
-            #     nn.Tanh(),
-            #     nn.Linear(self.mid_dim, self.n_embd),
-            # )
-            # self.lstm = nn.LSTM(self.n_embd, self.n_embd, 1,bidirectional=True)
-            # self.layer_1 = nn.Linear(self.n_embd*6, self.n_embd)
+            self.cross_att = CrossTransformer(kg_dim=self.n_embd, 
+                                                nlq_dim=self.n_embd, depth=3, 
+                                                heads=self.match_n_head, 
+                                                dim_head=self.match_n_embd, 
+                                                dropout=0.1)
 
         self.dropout = nn.Dropout(args.prefix_tuning.prefix_dropout)
 
@@ -302,6 +300,8 @@ class Model(PushToHubFriendlyModel):
                         attention_mask=attention_mask,
                         labels=labels, #[2, 512]
                         past_prompt=past_prompt,
+                        output_attentions=True,
+                        output_hidden_states=True
                     )
         ##################################ZZHAO#############################################
         # ZZHAO: illustrating the vanillar decoder output and encoder input in text
@@ -317,22 +317,23 @@ class Model(PushToHubFriendlyModel):
             print('generated Cypher tokens:', self.tokenizer.decode(item)) 
         ##################################ZZHAO#############################################
 
-        encoder_last_hidden_state = out.encoder_last_hidden_state  #[2, 512, 768]
-        if self.args.model.use_pretrained_gcn and 'tag_embeddings' in kwargs:
+        encoder_hidden_states = out.encoder_hidden_states  #Hidden-states of the encoder at the output of each layer plus the optional initial embedding outputs.
+        if self.args.model.use_pretrained_gcn and  'tag_embeddings' in kwargs:
             tag_gcn_emb = self.gcn_emb_trans(kwargs['tag_embeddings']) #[2, 90, 512]
             prop_gcn_emb = self.gcn_emb_trans(kwargs['property_embeddings'])
             ent_gcn_emb = torch.einsum('ijk, ijk->ik', tag_gcn_emb, prop_gcn_emb) #[2, 512]
 
             entity_gcn_emb= torch.unsqueeze(ent_gcn_emb, -1)  #[2, 512, 1]
             aligned_entity_gcn_emb= nn.functional.interpolate(
-                entity_gcn_emb, size=encoder_last_hidden_state.size()[2:], mode='linear', align_corners=False
+                entity_gcn_emb, size=encoder_hidden_states[-1].size()[2:], mode='linear', align_corners=False
             )#[2, 512, 768])
-
-            encoder_outputs= tuple([torch.einsum('ijk,ijk->ijk', encoder_last_hidden_state, aligned_entity_gcn_emb) for _ in range(self.match_n_layer)]) 
-
+            
+            input_embs = encoder_hidden_states[0] # output of the transformer's embedding layer (aka input_ids's embedding vector)
+            fused_entity_gcn_emb, fused_input_embs=self.cross_att(aligned_entity_gcn_emb, input_embs)
+            fused_encoder_outputs= tuple([torch.einsum('bij,bij->bij', each, fused_entity_gcn_emb) for each in encoder_hidden_states[1:]]) # batch element-wise product 
             out_ = self.pretrain_model(input_ids=input_ids, 
                                         attention_mask=attention_mask,
-                                        encoder_outputs=encoder_outputs,
+                                        encoder_outputs=fused_encoder_outputs,
                                         labels = labels,
                                         past_prompt=past_prompt) # logits shape: [2, 521, 32103]
             print(f'T5 loss: {out.loss}, leveraged_model loss output: {out_.loss}')
