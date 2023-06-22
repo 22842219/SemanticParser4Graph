@@ -62,11 +62,6 @@ class Model(PushToHubFriendlyModel):
             aligned_entity_gcn_emb= nn.functional.interpolate(
                 entity_gcn_emb, size=encoder_hidden_states[-1].size()[2:], mode='linear', align_corners=False
             )#[2, 512, 768])
-
-            encentity_gcn_emb= torch.unsqueeze(ent_gcn_emb, -1)  #[2, 512, 1]
-            aligned_entity_gcn_emb= nn.functional.interpolate(
-                entity_gcn_emb, size=encoder_hidden_states[-1].size()[2:], mode='linear', align_corners=False
-            )#[2, 512, 768])
             
             input_embs = encoder_hidden_states[0] # output of the transformer's embedding layer (aka input_ids's embedding vector)
             fused_entity_gcn_emb, fused_input_embs=self.cross_att(aligned_entity_gcn_emb, input_embs)
