@@ -4,6 +4,8 @@ import torch
 from torch import nn
 from .base import PushToHubFriendlyModel
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from .cross_att import CrossTransformer
+
 
 
 class Model(PushToHubFriendlyModel):
