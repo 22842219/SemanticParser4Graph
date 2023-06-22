@@ -60,7 +60,7 @@ class Model(PushToHubFriendlyModel):
 
             entity_gcn_emb= torch.unsqueeze(ent_gcn_emb, -1)  #[2, 512, 1]
             aligned_entity_gcn_emb= nn.functional.interpolate(
-                entity_gcn_emb, size=encoder_last_hidden_states[-1].size()[2:], mode='linear', align_corners=False
+                entity_gcn_emb, size=encoder_hidden_states[-1].size()[2:], mode='linear', align_corners=False
             )#[2, 512, 768])
 
             encentity_gcn_emb= torch.unsqueeze(ent_gcn_emb, -1)  #[2, 512, 1]
