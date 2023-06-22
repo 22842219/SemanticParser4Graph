@@ -13,7 +13,6 @@ class Model(PushToHubFriendlyModel):
         super().__init__()
         self.args = args
         self.mid_dim = args.fine_tuning.mid_dim
-        
 
         # Load tokenizer and model.
         self.tokenizer = AutoTokenizer.from_pretrained(args.bert.location, use_fast=False)
@@ -22,6 +21,9 @@ class Model(PushToHubFriendlyModel):
         )
         self.config = self.pretrain_model.config
         self.match_n_layer = self.config.num_decoder_layers
+        self.match_n_head = self.config.num_heads
+        self.n_embd = self.config.d_model
+        self.match_n_embd = self.config.d_kv
         print(self.config)
 
         if args.special_tokens:
@@ -36,7 +38,8 @@ class Model(PushToHubFriendlyModel):
                 nn.Linear(self.mid_dim//2, self.mid_dim),
             )
             self.cross_att = CrossTransformer(kg_dim=self.n_embd, 
-                                                nlq_dim=self.n_embd, depth=3, 
+                                                nlq_dim=self.n_embd, 
+                                                depth=3, 
                                                 heads=self.match_n_head, 
                                                 dim_head=self.match_n_embd, 
                                                 dropout=0.1)
