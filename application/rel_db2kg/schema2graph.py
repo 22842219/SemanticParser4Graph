@@ -545,13 +545,14 @@ def main():
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
     parser.add_argument('--spider', help='build graph from spider.', action='store_true')
     parser.add_argument('--bird', help='build graph from bird.', action='store_true')
+    parser.add_argument('--kaggleDBQA', help='build graph from bird.', action='store_true')
     parser.add_argument('--wikisql', help='build graph from wikisql.', action='store_true')
     parser.add_argument('--restart', help='build graph from spider and lowercasing all properties.', action='store_true')
     parser.add_argument('--cased', help='build graph from spider and lowercasing all properties.', action='store_true')
     args = parser.parse_args()
 
 
-    if args.bird or args.spider:
+    if args.bird or  args.kaggleDBQA or args.spider:
         RelDB2KGraphBuilder(benchmark_dbs,  benchmark, Logger('/{}_rel_schema2graph.log'.format(benchmark)), env_file, if_cased=args.cased).build_graph(restart_flag = args.restart)
 
     if args.wikisql:
