@@ -14,13 +14,11 @@ sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR)))
 from traverser import SchemaGroundedTraverser
 from sql_keywords import sql_join_keywords
 import utils
-from utils  import Logger, read_json
+from utils  import  read_json
+from rel2kg_utils import Logger
 
 from schema2graph import DBengine
-
-from py2neo import Graph
 from py2neo.matching import *
-from py2neo.data import Node, Relationship
 from environs import Env
 
 
@@ -1049,9 +1047,9 @@ def main():
 	from py2neo import Graph
 	lexer = get_lexer_by_name("py2neo.cypher")
 	import configparser
-	# from schema2graph import RelDBDataset
 	import dill
-
+	from rel2kg_utils import Logger
+	from schema2graph import RelDBDataset
 
 	config = configparser.ConfigParser()
 	config.read('../config.ini')
@@ -1060,24 +1058,36 @@ def main():
 	root = filenames['root']
 	benchmark = filenames['benchmark']
 
-	neo4j_uri = filenames['neo4j_uri']
-	neo4j_user = filenames['neo4j_user']
-	neo4j_password = filenames['neo4j_password']
-	graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
+	env = Env()
+	env_file = os.path.join(root, 'application', '.env')
+	env.read_env(env_file)
+	graph = Graph(password=env("GRAPH_PASSWORD"))
 
 	data_folder = os.path.join(root, 'application', 'rel_db2kg', 'data', benchmark)
 	db_folder = os.path.join(data_folder, 'database')
 
-	logger =Logger('/sql2cypher.log')
+	logger =Logger('/{}_rel_schema2graph.log'.format(benchmark))
 	
-	with open('data/{}.pkl'.format(benchmark), 'rb') as pickle_file:
-		rel_db_dataset=dill.load(pickle_file)
+	if os.path.exists('data/{}.pkl'.format(benchmark)):
+		with open('data/{}.pkl'.format(benchmark), 'rb') as pickle_file:
+			rel_db_dataset=dill.load(pickle_file)
+	else:
+		benchmark_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+		rel_db_dataset = RelDBDataset(benchmark_dbs, logger)
+		with open('data/{}.pkl'.format(benchmark), 'wb') as pickle_file:
+			dill.dump(rel_db_dataset, pickle_file)
+	
 
 	sp_out_folder = os.path.join(root, 'sp_data_folder')
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
+	
+	if benchmark in ['spider', 'BIRD', 'wikisql']:
+		splits = ['train', 'dev']
+	elif benchmark in ['kaggleDBQA']:
+		splits = ['GeoNuclearData', 'GreaterManchesterCrime', 'Pesticide', 'StudentMathScore', 'TheHistoryofBaseball', 'USWildFires', 'WhatCDHipHop', 'WorldSoccerDataBase' ]
 
-	for split in ['train', 'dev']:
+	for split in splits:
    
 		json_file = os.path.join(data_folder, '{}.json'.format(split))
 		f = open(json_file)
