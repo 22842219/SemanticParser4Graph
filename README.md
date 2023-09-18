@@ -6,7 +6,7 @@ This project implements
 
 - A process to convert [relational databases to property graph databases](application).
 - A process to translate [SQL queries to Cypher queries](application) by parsing, tokenizing SQL queries and converting SQL queries to Cypher queries, adapted from the [TabularSemanticParsing](https://github.com/salesforce/TabularSemanticParsing).
-- A strong sequence-to-sequence based cross-domain text-to-SQL semantic parser that achieved state-of-the-art performance on the widely used benchmark dataset: [Spider](https://yale-lily.github.io/spider).
+- Cy-Spider: Semantic Parsing Corpus and Baseline Models for a Property Graph.
 
 <!-- The parser can be adapted to learn mappings from text to other structured query languages such as [SOQL](https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm) by modifying the formal langauge pre-processing and post-processing modules. -->
 
