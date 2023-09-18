@@ -137,18 +137,14 @@ bash experiment-text2cypher.sh
 
 TODO
 
-<!-- ### Train
 
-### Inference -->
-
-<!-- 
 ## Citation
 
 If you find the resource in this repository helpful, please cite
 
 ```
 TODO
-``` -->
+``` 
 
 ## Related Links
 
