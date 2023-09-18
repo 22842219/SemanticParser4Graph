@@ -41,6 +41,12 @@ agg_pattern = re.compile(r'^\bAvg\b|\bAVG\b|\bavg\b|\bmax\b|\bMAX\b|\bMax\b|\bmi
 # Note: when we re-tokenize nested query, we split sub-graph-path-pattern using '-', 
 # hence, it might start with '>'. Please refer to nested query example. 
 
+def is_digital(x):
+    return  bool(re.match(r'^\d+$', x))
+	
+def is_string(x):
+	return bool(re.match(r'^[a-zA-Z]+$', x))
+
 operators = ['||', '*', '/', '+', '-', '<>', '>', '<', '>=', '<=', '=', 'OR', 'AND']
 
 def exist_operator(identifier):
@@ -103,7 +109,6 @@ def Operator(op, parentheses=False):
 					arguments.append(add_parentheses(res))
 				elif not exist_operator(res.lower()):
 					is_field, tb = self.in_field(res)
-
 					if is_field:
 						norm_query_fm = self.norm_query_fm(res, tb)
 						tb_alias, norm_fm = norm_query_fm.split('.')
@@ -117,11 +122,17 @@ def Operator(op, parentheses=False):
 								fm_type=int
 							else:
 								fm_type=str
+						if is_digital(res):
+							fm_type=int
+						if is_string(res):
+							fm_type=str
+						print('heyyyyy', fm_type, res, is_digital(res), is_string(res))
 					if fm_type== str:
 						res = str(res).strip('\'').strip('\"')
 						res = "'{}'".format(res)
 					elif fm_type==int:
 						res=str(res).strip('\'').strip('\"')
+					
 	
 					arguments.append(res)
 				else:
@@ -418,7 +429,6 @@ class Formatter(SchemaGroundedTraverser):
 		# print("*************debug value************")
 		value = self.dispatch(json['value'], is_table=('is_table' in json))
 		# print(f'value: {value}, json: {json}')
-
 
 		if 'name' in json.keys():
 			return '{}.{}'.format(json['name'], value)
@@ -747,20 +757,17 @@ class Formatter(SchemaGroundedTraverser):
 		if 'orderby' in json:
 			print("**************debug orderby******")
 			orderby = json['orderby']
-			# print(f'orderby: {orderby}')
-			
 			if not isinstance(orderby, list):
 				orderby = [orderby]
-
 			fields = [self.dispatch(o) for o in orderby]
 			modifiers = [o.get('sort', '').upper()for o in orderby]
 			for idx, fm in enumerate(fields):
-
 				if 'groupby' in json and fm=='count(*)': 	
 					if len(self.table_alias_lookup)!=1:
 						fields[idx] ='cnt'
 					else:
-						fields[idx] = self.groupby(json)
+						# fields[idx] = self.groupby(json)
+						fields[idx] = fm
 				if '.' in fm:
 					key, fm = fm.split('.')
 					tb = self.table_alias_lookup[key]
@@ -769,7 +776,6 @@ class Formatter(SchemaGroundedTraverser):
 					is_field, tb = self.in_field(fm)
 					if is_field:
 						fields[idx] = self.norm_query_fm(fm, tb)
-		
 			return 'ORDER BY {}'.format(','.join('{0} {1}'.format(fields[idx], modifiers[idx]).strip()\
 				for idx,_ in enumerate(zip(fields, modifiers))))
 	
@@ -848,7 +854,7 @@ class Formatter(SchemaGroundedTraverser):
 			if is_field:
 				normalized_field  = self.norm_query_fm(res, tb)
 			else:		
-				literal= res.strip('\'').strip('%')
+				literal= res.strip('\'').strip('\"').strip('%')
 		return "{} =~'.*[{}|{}]{}.*'".format(normalized_field, literal[0].capitalize(), literal[0].lower(), literal[1:])
 		
 	def _on(self, json):	
@@ -1078,15 +1084,16 @@ def main():
 			dill.dump(rel_db_dataset, pickle_file)
 	
 
-	sp_out_folder = os.path.join(root, 'sp_data_folder')
+	sp_out_folder = os.path.join(root, 'sp_data_folder', benchmark)
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
 	
 	if benchmark in ['spider', 'BIRD', 'wikisql']:
 		splits = ['train', 'dev']
 	elif benchmark in ['kaggleDBQA']:
+		data_folder = os.path.join(data_folder, 'examples')
 		splits = ['GeoNuclearData', 'GreaterManchesterCrime', 'Pesticide', 'StudentMathScore', 'TheHistoryofBaseball', 'USWildFires', 'WhatCDHipHop', 'WorldSoccerDataBase' ]
-
+		
 	for split in splits:
    
 		json_file = os.path.join(data_folder, '{}.json'.format(split))
@@ -1099,7 +1106,7 @@ def main():
 		for i, every in enumerate(data):
 			db_name = every['db_id']
 			# in ['museum_visit'] and i in [421,424]
-			if db_name :
+			if db_name:
 				
 				# - Access database, execute SQL query and get result.              
 				db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))  
@@ -1108,7 +1115,6 @@ def main():
 				# - Extract database name, questions and SQL queries
 				question = every['question']
 				sql_query = every['query']
-
 				try:
 					sql_result = engine.execute(sql_query).fetchall()
 				except:
