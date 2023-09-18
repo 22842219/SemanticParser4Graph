@@ -332,8 +332,7 @@ class Formatter(SchemaGroundedTraverser):
 			if part)
 		self.pop_table_alias_stack()
 		return seq
-
-					
+				
 	def in_field(self, fm):
 		fm=fm.strip()
 		if '.' in fm:
@@ -375,7 +374,6 @@ class Formatter(SchemaGroundedTraverser):
 			return norm_fm
 		assert fm.lower() not in lowercased_, 'FIX ME'
 	
-
 	def is_rel(self, tb_name):
 		tb_name=tb_name.strip()
 		if '.' in tb_name:
@@ -692,13 +690,14 @@ class Formatter(SchemaGroundedTraverser):
 								if not set(with_parts)-(set(with_parts)-set(with_part)):
 									with_parts.extend(with_part)
 
-							if 'groupby' in json and not 'having' in json and 'orderby' in json and len(self.table_alias_lookup)!=1:
+							if 'groupby' in json and not 'having' in json and 'orderby' in json :
 								is_with = True
 								groupby_fm =self.groupby(json)
 								norm_grouby = 'count({}) AS cnt'.format(self.norm_query_fm(groupby_fm, tb_name))
 								if tb_alias:
-									with_parts.extend([tb_alias, norm_grouby])
-
+									with_parts.extend(['{} as {}'.format(groupby_fm, groupby_fm.split('.')[-1]), norm_grouby])
+								if groupby_fm==norm_fm:
+									norm_fm = norm_fm.split('.')[-1]
 							return_nodes.append(norm_fm)
 
 					if re.match(agg_pattern, select_field):
@@ -762,12 +761,12 @@ class Formatter(SchemaGroundedTraverser):
 			fields = [self.dispatch(o) for o in orderby]
 			modifiers = [o.get('sort', '').upper()for o in orderby]
 			for idx, fm in enumerate(fields):
-				if 'groupby' in json and fm=='count(*)': 	
-					if len(self.table_alias_lookup)!=1:
+				if 'groupby' in json:
+					if fm=='count(*)': 	
 						fields[idx] ='cnt'
 					else:
-						# fields[idx] = self.groupby(json)
-						fields[idx] = fm
+						fields[idx] = self.groupby(json)
+						# fields[idx] = fm
 				if '.' in fm:
 					key, fm = fm.split('.')
 					tb = self.table_alias_lookup[key]
@@ -1093,7 +1092,6 @@ def main():
 	elif benchmark in ['kaggleDBQA']:
 		data_folder = os.path.join(data_folder, 'examples')
 		splits = ['GeoNuclearData', 'GreaterManchesterCrime', 'Pesticide', 'StudentMathScore', 'TheHistoryofBaseball', 'USWildFires', 'WhatCDHipHop', 'WorldSoccerDataBase' ]
-		
 	for split in splits:
    
 		json_file = os.path.join(data_folder, '{}.json'.format(split))
@@ -1101,11 +1099,10 @@ def main():
 		data = json.load(f)
 
 		qa_pairs = {'correct_': [], 'incorrect_':[], 'pairs':[]}
-		f_sql = {'invalid_parsed':[], 'intersect': [], 'except':[]}
+		f_sql = {'invalid_parsed':[], 'invalid_sql2cypher':[], 'intersect': [], 'except':[]}
 
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			# in ['museum_visit'] and i in [421,424]
 			if db_name:
 				
 				# - Access database, execute SQL query and get result.              
@@ -1115,6 +1112,7 @@ def main():
 				# - Extract database name, questions and SQL queries
 				question = every['question']
 				sql_query = every['query']
+				
 				try:
 					sql_result = engine.execute(sql_query).fetchall()
 				except:
@@ -1140,37 +1138,49 @@ def main():
 
 					# - Execute cypher query.
 					if sql2cypher:
-						cypher_res = graph.run(sql2cypher).data()
-						cypher_ans = []
-						for dict_ in cypher_res:
-							cypher_ans.append(tuple(dict_.values()))	
-						if set( cypher_ans) == set(sql_result):
-						
-							print(f'correct_ans: {cypher_ans}') 
-							qa_pairs['correct_'].append(
+						try:
+							cypher_res = graph.run(sql2cypher).data()
+							cypher_ans = []
+							for dict_ in cypher_res:
+								cypher_ans.append(tuple(dict_.values()))	
+							if set( cypher_ans) == set(sql_result):
+							
+								print(f'correct_ans: {cypher_ans}') 
+								qa_pairs['correct_'].append(
+									{
+										'db_id':db_name, 
+										# 'sql': sql_query, 
+										'query':sql2cypher,
+										'question':question,
+										'answers':cypher_ans
+									})
+								qa_pairs['pairs'].append(every)
+							else:
+								print(f'incorrect_ans: {cypher_ans}')
+								qa_pairs['incorrect_'].append(
+									{
+										'db_id':db_name, 
+										'index': i,
+										'query':question,
+										'sql':sql_query, 
+										'parsed_sql':parsed_sql, 
+										'sql_ans':sql_result,
+										'cypher':sql2cypher, 
+										'cypher_ans':cypher_ans
+									})
+						except:
+							f_sql['invalid_sql2cypher'].append(
 								{
-									'db_id':db_name, 
-									# 'sql': sql_query, 
-									'query':sql2cypher,
-									'question':question,
-									'answers':cypher_ans
-								})
-							qa_pairs['pairs'].append(every)
-						else:
-							print(f'incorrect_ans: {cypher_ans}')
-							qa_pairs['incorrect_'].append(
-								{
-									'db_id':db_name, 
-									'index': i,
-									'query':question,
-									'sql':sql_query, 
-									'parsed_sql':parsed_sql, 
-									'sql_ans':sql_result,
-									'cypher':sql2cypher, 
-									'cypher_ans':cypher_ans
-								})
-				# 	except:
-				# 		incorrect[db_name].append(i)
+										'db_id':db_name, 
+										'index': i,
+										'query':question,
+										'sql':sql_query, 
+										'parsed_sql':parsed_sql, 
+										'sql_ans':sql_result,
+										'cypher':sql2cypher, 
+									
+									}
+							)
 					
 				except:
 					
