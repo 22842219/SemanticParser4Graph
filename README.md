@@ -42,7 +42,7 @@ Python packages can be installed via:
 
 ### Download Pre-process Data
 
-#### Spider
+#### Text-to-Spider benchmarks, e.g., Spider[https://yale-lily.github.io/spider], KaggleDBQA[https://github.com/chiahsuan156/KaggleDBQA#Data-Format], and BIRD[https://bird-bench.github.io/]. We use Spider benchmark to illustrate the process.
 
 Download the [pre-processed data release](https://uniwa-my.sharepoint.com/:f:/r/personal/22842219_student_uwa_edu_au/Documents/preprocessed_spider?csf=1&web=1&e=Sh1Ep2), and unzip the folder.
 put the data into `application/data/spider`.
