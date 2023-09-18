@@ -62,13 +62,11 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    - The application that will be run, are determined in the `config.ini` file:
 
    ```shell
-   [OPTIONS]
-   run_triple_generation=True
+   
 
    [FILENAMES]
-   raw_folder = <path-to->/SemanticParser4Graph/application/data/
-
-   spider_parsed_json = <path-to->/SemanticParser4Graph/application/data/spider/spider.parsed.json
+   root = <path-to->/SemanticParser4Graph
+   benchmark = Spider
 
    neo4j_import_folder  = <path-to->/neo4j-community-4.4.11/import>
    neo4j_uri = http://localhost:7474/browser/
@@ -130,18 +128,10 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 #### Spider
 
 ```shell
-./experiment-text2cypher.sh configs/spider.sh --train 0
+cd semantic_parser
+bash experiment-text2cypher.sh 
 ```
 
-### Inference
-
-TODO
-
-#### Spider
-
-```shell
-./experiment-text2cypher.sh configs/spider.sh --inference 0
-```
 
 ## Model
 
