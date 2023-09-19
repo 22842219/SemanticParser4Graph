@@ -571,7 +571,7 @@ def main():
         raise NotImplementedError
     
     if args.create:
-       # To advoid Java heap space issue, in each relational database. 
+       # To advoid Java heap space issue, in each relational database, 
        # we retrive the relational databases to get the corresponding rows aligned with the foreign key constraints.
        db_info_fph = os.path.join(root, 'application', 'rel_db2kg', 'data', benchmark,  'KaggleDBQA_tables.json')
        with open(db_info_fph, 'r') as f:
