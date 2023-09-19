@@ -582,6 +582,7 @@ def main():
             # pks = db.get('primary_keys')
             tbs = db.get('table_names_original')
             cols = db.get('column_names_original')
+            cols_type = db.get('column_types')
             if fks:
                 for pair in fks:
                     this = cols[pair[0]] # [tb_id, col_name]
@@ -590,10 +591,15 @@ def main():
                     ref_tb = tbs[ref[0]]
                     this_fk = this[1]
                     ref_fk =ref[1]
+                    this_fk_type = cols_type[pair[0]]
+                    ref_fk_type = cols_type[pair[1]]
+                    
                     fdb = os.path.join(root, 'application', 'rel_db2kg', 'data', benchmark, 'database', db_id, '{}.sqlite'.format(db_id))
                     engine = DBengine(fdb)
                     fk_values = engine.get_fk_values( this_fk, ref_fk, this_tb, ref_tb)
                     for fk_value in fk_values:
+                        if this_fk_type=='text' or ref_fk_type=='text':
+                            fk_value="'{}'".format(fk_value)
                         create_edge(env_file, db_id, this_tb, ref_tb, this_fk, ref_fk, fk_value)
 
 
