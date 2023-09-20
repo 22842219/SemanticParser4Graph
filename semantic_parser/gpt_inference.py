@@ -6,10 +6,9 @@ import fire, json, os
 import openai
 import time
 
-API_KEY = <your_openai_api_ky>
+API_KEY = '<your_api_key>'
 os.environ["OPENAI_API_KEY"] = API_KEY
 openai.api_key = os.getenv("OPENAI_API_KEY")
-
 _URL = os.getcwd()
 Cyspider_dev_fp = _URL + "/data/text2cypher/dev.json"
 Cyspider_db_fp =  _URL + "/data/text2cypher/schema.json"
@@ -57,53 +56,53 @@ def main():
         with open(_URL + "/data/text2cypher/{}.json".format(split), encoding="utf-8") as f:
             cyspider = json.load(f)
             for idx, sample in enumerate(cyspider):
-                if idx >154:
-                    codex=sample
-                    db_id = sample["db_id"] 
-                    nl = sample['question']
-                    ref_query = sample['query']
-                    schema = schema_cache[db_id]
-                    tables = schema['tag_names']
-                    table_column = {}
-                    for index, (id, col) in enumerate(schema['property_names']):
-                        if id!=-1:
-                            tb=tables[id]
-                            if tb not in table_column:
-                                table_column[tb]=[]
-                            else:
-                                table_column[tb].append(col)
+                codex=sample
+                db_id = sample["db_id"] 
+                nl = sample['question']
+                ref_query = sample['query']
+                schema = schema_cache[db_id]
+                tables = schema['tag_names']
+                table_column = {}
+                for index, (id, col) in enumerate(schema['property_names']):
+                    if id!=-1:
+                        tb=tables[id]
+                        if tb not in table_column:
+                            table_column[tb]=[]
+                        else:
+                            table_column[tb].append(col)
 
-                    linearized_schema = [db_id]
-                    for tb, cols in table_column.items():
-                        each = '{}:{}'.format(tb, ' , '.join(cols))
-                        linearized_schema.append(each)
-                    linearized_schema = '|'.join(linearized_schema)
-                    
-                    prompt = f"Text-to-Cypher is the process of converting natural language queries or statements into Cypher queries. \
-                                For example, if a user provides a question like 'What is the average, minimum, and maximum age of all singers from France?'\
-                                the Text-to-Cypher would involve converting this into a Cypher query like 'MATCH (singer:`concert_singer.singer`) WHERE singer.Country = 'France' RETURN avg(singer.Age),min(singer.Age),max(singer.Age)'\
-                                This Cypher query retrieves all nodes labeled as '`concert_singer.singer`' with the pair of single quote '``', 'Country' and 'Age' are the properties of the graph nodes. \
-                                Implementing a Text-to-Cypher system involves natural language processing (NLP) techniques to parse and understand the user's input and then translate it into a valid Cypher query based on a predefined schema. \
-                                The common natural language question indicator tokens for Cypher query keywords are {nlq_indicator}.\
-                                Align the natural language indicator tokens to correspoding schema items. \
-                                Given the schema for {db_id}, generate a Cypher query for each question.\
-                                Question: {nl} \
-                                The schema: {linearized_schema} \
-                                Please output the generated Cypher query directly.\
-                                The generated Cypher query is:"
-                    codex['struct_in']=linearized_schema
-                    
-                    CYPHER = GPT4_generation(prompt)
-                    print('generated Cypher query: ', CYPHER)     
-                    codex['prediction']=CYPHER.strip('"')
-                    print(f'ground truth: {ref_query}')
-                    print("\n==================================\n")
-            
-                    with open(_URL+'/output_gpt_{}.jsonl'.format(split), "a") as json_file:
-                        # for record in codex_total[split]:
-                        json.dump(codex, json_file)
-                        json_file.write('\n')  
-                        print(f"Data has been written to {json_file}")
+                linearized_schema = [db_id]
+                for tb, cols in table_column.items():
+                    each = '{}:{}'.format(tb, ' , '.join(cols))
+                    linearized_schema.append(each)
+                linearized_schema = '|'.join(linearized_schema)
+                
+                prompt = f"Text-to-Cypher is the process of converting natural language queries or statements into Cypher queries. \
+                            For example, if a user provides a question like 'What is the average, minimum, and maximum age of all singers from France?'\
+                            the Text-to-Cypher would involve converting this into a Cypher query like 'MATCH (singer:`concert_singer.singer`) WHERE singer.Country = 'France' RETURN avg(singer.Age),min(singer.Age),max(singer.Age)'\
+                            This Cypher query retrieves all nodes labeled as '`concert_singer.singer`' with the pair of single quote '``', 'Country' and 'Age' are the properties of the graph nodes. \
+                            Implementing a Text-to-Cypher system involves natural language processing (NLP) techniques to parse and understand the user's input and then translate it into a valid Cypher query based on a predefined schema. \
+                            The common natural language question indicator tokens for Cypher query keywords are {nlq_indicator}.\
+                            Align the natural language indicator tokens to correspoding schema items. \
+                            Given the schema for {db_id}, generate a Cypher query for each question.\
+                            Question: {nl} \
+                            The schema: {linearized_schema} \
+                            Strictly follow the grammar of Cypher query language. For example, do not generate 'Select' keyword.\
+                            Please output the generated Cypher query directly.\
+                            The generated Cypher query is:"
+                codex['struct_in']=linearized_schema
+                
+                CYPHER = GPT4_generation(prompt)
+                print('generated Cypher query: ', CYPHER)     
+                codex['prediction']=CYPHER.strip('"')
+                print(f'ground truth: {ref_query}')
+                print("\n==================================\n")
+        
+                with open(_URL+'/output_gpt_{}.jsonl'.format(split), "a") as json_file:
+                    # for record in codex_total[split]:
+                    json.dump(codex, json_file)
+                    json_file.write('\n')  
+                    print(f"Data has been written to {json_file}")
 
 
 if __name__ == "__main__":
