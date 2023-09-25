@@ -122,15 +122,14 @@
         "valid_parsed_report": {
             "total_parsed": 15,
             "total": 28,
-            "execution_accuracy": 0.3929,
-            "correct": 11,
-            "incorrect": 4
+            "execution_accuracy": 0.4286,
+            "correct": 12,
+            "incorrect": 3
         },
         "incorrect_sql2cypher_report": {
             "StudentMathScore": [
                 5,
                 8,
-                9,
                 24
             ]
         },
