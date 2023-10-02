@@ -1,4 +1,3 @@
-
 from __future__ import with_statement
 import os, sys, re, json
 import numpy as np
@@ -649,7 +648,8 @@ class Formatter(SchemaGroundedTraverser):
 					tb_alias = next((k for k, v in self.table_alias_lookup.items() if v == tb_name), None)
 				
 				if self.dispatch(json[select]) =='*':
-					return 'RETURN properties({})'.format(tb_alias)
+					# return 'RETURN properties({})'.format(tb_alias)
+					return 'RETURN *'
 				
 				select_fields = self.dispatch(json[select]).split(',')
 
@@ -693,6 +693,13 @@ class Formatter(SchemaGroundedTraverser):
 							if 'groupby' in json and not 'having' in json and 'orderby' in json :
 								is_with = True
 								groupby_fm =self.groupby(json)
+								# handle order_by statement'
+								orderby = json['orderby']
+								if not isinstance(orderby, list):
+									orderby = [orderby]
+								orderby_fields = [self.dispatch(o) for o in orderby]
+								if len(orderby_fields)==1 and ('cnt' not in self.orderby(json)) and ('count(*)' not in self.orderby(json)):
+									with_parts.append('{} as {}'.format(orderby_fields[0],  orderby_fields[0].split('.')[1]))
 								norm_grouby = 'count({}) AS cnt'.format(self.norm_query_fm(groupby_fm, tb_name))
 								if tb_alias:
 									with_parts.extend(['{} as {}'.format(groupby_fm, groupby_fm.split('.')[-1]), norm_grouby])
@@ -771,6 +778,8 @@ class Formatter(SchemaGroundedTraverser):
 					key, fm = fm.split('.')
 					tb = self.table_alias_lookup[key]
 					fields[idx] = self.norm_query_fm(fm, tb)
+					if 'groupby' in json:
+						fields[idx] = self.norm_query_fm(fm, tb).split('.')[1]
 				else:
 					is_field, tb = self.in_field(fm)
 					if is_field:
@@ -802,7 +811,8 @@ class Formatter(SchemaGroundedTraverser):
 			for i, node in enumerate(return_nodes):
 				if '.' in node:
 					[alias, fm] = node.split('.')
-					rest+='  AS {}'.format(fm.lower())
+					# rest+='  AS {}'.format(fm.lower())
+					rest+='  AS value'
 
 			union_.append(rest)
 
@@ -1020,18 +1030,19 @@ def execution_accuracy(metrics_file, split, qa_pairs, not_ready_sql):
 	if valid_parsed_total!=0:	
 		sub_total = 0
 		for key, item in not_ready_sql.items():
-			f_report[key] = round(len(item)/(valid_parsed_total+len(item)), 4)
 			fd_report[key]={}
 			sub_total+=len(item)
 			for each in item:
 				if each['db_id'] not in fd_report[key]:
 					fd_report[key][each['db_id']]=[]
 				fd_report[key][each['db_id']].append(each['index'])	
-		total = valid_parsed_total+sub_total	
+		total = valid_parsed_total+sub_total
+		for key, item in not_ready_sql.items():
+			f_report[key] = round(len(item)/total, 4)
 		every_metric =  {'split': split,
 						'valid_parsed_report': {'total_parsed': valid_parsed_total,
 											'total': total, 
-			     							'execution_accuracy': round(len(qa_pairs['correct_'])/total, 4),
+			     							'execution_accuracy': round(len(qa_pairs['correct_'])/valid_parsed_total, 4),
 											'correct': len(qa_pairs['correct_']),
 											'incorrect': len(qa_pairs['incorrect_'])}, 
 						'incorrect_sql2cypher_report':incorrect_report, 
@@ -1055,6 +1066,7 @@ def main():
 	import dill
 	from rel2kg_utils import Logger
 	from schema2graph import RelDBDataset
+	import math
 
 	config = configparser.ConfigParser()
 	config.read('../config.ini')
@@ -1142,6 +1154,12 @@ def main():
 							cypher_res = graph.run(sql2cypher).data()
 							cypher_ans = []
 							for dict_ in cypher_res:
+								for k, v in dict_.items():
+									try:
+										if math.isnan(v):
+											dict_[k]=None
+									except:
+										continue	
 								cypher_ans.append(tuple(dict_.values()))	
 							if set( cypher_ans) == set(sql_result):
 							
