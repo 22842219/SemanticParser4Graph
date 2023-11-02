@@ -1,4 +1,3 @@
-
 from __future__ import with_statement
 import os, sys, re, json
 import numpy as np
@@ -14,13 +13,11 @@ sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR)))
 from traverser import SchemaGroundedTraverser
 from sql_keywords import sql_join_keywords
 import utils
-from utils  import Logger, read_json
+from utils  import  read_json
+from rel2kg_utils import Logger
 
 from schema2graph import DBengine
-
-from py2neo import Graph
 from py2neo.matching import *
-from py2neo.data import Node, Relationship
 from environs import Env
 
 
@@ -42,6 +39,12 @@ agg_pattern = re.compile(r'^\bAvg\b|\bAVG\b|\bavg\b|\bmax\b|\bMAX\b|\bMax\b|\bmi
 # both graph node and edge pattern. 
 # Note: when we re-tokenize nested query, we split sub-graph-path-pattern using '-', 
 # hence, it might start with '>'. Please refer to nested query example. 
+
+def is_digital(x):
+    return  bool(re.match(r'^\d+$', x))
+	
+def is_string(x):
+	return bool(re.match(r'^[a-zA-Z]+$', x))
 
 operators = ['||', '*', '/', '+', '-', '<>', '>', '<', '>=', '<=', '=', 'OR', 'AND']
 
@@ -105,7 +108,6 @@ def Operator(op, parentheses=False):
 					arguments.append(add_parentheses(res))
 				elif not exist_operator(res.lower()):
 					is_field, tb = self.in_field(res)
-
 					if is_field:
 						norm_query_fm = self.norm_query_fm(res, tb)
 						tb_alias, norm_fm = norm_query_fm.split('.')
@@ -119,11 +121,17 @@ def Operator(op, parentheses=False):
 								fm_type=int
 							else:
 								fm_type=str
+						if is_digital(res):
+							fm_type=int
+						if is_string(res):
+							fm_type=str
+						print('heyyyyy', fm_type, res, is_digital(res), is_string(res))
 					if fm_type== str:
 						res = str(res).strip('\'').strip('\"')
 						res = "'{}'".format(res)
 					elif fm_type==int:
 						res=str(res).strip('\'').strip('\"')
+					
 	
 					arguments.append(res)
 				else:
@@ -323,8 +331,7 @@ class Formatter(SchemaGroundedTraverser):
 			if part)
 		self.pop_table_alias_stack()
 		return seq
-
-					
+				
 	def in_field(self, fm):
 		fm=fm.strip()
 		if '.' in fm:
@@ -366,7 +373,6 @@ class Formatter(SchemaGroundedTraverser):
 			return norm_fm
 		assert fm.lower() not in lowercased_, 'FIX ME'
 	
-
 	def is_rel(self, tb_name):
 		tb_name=tb_name.strip()
 		if '.' in tb_name:
@@ -420,7 +426,6 @@ class Formatter(SchemaGroundedTraverser):
 		# print("*************debug value************")
 		value = self.dispatch(json['value'], is_table=('is_table' in json))
 		# print(f'value: {value}, json: {json}')
-
 
 		if 'name' in json.keys():
 			return '{}.{}'.format(json['name'], value)
@@ -643,7 +648,8 @@ class Formatter(SchemaGroundedTraverser):
 					tb_alias = next((k for k, v in self.table_alias_lookup.items() if v == tb_name), None)
 				
 				if self.dispatch(json[select]) =='*':
-					return 'RETURN properties({})'.format(tb_alias)
+					# return 'RETURN properties({})'.format(tb_alias)
+					return 'RETURN *'
 				
 				select_fields = self.dispatch(json[select]).split(',')
 
@@ -684,13 +690,21 @@ class Formatter(SchemaGroundedTraverser):
 								if not set(with_parts)-(set(with_parts)-set(with_part)):
 									with_parts.extend(with_part)
 
-							if 'groupby' in json and not 'having' in json and 'orderby' in json and len(self.table_alias_lookup)!=1:
+							if 'groupby' in json and not 'having' in json and 'orderby' in json :
 								is_with = True
 								groupby_fm =self.groupby(json)
+								# handle order_by statement'
+								orderby = json['orderby']
+								if not isinstance(orderby, list):
+									orderby = [orderby]
+								orderby_fields = [self.dispatch(o) for o in orderby]
+								if len(orderby_fields)==1 and ('cnt' not in self.orderby(json)) and ('count(*)' not in self.orderby(json)):
+									with_parts.append('{} as {}'.format(orderby_fields[0],  orderby_fields[0].split('.')[1]))
 								norm_grouby = 'count({}) AS cnt'.format(self.norm_query_fm(groupby_fm, tb_name))
 								if tb_alias:
-									with_parts.extend([tb_alias, norm_grouby])
-
+									with_parts.extend(['{} as {}'.format(groupby_fm, groupby_fm.split('.')[-1]), norm_grouby])
+								if groupby_fm==norm_fm:
+									norm_fm = norm_fm.split('.')[-1]
 							return_nodes.append(norm_fm)
 
 					if re.match(agg_pattern, select_field):
@@ -749,29 +763,27 @@ class Formatter(SchemaGroundedTraverser):
 		if 'orderby' in json:
 			print("**************debug orderby******")
 			orderby = json['orderby']
-			# print(f'orderby: {orderby}')
-			
 			if not isinstance(orderby, list):
 				orderby = [orderby]
-
 			fields = [self.dispatch(o) for o in orderby]
 			modifiers = [o.get('sort', '').upper()for o in orderby]
 			for idx, fm in enumerate(fields):
-
-				if 'groupby' in json and fm=='count(*)': 	
-					if len(self.table_alias_lookup)!=1:
+				if 'groupby' in json:
+					if fm=='count(*)': 	
 						fields[idx] ='cnt'
 					else:
 						fields[idx] = self.groupby(json)
+						# fields[idx] = fm
 				if '.' in fm:
 					key, fm = fm.split('.')
 					tb = self.table_alias_lookup[key]
 					fields[idx] = self.norm_query_fm(fm, tb)
+					if 'groupby' in json:
+						fields[idx] = self.norm_query_fm(fm, tb).split('.')[1]
 				else:
 					is_field, tb = self.in_field(fm)
 					if is_field:
 						fields[idx] = self.norm_query_fm(fm, tb)
-		
 			return 'ORDER BY {}'.format(','.join('{0} {1}'.format(fields[idx], modifiers[idx]).strip()\
 				for idx,_ in enumerate(zip(fields, modifiers))))
 	
@@ -799,7 +811,8 @@ class Formatter(SchemaGroundedTraverser):
 			for i, node in enumerate(return_nodes):
 				if '.' in node:
 					[alias, fm] = node.split('.')
-					rest+='  AS {}'.format(fm.lower())
+					# rest+='  AS {}'.format(fm.lower())
+					rest+='  AS value'
 
 			union_.append(rest)
 
@@ -850,7 +863,7 @@ class Formatter(SchemaGroundedTraverser):
 			if is_field:
 				normalized_field  = self.norm_query_fm(res, tb)
 			else:		
-				literal= res.strip('\'').strip('%')
+				literal= res.strip('\'').strip('\"').strip('%')
 		return "{} =~'.*[{}|{}]{}.*'".format(normalized_field, literal[0].capitalize(), literal[0].lower(), literal[1:])
 		
 	def _on(self, json):	
@@ -1017,18 +1030,19 @@ def execution_accuracy(metrics_file, split, qa_pairs, not_ready_sql):
 	if valid_parsed_total!=0:	
 		sub_total = 0
 		for key, item in not_ready_sql.items():
-			f_report[key] = round(len(item)/(valid_parsed_total+len(item)), 4)
 			fd_report[key]={}
 			sub_total+=len(item)
 			for each in item:
 				if each['db_id'] not in fd_report[key]:
 					fd_report[key][each['db_id']]=[]
 				fd_report[key][each['db_id']].append(each['index'])	
-		total = valid_parsed_total+sub_total	
+		total = valid_parsed_total+sub_total
+		for key, item in not_ready_sql.items():
+			f_report[key] = round(len(item)/total, 4)
 		every_metric =  {'split': split,
 						'valid_parsed_report': {'total_parsed': valid_parsed_total,
 											'total': total, 
-			     							'execution_accuracy': round(len(qa_pairs['correct_'])/total, 4),
+			     							'execution_accuracy': round(len(qa_pairs['correct_'])/valid_parsed_total, 4),
 											'correct': len(qa_pairs['correct_']),
 											'incorrect': len(qa_pairs['incorrect_'])}, 
 						'incorrect_sql2cypher_report':incorrect_report, 
@@ -1049,9 +1063,10 @@ def main():
 	from py2neo import Graph
 	lexer = get_lexer_by_name("py2neo.cypher")
 	import configparser
-	# from schema2graph import RelDBDataset
 	import dill
-
+	from rel2kg_utils import Logger
+	from schema2graph import RelDBDataset
+	import math
 
 	config = configparser.ConfigParser()
 	config.read('../config.ini')
@@ -1060,36 +1075,47 @@ def main():
 	root = filenames['root']
 	benchmark = filenames['benchmark']
 
-	neo4j_uri = filenames['neo4j_uri']
-	neo4j_user = filenames['neo4j_user']
-	neo4j_password = filenames['neo4j_password']
-	graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
+	env = Env()
+	env_file = os.path.join(root, 'application', '.env')
+	env.read_env(env_file)
+	graph = Graph(password=env("GRAPH_PASSWORD"))
 
 	data_folder = os.path.join(root, 'application', 'rel_db2kg', 'data', benchmark)
 	db_folder = os.path.join(data_folder, 'database')
 
-	logger =Logger('/sql2cypher.log')
+	logger =Logger('/{}_rel_schema2graph.log'.format(benchmark))
 	
-	with open('data/{}.pkl'.format(benchmark), 'rb') as pickle_file:
-		rel_db_dataset=dill.load(pickle_file)
+	if os.path.exists('data/{}.pkl'.format(benchmark)):
+		with open('data/{}.pkl'.format(benchmark), 'rb') as pickle_file:
+			rel_db_dataset=dill.load(pickle_file)
+	else:
+		benchmark_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+		rel_db_dataset = RelDBDataset(benchmark_dbs, logger)
+		with open('data/{}.pkl'.format(benchmark), 'wb') as pickle_file:
+			dill.dump(rel_db_dataset, pickle_file)
+	
 
-	sp_out_folder = os.path.join(root, 'sp_data_folder')
+	sp_out_folder = os.path.join(root, 'sp_data_folder', benchmark)
 	if not os.path.exists(sp_out_folder):
 		os.makedirs(sp_out_folder) 
-
-	for split in ['train', 'dev']:
+	
+	if benchmark in ['spider', 'BIRD', 'wikisql']:
+		splits = ['train', 'dev']
+	elif benchmark in ['kaggleDBQA']:
+		data_folder = os.path.join(data_folder, 'examples')
+		splits = ['GeoNuclearData', 'GreaterManchesterCrime', 'Pesticide', 'StudentMathScore', 'TheHistoryofBaseball', 'USWildFires', 'WhatCDHipHop', 'WorldSoccerDataBase' ]
+	for split in splits:
    
 		json_file = os.path.join(data_folder, '{}.json'.format(split))
 		f = open(json_file)
 		data = json.load(f)
 
 		qa_pairs = {'correct_': [], 'incorrect_':[], 'pairs':[]}
-		f_sql = {'invalid_parsed':[], 'intersect': [], 'except':[]}
+		f_sql = {'invalid_parsed':[], 'invalid_sql2cypher':[], 'intersect': [], 'except':[]}
 
 		for i, every in enumerate(data):
 			db_name = every['db_id']
-			# in ['museum_visit'] and i in [421,424]
-			if db_name :
+			if db_name:
 				
 				# - Access database, execute SQL query and get result.              
 				db_path = os.path.join(db_folder, db_name, '{}.sqlite'.format(db_name))  
@@ -1098,7 +1124,7 @@ def main():
 				# - Extract database name, questions and SQL queries
 				question = every['question']
 				sql_query = every['query']
-
+				
 				try:
 					sql_result = engine.execute(sql_query).fetchall()
 				except:
@@ -1124,37 +1150,55 @@ def main():
 
 					# - Execute cypher query.
 					if sql2cypher:
-						cypher_res = graph.run(sql2cypher).data()
-						cypher_ans = []
-						for dict_ in cypher_res:
-							cypher_ans.append(tuple(dict_.values()))	
-						if set( cypher_ans) == set(sql_result):
-						
-							print(f'correct_ans: {cypher_ans}') 
-							qa_pairs['correct_'].append(
+						try:
+							cypher_res = graph.run(sql2cypher).data()
+							cypher_ans = []
+							for dict_ in cypher_res:
+								for k, v in dict_.items():
+									try:
+										if math.isnan(v):
+											dict_[k]=None
+									except:
+										continue	
+								cypher_ans.append(tuple(dict_.values()))	
+							if set( cypher_ans) == set(sql_result):
+							
+								print(f'correct_ans: {cypher_ans}') 
+								qa_pairs['correct_'].append(
+									{
+										'db_id':db_name, 
+										# 'sql': sql_query, 
+										'query':sql2cypher,
+										'question':question,
+										'answers':cypher_ans
+									})
+								qa_pairs['pairs'].append(every)
+							else:
+								print(f'incorrect_ans: {cypher_ans}')
+								qa_pairs['incorrect_'].append(
+									{
+										'db_id':db_name, 
+										'index': i,
+										'query':question,
+										'sql':sql_query, 
+										'parsed_sql':parsed_sql, 
+										'sql_ans':sql_result,
+										'cypher':sql2cypher, 
+										'cypher_ans':cypher_ans
+									})
+						except:
+							f_sql['invalid_sql2cypher'].append(
 								{
-									'db_id':db_name, 
-									# 'sql': sql_query, 
-									'query':sql2cypher,
-									'question':question,
-									'answers':cypher_ans
-								})
-							qa_pairs['pairs'].append(every)
-						else:
-							print(f'incorrect_ans: {cypher_ans}')
-							qa_pairs['incorrect_'].append(
-								{
-									'db_id':db_name, 
-									'index': i,
-									'query':question,
-									'sql':sql_query, 
-									'parsed_sql':parsed_sql, 
-									'sql_ans':sql_result,
-									'cypher':sql2cypher, 
-									'cypher_ans':cypher_ans
-								})
-				# 	except:
-				# 		incorrect[db_name].append(i)
+										'db_id':db_name, 
+										'index': i,
+										'query':question,
+										'sql':sql_query, 
+										'parsed_sql':parsed_sql, 
+										'sql_ans':sql_result,
+										'cypher':sql2cypher, 
+									
+									}
+							)
 					
 				except:
 					

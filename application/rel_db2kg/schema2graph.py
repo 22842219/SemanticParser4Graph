@@ -133,7 +133,6 @@ class DBengine:
         if bool(constraints):
             return constraints
     
-
     def get_primay_keys(self, table_name):
         cursor = self.conn.cursor() 
         pks = cursor.execute('SELECT l.name FROM pragma_table_info("{}") as l WHERE l.pk <> 0;'.format(table_name)).fetchall()
@@ -143,6 +142,11 @@ class DBengine:
         if len(primary_keys)>1: 
             return True
         return False
+    
+    def get_fk_values(self, this_fk, ref_fk, this, ref):
+        cursor = self.conn.cursor() 
+        fk_values = cursor.execute('SELECT distinct {0}.{1} FROM {0} JOIN {2} ON {0}.{1} = {2}.{3};'.format(this, this_fk, ref, ref_fk)).fetchall()
+        return [each[0] for each in fk_values]
 
     def close(self):
         self.conn.cursor.close()
@@ -181,7 +185,6 @@ class RelTable:
             table (Table object): The table to add.
         """
         self.rows.append(row_dict)
-
  
 class RelDBDataset(DBengine):
     """dtaset class takes a relational databse `schema` as input. 
@@ -324,8 +327,7 @@ class RelDBDataset(DBengine):
                     self.fix_fk(db_fk_constraints[db_name], db_data_type[db_name] , rel_dbs[db_name])
 
         return rel_dbs, db_fk_constraints, db_data_type, db_pks
-            
-        
+                    
 class RelDB2KGraphBuilder(RelDBDataset):
     
     """
@@ -352,18 +354,18 @@ class RelDB2KGraphBuilder(RelDBDataset):
         self.paths = paths
         self.benchmark = benchmark
         self.logger = logger
-        self.node_normaliser = node_normaliser
-        self.defined_fields = defined_fields
         self.env_file = env_file
         self.if_cased = if_cased
+        self.node_normaliser = node_normaliser
+        self.defined_fields = defined_fields
 
         env = Env()
         env.read_env(self.env_file)
         self.graph = Graph(password=env("GRAPH_PASSWORD"))
         self.dataset = RelDBDataset(self.paths, self.logger)
 
-        with open('data/{}.pkl'.format(self.benchmark), 'wb') as pickle_file:
-            dill.dump(self.dataset, pickle_file)
+        # with open('data/{}.pkl'.format(self.benchmark), 'wb') as pickle_file:
+        #     dill.dump(self.dataset, pickle_file)
 
     def get_matched_node(self, db_name, to_tab, to_col_list, fks, row_dict, tbs_dict):
         alias = to_tab.lower()
@@ -518,12 +520,18 @@ class RelDB2KGraphBuilder(RelDBDataset):
             self.table2edges(db_name, tbs_dict)
             self.build_edges(db_name, tbs_dict) # this process should run based on table2node process
         
-          
-    
+def create_edge(graph, db_id, this_tb, ref_tb, this_fk, ref_fk, fk_value):
+    cypher = 'MATCH (m:`{0}.{1}` {{{3}: {5}}}),(n:`{0}.{2}` {{{4}:{5}}}) \
+                CREATE (m)-[:`{0}.{1}_HAS_{0}.{2}`]->(n);'.format(db_id, this_tb, ref_tb, this_fk, ref_fk, fk_value)
+    print(cypher)
+    graph.run(cypher)
+
+
 def main():
+    import json
     import glob, argparse
     import configparser
-    from utils import Logger
+    from rel2kg_utils import Logger
     config = configparser.ConfigParser()
 
     config.read('../config.ini')
@@ -538,25 +546,61 @@ def main():
     #     except:
     #         raise NotImplementedError
         
-    db_folder = os.path.join(root, 'application','rel_db2kg', 'data', benchmark, 'database')
+    db_folder = os.path.join(root, 'application', 'data', benchmark, 'database')
     benchmark_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+    print(benchmark_dbs)
 
     parser = argparse.ArgumentParser(description='relational database to graph database.')
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
     parser.add_argument('--spider', help='build graph from spider.', action='store_true')
-    parser.add_argument('--bird', help='build graph from bird.', action='store_true')
+    parser.add_argument('--kaggleDBQA', help='build graph from bird.', action='store_true')
     parser.add_argument('--wikisql', help='build graph from wikisql.', action='store_true')
+    parser.add_argument('--create', help='Mannually create graph edges.', action='store_true')
     parser.add_argument('--restart', help='build graph from spider and lowercasing all properties.', action='store_true')
     parser.add_argument('--cased', help='build graph from spider and lowercasing all properties.', action='store_true')
     args = parser.parse_args()
 
 
-    if args.bird or args.spider:
+    if args.kaggleDBQA or args.spider:
         RelDB2KGraphBuilder(benchmark_dbs,  benchmark, Logger('/{}_rel_schema2graph.log'.format(benchmark)), env_file, if_cased=args.cased).build_graph(restart_flag = args.restart)
 
     if args.wikisql:
         raise NotImplementedError
+    
+    if args.create:
+        # To advoid Java heap space issue, in each relational database,
+        # we retrive the relational databases to get the corresponding rows aligned with the foreign key constraints.
+        db_info_fph = os.path.join(root, 'application', 'rel_db2kg', 'data', benchmark,  'KaggleDBQA_tables.json')
+        env = Env()
+        env.read_env(env_file)
+        graph = Graph(password=env("GRAPH_PASSWORD"))
 
+        with open(db_info_fph, 'r') as f:
+            db_info = json.load(f)
+            for db in db_info:
+                db_id = db.get('db_id')
+                fdb = os.path.join(root, 'application', 'rel_db2kg', 'data', benchmark, 'database', db_id, '{}.sqlite'.format(db_id))
+                engine = DBengine(fdb)
+                fks = db.get('foreign_keys')
+                # pks = db.get('primary_keys')
+                tbs = db.get('table_names_original')
+                cols = db.get('column_names_original')
+
+                if fks:
+                    for pair in fks:
+                        this = cols[pair[0]] # [tb_id, col_name]
+                        ref = cols[pair[1]]
+                        this_tb = tbs[this[0]]
+                        ref_tb = tbs[ref[0]]
+                        this_fk = this[1]
+                        ref_fk =ref[1]
+                        fk_values = engine.get_fk_values( this_fk, ref_fk, this_tb, ref_tb)
+                        print(db_id, this_tb, ref_tb, this_fk, ref_fk)
+                        for fk_value in fk_values:
+                            if isinstance(fk_value, str):
+                                fk_value = "'{}'".format((fk_value.strip("'").strip('"')))
+                            create_edge(graph, db_id, this_tb, ref_tb, this_fk, ref_fk, fk_value)
+    
 
 
 if __name__ == "__main__":

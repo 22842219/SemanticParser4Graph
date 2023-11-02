@@ -6,9 +6,9 @@ This project implements
 
 - A process to convert [relational databases to property graph databases](application).
 - A process to translate [SQL queries to Cypher queries](application) by parsing, tokenizing SQL queries and converting SQL queries to Cypher queries, adapted from the [TabularSemanticParsing](https://github.com/salesforce/TabularSemanticParsing).
-- A strong sequence-to-sequence based cross-domain text-to-SQL semantic parser that achieved state-of-the-art performance on the widely used benchmark dataset: [Spider](https://yale-lily.github.io/spider).
+- Cy-Spider: Semantic Parsing Corpus and Baseline Models for a Property Graph.
 
-<!-- The parser can be adapted to learn mappings from text to other structured query languages such as [SOQL](https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm) by modifying the formal langauge pre-processing and post-processing modules. -->
+<!-- The parser can be adapted to learn mappings from text to other structured query languages such as [SOQL](https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm) by modifying the formal language pre-processing and post-processing modules. -->
 
 ## Quick Start
 
@@ -42,7 +42,7 @@ Python packages can be installed via:
 
 ### Download Pre-process Data
 
-#### Spider
+#### Text-to-Spider benchmarks, e.g., [Spider](https://yale-lily.github.io/spider), [KaggleDBQA](https://github.com/chiahsuan156/KaggleDBQA#Data-Format), and [BIRD](https://bird-bench.github.io/). We use the Spider benchmark to illustrate the process.
 
 Download the [pre-processed data release](https://uniwa-my.sharepoint.com/:f:/r/personal/22842219_student_uwa_edu_au/Documents/preprocessed_spider?csf=1&web=1&e=Sh1Ep2), and unzip the folder.
 put the data into `application/data/spider`.
@@ -62,13 +62,11 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    - The application that will be run, are determined in the `config.ini` file:
 
    ```shell
-   [OPTIONS]
-   run_triple_generation=True
+   
 
    [FILENAMES]
-   raw_folder = <path-to->/SemanticParser4Graph/application/data/
-
-   spider_parsed_json = <path-to->/SemanticParser4Graph/application/data/spider/spider.parsed.json
+   root = <path-to->/SemanticParser4Graph
+   benchmark = Spider
 
    neo4j_import_folder  = <path-to->/neo4j-community-4.4.11/import>
    neo4j_uri = http://localhost:7474/browser/
@@ -130,35 +128,23 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
 #### Spider
 
 ```shell
-./experiment-text2cypher.sh configs/spider.sh --train 0
+cd semantic_parser
+bash experiment-text2cypher.sh 
 ```
 
-### Inference
-
-TODO
-
-#### Spider
-
-```shell
-./experiment-text2cypher.sh configs/spider.sh --inference 0
-```
 
 ## Model
 
 TODO
 
-<!-- ### Train
 
-### Inference -->
-
-<!-- 
 ## Citation
 
 If you find the resource in this repository helpful, please cite
 
 ```
 TODO
-``` -->
+``` 
 
 ## Related Links
 
