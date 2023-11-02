@@ -1,29 +1,32 @@
-import os, sys, json, glob
-from rel_db2kg.utils import Logger
+import os
+import sys
+import json
+from Logger import Logger
 from moz_sql_parser import parse
 from ConvertDB import ConvertDB
 from configparser import ConfigParser, ParsingError, NoSectionError
 from unsw.SQLParser import SQLParser
+import jsonlines
 from py2neo import Graph
-from rel_db2kg.schema2graph import RelDBDataset
+
 from rel_db2kg.sql2cypher import Formatter
-import torch
 
 config = ConfigParser()
 config.read('config.ini')
 filenames = config["FILENAMES"]
-raw_data_folder = filenames['raw_folder']
-text2sql_data_folder = filenames['text2sql_data_folder']
 
-raw_spider_folder = os.path.join(raw_data_folder, 'spider')
-db_folder = os.path.join(raw_spider_folder,  'database')
-db_paths=glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
+root = filenames['root']
+benchmark = filenames['benchmark']
+spider_lookup_up = os.path.join(root, 'sp_data_folder', 'lookup_dict.json')
+
+
+root = filenames['root']
+benchmark = filenames['benchmark']
 
 neo4j_uri = filenames['neo4j_uri']
 neo4j_user = filenames['neo4j_user']
 neo4j_password = filenames['neo4j_password']
 graph = Graph(neo4j_uri, auth = (neo4j_user, neo4j_password))
-
 
 class CLI:
     _config_path = "conf/db.ini"
@@ -33,7 +36,7 @@ class CLI:
         self.db_name = db_name
         # to declare whether output the cypher query
         self.output = output
-        self.logger = Logger('/sql2cypher.log')
+        self.logger = Logger()
         self.config = None
         self.cb = None
 
@@ -117,39 +120,21 @@ class CLI:
         return sql_parser.get_cypher()
     
     def sql2cypher(self, sql_query):
-   
+        all_table_fields = []	
+        # Get table_fields information.
+        with open(spider_lookup_up) as f:
+            lookup_dict = json.load(f)
         config = self._load_config()
         if  self.db_name == 'sqlite3':
             sqlite3_config = config['sqlite3']
-        print(sqlite3_config['database'])
-        
-        logger =Logger('/sql2cypher.log')
-        rel_db_dataset = RelDBDataset(db_paths, logger)
+            all_table_fields = lookup_dict[sqlite3_config['database']]
+           
         parsed_sql = parse(sql_query)	
         print(parsed_sql)
-        formatter  = Formatter( logger, sqlite3_config['database'],  rel_db_dataset.rel_dbs[sqlite3_config['database']], graph)
+        formatter  = Formatter( sqlite3_config['database'], all_table_fields, graph)
         sql2cypher = formatter.format(parsed_sql)
         print("sql2cypher:", sql2cypher)
         return sql2cypher
-    
-    def text2cypher(self, text, model, tokenizer):
-        #model
-        print("=====❓Request=====")
-        print(text)
-        tokenized_txt = tokenizer([text], max_length=1024, padding="max_length", truncation=True)
-        pred = tokenizer.batch_decode(
-            model.generate(
-                torch.LongTensor(tokenized_txt.data['input_ids']),
-                torch.LongTensor(tokenized_txt.data['attention_mask']),
-                num_beams=1, 
-                max_length=256
-                ), 
-            skip_special_tokens=True 
-        ) # More details see utils/dataset.py and utils/trainer.py
-        print("=====💡Answer=====")
-        print(pred)
-        # text2cypher = 'MATCH (singer:`concert_singer.singer`) RETURN count(*)'
-        return pred
 
     def load_web_conf(self):
         """
