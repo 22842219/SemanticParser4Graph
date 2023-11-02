@@ -44,7 +44,9 @@ from transformers.modeling_utils import PreTrainedModel, find_pruneable_heads_an
 from transformers.utils import logging
 from transformers.utils.model_parallel_utils import assert_device_map, get_device_map
 from transformers.models.t5.configuration_t5 import T5Config
-
+import torch.nn.functional as F
+from .cross_att import CrossTransformer
+from .gcn import GCN
 
 logger = logging.get_logger(__name__)
 
@@ -301,6 +303,94 @@ class T5LayerFF(nn.Module):
         hidden_states = hidden_states + self.dropout(forwarded_states)
         return hidden_states
 
+#ZZHAO
+class T5LayerCompGCN(nn.Module):
+    def __init__(self, config):
+        super().__init__()
+        self.cgcn = CrossTransformer(kg_dim=config.d_model, nlq_dim=config.d_model, depth=3, 
+                                    heads=config.num_heads, dim_head=config.d_kv, dropout=config.dropout_rate)
+
+        self.gcn = GCN(t5=config._name_or_path, kg_emb_mode='ConvE', ent_emb_dim=config.d_model, k_w=32, ker_sz=7, k_h=24, num_filt=200, 
+                        hidden_dim=config.d_model, feat_drop=config.dropout_rate, dropout=config.dropout_rate)                            
+        
+        self.filter = nn.Linear(300, config.d_model, bias=False)
+        self.layer_norm = T5LayerNorm(config.d_model, eps=config.layer_norm_epsilon)
+        self.dropout = nn.Dropout(config.dropout_rate)
+        self.dropout_gnn = nn.Dropout(config.dropout_rate)
+
+        self.encoder_layer =  nn.TransformerEncoderLayer(d_model=config.d_model, nhead=2)
+        self.transformer_encoder = nn.TransformerEncoder(self.encoder_layer, num_layers=2)
+
+        self.decoder_layer = nn.TransformerDecoderLayer(d_model=config.d_model, nhead=2)
+        self.transformer_decoder = nn.TransformerDecoder(self.decoder_layer, num_layers=2)
+
+
+
+    def forward(self, hidden_states, graph):
+        if graph == None or  'schema_subword_ids' not in graph:
+            return hidden_states
+        hs_norm = self.layer_norm(hidden_states)
+        graph_rep = self.graph_caption(hs_norm, graph)
+
+        output = F.elu(graph_rep)
+        output = self.dropout_gnn(output)
+        # output = output.view_as(hidden_states)
+
+        layer_output = hidden_states + self.dropout(output)
+        # pdb.set_trace()
+
+
+        return layer_output
+    
+    def graph_caption(self, hidden_states, graph):
+        '''
+        :param hidden_states: [bsz x input_max_length x d_model]
+        :return: hidden states with graph caption, while keeping the other reps
+        '''
+        # schema_subword_ids = graph['schema_subword_ids']
+        # print('schema_subword_ids:', schema_subword_ids.shape)
+        # graph_rep = self.gcn(graph)
+
+        bsz = hidden_states.shape[0]
+        
+        for i in range(bsz):
+            print('graph zzzzzzzy', list(graph.keys()))
+            hidden_states[i] = self.graph_caption_one(hidden_states[i], graph['schema_subword_ids'][i])
+            print('ZZHAO CompGCN is working. ')
+        return hidden_states
+
+    def graph_caption_one(self, hidden_state,  schema_ids):
+        
+        # num_nodes = len_text_node+len_schema_node
+        # print('num_nodes', num_nodes)
+        structure_reps = []
+        for each in schema_ids:
+            # print('each', each.shape)
+            structure_rep = self.gcn(each) #[100,300]
+            structure_reps.append(structure_rep.tolist())
+        # schema_hs = hidden_state[num_nodes:] #[512-num_nodes, 768]
+        # print('schema_hs', schema_hs.shape)
+
+        structure_reps=torch.tensor(structure_reps).cuda() # [150, 100, 768]/[150, 100, 300]
+        structure_reps=torch.einsum('ijk->ik', structure_reps) #[150, 300]
+        structure_reps=self.filter(structure_reps)
+        concat_rep = torch.cat((hidden_state, structure_reps)).unsqueeze(1)
+
+        ## ZZHAO: only transformer encoder
+
+        memory = self.transformer_encoder(concat_rep).squeeze()
+        out = memory[:hidden_state.shape[0]]
+
+
+        # # ZZHAO: transformer encoder-decoder
+        # memory = self.transformer_encoder(concat_rep).squeeze().unsqueeze(dim=1)
+
+        # tgt = hidden_state.unsqueeze(dim=1)
+
+        # out = self.transformer_decoder(tgt, memory)
+        # out = out.squeeze(dim=1)
+
+        return out
 
 class T5Attention(nn.Module):
     def __init__(self, config: T5Config, has_relative_attention_bias=False):
@@ -622,7 +712,7 @@ class T5LayerCrossAttention(nn.Module):
 
 
 class T5Block(nn.Module):
-    def __init__(self, config, has_relative_attention_bias=False):
+    def __init__(self, config, index, has_relative_attention_bias=False):
         super().__init__()
         self.is_decoder = config.is_decoder
         self.layer = nn.ModuleList()
@@ -631,6 +721,15 @@ class T5Block(nn.Module):
             self.layer.append(T5LayerCrossAttention(config))
 
         self.layer.append(T5LayerFF(config))
+
+        # ZZHAO
+        self.is_flag = False
+        if index==11:
+            self.is_flag=True
+        print(f'the {index}th T5Block')
+        if not self.is_decoder and self.is_flag:
+            self.cgcn_layer = T5LayerCompGCN(config)
+            print(f'ZZHAO cgcn_layer in {index}th T5Block')
 
     def forward(
             self,
@@ -649,6 +748,7 @@ class T5Block(nn.Module):
             encoder_prefix=None,  # TODO: Chen
             decoder_prefix=None,  # TODO: Chen
             cross_attn_prefix=None,  # TODO: Chen
+            graph = None, # TODO: ZZHAO
     ):
 
         if past_key_value is not None:
@@ -722,6 +822,12 @@ class T5Block(nn.Module):
 
         # Apply Feed Forward layer
         hidden_states = self.layer[-1](hidden_states)
+
+
+        '''ZZHAO: we replace the original representations of tokens with cgcn reps'''
+        if not self.is_decoder and self.is_flag:
+            hidden_states = self.cgcn_layer(hidden_states, graph)
+    
 
         # clamp inf values to enable fp16 training
         if hidden_states.dtype == torch.float16 and torch.isinf(hidden_states).any():
@@ -837,7 +943,7 @@ class T5Stack(T5PreTrainedModel):
         self.is_decoder = config.is_decoder
 
         self.block = nn.ModuleList(
-            [T5Block(config, has_relative_attention_bias=bool(i == 0)) for i in range(config.num_layers)]
+            [T5Block(config, i, has_relative_attention_bias=bool(i == 0)) for i in range(config.num_layers)]
         )
         self.final_layer_norm = T5LayerNorm(config.d_model, eps=config.layer_norm_epsilon)
         self.dropout = nn.Dropout(config.dropout_rate)
@@ -901,6 +1007,7 @@ class T5Stack(T5PreTrainedModel):
             output_hidden_states=None,
             return_dict=None,
             past_prompt=None,  # TODO: Chen
+            graph = None, # TODO: ZZHAO
     ):
         # Model parallel
         if self.model_parallel:
@@ -1051,6 +1158,7 @@ class T5Stack(T5PreTrainedModel):
                     encoder_prefix=encoder_prefix,  # TODO: Chen
                     decoder_prefix=decoder_prefix,  # TODO: Chen
                     cross_attn_prefix=cross_attn_prefix,  # TODO: Chen
+                    graph = graph, # TODO: ZZHAO
                 )
 
             # layer_outputs is a tuple with:
@@ -1566,6 +1674,7 @@ class T5ForConditionalGeneration(T5PreTrainedModel):
             output_hidden_states=None,
             return_dict=None,
             past_prompt=None,  # TODO: Chen
+            graph = None, # TODO: ZZHAO
     ):
         r"""
         labels (:obj:`torch.LongTensor` of shape :obj:`(batch_size,)`, `optional`):
@@ -1612,6 +1721,7 @@ class T5ForConditionalGeneration(T5PreTrainedModel):
                 output_hidden_states=output_hidden_states,
                 return_dict=return_dict,
                 past_prompt=past_prompt,  # TODO: Chen
+                graph = graph, # TODO: ZZHAO
             )
         elif return_dict and not isinstance(encoder_outputs, BaseModelOutput):
             encoder_outputs = BaseModelOutput(
@@ -1664,6 +1774,7 @@ class T5ForConditionalGeneration(T5PreTrainedModel):
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
             past_prompt=past_prompt,  # TODO: Chen
+            # graph = graph, # TODO: ZZHAO
         )
 
         sequence_output = decoder_outputs[0]
