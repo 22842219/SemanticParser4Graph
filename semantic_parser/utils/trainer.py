@@ -341,6 +341,8 @@ class EvaluateFriendlySeq2SeqTrainer(transformers.trainer_seq2seq.Seq2SeqTrainer
         for example in examples_cp:
             if 'db_property_embs' in example:
                 del example['db_property_embs']
+            if 'schema_schema_embs' in example:
+                del example['schema_schema_embs']
 
         # Save locally.
         if self.args.local_rank <= 0:
