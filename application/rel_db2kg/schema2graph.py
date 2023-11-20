@@ -307,9 +307,9 @@ class RelDBDataset(DBengine):
                     tb_object.cols = df.to_dict(orient='list')
                     
                     
-                    # if len(data)>4000 or tb_object.headers == None:  # we set a threshold for the experiment
-                    #     drop_flag =True
-                    #     break
+                    if len(data)>4000 or tb_object.headers == None:  # we set a threshold for the experiment
+                        drop_flag =True
+                        break
 
 
                     rows = data or [ {k: '' for k in tb_object.headers} ]
@@ -385,9 +385,15 @@ class RelDB2KGraphBuilder(RelDBDataset):
                     # if isinstance(val, str) and not re.findall(r'[a-zA-Z].*', val):
                     #     return None
                 elif type(val)==int:
-                    val = int(str(val).strip('\'').strip('\"').strip())     
+                    if '\'' or '\"' in str(val):
+                        val = int(str(val).strip('\'').strip('\"').strip())
+                    elif val_type==float: 
+                        val = int(val)               
                 condi.append('{}.{}={}'.format( alias, col, val))
             else:
+                if type(val)==int and val_type==float:
+                    condi.append('{}.{}={}'.format( alias, col, val))
+                    print(f'condi', condi)
                 print(f"Value '{val}' is not an instance of {val_type}")
 
         if bool(condi):
@@ -488,8 +494,8 @@ class RelDB2KGraphBuilder(RelDBDataset):
                         for concated_fk, constraint in tab.fks.items():
                             to_tab = constraint['to_tab']
                             to_col_list = constraint['to_col_list']            
-                            fks = [fk.strip() for fk in concated_fk.split(',')]     
-                            assert tb_name!=to_tab, 'FIX ME'
+                            fks = [fk.strip() for fk in concated_fk.split(',')]    
+                            # assert tb_name!=to_tab, 'FIX ME'
                             print(f'tb_name: {tb_name}, fks:{fks}, to_tab: {to_tab}, to_col_list: {to_col_list}')
                             these = self.get_matched_node(db_name, tb_name, fks, fks, row_dict, tbs_dict)  
                             refs = self.get_matched_node(db_name, to_tab, to_col_list, fks, row_dict, tbs_dict)
@@ -502,7 +508,11 @@ class RelDB2KGraphBuilder(RelDBDataset):
                                             end_node_label='{}.{}'.format(db_name, ref_label)
                                         print(f'start_node_labe:{start_node_label}, end_node_label: {end_node_label}')
                                         self.tx = self.graph.begin()
-                                        rel = Relationship(this_node, '{}_HAS_{}'.format( start_node_label, end_node_label ), ref_node) 
+                                        if tb_name==to_tab:
+                                            rel_label = '{}_{}_{}'.format(start_node_label, ' '.join(fks), end_node_label)
+                                        else:
+                                            rel_label = '{}_HAS_{}'.format( start_node_label, end_node_label )
+                                        rel = Relationship(this_node, rel_label, ref_node) 
                                         self.tx.create(rel)
                                         self.graph.commit(self.tx)
 
@@ -546,9 +556,9 @@ def main():
     #     except:
     #         raise NotImplementedError
         
-    db_folder = os.path.join(root, 'application', 'data', benchmark, 'database')
+    db_folder = os.path.join(root, 'application', 'rel_db2kg','data', benchmark, 'database')
     benchmark_dbs = glob.glob(db_folder + '/**/*.sqlite', recursive = True) 
-    print(benchmark_dbs)
+    # print(benchmark_dbs)
 
     parser = argparse.ArgumentParser(description='relational database to graph database.')
     # parser.add_argument('--consistencyChecking', help='Check the consistency between fields in sql query and schema', action='store_true')
