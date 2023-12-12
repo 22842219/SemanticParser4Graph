@@ -123,9 +123,8 @@ Note: If you would like to preprocess Spider dataset by yourself, please refer t
    python interface --web_ui
    ```
 
-## Baseline
 
-#### Spider
+#### CySpider
 
 ```shell
 cd semantic_parser
@@ -133,17 +132,25 @@ bash experiment-text2cypher.sh
 ```
 
 
-## Model
-
-TODO
-
-
 ## Citation
 
 If you find the resource in this repository helpful, please cite
 
 ```
-TODO
+@article{zhao2023rel2graph,
+  title={Rel2Graph: Automated Mapping From Relational Databases to a Unified Property Knowledge Graph},
+  author={Zhao, Ziyu and Liu, Wei and French, Tim and Stewart, Michael},
+  journal={arXiv preprint arXiv:2310.01080},
+  year={2023}
+}
+@inproceedings{zhao2023cyspider,
+  title={CySpider: A Neural Semantic Parsing Corpus with Baseline Models for Property Graphs},
+  author={Zhao, Ziyu and Liu, Wei and French, Tim and Stewart, Michael},
+  booktitle={Australasian Joint Conference on Artificial Intelligence},
+  pages={120--132},
+  year={2023},
+  organization={Springer}
+}
 ``` 
 
 ## Related Links
